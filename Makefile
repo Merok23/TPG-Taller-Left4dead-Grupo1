@@ -1,3 +1,4 @@
+#Makefile hecho con ayuda de chatGPT
 CC = g++
 CFLAGS = -Wall -Werror -pedantic -pedantic-errors -O3 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L
 
