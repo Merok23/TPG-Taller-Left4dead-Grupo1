@@ -1,5 +1,6 @@
 #include "client_accepter.h"
 //esqueleto pedorro para despues mejorar
+/*
 ClientAccepter::ClientAccepter(char* port) : recieving_socket(Socket(port)), finished(false){}
 
 void ClientAccepter::run() {
@@ -11,7 +12,7 @@ void ClientAccepter::run() {
 void ClientAccepter::acceptClient() {
     try {
         Socket client = recieving_socket.accept();
-        game.addPlayer(client);
+        //game.addPlayer(client);
     } catch (LibError &e) {
         if (finished) return;
         std::cout << e.what() << std::endl;
@@ -24,3 +25,4 @@ void ClientAccepter::stop() {
 }
 
 ClientAccepter::~ClientAccepter() {}
+*/

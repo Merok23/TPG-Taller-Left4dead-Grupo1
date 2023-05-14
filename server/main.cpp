@@ -8,7 +8,7 @@ int main (int argc, char *argv[]) {
         return 1;
     }
     // Initialize the server
-    ClientAccepter server(argv[1]);
+    //ClientAccepter server(argv[1]);
     
 
     return 0;

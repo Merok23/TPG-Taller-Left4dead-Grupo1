@@ -1,5 +1,6 @@
 #include "../common/socket.h"
 #include "../common/thread.h"
+#include "game.h"
 #include <atomic>
 #include <vector>
 
