@@ -4,10 +4,10 @@
 #include <vector>
 
 
-class ClientAccepter : public Thread() {
+class ClientAccepter : public Thread {
     private:
         Socket recieving_socket;
-        std::vector<ServerClient*> clients;
+        std::vector<ServerClient*> clients; //no usar un vec
         std::atomic<bool> finished;
 
     public:
