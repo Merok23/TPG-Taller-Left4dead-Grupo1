@@ -15,10 +15,13 @@ double Movement::getRadius() {
     return this->centre.getRadius();
 }
 //x and y is the movement 
-void Movement::move(int x, int y) {
+void Movement::setDirection(int x, int y) {
     this->x_movement = x;
     this->y_movement = y;
-    this->centre.move(x, y);
+}
+
+void Movement::move() {
+    this->centre.move(this->x_movement, this->y_movement);
 }
 //Checks if the movement collides with another movement after moving
 //The idea being that you call this before doing the movement.

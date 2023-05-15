@@ -27,3 +27,4 @@ bool Position::checkForCollision(Position other_position) {
     double distance = sqrt(pow(x, 2) + pow(y, 2));
     return distance <= this->radius + other_position.radius;
 }
+

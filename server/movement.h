@@ -12,6 +12,7 @@ class Movement {
         int getX();
         int getY();
         double getRadius();
-        void move(int x, int y);
+        void setDirection(int x, int y);
+        void move();
         bool collision(Movement movement);
 };
