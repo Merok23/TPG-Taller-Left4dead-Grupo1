@@ -1,7 +1,6 @@
 #include "client_accepter.h"
-//esqueleto pedorro para despues mejorar
-/*
-ClientAccepter::ClientAccepter(char* port) : recieving_socket(Socket(port)), finished(false){}
+
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), finished(false){}
 
 void ClientAccepter::run() {
     while (!finished) {
@@ -25,4 +24,3 @@ void ClientAccepter::stop() {
 }
 
 ClientAccepter::~ClientAccepter() {}
-*/

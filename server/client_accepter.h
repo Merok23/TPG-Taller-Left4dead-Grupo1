@@ -1,3 +1,6 @@
+#ifndef CLIENT_ACCEPTER_H
+#define CLIENT_ACCEPTER_H
+
 #include "../common/socket.h"
 #include "../common/thread.h"
 #include "game.h"
@@ -12,10 +15,11 @@ class ClientAccepter : public Thread {
         std::atomic<bool> finished;
 
     public:
-        explicit ClientAccepter(char* port);
+        explicit ClientAccepter(const char* port);
         virtual void run() override;
         void acceptClient();
         void waitClients();
         void stop();
         ~ClientAccepter();
 };
+#endif
