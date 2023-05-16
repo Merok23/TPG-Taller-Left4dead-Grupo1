@@ -8,6 +8,6 @@ class Partida {
     Queue<Action*>* game_queue;
 
     public:
-    Partida(Queue<Action*>* game_queue);
+    explicit Partida(Queue<Action*>* game_queue);
 }; 
 #endif

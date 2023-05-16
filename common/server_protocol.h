@@ -12,7 +12,7 @@ class ServerProtocol {
     bool connected; 
 
     public:
-    ServerProtocol(Socket socket);
+    explicit ServerProtocol(Socket socket);
     Action* receiveAction();
 };
 #endif

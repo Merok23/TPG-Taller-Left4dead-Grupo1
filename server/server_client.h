@@ -7,7 +7,7 @@
 class ServerClient {
     private: 
     ServerProtocol protocol;
-    int id; //no se como inicializar numero random aún 
+    //int id; //no se como inicializar numero random aún 
     ReceiveThread receive_thread;
 
     public:
