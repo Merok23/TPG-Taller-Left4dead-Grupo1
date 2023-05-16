@@ -8,9 +8,8 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <fstream>
-#include "server_client.h"  
+#include "server_partida.h"
 
-ServerClient::ServerClient(Socket socket, Queue<Action*>& game_queue) : protocol(std::move(socket)), receive_thread(protocol, game_queue) {
-    //receive_thread.start();
+Partida::Partida(Queue<Action*>* game_queue) : game_queue(game_queue) {
     return; 
 }

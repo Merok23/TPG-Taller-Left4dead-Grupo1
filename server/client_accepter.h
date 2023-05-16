@@ -11,11 +11,11 @@
 class ClientAccepter : public Thread {
     private:
         Socket recieving_socket;
-        Game game;
+        Queue<Action*>& game_queue;
         std::atomic<bool> finished;
 
     public:
-        explicit ClientAccepter(const char* port);
+        explicit ClientAccepter(const char* port, Queue<Action*>& game_queue);
         virtual void run() override;
         void acceptClient();
         void waitClients();

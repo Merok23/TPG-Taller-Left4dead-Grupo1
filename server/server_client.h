@@ -8,8 +8,9 @@ class ServerClient {
     private: 
     ServerProtocol protocol;
     int id; //no se como inicializar numero random aún 
-    ReceiveThread* receive_thread;
+    ReceiveThread receive_thread;
 
-    ServerClient(Socket socket, Queue<Action*>* queue); 
+    public:
+    ServerClient(Socket socket, Queue<Action*>& game_queue); 
 };  
 #endif
