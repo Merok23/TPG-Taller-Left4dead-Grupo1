@@ -11,6 +11,6 @@ class Player : public Entity {
         State state;
     public:
         explicit Player(int id, Map &map);
-        void move(int x, int y);
+        virtual void move(int x, int y) override;
         void update();
 };
