@@ -1,9 +1,10 @@
 #include "entity.h"
 
-Entity::Entity(uint32_t id, int32_t hit_points) : 
+Entity::Entity(uint32_t id, int32_t hit_points, Map &map) : 
     id(id),
     hit_points(hit_points),
-    direction_of_movement(0, 0, RADIUS) {}
+    direction_of_movement(0, 0, RADIUS),
+    map(map) {}
 
 uint32_t Entity::getId() {
     return this->id;

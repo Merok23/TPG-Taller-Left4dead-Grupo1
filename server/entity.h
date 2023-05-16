@@ -12,7 +12,7 @@ class Entity {
         Movement direction_of_movement;
         
     public:
-        Entity(uint32_t id, int32_t hit_points);
+        Entity(uint32_t id, int32_t hit_points, Map &map);
         uint32_t getId();
         int32_t getHitPoints();
         void setHitPoints(int32_t hit_points);
@@ -21,4 +21,6 @@ class Entity {
         //pero lo dejo por ahora para aprender un poco de herencia.
         virtual void move(int32_t x_movement, int32_t y_movement) = 0; 
         virtual void update(Map& map) = 0;
+    protected:
+        Map& map;
 };
