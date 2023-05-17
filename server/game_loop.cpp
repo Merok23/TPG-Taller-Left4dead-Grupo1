@@ -7,7 +7,7 @@ GameLoop::GameLoop() : game_queue(MAX_ELEMENTS_QUEUE), game(1000,1000) {
 }
 
 void GameLoop::addPlayer(uint32_t id, Queue<std::shared_ptr<GameStateForClient>>& queue) {
-    //player_queues[id] = queue;
+    player_queues[id] = &queue;
     game.addEntity(new Player(id));
 }
 
@@ -31,6 +31,6 @@ void GameLoop::run() {
 
 void GameLoop::sendState(std::shared_ptr<GameStateForClient> game_state) {
     for (auto& player_queue : player_queues) {
-        player_queue.second.push(game_state);
+        player_queue.second->push(game_state);
     }
 }

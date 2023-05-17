@@ -25,3 +25,9 @@ std::shared_ptr<GameStateForClient> Game::update() {
                 this->gameMap.getHeight());
     return std::make_shared<GameStateForClient>(game_state);
 }
+
+Game::~Game() {
+    for (auto id_entity : this->entities) {
+        delete id_entity.second;
+    }
+}

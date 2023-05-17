@@ -1,5 +1,5 @@
-#ifndef SERVER_EMISOR_THREAD_H
-#define SERVER_EMISOR_THREAD_H
+#ifndef SERVER_RECIEVE_THREAD_H
+#define SERVER_RECIEVE_THREAD_H
 
 #include <atomic>
 #include "../common/thread.h"

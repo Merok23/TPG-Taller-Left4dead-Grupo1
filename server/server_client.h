@@ -1,7 +1,7 @@
 #ifndef SERVER_CLIENT_H
 #define SERVER_CLIENT_H
 #include "../common/server_protocol.h"
-#include "server_receiveThread.h"
+#include "server_receive_thread.h"
 #include "../common/action.h"
 
 class ServerClient {

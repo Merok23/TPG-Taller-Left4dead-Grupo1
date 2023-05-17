@@ -8,8 +8,8 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <fstream>
+#include "server_receive_thread.h"
 
-#include "server_receiveThread.h"
 ReceiveThread::ReceiveThread(ServerProtocol& protocol, 
             Queue<std::shared_ptr<Action>>& queue) : 
                 protocol(protocol), game_queue(queue), finished(true) {
