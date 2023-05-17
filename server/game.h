@@ -6,7 +6,6 @@
 #include <functional>
 
 #include "../common/queue.h"
-#include "../common/action.h"
 #include "game_state_for_client.h"
 #include "entity.h"
 #include "map.h"

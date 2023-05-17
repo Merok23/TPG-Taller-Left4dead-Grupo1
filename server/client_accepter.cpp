@@ -11,8 +11,9 @@ void ClientAccepter::run() {
 
 void ClientAccepter::acceptClient() {
     try {
-        Socket client = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(client), game_queue);
+        Socket socket = recieving_socket.accept();
+        ServerClient* client = new ServerClient(std::move(socket), game_queue);
+        std::cout << "El client es " << client << std::endl;
     } catch (LibError &e) {
         if (finished) return;
         std::cout << e.what() << std::endl;

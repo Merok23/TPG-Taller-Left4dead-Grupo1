@@ -1,6 +1,7 @@
 #Makefile hecho con ayuda de chatGPT
 CC = g++
 CFLAGS = -Wall -Werror -pedantic -pedantic-errors -O3 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L
+CLIBS = -lpthread -pthread
 
 COMMON_DIR = common
 CLIENT_DIR = client
@@ -23,19 +24,19 @@ SERVER_TARGET = $(TARGET_DIR)/server_executable
 all: $(CLIENT_TARGET) $(SERVER_TARGET)
 
 $(CLIENT_TARGET): $(COMMON_OBJS) $(CLIENT_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(CLIBS) $^ -o $@
 
 $(SERVER_TARGET): $(COMMON_OBJS) $(SERVER_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(CLIBS) $^ -o $@
 
 $(COMMON_DIR)/%.o: $(COMMON_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CLIBS) -c $< -o $@
 
 $(CLIENT_DIR)/%.o: $(CLIENT_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CLIBS) -c $< -o $@
 
 $(SERVER_DIR)/%.o: $(SERVER_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CLIBS) -c $< -o $@
 
 clean:
 	rm -f $(COMMON_DIR)/*.o $(CLIENT_DIR)/*.o $(SERVER_DIR)/*.o $(CLIENT_TARGET) $(SERVER_TARGET)

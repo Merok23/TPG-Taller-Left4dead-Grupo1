@@ -9,9 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-
 #include "server_server.h"
-
 #define MAX_ELEMENTS_QUEUE 1000
 
 Server::Server(const char* port) : socket(port), port(port) {
@@ -21,14 +19,14 @@ Server::Server(const char* port) : socket(port), port(port) {
 }
 
 void Server::run() {
-    ClientAccepter acceptorThread(port, *game_queue); 
-    acceptorThread.start();  
+    ClientAccepter *acceptorThread = new ClientAccepter(port, *game_queue); 
+    acceptorThread->start();  
     std::string leave; 
     while (true) {
         std::cin >> leave; 
         if (leave == "q") {
-            acceptorThread.stop(); 
-            acceptorThread.join(); 
+            acceptorThread->stop(); 
+            acceptorThread->join(); 
             break;
         }
     } 

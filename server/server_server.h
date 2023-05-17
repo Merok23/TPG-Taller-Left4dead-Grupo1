@@ -6,14 +6,14 @@
 #include "client_accepter.h"
 #include "server_partida.h"
 #include "../common/queue.h"
+#include "../common/thread.h"
 
 class Server {
     private: 
     Socket socket;
     const char* port; 
-    Partida* partida; 
     Queue<Action*>* game_queue;
-
+    Partida* partida; 
 
     public:
     explicit Server(const char* port);
