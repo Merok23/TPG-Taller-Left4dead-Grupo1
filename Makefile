@@ -8,7 +8,7 @@ SERVER_DIR = server
 TARGET_DIR = target
 
 COMMON_SRCS = $(wildcard $(COMMON_DIR)/*.cpp)
-CLIENT_SRCS = $(wildcard $(CLIENT_DIR)/*.cpp)
+CLIENT_SRCS = $(filter-out $(CLIENT_DIR)/Qt/%.cpp $(CLIENT_DIR)/Qt/%.pro $(CLIENT_DIR)/Qt/%.ui $(CLIENT_DIR)/Qt/%.h, $(wildcard $(CLIENT_DIR)/*.cpp))
 SERVER_SRCS = $(wildcard $(SERVER_DIR)/*.cpp)
 
 COMMON_OBJS = $(patsubst %.cpp, %.o, $(COMMON_SRCS))

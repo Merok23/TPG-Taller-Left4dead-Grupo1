@@ -2,4 +2,4 @@
 #include <iostream>
 #include "moving.h"
 
-Moving::Moving(std::array<int8_t, 2> position) : position(position) {};
+Moving::Moving(std::array<int8_t, 2> position) : position(position) {}
