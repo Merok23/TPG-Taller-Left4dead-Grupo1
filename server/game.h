@@ -21,7 +21,6 @@ class Game {
         void setMoving(uint32_t id, int8_t x, int8_t y);
         std::map<u_int32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
-        ~Game();
 };
 
 #endif //GAME_H_
