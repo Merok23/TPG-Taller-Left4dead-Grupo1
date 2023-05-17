@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <map>
+#include <vector>
 #include "movement.h"
 # pragma once
 
@@ -14,6 +15,7 @@ class Map {
         uint32_t getHeight();
         std::map<uint32_t, Movement*> getEntities();
         bool move(uint32_t id);
+        //void shoot(uint32_t id);
         void addEntity(uint32_t id, Movement *entity);
         void removeEntity(uint32_t id);
         ~Map();

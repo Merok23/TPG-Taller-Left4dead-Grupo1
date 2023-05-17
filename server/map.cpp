@@ -38,7 +38,30 @@ bool Map::move(uint32_t id) {
     }
     return moved;
 }
+/*
+void Map::shoot(uint32_t id, Weapon &weapon) {
+    std::vector<uint32_t[2]> aligned_entitites;
+    for (auto entity : this->entities) {
+        if (entity.first != id) {
+            if (this->entities[id]->isAligned(*entity.second)) {
+                uint32_t distance = this->entities[id]->calculateDistance(*entity.second);
+                uint32_t id = entity.first;
+                aligned_entitites.push_back([id, distance]);
+            }
+        }
+    }
 
+    for(auto entity : aligned_entitites) {
+        if (entity[1] < weapon.getRange()) {
+            //pero yo no tengo la entidad, solo el id
+            //me guardo un objeto que sea referencia a sus estadisticas?
+            //cosa de poder modificarlas sin tener una entidad en si.
+            this->entities[entity[0]]->receiveDamage(weapon.getDamage());
+        }
+    }
+
+}
+*/
 //Only checks for y axis because x should loop (map is a torus)
 //X THING NOT IMPLEMENTED!!!!
 //the problem with that is that the movement is done in the entity
