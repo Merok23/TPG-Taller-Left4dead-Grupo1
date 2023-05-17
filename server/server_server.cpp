@@ -13,13 +13,11 @@
 #define MAX_ELEMENTS_QUEUE 1000
 
 Server::Server(const char* port) : socket(port), port(port) {
-    game_queue = new Queue<Action*>(MAX_ELEMENTS_QUEUE);
-    partida = new Partida(game_queue);
     return;
 }
 
 void Server::run() {
-    ClientAccepter *acceptorThread = new ClientAccepter(port, *game_queue); 
+    ClientAccepter* acceptorThread = new ClientAccepter(port); 
     acceptorThread->start();  
     std::string leave; 
     while (true) {

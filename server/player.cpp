@@ -1,7 +1,7 @@
 #include "player.h"
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
-Player::Player(int id, Map &map) : Entity(id, 100, map){
+Player::Player(int id) : Entity(id, 100){
     this->state = IDLE;
 }
 
@@ -11,8 +11,8 @@ void Player::move(int x, int y) {
     this->getDirectionOfMovement()->setDirection(x, y);
 }
 
-void Player::update() {
+void Player::update(Map& map) {
     if (this->state == MOVING) {
-        this->map.move(this->getId());
+        map.move(this->getId());
     }
 }

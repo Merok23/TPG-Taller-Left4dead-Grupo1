@@ -4,7 +4,7 @@
 
 #include "../common/server_protocol.h"
 #include "client_accepter.h"
-#include "server_partida.h"
+#include "game_loop.h"
 #include "../common/queue.h"
 #include "../common/thread.h"
 
@@ -12,8 +12,6 @@ class Server {
     private: 
     Socket socket;
     const char* port; 
-    Queue<Action*>* game_queue;
-    Partida* partida; 
 
     public:
     explicit Server(const char* port);

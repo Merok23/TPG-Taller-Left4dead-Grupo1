@@ -1,18 +1,21 @@
 #include "client_accepter.h"
 #include "server_client.h"
 
-ClientAccepter::ClientAccepter(const char* port, Queue<Action*>& game_queue) : recieving_socket(Socket(port)), game_queue(game_queue), finished(false){}
+#define MAX_ELEMENTS_QUEUE 10000
+
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), finished(false) {}
 
 void ClientAccepter::run() {
+    GameLoop* game_loop = new GameLoop();
     while (!finished) {
-        acceptClient();
+        acceptClient(game_loop);
     }
 }
 
-void ClientAccepter::acceptClient() {
+void ClientAccepter::acceptClient(GameLoop* game_loop) {
     try {
         Socket socket = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(socket), game_queue);
+        ServerClient* client = new ServerClient(std::move(socket), game_loop->getQueue());
         std::cout << "El client es " << client << std::endl;
     } catch (LibError &e) {
         if (finished) return;

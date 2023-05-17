@@ -13,6 +13,6 @@ class ServerProtocol {
 
     public:
     explicit ServerProtocol(Socket socket);
-    Action* receiveAction();
+    std::shared_ptr<Action> receiveAction();
 };
 #endif

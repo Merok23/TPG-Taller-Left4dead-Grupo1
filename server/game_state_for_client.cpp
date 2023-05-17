@@ -6,6 +6,11 @@ GameStateForClient::GameStateForClient
     width(width),
     height(height) {}
 
+GameStateForClient::GameStateForClient(GameStateForClient*& other) :
+    entities(other->entities),
+    width(other->width),
+    height(other->height) {}
+    
 std::map<uint32_t, Entity*>& GameStateForClient::getEntities(){
     return this->entities;
 }

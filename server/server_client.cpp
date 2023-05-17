@@ -10,7 +10,7 @@
 #include <fstream>
 #include "server_client.h"  
 
-ServerClient::ServerClient(Socket socket, Queue<Action*>& game_queue) : protocol(std::move(socket)), receive_thread(protocol, game_queue) {
+ServerClient::ServerClient(Socket socket, Queue<std::shared_ptr<Action>>& game_queue) : protocol(std::move(socket)), receive_thread(protocol, game_queue) {
     //receive_thread.start();
     return; 
 }

@@ -15,9 +15,13 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
     return this->entities;
 }
 
-GameStateForClient Game::update() {
+std::shared_ptr<GameStateForClient> Game::update() {
     for (auto id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
     }
-    return GameStateForClient(this->getEntities(), this->gameMap.getWidth(), this->gameMap.getHeight());
+    GameStateForClient* game_state = 
+        new GameStateForClient(this->getEntities(), 
+            this->gameMap.getWidth(), 
+                this->gameMap.getHeight());
+    return std::make_shared<GameStateForClient>(game_state);
 }

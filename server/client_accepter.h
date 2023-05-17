@@ -5,6 +5,8 @@
 #include "../common/thread.h"
 #include "game.h"
 #include "../common/action.h"
+#include "game_loop.h"
+
 #include <atomic>
 #include <vector>
 
@@ -12,13 +14,12 @@
 class ClientAccepter : public Thread {
     private:
         Socket recieving_socket;
-        Queue<Action*>& game_queue;
         std::atomic<bool> finished;
 
     public:
-        explicit ClientAccepter(const char* port, Queue<Action*>& game_queue);
+        explicit ClientAccepter(const char* port);
         virtual void run() override;
-        void acceptClient();
+        void acceptClient(GameLoop* game_loop);
         void waitClients();
         void stop();
         ~ClientAccepter();

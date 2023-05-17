@@ -9,8 +9,9 @@ class ServerClient {
     ServerProtocol protocol;
     //int id; //no se como inicializar numero random aún 
     ReceiveThread receive_thread;
-
+    //SendThread send_thread;
+    
     public:
-    ServerClient(Socket socket, Queue<Action*>& game_queue); 
+    ServerClient(Socket socket, Queue<std::shared_ptr<Action>>&  game_queue); 
 };  
 #endif
