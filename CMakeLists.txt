@@ -16,20 +16,22 @@ set(TARGET_DIR target)
 set(TESTS_DIR tests)
 
 file(GLOB COMMON_SRCS ${COMMON_DIR}/*.cpp)
-file(GLOB CLIENT_SRCS ${CLIENT_DIR}/*.cpp)
-file(GLOB SERVER_SRCS ${SERVER_DIR}/*.cpp)
+file(GLOB CLIENT_SRCS ${CLIENT_DIR}/*.cpp ${CLIENT_DIR}/main/main.cpp)
+file(GLOB SERVER_SRCS_FOR_TESTS ${SERVER_DIR}/*.cpp EXCLUDE ${SERVER_DIR}/main)
+file(GLOB SERVER_SRCS ${SERVER_DIR}/*.cpp ${SERVER_DIR}/main/main.cpp)
 file(GLOB TESTS_SRCS ${TESTS_DIR}/*.cpp)
 
 add_library(common_objects OBJECT ${COMMON_SRCS})
-
-add_executable(tests_executable ${COMMON_SRCS} ${TESTS_SRCS})
-target_link_libraries(tests_executable PRIVATE Catch2::Catch2WithMain)
 
 add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS})
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
 target_link_libraries(server_executable PRIVATE Threads::Threads)
+
+add_executable(tests_executable ${COMMON_SRCS} ${SERVER_SRCS_FOR_TESTS} ${TESTS_SRCS})
+target_link_libraries(tests_executable PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(tests_executable PRIVATE Threads::Threads)
 
 set_target_properties(client_executable server_executable PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY ${TARGET_DIR}
