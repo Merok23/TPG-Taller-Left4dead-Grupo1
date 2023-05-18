@@ -21,10 +21,14 @@ void Position::move(int x, int y) {
     this->y += y;
 }
 
-bool Position::checkForCollision(Position other_position) {
-    uint32_t x = this->x - other_position.getX();
-    uint32_t y = this->y - other_position.getY();
-    double distance = sqrt(pow(x, 2) + pow(y, 2));
-    return distance <= this->radius + other_position.radius;
+bool Position::checkForCollision(const Position& other_position) {
+    //create copies, one because of const, two because we need them to be signed.
+    int64_t x_signed = this->x;
+    int64_t y_signed = this->y;
+    int64_t other_x_signed = other_position.x;
+    int64_t other_y_signed = other_position.y;
+    int64_t x = x_signed - other_x_signed;
+    int64_t y = y_signed - other_y_signed;
+    long double distance = sqrt(pow(x, 2) + pow(y, 2));
+    return distance < this->radius + other_position.radius;
 }
-

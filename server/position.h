@@ -14,5 +14,5 @@ class Position {
         uint32_t getY();
         double getRadius();
         void move(int x, int y);
-        bool checkForCollision(Position other_position);
+        bool checkForCollision(const Position &other_position);
 };
