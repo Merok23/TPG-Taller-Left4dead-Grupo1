@@ -1,8 +1,0 @@
-/home/alex/left4DeadTPG/build/CMakeFiles/common_objects.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/tests_executable.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/client_executable.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/server_executable.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/clean_target.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/all_target.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/edit_cache.dir
-/home/alex/left4DeadTPG/build/CMakeFiles/rebuild_cache.dir
