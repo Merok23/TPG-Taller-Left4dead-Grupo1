@@ -67,9 +67,10 @@ void Map::shoot(uint32_t id, Weapon &weapon) {
 //the problem with that is that the movement is done in the entity
 //and only the map know the width of the map, maybe the entity should
 //have a special method to jump the x axis to the origin.
-bool Map::checkForBorderCollision(Movement &entity) {
-    uint32_t y = entity.getY();
-    uint32_t radius = entity.getRadius();
+bool Map::checkForBorderCollision(Movement entity) {
+    entity.move();
+    int64_t y = entity.getY();
+    int64_t radius = entity.getRadius();
     int64_t difference = y - radius;
     if (difference < 0) return true;
     if (y + radius > this->height) return true;

@@ -54,3 +54,13 @@ TEST_CASE("Map test, two entities don't move because of collision", "[map]") {
     REQUIRE(map.getEntities()[2]->getX() == 15);
     REQUIRE(map.getEntities()[2]->getY() == 5);
 }
+
+TEST_CASE("Map test, entity colides with the border of the map Y axis", "[map]") {
+    Map map(100, 100);
+    Movement movement(5, 5, 5);
+    movement.setDirection(0,-1);
+    map.addEntity(1, &movement);
+    REQUIRE(map.move(1) == false);
+    REQUIRE(map.getEntities()[1]->getX() == 5);
+    REQUIRE(map.getEntities()[1]->getY() == 5);
+}

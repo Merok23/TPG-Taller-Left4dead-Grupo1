@@ -10,7 +10,7 @@ class Player : public Entity {
     private:
         State state;
     public:
-        explicit Player(int id);
+        Player(int id, uint32_t positionX, uint32_t positionY);
         virtual void move(int x, int y) override;
         virtual void update(Map& map) override;
 };

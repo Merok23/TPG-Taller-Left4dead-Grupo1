@@ -20,5 +20,6 @@ class Map {
         void removeEntity(uint32_t id);
         ~Map();
     private:
-        bool checkForBorderCollision(Movement &entity);
+        //intentionally recieves a copy
+        bool checkForBorderCollision(Movement entity);
 };
