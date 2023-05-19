@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.26)
 project(Left4Dead_Taller_TPG)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L")
 
 find_package(Threads REQUIRED)
 
 find_package(Catch2 3 REQUIRED)
 
+find_package(yaml-cpp REQUIRED)
 
 set(COMMON_DIR common)
 set(CLIENT_DIR client)

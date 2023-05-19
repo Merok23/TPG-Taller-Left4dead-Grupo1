@@ -1,0 +1,11 @@
+soldier:
+    soldier_hitpoints: 100
+    soldier_radius: 5
+    soldier_speed: 10
+infected:
+    infected_hitpoints: 20
+    infected_radius: 5
+    infected_speed: 15
+scenario:
+    scenario_width: 100
+    scenario_height: 100
