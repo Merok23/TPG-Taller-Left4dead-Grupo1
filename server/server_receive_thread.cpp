@@ -31,6 +31,8 @@ void ReceiveThread::receiveCommands() {
 
 void ReceiveThread::stop() {
         finished = true;
-        /* socket.shutdown(SHUT_RDWR);
-        socket.close();*/
 } 
+
+bool ReceiveThread::isFinished() {
+    return finished;
+}

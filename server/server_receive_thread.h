@@ -3,10 +3,11 @@
 
 #include <atomic>
 #include "../common/thread.h"
-#include "../common/server_protocol.h"
+#include "server_protocol.h"
 #include "../common/queue.h"
 #include "../server/game.h"
 #include "../common/action.h"
+
 
 class ReceiveThread : public Thread {
     private:
@@ -20,6 +21,7 @@ class ReceiveThread : public Thread {
         
         void receiveCommands(); 
         void stop();
+        bool isFinished();
         virtual void run() override {
             receiveCommands();
         }

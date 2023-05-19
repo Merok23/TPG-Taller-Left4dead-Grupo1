@@ -13,7 +13,7 @@
 #include <fstream>
 #include <thread>
 
-#include "../common/client_protocol.h"
+#include "client_protocol.h"
 #include "../common/socket.h"
 
 
@@ -22,8 +22,6 @@ class Client {
     private: 
     Socket socket;  
     ClientProtocol protocol;
-    int game_id;
-    bool connected; 
 
     public: 
     /* Inicializa la clase Cliente, donde inicializa el protocolo y socket(y lo conecta). 

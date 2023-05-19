@@ -2,7 +2,7 @@
 #define SERVER_SERVER_H
 
 
-#include "../common/server_protocol.h"
+#include "server_protocol.h"
 #include "client_accepter.h"
 #include "game_loop.h"
 #include "../common/queue.h"

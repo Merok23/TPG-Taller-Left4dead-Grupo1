@@ -16,3 +16,7 @@ void Player::update(Map& map) {
         map.move(this->getId());
     }
 }
+std::string Player::getEntityType() {
+    std::string type = "player"; 
+    return type; 
+}
