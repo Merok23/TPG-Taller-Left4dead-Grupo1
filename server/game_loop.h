@@ -3,7 +3,7 @@
 #include "../common/queue.h"
 #include "../common/action.h"
 #include "../common/thread.h"  
-#include "player.h" 
+#include "entity_player.h" 
 #include <atomic>   
 
 class GameLoop : public Thread {

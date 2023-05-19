@@ -1,18 +1,18 @@
-#include "player.h"
+#include "entity_player.h"
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
 Player::Player(int id, uint32_t positionX, uint32_t positionY) : Entity(id, 100, positionX, positionY){
-    this->state = IDLE;
+    this->state = IDLE_SOLDIER;
 }
 
 //prepares for movement, it'll move when the update method is called.
-void Player::move(int x, int y) {
-    this->state = MOVING;
-    this->getDirectionOfMovement()->setDirection(x, y);
+void Player::move(int32_t x_movement, int32_t y_movement) {
+    this->state = MOVING_SOLDIER;
+    this->getDirectionOfMovement()->setDirection(x_movement, y_movement);
 }
 
 void Player::update(Map& map) {
-    if (this->state == MOVING) {
+    if (this->state == MOVING_SOLDIER) {
         map.move(this->getId());
     }
 }

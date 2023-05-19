@@ -18,6 +18,7 @@ class Entity {
         Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y);
         uint32_t getId();
         int32_t getHitPoints();
+        int32_t getDamageForTheRound();
         void setHitPoints(int32_t hit_points);
         void setDamageForTheRound(int32_t damage);
         Movement* getDirectionOfMovement();

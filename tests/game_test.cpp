@@ -1,6 +1,6 @@
 #include <catch2/catch_all.hpp>
 #include "../server/game.h"
-#include "../server/player.h"
+#include "../server/entity_player.h"
 
 TEST_CASE("Game test, add player", "[game]") {
     Game game(100, 100);

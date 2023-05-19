@@ -22,6 +22,10 @@ Movement* Entity::getDirectionOfMovement() {
     return &this->direction_of_movement;
 }
 
+int32_t Entity::getDamageForTheRound() {
+    return this->damage_for_the_round;
+}
+
 void Entity::setHitPoints(int32_t hit_points) {
     this->hit_points = hit_points;
 }
