@@ -11,6 +11,14 @@ void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
     this->entities[id]->move(x,y);
 }
 
+void Game::setShooting(const uint32_t &id) {
+    std::vector<uint32_t[2]> entities_hit;
+    entities_hit = this->gameMap.shoot(id);
+    for (auto entity : entities_hit) {
+        this->entities[entity[0]]->setDamage(this->entities[id]->getWeapon(), entity[1]);
+    }
+}
+
 std::map<uint32_t, Entity*>& Game::getEntities() {
     return this->entities;
 }

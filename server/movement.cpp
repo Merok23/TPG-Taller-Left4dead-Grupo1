@@ -25,8 +25,39 @@ void Movement::move() {
 }
 //Checks if the movement collides with another movement after moving
 //The idea being that you call this before doing the movement.
-bool Movement::checkForCollision(const Movement &movement) {
+bool Movement::checkForCollision(const Movement &other) {
     Position aux = Position(this->centre.getX(), this->centre.getY(), this->centre.getRadius());
     aux.move(this->x_movement, this->y_movement);
-    return aux.checkForCollision(movement.centre);
+    return aux.checkForCollision(other.centre);
+}
+
+bool Movement::isAligned(Movement &other, const uint32_t &border) {
+    int64_t y = other.getY();
+    int64_t my_y = this->getY();
+    int64_t difference = y - my_y;
+    int64_t bigger_radius = this->getRadius();
+    if (other.getRadius() > bigger_radius) bigger_radius = other.getRadius();
+    if (difference < 0) difference *= -1;
+    if (difference <= bigger_radius) return true;
+    else return false;
+}
+
+bool Movement::isLookingAt(Movement &other) {
+    int64_t x = other.getX();
+    int64_t my_x = this->getX();
+    int64_t x_difference = x - my_x;
+    if (x_difference < 0 && this->x_movement < 0) return true;
+    else if (x_difference > 0 && this->x_movement > 0) return true;
+    else return false;
+}
+
+int32_t Movement::calculateDistance(Movement &other) {
+    int64_t x = other.getX();
+    int64_t y = other.getY();
+    int64_t my_x = this->getX();
+    int64_t my_y = this->getY();
+    int64_t x_difference = x - my_x;
+    int64_t y_difference = y - my_y;
+    int64_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
+    return distance;
 }

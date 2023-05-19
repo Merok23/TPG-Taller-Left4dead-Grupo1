@@ -5,8 +5,8 @@
 
 class Movement {
     private:
-        uint32_t x_movement;
-        uint32_t y_movement;
+        int8_t x_movement;
+        int8_t y_movement;
         Position centre;
     public:
         Movement(int x, int y, double radius);
@@ -15,5 +15,9 @@ class Movement {
         double getRadius();
         void setDirection(int x, int y);
         void move();
-        bool checkForCollision(const Movement &movement);
+        bool checkForCollision(const Movement &other);
+        bool isAligned(Movement &other, const uint32_t &border);
+        bool isLookingAt(Movement &other); //doesn't take into account looping map :l
+        int32_t calculateDistance(Movement &other);
+        
 };

@@ -15,7 +15,7 @@ class Map {
         uint32_t getHeight();
         std::map<uint32_t, Movement*> getEntities();
         bool move(const uint32_t &id);
-        //void shoot(uint32_t id);
+        std::vector<uint32_t[2]>& shoot(uint32_t id);
         void addEntity(const uint32_t &id, Movement *entity);
         void removeEntity(const uint32_t &id);
         ~Map();

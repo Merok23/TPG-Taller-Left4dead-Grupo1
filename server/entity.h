@@ -12,7 +12,7 @@ class Entity {
         Movement direction_of_movement;
         
     public:
-        Entity(uint32_t id, int32_t hit_points, u_int32_t x, u_int32_t y);
+        Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y);
         uint32_t getId();
         int32_t getHitPoints();
         void setHitPoints(int32_t hit_points);
