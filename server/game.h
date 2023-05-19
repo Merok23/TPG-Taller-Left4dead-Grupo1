@@ -18,7 +18,7 @@ class Game {
     public:
         explicit Game(int32_t width, int32_t height);
         void addEntity(Entity* entity);
-        void setMoving(uint32_t id, int8_t x, int8_t y);
+        void setMoving(const uint32_t& id, const int8_t &x,const int8_t &y);
         std::map<u_int32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
 };

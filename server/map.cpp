@@ -17,11 +17,11 @@ std::map<uint32_t, Movement*> Map::getEntities() {
     return this->entities;
 }
 
-void Map::addEntity(uint32_t id, Movement *entity) {
+void Map::addEntity(const uint32_t &id, Movement *entity) {
     this->entities[id] = entity;
 }
 
-bool Map::move(uint32_t id) {
+bool Map::move(const uint32_t& id) {
     bool moved = true;
     Movement *entity = this->entities[id];
     if (checkForBorderCollision(*entity)) return false;
@@ -77,7 +77,7 @@ bool Map::checkForBorderCollision(Movement entity) {
     return false;
 }
 
-void Map::removeEntity(uint32_t id) {
+void Map::removeEntity(const uint32_t &id) {
     this->entities.erase(id);
 }
 

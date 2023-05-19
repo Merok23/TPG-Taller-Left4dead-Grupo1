@@ -7,7 +7,7 @@ void Game::addEntity(Entity* entity) {
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
 }
 
-void Game::setMoving(uint32_t id, int8_t x, int8_t y) {
+void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
     this->entities[id]->move(x,y);
 }
 

@@ -14,10 +14,10 @@ class Map {
         uint32_t getWidth();
         uint32_t getHeight();
         std::map<uint32_t, Movement*> getEntities();
-        bool move(uint32_t id);
+        bool move(const uint32_t &id);
         //void shoot(uint32_t id);
-        void addEntity(uint32_t id, Movement *entity);
-        void removeEntity(uint32_t id);
+        void addEntity(const uint32_t &id, Movement *entity);
+        void removeEntity(const uint32_t &id);
         ~Map();
     private:
         //intentionally recieves a copy
