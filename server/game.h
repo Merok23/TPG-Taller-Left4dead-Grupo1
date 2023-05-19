@@ -5,10 +5,12 @@
 #include <map>
 #include <functional>
 
+#include "vector_wrapper.h"
 #include "../common/queue.h"
 #include "game_state_for_client.h"
 #include "entity.h"
 #include "map.h"
+#include "hit_entity.h"
 
 
 class Game {
@@ -22,6 +24,8 @@ class Game {
         void setShooting(const uint32_t& id);
         std::map<u_int32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
+    private:
+        std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
 };
 
 #endif //GAME_H_

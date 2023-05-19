@@ -39,20 +39,19 @@ bool Map::move(const uint32_t& id) {
     return moved;
 }
 
-std::vector<uint32_t[2]>& Map::shoot(uint32_t id) {
-    std::vector<uint32_t[2]> aligned_entitites;
+std::vector<VectorWrapper> Map::shoot(uint32_t id) {
+    std::vector<VectorWrapper> aligned_entitites;
     for (auto entity : this->entities) {
         if (entity.first != id) {
             if (this->entities[id]->isLookingAt(*entity.second)){
                 if (this->entities[id]->isAligned(*entity.second, this->height)) {
-                    uint32_t distance = this->entities[id]->calculateDistance(*entity.second);
-                    uint32_t id_hit = entity.first;
-                    aligned_entitites.push_back([id_hit, distance]);
+                    VectorWrapper element(entity.first, entity.second->calculateDistance(*this->entities[id]));
+                    aligned_entitites.push_back(element);
                 }
             }
         }
     }
-    return std::move(aligned_entitites);
+    return aligned_entitites;
 }
 
 //Only checks for y axis because x should loop (map is a torus)

@@ -16,3 +16,10 @@ void Player::update(Map& map) {
         map.move(this->getId());
     }
 }
+
+void Player::shoot(std::vector<HitEntity>& entities_hit) {
+    for (auto entity_hit : entities_hit) {
+        Entity* entity = entity_hit.getEntity();
+        entity->setDamageForTheRound(50);
+    }
+}

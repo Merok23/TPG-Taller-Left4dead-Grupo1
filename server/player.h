@@ -13,4 +13,5 @@ class Player : public Entity {
         Player(int id, uint32_t positionX, uint32_t positionY);
         virtual void move(int x, int y) override;
         virtual void update(Map& map) override;
+        virtual void shoot(std::vector<HitEntity>& entities_hit) override;
 };
