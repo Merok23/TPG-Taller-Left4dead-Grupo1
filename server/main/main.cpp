@@ -1,15 +1,18 @@
 #include <iostream>
-#include "../client_accepter.h"
+#include "../server_server.h"
 
-int main (int argc, char *argv[]) {
+#define PORT argv[1]
 
+int main(int argc, char *argv[])  {
     if (argc != 2) {
-        std::cout << "Usage: ./server <port>" << std::endl;
-        return 1;
+        std::cout << "Error: Invalid arguments" << std::endl; 
+        return -1;  
     }
-    // Initialize the server
-    //ClientAccepter server(argv[1]);
-    
-
-    return 0;
+    try {
+        Server server = Server(PORT); 
+        server.run();  
+    } catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl; 
+    }
+    return 0; 
 }

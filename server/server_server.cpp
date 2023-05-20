@@ -12,7 +12,7 @@
 #include "server_server.h"
 #define MAX_ELEMENTS_QUEUE 1000
 
-Server::Server(const char* port) : socket(port), port(port) {
+Server::Server(const char* port) : port(port) {
     return;
 }
 

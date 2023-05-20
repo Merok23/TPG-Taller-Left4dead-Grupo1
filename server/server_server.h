@@ -10,7 +10,6 @@
 
 class Server {
     private: 
-    Socket socket;
     const char* port; 
 
     public:
