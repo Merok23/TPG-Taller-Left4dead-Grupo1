@@ -10,9 +10,10 @@ class Movement {
         Position centre;
     public:
         Movement(int x, int y, double radius);
-        uint32_t getX();
-        uint32_t getY();
+        int32_t getX();
+        int32_t getY();
         double getRadius();
+        void setX(int32_t x);
         void setDirection(int x, int y);
         void move();
         bool checkForCollision(const Movement &other);

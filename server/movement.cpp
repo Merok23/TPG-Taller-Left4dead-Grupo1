@@ -3,12 +3,16 @@
 Movement::Movement(int x, int y, double radius) 
     : x_movement(0), y_movement(0), centre(x, y, radius) {}
 
-uint32_t Movement::getX() {
+int32_t Movement::getX() {
     return this->centre.getX();
 }
 
-uint32_t Movement::getY() {
+int32_t Movement::getY() {
     return this->centre.getY();
+}
+
+void Movement::setX(int32_t x) {
+    this->centre.setX(x);
 }
 
 double Movement::getRadius() {
@@ -52,12 +56,9 @@ bool Movement::isLookingAt(Movement &other) {
 }
 
 int32_t Movement::calculateDistance(Movement &other) {
-    int64_t x = other.getX();
-    int64_t y = other.getY();
-    int64_t my_x = this->getX();
-    int64_t my_y = this->getY();
-    int64_t x_difference = x - my_x;
-    int64_t y_difference = y - my_y;
-    int64_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
+    int32_t x_difference = this->getX() - other.getX();
+    int32_t y_difference = this->getY() - other.getY();
+    int32_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
+    //its rounded down, but it doesn't matter
     return distance;
 }
