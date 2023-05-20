@@ -11,7 +11,7 @@
 #include "server_client.h"  
 
 #define MAX_ELEMENTS_QUEUE 10000
-ServerClient::ServerClient(Socket socket, Queue<std::shared_ptr<Action>>& game_queue) : 
+ServerClient::ServerClient(Socket socket, Queue<Action*>& game_queue) : 
     protocol(std::move(socket)), 
         client_queue(MAX_ELEMENTS_QUEUE),
             receive_thread(protocol, game_queue), 
@@ -25,8 +25,9 @@ ServerClient::~ServerClient() {
     send_thread.stop();
     receive_thread.join();
     send_thread.join();
+    client_queue.close();
 }
 
 bool ServerClient::isFinished() {
-    return receive_thread.isFinished() || send_thread.isFinished();
+    return (receive_thread.isFinished() || send_thread.isFinished());
 }

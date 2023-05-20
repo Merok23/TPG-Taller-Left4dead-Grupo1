@@ -3,10 +3,10 @@
 #include <iostream>
 class Moving : public Action {
     private:
-    std::array<int8_t, 2> position;
+    std::array<uint32_t, 2> position;
 
     public:
-    explicit Moving(std::array<int8_t, 2> position); 
+    explicit Moving(std::array<uint32_t, 2> position); 
     virtual void execute(Game& game) override {
         game.setMoving(1, position[0], position[1]);
         return;    

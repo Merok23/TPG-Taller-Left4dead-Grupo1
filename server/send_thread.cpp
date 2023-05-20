@@ -2,7 +2,7 @@
 
 SendThread::SendThread(ServerProtocol& protocol, 
     Queue<std::shared_ptr<GameStateForClient>>& game_queue) : 
-        protocol(protocol), game_queue(game_queue) {}
+        protocol(protocol), game_queue(game_queue), finished(false) {}
 
 
 void SendThread::run() {

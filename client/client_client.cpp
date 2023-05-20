@@ -12,16 +12,14 @@
 
 #include "client_client.h"
 
-
-
 Client::Client(const char* hostname, const char* servname) : 
-    socket(hostname, servname), protocol(std::move(socket)) {
+    protocol(Socket(hostname, servname)) {
    return; 
 }
 
 void Client::run() {
-        while (true) {
-            std::string line;
+    std::string line = "";
+        while (!protocol.isFinished() || line != "leave") {
             std::getline(std::cin, line);
             std::istringstream iss(line);
             std::string action; 
@@ -30,14 +28,15 @@ void Client::run() {
                 break; 
             } else if (action == "create") {
                 this->protocol.sendAddPlayer(); 
-                std::cout << this->protocol.recievePlayerMovement() << std::endl;
+               // std::cout << this->protocol.recievePlayerMovement() << std::endl;
             } else if (action == "move") {
                 int x;
                 int y;
                 iss >> x; 
                 iss >> y; 
+                std::cout << "x: " << x << " y: " << y << std::endl;
                 this->protocol.sendMoving(x, y);
-                //std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
+                std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
                 std::cout << this->protocol.recievePlayerMovement() << std::endl;
                 continue; 
             } else { 

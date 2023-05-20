@@ -11,8 +11,8 @@
 #include "server_receive_thread.h"
 
 ReceiveThread::ReceiveThread(ServerProtocol& protocol, 
-            Queue<std::shared_ptr<Action>>& queue) : 
-                protocol(protocol), game_queue(queue), finished(true) {
+            Queue<Action*>& queue) : 
+                protocol(protocol), game_queue(queue), finished(false) {
     return; 
 }
 
@@ -20,8 +20,8 @@ ReceiveThread::ReceiveThread(ServerProtocol& protocol,
 void ReceiveThread::receiveCommands() {
     while (!finished) {
         try {
-            std::shared_ptr<Action> action = protocol.receiveAction();
-            game_queue.push(action);  
+            Action* action = protocol.receiveAction();
+            if (action) game_queue.push(action);  
         } catch (const std::runtime_error& e) {
             std::cerr << "ERROR: " << e.what() << std::endl;
             break;            

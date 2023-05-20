@@ -21,7 +21,7 @@ class ClientAccepter : public Thread {
     public:
         explicit ClientAccepter(const char* port);
         virtual void run() override;
-        void acceptClient(GameLoop* game_loop);
+        void acceptClient(Queue<Action*>&  game_queue);
         void removeDeadClients();
         void stop();
         ~ClientAccepter();

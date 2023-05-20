@@ -10,11 +10,11 @@
 class ServerProtocol {
     private:
     Socket socket; 
-    bool connected; 
+    bool not_connected; 
 
     public:
     explicit ServerProtocol(Socket socket);
-    std::shared_ptr<Action> receiveAction();
+    Action* receiveAction();
     void sendGameState(std::shared_ptr<GameStateForClient>& game_state);
 };
 #endif

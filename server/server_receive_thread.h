@@ -12,12 +12,12 @@
 class ReceiveThread : public Thread {
     private:
         ServerProtocol& protocol; 
-        Queue<std::shared_ptr<Action>>& game_queue; 
+        Queue<Action*>& game_queue; 
         std::atomic<bool> finished; 
 
     public:
         ReceiveThread(ServerProtocol& protocol, 
-            Queue<std::shared_ptr<Action>>& queue);
+            Queue<Action*>& queue);
         
         void receiveCommands(); 
         void stop();

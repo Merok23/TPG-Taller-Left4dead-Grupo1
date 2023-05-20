@@ -7,19 +7,17 @@
 ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), finished(false) {}
 
 void ClientAccepter::run() {
-    GameLoop* game_loop = new GameLoop(); // heap? (probablemente ta bien) perdemos memoria
-    game_loop->start(); 
-    while (!finished) {
-        acceptClient(game_loop);
-    }
-    game_loop->stop(); 
-    game_loop->join(); //mover despues al constructor
+    GameLoop game_loop; // heap? (probablemente ta bien) perdemos memoria
+    game_loop.start(); 
+    acceptClient(game_loop.getQueue());
+    game_loop.stop(); 
+    game_loop.join(); //mover despues al constructor
 }
 
-void ClientAccepter::acceptClient(GameLoop* game_loop) {
+void ClientAccepter::acceptClient(Queue<Action*>&  game_queue) {
     try {
         Socket socket = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(socket), game_loop->getQueue());
+        ServerClient* client = new ServerClient(std::move(socket), game_queue);
         clients.push_back(client);
         removeDeadClients();
     } catch (LibError &e) {

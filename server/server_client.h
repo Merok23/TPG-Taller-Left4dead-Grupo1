@@ -15,7 +15,7 @@ class ServerClient {
     SendThread send_thread; 
     
     public:
-    ServerClient(Socket socket, Queue<std::shared_ptr<Action>>&  game_queue); 
+    ServerClient(Socket socket, Queue<Action*>&  game_queue); 
     bool isFinished();
     ~ServerClient();
 };  

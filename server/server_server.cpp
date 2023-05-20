@@ -17,14 +17,14 @@ Server::Server(const char* port) : port(port) {
 }
 
 void Server::run() {
-    ClientAccepter* acceptorThread = new ClientAccepter(port); 
-    acceptorThread->start();  
+    ClientAccepter acceptorThread(port); 
+    acceptorThread.start();  
     std::string leave; 
     while (true) {
         std::cin >> leave; 
         if (leave == "q") {
-            acceptorThread->stop(); 
-            acceptorThread->join(); 
+            acceptorThread.stop(); 
+            acceptorThread.join(); 
             break;
         }
     } 

@@ -17,10 +17,8 @@
 #include "../common/socket.h"
 
 
-
 class Client {
     private: 
-    Socket socket;  
     ClientProtocol protocol;
 
     public: 

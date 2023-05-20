@@ -8,7 +8,7 @@
 
 class GameLoop : public Thread {
     private:
-    Queue<std::shared_ptr<Action>> game_queue;
+    Queue<Action*> game_queue;
     Game game; 
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
     std::atomic<bool> finished;
@@ -16,7 +16,7 @@ class GameLoop : public Thread {
     public:
     explicit GameLoop();
     
-    Queue<std::shared_ptr<Action>>& getQueue();
+    Queue<Action*>& getQueue();
 
     void addPlayer(uint32_t id, Queue<std::shared_ptr<GameStateForClient>>& queue);
 
