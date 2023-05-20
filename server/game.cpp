@@ -34,12 +34,13 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 }
 
 std::shared_ptr<GameStateForClient> Game::update() {
-    for (auto id_entity : this->entities) {
+    for (auto& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
     }
-    GameStateForClient* game_state = 
-        new GameStateForClient(this->getEntities(), 
-            this->gameMap.getWidth(), 
-                this->gameMap.getHeight());
-    return std::make_shared<GameStateForClient>(game_state);
+    std::shared_ptr<GameStateForClient> game_state = std::make_shared<GameStateForClient>(
+        this->getEntities(),
+        this->gameMap.getWidth(),
+        this->gameMap.getHeight()
+    );
+    return game_state;
 }

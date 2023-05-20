@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "movement.h"
+#include "config.h"
 
 enum SoldierState {
     IDLE_SOLDIER,

@@ -1,7 +1,8 @@
 #include "entity_infected.h"
 
+
 Infected::Infected(uint32_t id, uint32_t x, uint32_t y) : 
-    Entity(id, INFECTED_HIT_POINTS, x, y),
+    Entity(id, CONFIG.infected_health, x, y),
     state(IDLE_INFECTED) {}
 
 void Infected::move(int32_t x_movement, int32_t y_movement) {

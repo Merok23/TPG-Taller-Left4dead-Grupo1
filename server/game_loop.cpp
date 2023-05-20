@@ -1,8 +1,9 @@
 #include "game_loop.h"
 #include <chrono>
+#include "config.h"
 
 #define MAX_ELEMENTS_QUEUE 1000
-GameLoop::GameLoop() : game_queue(MAX_ELEMENTS_QUEUE), game(1000,1000) {
+GameLoop::GameLoop() : game_queue(MAX_ELEMENTS_QUEUE), game(CONFIG.scenario_width, CONFIG.scenario_height) {
     return; 
 }
 

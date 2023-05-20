@@ -3,6 +3,7 @@
 #include "map.h"
 #include "movement.h"
 #include "hit_entity.h"
+#include "config.h"
 #include <vector>
 
 #pragma once

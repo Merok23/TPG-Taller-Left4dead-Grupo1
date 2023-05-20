@@ -1,7 +1,8 @@
 #include "entity_player.h"
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
-Player::Player(int id, uint32_t positionX, uint32_t positionY) : Entity(id, 100, positionX, positionY){
+Player::Player(int id, uint32_t positionX, uint32_t positionY) : 
+    Entity(id, CONFIG.soldier_health, positionX, positionY){
     this->state = IDLE_SOLDIER;
 }
 

@@ -16,7 +16,7 @@ TEST_CASE("Shooting test, one entity gets shot") {
     game.setShooting(1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[2]->getHitPoints() < INFECTED_HIT_POINTS);
+    REQUIRE(entities[2]->getHitPoints() < CONFIG.infected_health);
 }
 
 TEST_CASE("Shooting test, entity shoots the otherway and doesn't damage the infected") {
@@ -34,7 +34,7 @@ TEST_CASE("Shooting test, entity shoots the otherway and doesn't damage the infe
     game.setShooting(1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[2]->getHitPoints() == INFECTED_HIT_POINTS);
+    REQUIRE(entities[2]->getHitPoints() == CONFIG.infected_health);
 }
 
 TEST_CASE("Shooting test, two entitites get shoot") {
@@ -53,6 +53,6 @@ TEST_CASE("Shooting test, two entitites get shoot") {
     game.setShooting(1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[2]->getHitPoints() < INFECTED_HIT_POINTS);
-    REQUIRE(entities[3]->getHitPoints() < INFECTED_HIT_POINTS);
+    REQUIRE(entities[2]->getHitPoints() < CONFIG.infected_health);
+    REQUIRE(entities[3]->getHitPoints() < CONFIG.infected_health);
 }

@@ -1,5 +1,5 @@
 #include "entity.h"
-#define INFECTED_HIT_POINTS 80
+#include "config.h"
 
 enum InfectedState {
     IDLE_INFECTED,

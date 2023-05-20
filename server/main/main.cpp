@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../client_accepter.h"
+#include "../config.h"
 
 int main (int argc, char *argv[]) {
 

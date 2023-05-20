@@ -3,7 +3,7 @@
 Entity::Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y) : 
     id(id),
     hit_points(hit_points),
-    direction_of_movement(x, y, RADIUS),
+    direction_of_movement(x, y, CONFIG.default_radius),
     damage_for_the_round(0) {}
 
 uint32_t Entity::getId() {
