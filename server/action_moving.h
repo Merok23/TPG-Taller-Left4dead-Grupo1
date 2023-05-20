@@ -8,9 +8,9 @@ class Moving : public Action {
     public:
     explicit Moving(std::array<int8_t, 2> position); 
     virtual void execute(Game& game) override {
-        //game.setMoving(id, position[0], position[1]);
+        game.setMoving(1, position[0], position[1]);
         return;    
     }
-    ~Moving() noexcept override {}  // Se especifica "noexcept" para el destructor virtual sobrescrito
+    ~Moving() override {}  // Se especifica "noexcept" para el destructor virtual sobrescrito
 
 };

@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "movement.h"
+#pragma once
 
 enum State {
     IDLE,

@@ -1,7 +1,7 @@
 #ifndef GAME_LOOP_H
 #define GAME_LOOP_H
 #include "../common/queue.h"
-#include "../common/action.h"
+#include "action.h"
 #include "../common/thread.h"  
 #include "player.h" 
 #include <atomic>   
@@ -21,6 +21,8 @@ class GameLoop : public Thread {
     void addPlayer(uint32_t id, Queue<std::shared_ptr<GameStateForClient>>& queue);
 
     virtual void run() override;
+
+    void stop();
 
     private: 
     void sendState(std::shared_ptr<GameStateForClient> game_state);

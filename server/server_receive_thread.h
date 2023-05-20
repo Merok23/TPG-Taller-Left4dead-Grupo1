@@ -6,7 +6,7 @@
 #include "server_protocol.h"
 #include "../common/queue.h"
 #include "../server/game.h"
-#include "../common/action.h"
+#include "action.h"
 
 
 class ReceiveThread : public Thread {

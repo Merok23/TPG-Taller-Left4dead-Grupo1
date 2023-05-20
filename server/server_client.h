@@ -3,7 +3,7 @@
 #include "server_protocol.h"
 #include "server_receive_thread.h"
 #include "send_thread.h"
-#include "../common/action.h"
+#include "action.h"
 
 
 class ServerClient {

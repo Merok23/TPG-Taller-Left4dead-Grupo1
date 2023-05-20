@@ -55,6 +55,11 @@
         "map": "cpp",
         "list": "cpp",
         "set": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp",
+        "future": "cpp",
+        "iomanip": "cpp",
+        "shared_mutex": "cpp"
     }
 }

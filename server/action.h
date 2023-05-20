@@ -8,6 +8,6 @@
 class Action {
     public:
         virtual void execute(Game& game) = 0; //Como no es instanciable, no hace falta constructor.
-        virtual ~Action() noexcept {} ; // Se especifica "noexcept" para el destructor virtual
+        virtual ~Action() {} ; // Se especifica "noexcept" para el destructor virtual
 };
 #endif

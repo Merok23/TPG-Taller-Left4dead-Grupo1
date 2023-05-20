@@ -4,7 +4,7 @@
 #include "../common/socket.h"
 #include "../common/thread.h"
 #include "game.h"
-#include "../common/action.h"
+#include "action.h"
 #include "game_loop.h"
 #include "server_client.h"
 #include <atomic>

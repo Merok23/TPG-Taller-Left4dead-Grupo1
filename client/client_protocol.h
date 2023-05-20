@@ -13,6 +13,8 @@ class ClientProtocol {
     public:
     explicit ClientProtocol(Socket socket);
     void sendMoving(int x, int y);
+    void sendAddPlayer();
     std::unique_ptr<GameState>  receiveGameState();
+    std::string recievePlayerMovement();
 };
 #endif

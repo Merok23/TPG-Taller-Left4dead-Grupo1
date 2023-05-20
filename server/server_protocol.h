@@ -3,7 +3,8 @@
 
 #include <array>
 #include "../common/socket.h"
-#include "../common/action_moving.h"
+#include "action_moving.h"
+#include "action_create_player.h"
 
 
 class ServerProtocol {

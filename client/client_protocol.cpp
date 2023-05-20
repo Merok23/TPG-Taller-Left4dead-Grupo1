@@ -10,9 +10,9 @@
 #include <fstream>
 
 #include "client_protocol.h"
-
 #define MOVE 0x02
 #define MAX_TYPE_LENGHT 200
+#define ADD_PLAYER 0x05
 
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), connected(true) {
     return; 
@@ -26,6 +26,11 @@ void ClientProtocol::sendMoving(int x, int y) {
     if (!connected) return; 
     socket.sendall(&position_x, sizeof(int8_t), &connected); 
     socket.sendall(&position_y, sizeof(int8_t), &connected);
+}
+
+void ClientProtocol::sendAddPlayer() {
+    int8_t action = ADD_PLAYER;
+    socket.sendall(&action, sizeof(int8_t), &connected);
 }
 
 std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
@@ -62,4 +67,15 @@ std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
     }
     std::unique_ptr<GameState> game_state(new GameState(entities));
     return game_state;
+}
+
+std::string ClientProtocol::recievePlayerMovement() {
+    int32_t position_x;
+    int32_t position_y;
+    socket.recvall(&position_x, sizeof(int8_t), &connected);
+    socket.recvall(&position_y, sizeof(int8_t), &connected);
+    position_x = ntohl(position_x);
+    position_y = ntohl(position_y);
+    std::string movement = std::to_string(position_x) + " " + std::to_string(position_y);
+    return movement;   
 }
