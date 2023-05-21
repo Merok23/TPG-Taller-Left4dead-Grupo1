@@ -51,6 +51,7 @@ Action* ServerProtocol::receiveAction() {
         CreatePlayer* create_player_action =  new CreatePlayer(100000);
         action = create_player_action;
         return action;
+        
     }
     return NULL;
 }
