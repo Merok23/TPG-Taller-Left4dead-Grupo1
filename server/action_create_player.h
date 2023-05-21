@@ -8,12 +8,10 @@ class CreatePlayer : public Action {
     public:
     explicit CreatePlayer(int nada) : nada(nada) {}; 
     virtual void execute(Game& game) override {
-        Player newPlayer = Player(1, 5, 5);
-        Entity *player = &newPlayer;
-        game.addEntity(std::move(player));
+        Entity* player = new Player(1, 5, 5);
+        game.addEntity(player);
         //game.addPlayerId(1); //Para que distinga si es un jugador o un infectado
-    }
-
+    } 
     ~CreatePlayer() override {}  // Se especifica "noexcept" para el destructor virtual sobrescrito
 
 };

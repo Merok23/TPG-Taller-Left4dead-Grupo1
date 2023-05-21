@@ -8,7 +8,7 @@
 class ClientProtocol {
     private:
     Socket socket; 
-    bool not_connected; 
+    bool was_closed; 
 
     public:
     explicit ClientProtocol(Socket socket);

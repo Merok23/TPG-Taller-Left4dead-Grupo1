@@ -10,7 +10,7 @@ class GameLoop : public Thread {
     private:
     Queue<Action*> game_queue;
     Game game; 
-    std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
+    std::map<uint32_t, Queue<GameStateForClient*>*> player_queues;
     std::atomic<bool> finished;
 
     public:
@@ -18,13 +18,12 @@ class GameLoop : public Thread {
     
     Queue<Action*>& getQueue();
 
-    void addPlayer(uint32_t id, Queue<std::shared_ptr<GameStateForClient>>& queue);
-
+    void addPlayer(uint32_t id, Queue<GameStateForClient*>& queue);
+    void addClientQueue(Queue<GameStateForClient*>& queue);
     virtual void run() override;
 
     void stop();
 
     private: 
-    void sendState(std::shared_ptr<GameStateForClient> game_state);
 }; 
 #endif

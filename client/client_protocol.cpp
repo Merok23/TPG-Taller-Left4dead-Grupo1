@@ -14,53 +14,55 @@
 #define MAX_TYPE_LENGHT 200
 #define ADD_PLAYER 0x05
 
-ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), not_connected(true) {
+ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }   
 
 void ClientProtocol::sendMoving(int x, int y) {
     uint8_t action = MOVE;  
-    socket.sendall(&action, sizeof(uint8_t), &not_connected);
-    if (!not_connected) return; 
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
+
+    std::cout << "Sending x: " << x << " y: " << y << std::endl;
      
     uint32_t position_x =  htonl((uint32_t)x);
-    uint32_t position_y = htonl((uint32_t)y);
+    uint32_t position_y = htonl((uint32_t)y);   
     
-    socket.sendall(&position_x, sizeof(uint32_t), &not_connected); 
-    socket.sendall(&position_y, sizeof(uint32_t), &not_connected);
+    socket.sendall(&position_x, sizeof(uint32_t), &was_closed); 
+    socket.sendall(&position_y, sizeof(uint32_t), &was_closed);
 }
 
 
 void ClientProtocol::sendAddPlayer() {
-    int8_t action = ADD_PLAYER;
-    socket.sendall(&action, sizeof(int8_t), &not_connected);
+    uint8_t action = ADD_PLAYER;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
 }
 
 std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
-    int32_t entities_len;
-    socket.recvall(&entities_len, sizeof(int32_t), &not_connected);
+    uint32_t entities_len;
+    socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
     entities_len = ntohl(entities_len);
 
     std::map<uint32_t, Entity*> entities;
-    for (int i = 0; i < entities_len; i++) {
+    for (uint32_t i = 0; i < entities_len; i++) {
         int32_t id;
-        socket.recvall(&id, sizeof(int32_t), &not_connected);
+        socket.recvall(&id, sizeof(uint32_t), &was_closed);
         id = ntohl(id);
        
         uint16_t type_len; 
-        socket.recvall(&type_len, sizeof(uint16_t), &not_connected); 
+        socket.recvall(&type_len, sizeof(uint16_t), &was_closed); 
         type_len = ntohs(type_len); 
 
         char type[MAX_TYPE_LENGHT]; 
-        socket.recvall(&type, type_len, &not_connected); 
+        socket.recvall(&type, type_len, &was_closed); 
         type[type_len - 1] = '\0'; 
     
         int32_t hp;
-        socket.recvall(&hp, sizeof(int32_t), &not_connected);
+        socket.recvall(&hp, sizeof(uint32_t), &was_closed);
         hp = ntohl(hp);
         
-        int8_t position[2];
-        socket.recvall(position, sizeof(int8_t) * 2, &not_connected);
+        int32_t position[2];
+        socket.recvall(position, sizeof(uint32_t) * 2, &was_closed);
         
         Entity* entity = nullptr;
         if (strcmp(type, "Player") == 0) {
@@ -73,10 +75,10 @@ std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
 }
 
 std::string ClientProtocol::recievePlayerMovement() {
-    int32_t position_x;
-    int32_t position_y;
-    socket.recvall(&position_x, sizeof(int32_t), &not_connected);
-    socket.recvall(&position_y, sizeof(int32_t), &not_connected);
+    uint32_t position_x;
+    uint32_t position_y;
+    socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
+    socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
     position_x = ntohl(position_x);
     position_y = ntohl(position_y);
     std::string movement = std::to_string(position_x) + " " + std::to_string(position_y);
@@ -84,5 +86,5 @@ std::string ClientProtocol::recievePlayerMovement() {
 }
 
 bool ClientProtocol::isFinished() {
-    return !not_connected;
+    return !was_closed;
 }

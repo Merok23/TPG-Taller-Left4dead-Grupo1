@@ -15,5 +15,6 @@ class Player : public Entity {
         virtual void move(int x, int y) override;
         virtual void update(Map& map) override;
         virtual std::string getEntityType() override;
+        virtual ~Player() override{};
 
 };

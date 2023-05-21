@@ -25,3 +25,5 @@ std::string Entity::getEntityType() {
     std::string type = "entity";
     return type;
 }
+
+Entity::~Entity() {}

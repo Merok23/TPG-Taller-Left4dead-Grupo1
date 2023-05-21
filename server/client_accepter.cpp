@@ -4,25 +4,25 @@
 
 #define MAX_ELEMENTS_QUEUE 10000
 
-ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), finished(false) {}
-
-void ClientAccepter::run() {
-    GameLoop game_loop; // heap? (probablemente ta bien) perdemos memoria
-    game_loop.start(); 
-    acceptClient(game_loop.getQueue());
-    game_loop.stop(); 
-    game_loop.join(); //mover despues al constructor
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)),finished(false) {
+    game_loop.start();
 }
 
-void ClientAccepter::acceptClient(Queue<Action*>&  game_queue) {
-    try {
+void ClientAccepter::run() {
+    acceptClient(game_loop.getQueue(), game_loop);
+}
+
+void ClientAccepter::acceptClient(Queue<Action*>&  game_queue, GameLoop& game_loop) {
+    while (!finished){
+        try {
         Socket socket = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(socket), game_queue);
+        ServerClient* client = new ServerClient(std::move(socket), game_queue, game_loop);
         clients.push_back(client);
-        removeDeadClients();
     } catch (LibError &e) {
         if (finished) return;
         std::cout << e.what() << std::endl;
+    }
+    removeDeadClients(); 
     }
 }
 
@@ -45,6 +45,8 @@ void ClientAccepter::stop() {
         clients.pop_front();
         delete client;
     }
+    game_loop.stop(); 
+    game_loop.join(); 
     recieving_socket.shutdown(SHUT_RDWR); 
     recieving_socket.close();
 }

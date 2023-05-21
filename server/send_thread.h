@@ -9,12 +9,12 @@
 class SendThread : public Thread {
     private:
         ServerProtocol& protocol; 
-        Queue<std::shared_ptr<GameStateForClient>>& game_queue; 
+        Queue<GameStateForClient*>& client_queue; 
         std::atomic<bool> finished; 
 
     public:
         SendThread(ServerProtocol& protocol, 
-            Queue<std::shared_ptr<GameStateForClient>>& queue);
+            Queue<GameStateForClient*>& queue);
         
         bool isFinished();
         void stop();

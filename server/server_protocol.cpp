@@ -16,28 +16,26 @@
 #define GAMESTATE 0x03
 #define CREATE_PLAYER 0x05
 
-ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), not_connected(false) {
+ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }
 
 Action* ServerProtocol::receiveAction() {
     uint8_t command;
-    socket.recvall(&command, sizeof(uint8_t), &not_connected);
-    if (not_connected) {
+    socket.recvall(&command, sizeof(uint8_t), &was_closed);
+    if (was_closed) {
         return NULL; 
     }
     Action* action = NULL;
     if (command == MOVE) {
-        printf("entro\n"); 
         uint32_t position_x;
         uint32_t position_y;
-        socket.recvall(&position_x, sizeof(uint32_t), &not_connected);
-        socket.recvall(&position_y, sizeof(uint32_t), &not_connected);
-        std::array<uint32_t, 2> positionArray = {position_x, position_y};
+        socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
+        socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
         position_x = ntohl(position_x);
         position_y = ntohl(position_y);
         std::cout << "position x: " << position_x << std::endl;
-        std::cout << "position y: " << position_y << std::endl;
+        std::array<uint32_t, 2> positionArray = {position_x, position_y};
         Moving* moving_action = new Moving(positionArray); 
         action = moving_action;
         return action;
@@ -57,18 +55,24 @@ Action* ServerProtocol::receiveAction() {
     return NULL;
 }
 
-void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient>& game_state) {
+bool ServerProtocol::isFinished() {
+    return was_closed;
+}
+void ServerProtocol::sendGameState(GameStateForClient* game_state) {
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     Movement *movement = entities[1]->getDirectionOfMovement();
-    int32_t movement_x = movement->getX();
-    int32_t movement_y = movement->getY();
-    std::cout << "send_game_sate x: " << movement_x << std::endl; 
-    std::cout << "send_game_sate y: " << movement_y << std::endl;
+    uint32_t movement_x = movement->getX();
+    uint32_t movement_y = movement->getY();
     movement_x = htonl(movement_x);
     movement_y = htonl(movement_y);
-    socket.sendall(&movement_x, sizeof(int32_t), &not_connected);
-    if (!not_connected) throw std::exception();
-    socket.sendall(&movement_y, sizeof(int32_t), &not_connected);
+    std::cout << "position x: " << movement_x << std::endl;
+    std::cout << "position y: " << movement_y << std::endl;
+
+    socket.sendall(&movement_x, sizeof(uint32_t), &was_closed);
+    if (was_closed) throw std::exception();
+    socket.sendall(&movement_y, sizeof(uint32_t), &was_closed);
+    printf("llega a delete\n");
+    delete game_state;
     /*
     int8_t code = GAMESTATE;
     socket.sendall(&code, sizeof(int8_t), &connected);
@@ -97,3 +101,8 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient>& game_sta
     */
 }
 
+void ServerProtocol::closeSocket() {
+    if (was_closed) return;
+    socket.shutdown(2);
+    socket.close();
+}

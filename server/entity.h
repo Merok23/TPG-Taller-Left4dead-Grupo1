@@ -22,4 +22,5 @@ class Entity {
         //pero lo dejo por ahora para aprender un poco de herencia.
         virtual void move(int32_t x_movement, int32_t y_movement) = 0; 
         virtual void update(Map& map) = 0;
+        virtual ~Entity() = 0;
 };

@@ -21,6 +21,10 @@ void ReceiveThread::receiveCommands() {
     while (!finished) {
         try {
             Action* action = protocol.receiveAction();
+            if(protocol.isFinished()) {
+                finished = true;
+                break;
+            }   
             if (action) game_queue.push(action);  
         } catch (const std::runtime_error& e) {
             std::cerr << "ERROR: " << e.what() << std::endl;
@@ -31,6 +35,7 @@ void ReceiveThread::receiveCommands() {
 
 void ReceiveThread::stop() {
         finished = true;
+        protocol.closeSocket();
 } 
 
 bool ReceiveThread::isFinished() {
