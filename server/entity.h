@@ -28,4 +28,6 @@ class Entity {
         virtual void move(int32_t x_movement, int32_t y_movement) = 0; 
         virtual void update(Map& map) = 0;
         virtual void shoot(std::vector<HitEntity>& entities_hit) = 0;
+        virtual bool isInfected() = 0;
+        
 };

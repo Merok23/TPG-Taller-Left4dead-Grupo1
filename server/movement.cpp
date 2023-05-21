@@ -66,3 +66,16 @@ int32_t Movement::calculateDistance(Movement &other) {
     //its rounded down, but it doesn't matter
     return distance;
 }
+
+void Movement::setChase(Movement &other, int speed) {
+    int32_t x_difference = this->getX() - other.getX();
+    int32_t y_difference = this->getY() - other.getY();
+    int32_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
+    if (distance == 0) return;
+    //this is not optimal, we should see the distance
+    //between the 8 possible directions and pick the best
+    //but for now this will do for testing.
+    int32_t x_movement = x_difference / distance;
+    int32_t y_movement = y_difference / distance;
+    this->setDirection(x_movement * speed, y_movement * speed);
+}

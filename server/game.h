@@ -11,11 +11,15 @@
 #include "entity.h"
 #include "map.h"
 #include "hit_entity.h"
+#include "entity_infected.h"
+#include "entity_player.h"
 
 
 class Game {
     private: 
         std::map<u_int32_t, Entity*> entities;
+        std::map<u_int32_t, Entity*> soldiers;
+        std::map<u_int32_t, Entity*> infected;
         Map gameMap;
     public:
         explicit Game(int32_t width, int32_t height);
@@ -24,6 +28,7 @@ class Game {
         void setShooting(const uint32_t& id);
         std::map<u_int32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
+        void infectedCheckForSoldiersInRange();
     private:
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
 };

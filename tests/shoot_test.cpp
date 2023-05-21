@@ -1,13 +1,13 @@
 #include <catch2/catch_all.hpp>
 #include "../server/game.h"
 #include "../server/entity_player.h"
-#include "../server/entity_infected.h"
+#include "../server/entity_infected_common.h"
 
 TEST_CASE("Shooting test, one entity gets shot") {
     Game game(100, 100);
     Player newPlayer = Player(1, 5, 5);
     Entity* player = &newPlayer;
-    Infected newInfected = Infected(2, 20, 5);
+    CommonInfected newInfected = CommonInfected(2, 20, 5);
     Entity* some_infected = &newInfected;
     game.addEntity(player);
     game.addEntity(some_infected);
@@ -23,7 +23,7 @@ TEST_CASE("Shooting test, entity shoots the otherway and doesn't damage the infe
     Game game(100, 100);
     Player newPlayer = Player(1, 20, 5);
     Entity* player = &newPlayer;
-    Infected newInfected = Infected(2, 5, 5);
+    CommonInfected newInfected = CommonInfected(2, 5, 5);
     Entity* some_infected = &newInfected;
     game.addEntity(player);
     game.addEntity(some_infected);
@@ -41,9 +41,9 @@ TEST_CASE("Shooting test, two entitites get shoot") {
     Game game(100, 100);
     Player newPlayer = Player(1, 5, 5);
     Entity* player = &newPlayer;
-    Infected newInfected = Infected(2, 20, 5);
+    CommonInfected newInfected = CommonInfected(2, 20, 5);
     Entity* infected = &newInfected;
-    Infected newInfected2 = Infected(3, 25, 5);
+    CommonInfected newInfected2 = CommonInfected(3, 25, 5);
     Entity* infected2 = &newInfected2;
     game.addEntity(player);
     game.addEntity(infected);

@@ -24,3 +24,7 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
         entity->setDamageForTheRound(50);
     }
 }
+
+bool Player::isInfected() {
+    return false;
+}

@@ -1,6 +1,7 @@
 #include "entity.h"
 #include "movement.h"
 #include "config.h"
+#pragma once
 
 enum SoldierState {
     IDLE_SOLDIER,
@@ -15,4 +16,5 @@ class Player : public Entity {
         virtual void move(int32_t x_movement, int32_t y_movement) override;
         virtual void update(Map& map) override;
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
+        virtual bool isInfected() override;
 };

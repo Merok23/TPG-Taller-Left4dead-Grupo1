@@ -7,6 +7,8 @@ struct config {
     int infected_health;
     int infected_speed;
     int infected_radius;
+    int common_infected_range;
+    int common_infected_speed;
     int scenario_width;
     int scenario_height;
     int default_radius;

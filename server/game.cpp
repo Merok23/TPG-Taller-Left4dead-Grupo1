@@ -5,6 +5,11 @@ Game::Game(int32_t width, int32_t height) : entities(), gameMap(width,height) {}
 void Game::addEntity(Entity* entity) {
     this->entities[entity->getId()] = entity;
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
+    if (entity->isInfected()) {
+        this->infected[entity->getId()] = entity;
+    } else {
+        this->soldiers[entity->getId()] = entity;
+    }
 }
 
 void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
@@ -34,6 +39,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 }
 
 std::shared_ptr<GameStateForClient> Game::update() {
+    infectedCheckForSoldiersInRange();
     for (auto& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
     }
@@ -43,4 +49,13 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->gameMap.getHeight()
     );
     return game_state;
+}
+
+void Game::infectedCheckForSoldiersInRange() {
+    for (auto& id_entity : this->infected) {
+        if (id_entity.second->isInfected()) {
+            Infected* infected = dynamic_cast<Infected*>(id_entity.second);
+            infected->checkForSoldiersInRangeAndSetChase(this->soldiers);
+        }
+    }
 }
