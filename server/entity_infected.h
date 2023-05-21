@@ -14,4 +14,5 @@ class Infected : public Entity {
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
         virtual bool isInfected() override;
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) = 0;
+        virtual ~Infected() override;
 };

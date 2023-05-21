@@ -28,3 +28,10 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
 bool Player::isInfected() {
     return false;
 }
+
+std::string Player::getEntityType() {
+    std::string type = "player"; 
+    return type; 
+}
+
+Player::~Player() {}

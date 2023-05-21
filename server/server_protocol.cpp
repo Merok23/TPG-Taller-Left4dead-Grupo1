@@ -34,7 +34,6 @@ Action* ServerProtocol::receiveAction() {
         socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
         position_x = ntohl(position_x);
         position_y = ntohl(position_y);
-        std::cout << "position x: " << position_x << std::endl;
         std::array<uint32_t, 2> positionArray = {position_x, position_y};
         Moving* moving_action = new Moving(positionArray); 
         action = moving_action;
@@ -66,13 +65,10 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
     uint32_t movement_y = movement->getY();
     movement_x = htonl(movement_x);
     movement_y = htonl(movement_y);
-    std::cout << "position x: " << movement_x << std::endl;
-    std::cout << "position y: " << movement_y << std::endl;
 
     socket.sendall(&movement_x, sizeof(uint32_t), &was_closed);
     if (was_closed) throw std::exception();
     socket.sendall(&movement_y, sizeof(uint32_t), &was_closed);
-    printf("llega a delete\n");
     /*
     int8_t code = GAMESTATE;
     socket.sendall(&code, sizeof(int8_t), &connected);

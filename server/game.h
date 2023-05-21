@@ -27,11 +27,11 @@ class Game {
         void setMoving(const uint32_t& id, const int8_t &x,const int8_t &y);
         void setShooting(const uint32_t& id);
         std::map<u_int32_t, Entity*>& getEntities();
-        GameStateForClient* update();
+        std::shared_ptr<GameStateForClient> update();
         void infectedCheckForSoldiersInRange();
+        ~Game();
     private:
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
-        ~Game();
 };
 
 #endif //GAME_H_

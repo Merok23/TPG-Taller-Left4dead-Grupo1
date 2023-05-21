@@ -28,7 +28,7 @@ void GameLoop::run() {
         while(game_queue.try_pop(action)) {
             action->execute(game);
             delete action;
-            GameStateForClient* game_state = game.update();
+            std::shared_ptr<GameStateForClient> game_state = game.update();
             std::shared_ptr<GameStateForClient> shared_game_state(game_state);
             for (auto& player_queue : player_queues) {
                 player_queue.second->push(shared_game_state);

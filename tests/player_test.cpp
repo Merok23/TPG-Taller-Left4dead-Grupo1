@@ -5,8 +5,7 @@
 
 TEST_CASE("Player test, player moves 10 units", "[player]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, 5);
-    Entity* player = &newPlayer;
+    Entity* player = new Player(1, 5, 5);
     game.addEntity(player);
     game.setMoving(1, 1, 1);
     game.update();
@@ -17,10 +16,8 @@ TEST_CASE("Player test, player moves 10 units", "[player]") {
 
 TEST_CASE("Player test, tries to move through other player and can't", "[player]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, 5);
-    Player newPlayer2 = Player(2, 15, 5);
-    Entity* player = &newPlayer;
-    Entity* player2 = &newPlayer2;
+    Entity* player = new Player(1, 5, 5);
+    Entity* player2 = new Player(2, 15, 5);
     game.addEntity(player);
     game.addEntity(player2);
     game.setMoving(1, 1, 0);
@@ -32,10 +29,8 @@ TEST_CASE("Player test, tries to move through other player and can't", "[player]
 
 TEST_CASE("Player test, tries to move beyond a player and is stopped by the other player", "[player]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, 5);
-    Player newPlayer2 = Player(2, 25, 5);
-    Entity* player = &newPlayer;
-    Entity* player2 = &newPlayer2;
+    Entity* player = new Player(1, 5, 5);
+    Entity* player2 = new Player(2, 25, 5);
     game.addEntity(player);
     game.addEntity(player2);
     game.setMoving(1, 1, 0);

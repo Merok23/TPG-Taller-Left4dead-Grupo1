@@ -6,10 +6,8 @@
 
 TEST_CASE("Infected test, infected follows a soldier on the X axis", "[common_infected]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, CONFIG.common_infected_range, 5);
-    CommonInfected newInfected = CommonInfected(2, 5, 5);
-    Entity* player = &newPlayer;
-    Entity* infected = &newInfected;
+    Entity* player = new Player(1, CONFIG.common_infected_range, 5);
+    Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();
@@ -19,10 +17,8 @@ TEST_CASE("Infected test, infected follows a soldier on the X axis", "[common_in
 
 TEST_CASE("Infected test, infected follows a soldier on the Y axis", "[common_infected]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, CONFIG.common_infected_range);
-    CommonInfected newInfected = CommonInfected(2, 5, 5);
-    Entity* player = &newPlayer;
-    Entity* infected = &newInfected;
+    Entity* player = new Player(1, 5, CONFIG.common_infected_range);
+    Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();
@@ -32,10 +28,8 @@ TEST_CASE("Infected test, infected follows a soldier on the Y axis", "[common_in
 
 TEST_CASE("Infected test, soldiers is far away from infected so he doesn't follow", "[common_infected]") {
     Game game(100,100); 
-    Player newPlayer = Player(1, CONFIG.common_infected_range + 1, 5);
-    CommonInfected newInfected = CommonInfected(2, 5, 5);
-    Entity* player = &newPlayer;
-    Entity* infected = &newInfected;
+    Entity* player = new Player(1, CONFIG.common_infected_range + 1, 5);
+    Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();
@@ -45,10 +39,8 @@ TEST_CASE("Infected test, soldiers is far away from infected so he doesn't follo
 
 TEST_CASE("Infected test, infected follows a soldier on the X and Y axis", "[common_infected]") {
     Game game(100, 100);
-    Player newPlayer = Player(1, CONFIG.common_infected_range, CONFIG.common_infected_range);
-    CommonInfected newInfected = CommonInfected(2, 5, 5);
-    Entity* player = &newPlayer;
-    Entity* infected = &newInfected;
+    Entity* player = new Player(1, CONFIG.common_infected_range, CONFIG.common_infected_range);
+    Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();
@@ -59,10 +51,8 @@ TEST_CASE("Infected test, infected follows a soldier on the X and Y axis", "[com
 
 TEST_CASE("Infected test, infected follows a soldier through the X border", "[common_infected]") {
     Game game(100, 100);
-    Player newPlayer = Player(1,CONFIG.common_infected_range - 10, 5);
-    CommonInfected newInfected = CommonInfected(2, 90, 5);
-    Entity* player = &newPlayer;
-    Entity* infected = &newInfected;
+    Entity* player = new Player(1,CONFIG.common_infected_range - 10, 5);
+    Entity* infected = new CommonInfected(2, 90, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();

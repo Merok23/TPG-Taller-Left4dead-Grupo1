@@ -30,5 +30,6 @@ class Entity {
         virtual void update(Map& map) = 0;
         virtual void shoot(std::vector<HitEntity>& entities_hit) = 0;
         virtual bool isInfected() = 0;
+        virtual ~Entity() = 0;
         
 };

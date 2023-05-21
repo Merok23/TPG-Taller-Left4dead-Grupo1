@@ -5,10 +5,8 @@
 
 TEST_CASE("Shooting test, one entity gets shot") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, 5);
-    Entity* player = &newPlayer;
-    CommonInfected newInfected = CommonInfected(2, 20, 5);
-    Entity* some_infected = &newInfected;
+    Entity* player = new Player(1, 5, 5);
+    Entity* some_infected = new CommonInfected(2, 20, 5);
     game.addEntity(player);
     game.addEntity(some_infected);
     game.setMoving(1, 1, 0);
@@ -21,10 +19,8 @@ TEST_CASE("Shooting test, one entity gets shot") {
 
 TEST_CASE("Shooting test, entity shoots the otherway and doesn't damage the infected") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 20, 5);
-    Entity* player = &newPlayer;
-    CommonInfected newInfected = CommonInfected(2, 5, 5);
-    Entity* some_infected = &newInfected;
+    Entity* player = new Player(1, 20, 5);
+    Entity* some_infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(some_infected);
     game.setMoving(1, 1, 0);
@@ -39,12 +35,9 @@ TEST_CASE("Shooting test, entity shoots the otherway and doesn't damage the infe
 
 TEST_CASE("Shooting test, two entitites get shoot") {
     Game game(100, 100);
-    Player newPlayer = Player(1, 5, 5);
-    Entity* player = &newPlayer;
-    CommonInfected newInfected = CommonInfected(2, 20, 5);
-    Entity* infected = &newInfected;
-    CommonInfected newInfected2 = CommonInfected(3, 25, 5);
-    Entity* infected2 = &newInfected2;
+    Entity* player = new Player(1, 5, 5);
+    Entity* infected = new CommonInfected(2, 20, 5);
+    Entity* infected2 = new CommonInfected(3, 25, 5);
     game.addEntity(player);
     game.addEntity(infected);
     game.addEntity(infected2);

@@ -38,12 +38,12 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
     return this->entities;
 }
 
-GameStateForClient* Game::update() {
+std::shared_ptr<GameStateForClient> Game::update() {
     infectedCheckForSoldiersInRange();
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
     }
-    GameStateForClient* game_state = new GameStateForClient(this->entities, this->gameMap.getWidth(), this->gameMap.getHeight());
+    std::shared_ptr<GameStateForClient> game_state = std::make_shared<GameStateForClient>(this->entities, this->gameMap.getWidth(), this->gameMap.getHeight());
     return game_state;
 }
 
@@ -58,7 +58,6 @@ void Game::infectedCheckForSoldiersInRange() {
 
 Game::~Game() {
     for (auto& id_entity : this->entities) {
-        printf("Deleting entity %d\n", id_entity.first);
         delete id_entity.second;
     }
 }

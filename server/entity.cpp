@@ -35,3 +35,4 @@ std::string Entity::getEntityType() {
 }
 
 Entity::~Entity() {}
+    

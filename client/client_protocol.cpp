@@ -22,8 +22,6 @@ void ClientProtocol::sendMoving(int x, int y) {
     uint8_t action = MOVE;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
-
-    std::cout << "Sending x: " << x << " y: " << y << std::endl;
      
     uint32_t position_x =  htonl((uint32_t)x);
     uint32_t position_y = htonl((uint32_t)y);   

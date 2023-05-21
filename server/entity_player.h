@@ -17,4 +17,6 @@ class Player : public Entity {
         virtual void update(Map& map) override;
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
         virtual bool isInfected() override;
+        virtual std::string getEntityType() override;
+        virtual ~Player() override;
 };

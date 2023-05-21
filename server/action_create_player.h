@@ -1,5 +1,5 @@
 #include "action.h"
-#include "player.h"
+#include "entity_player.h"
 
 class CreatePlayer : public Action {
     private:

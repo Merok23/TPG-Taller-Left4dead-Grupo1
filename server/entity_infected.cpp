@@ -15,3 +15,5 @@ void Infected::shoot(std::vector<HitEntity>& entities_hit) {
 bool Infected::isInfected() {
     return true;
 }
+
+Infected::~Infected() {}
