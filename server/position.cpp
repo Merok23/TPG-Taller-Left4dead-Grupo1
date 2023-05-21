@@ -20,6 +20,10 @@ void Position::setX(int32_t x) {
     this->x = x;
 }
 
+void Position::setY(int32_t y) {
+    this->y = y;
+}
+
 void Position::move(int x, int y) {
     this->x += x;
     this->y += y;

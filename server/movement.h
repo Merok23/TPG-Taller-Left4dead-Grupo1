@@ -14,6 +14,7 @@ class Movement {
         int32_t getY();
         double getRadius();
         void setX(int32_t x);
+        void setY(int32_t y);
         void setDirection(int x, int y);
         void move();
         bool checkForCollision(const Movement &other);

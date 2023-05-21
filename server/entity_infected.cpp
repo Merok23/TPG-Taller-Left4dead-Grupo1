@@ -7,8 +7,7 @@ Infected::Infected(uint32_t id, uint32_t x, uint32_t y) :
 
 void Infected::move(int32_t x_movement, int32_t y_movement) {
     this->state = MOVING_INFECTED;
-    //I decided that they move twice the speed of the players (dunno)
-    this->getDirectionOfMovement()->setDirection(x_movement + x_movement, y_movement + y_movement);
+    this->getDirectionOfMovement()->setDirection(x_movement * CONFIG.infected_speed, y_movement * CONFIG.infected_speed);
 }
 
 void Infected::update(Map& map) {

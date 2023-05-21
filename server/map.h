@@ -23,4 +23,6 @@ class Map {
     private:
         //intentionally recieves a copy
         bool checkForBorderCollision(Movement entity);
+        bool moveClosestToBorder(Movement *entity);
+        //bool makeBestMovement(Movement *entity, Movement *other_entity);
 };

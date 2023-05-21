@@ -24,7 +24,7 @@ void Map::addEntity(const uint32_t &id, Movement *entity) {
 bool Map::move(const uint32_t& id) {
     bool moved = true;
     Movement *entity = this->entities[id];
-    if (checkForBorderCollision(*entity)) return false;
+    if (checkForBorderCollision(*entity)) return moveClosestToBorder(entity);
     for (auto mapEntity : entities) {
         if (mapEntity.first != id) {
             if (entity->checkForCollision(*mapEntity.second)) {
@@ -43,6 +43,22 @@ bool Map::move(const uint32_t& id) {
         entity->setX(signed_width + entity->getX());
     }
     return moved;
+}
+
+
+bool Map::moveClosestToBorder(Movement *entity) {
+    Movement copy = *entity;
+    int32_t initial_y = copy.getY();
+    copy.move();
+    int32_t y = copy.getY();
+    int32_t radius = entity->getRadius();
+    int64_t signed_height = this->height;
+    if (y - radius < 0) {
+        entity->setY(radius);
+    } else if (y + radius > signed_height) {
+        entity->setY(signed_height - radius);
+    }
+    return (initial_y != entity->getY());
 }
 
 std::vector<VectorWrapper> Map::shoot(uint32_t id) {

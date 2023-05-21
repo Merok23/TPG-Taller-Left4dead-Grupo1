@@ -15,6 +15,10 @@ void Movement::setX(int32_t x) {
     this->centre.setX(x);
 }
 
+void Movement::setY(int32_t y) {
+    this->centre.setY(y);
+}
+
 double Movement::getRadius() {
     return this->centre.getRadius();
 }
