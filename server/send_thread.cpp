@@ -1,14 +1,14 @@
 #include "send_thread.h"
 
 SendThread::SendThread(ServerProtocol& protocol, 
-    Queue<GameStateForClient*>& client_queue) : 
+    Queue<std::shared_ptr<GameStateForClient>>& client_queue) : 
         protocol(protocol), client_queue(client_queue), finished(false) {}
 
 
 void SendThread::run() {
     while (!finished && !protocol.isFinished()) {
         try {
-            GameStateForClient* game_state = client_queue.pop();
+            std::shared_ptr<GameStateForClient> game_state = client_queue.pop();
             protocol.sendGameState(game_state); 
         } catch(std::runtime_error& e) {
             std::string message = e.what();

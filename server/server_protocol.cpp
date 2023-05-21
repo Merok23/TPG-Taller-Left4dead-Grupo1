@@ -59,7 +59,7 @@ Action* ServerProtocol::receiveAction() {
 bool ServerProtocol::isFinished() {
     return was_closed;
 }
-void ServerProtocol::sendGameState(GameStateForClient* game_state) {
+void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     Movement *movement = entities[1]->getDirectionOfMovement();
     uint32_t movement_x = movement->getX();
@@ -73,7 +73,6 @@ void ServerProtocol::sendGameState(GameStateForClient* game_state) {
     if (was_closed) throw std::exception();
     socket.sendall(&movement_y, sizeof(uint32_t), &was_closed);
     printf("llega a delete\n");
-    delete game_state;
     /*
     int8_t code = GAMESTATE;
     socket.sendall(&code, sizeof(int8_t), &connected);

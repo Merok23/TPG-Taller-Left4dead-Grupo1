@@ -15,7 +15,7 @@ class ServerProtocol {
     public:
     explicit ServerProtocol(Socket socket);
     Action* receiveAction();
-    void sendGameState(GameStateForClient* game_state);
+    void sendGameState(std::shared_ptr<GameStateForClient> game_state);
     bool isFinished();
     void closeSocket();
 };
