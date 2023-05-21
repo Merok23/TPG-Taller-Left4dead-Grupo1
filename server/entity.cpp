@@ -29,3 +29,9 @@ int32_t Entity::getDamageForTheRound() {
 void Entity::setHitPoints(int32_t hit_points) {
     this->hit_points = hit_points;
 }
+std::string Entity::getEntityType() {
+    std::string type = "entity";
+    return type;
+}
+
+Entity::~Entity() {}

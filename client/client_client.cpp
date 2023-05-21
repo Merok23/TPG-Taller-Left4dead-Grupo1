@@ -9,31 +9,34 @@
 #include <iostream>
 #include <fstream>
 #include <thread>
-#include "client_client.h"
-//#include  "common_protocol.h"
 
+#include "client_client.h"
 
 Client::Client(const char* hostname, const char* servname) : 
-    socket(hostname, servname), protocol(std::move(socket)), connected(true) {
+    protocol(Socket(hostname, servname)) {
    return; 
 }
 
 void Client::run() {
-        while (connected) {
-            std::string line;
+    std::string line = "";
+        while (!protocol.isFinished() || line != "leave") {
             std::getline(std::cin, line);
             std::istringstream iss(line);
             std::string action; 
             iss >> action;
             if (action == "leave") {
                 break; 
-            }
-            if (action == "move") {
+            } else if (action == "create") {
+                this->protocol.sendAddPlayer(); 
+                std::cout << this->protocol.recievePlayerMovement() << std::endl;
+            } else if (action == "move") {
                 int x;
                 int y;
                 iss >> x; 
                 iss >> y; 
                 this->protocol.sendMoving(x, y);
+                //std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
+                std::cout << this->protocol.recievePlayerMovement() << std::endl;
                 continue; 
             } else { 
                 std::cout << "Invalid command" << std::endl; 
