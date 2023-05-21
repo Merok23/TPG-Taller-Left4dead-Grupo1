@@ -10,7 +10,6 @@ class CreatePlayer : public Action {
     virtual void execute(Game& game) override {
         Entity* player = new Player(1, 5, 5);
         game.addEntity(player);
-        //game.addPlayerId(1); //Para que distinga si es un jugador o un infectado
     } 
     ~CreatePlayer() override {}  // Se especifica "noexcept" para el destructor virtual sobrescrito
 

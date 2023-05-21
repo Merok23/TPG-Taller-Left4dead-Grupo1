@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(int32_t width, int32_t height) : entities(), gameMap(width,height) {}
+Game::Game(int32_t width, int32_t height) : entities(), gameMap(width,height), infected(), soldiers() {}
 
 void Game::addEntity(Entity* entity) {
     this->entities[entity->getId()] = entity;
