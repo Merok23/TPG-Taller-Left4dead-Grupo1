@@ -15,8 +15,8 @@ void SendThread::run() {
             if (message.compare("The queue is closed") == 0) {
                 finished = true;
             } 
-    }
-} 
+        }
+    } 
 }
 
 void SendThread::stop() {

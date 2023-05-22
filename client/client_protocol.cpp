@@ -62,10 +62,10 @@ int32_t ClientProtocol::receiveInteger() {
     number = ntohl(number);
     return number;
 }
-std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
+GameState* ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieveUnsignedInteger();
-    if (was_closed) throw std::exception();
+    if (was_closed) return NULL; 
 
     while(entities_len > 0) {
         uint32_t id = receieveUnsignedInteger();
@@ -87,10 +87,15 @@ std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
         entities[id] = entity;
         entities_len--; 
     }
-    std::unique_ptr<GameState> game_state(new GameState(entities));
-    return game_state;
+    return (new GameState(entities));
 }
 
 bool ClientProtocol::isFinished() {
-    return !was_closed;
+    return was_closed;
+}
+
+void ClientProtocol::closeSocket() {
+    if (was_closed) return;
+    socket.shutdown(2);
+    socket.close();
 }

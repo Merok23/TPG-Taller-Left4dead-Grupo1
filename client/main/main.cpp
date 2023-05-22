@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <iostream>
 #include "../client_client.h"
 
 #define HOST argv[1]
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
         std::cout << "Error: Invalid arguments"; 
     }
     try {
-        Client client = Client(HOST, SERV); 
+        Client client(HOST, SERV); 
         client.run();  
     } catch (const std::runtime_error& e) {
         if (strcmp(e.what(), "send socket failed: Broken pipe") == 0) {
