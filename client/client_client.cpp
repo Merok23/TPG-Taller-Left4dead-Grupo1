@@ -28,17 +28,16 @@ void Client::run() {
                 break; 
             } else if (action == "create") {
                 this->protocol.sendAddPlayer();
-                //std::cout << this->protocol.recievePlayerMovement() << std::endl;
-                this->protocol.receiveGameState();
+                std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
+                game_state->print();
             } else if (action == "move") {
                 int x;
                 int y;
                 iss >> x; 
                 iss >> y; 
                 this->protocol.sendMoving(x, y);
-                //std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
-                //std::cout << this->protocol.recievePlayerMovement() << std::endl;
-                this->protocol.receiveGameState();
+                std::unique_ptr<GameState> game_state = this->protocol.receiveGameState(); 
+                game_state->print();
                 continue; 
             } else { 
                 std::cout << "Invalid command" << std::endl; 

@@ -62,72 +62,34 @@ int32_t ClientProtocol::receive_int32_number() {
     number = ntohl(number);
     return number;
 }
-void ClientProtocol::receiveGameState() {
+std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieve_uint32_number();
-    if (was_closed) return;
+    if (was_closed) throw std::exception();
+
     while(entities_len > 0) {
         uint32_t id = receieve_uint32_number();
-        std::cout << "Entity id: " << id << std::endl; 
+        if (was_closed) throw std::exception();
 
         std::string type = receiveString();
-        std::cout << "Entity type: " << type << std::endl;
+        if (was_closed) throw std::exception();
 
         int32_t hit_point = receive_int32_number();
-        std::cout << "Entity hp: " << hit_point << std::endl; 
-
+        if (was_closed) throw std::exception();
 
         int32_t position_x = receive_int32_number(); 
         int32_t position_y = receive_int32_number(); 
+        if (was_closed) throw std::exception();
 
-        std::cout << "Entity x: " << position_x << " y: " << position_y << std::endl; 
 
-        Entity* entity = nullptr;
-        if (type == "player" ) {
-            entity = new Player(id, position_x, position_y, hit_point);
-        }
+        Entity* entity  = new Entity(id, type, hit_point,  position_x, position_y);
+        
         entities[id] = entity;
         entities_len--; 
     }
-    //std::unique_ptr<GameState> game_state(new GameState(entities));
-    //return game_state;
+    std::unique_ptr<GameState> game_state(new GameState(entities));
+    return game_state;
 }
-
-/* std::string ClientProtocol::recievePlayerMovement() {
-    int32_t len = 0;
-    socket.recvall(&len, sizeof(int32_t), &was_closed);
-    len = ntohl(len);
-    std::string big_movement = "";
-    while (len > 0) {
-        uint32_t id;
-        socket.recvall(&id, sizeof(uint32_t), &was_closed);
-        id = ntohl(id);
-
-
-        uint32_t position_x;
-        uint32_t position_y;
-        socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
-        socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
-        position_x = ntohl(position_x);
-        position_y = ntohl(position_y);
-        std::string player = "Entity: ";
-        player += std::to_string(len);
-        player += "\n";
-        std::string movement = std::to_string(position_x) + " " + std::to_string(position_y) + "\n";
-        big_movement += player;
-        big_movement += movement;
-        len--;
-    }
-    return big_movement;   
-} */
- /*
-    *len_entities
-    *Entity_id
-    *Entity_type //strlen -> string
-    *Entity_hitpoints
-    *Entity_position_x 
-    *Entity_position_y
-    */
 
 bool ClientProtocol::isFinished() {
     return !was_closed;

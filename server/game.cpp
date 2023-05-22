@@ -53,7 +53,9 @@ std::shared_ptr<GameStateForClient> Game::update() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
     }
-    std::shared_ptr<GameStateForClient> game_state = std::make_shared<GameStateForClient>(this->entities, this->gameMap.getWidth(), this->gameMap.getHeight());
+    std::shared_ptr<GameStateForClient> game_state = 
+        std::make_shared<GameStateForClient>(this->entities, 
+            this->gameMap.getWidth(), this->gameMap.getHeight());
     return game_state;
 }
 

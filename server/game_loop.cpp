@@ -29,9 +29,8 @@ void GameLoop::run() {
             action->execute(id_handler);
             delete action;
             std::shared_ptr<GameStateForClient> game_state = game.update();
-            std::shared_ptr<GameStateForClient> shared_game_state(game_state);
             for (auto& player_queue : player_queues) {
-                player_queue.second->push(shared_game_state);
+                player_queue.second->push(game_state);
             } 
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / iterationsPerSecond));
