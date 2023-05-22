@@ -18,16 +18,19 @@ ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_c
     return; 
 }   
 
+void ClientProtocol::send_int32_number(int32_t number) {
+    int32_t number_to_send = htonl(number);
+    socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
+}
+
+
 void ClientProtocol::sendMoving(int x, int y) {
     uint8_t action = MOVE;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
      
-    int32_t position_x =  htonl((int32_t)x);
-    int32_t position_y = htonl((int32_t)y);   
-    
-    socket.sendall(&position_x, sizeof(int32_t), &was_closed); 
-    socket.sendall(&position_y, sizeof(int32_t), &was_closed);
+    send_int32_number(x);
+    send_int32_number(y);
 }
 
 
@@ -36,43 +39,52 @@ void ClientProtocol::sendAddPlayer() {
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
 }
 
+uint32_t ClientProtocol::receieve_uint32_number() {
+    uint32_t number;
+    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    number = ntohl(number);
+    return number;
+}
+
+std::string ClientProtocol::receiveString() {
+    uint32_t len; 
+    socket.recvall(&len, sizeof(uint32_t), &was_closed); 
+    len = ntohl(len); 
+
+    std::vector<char> string(len, 0x00);
+    socket.recvall(string.data(), len, &was_closed);
+    return std::string(string.begin(), string.end());
+}
+
+int32_t ClientProtocol::receive_int32_number() {
+    int32_t  number;
+    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    number = ntohl(number);
+    return number;
+}
 void ClientProtocol::receiveGameState() {
-    uint32_t entities_len;
-    socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
-    entities_len = ntohl(entities_len);
-    std::cout << "Entities size " << entities_len << std::endl; 
     std::map<uint32_t, Entity*> entities;
+    uint32_t entities_len = receieve_uint32_number();
+    if (was_closed) return;
     while(entities_len > 0) {
-        uint32_t id;
-        socket.recvall(&id, sizeof(uint32_t), &was_closed);
-        id = ntohl(id);
+        uint32_t id = receieve_uint32_number();
         std::cout << "Entity id: " << id << std::endl; 
 
-        uint32_t type_len; 
-        socket.recvall(&type_len, sizeof(uint32_t), &was_closed); 
-        type_len = ntohl(type_len); 
-
-        char type[MAX_TYPE_LENGHT]; 
-        socket.recvall(&type, type_len, &was_closed); 
-        type[type_len] = '\0'; 
+        std::string type = receiveString();
         std::cout << "Entity type: " << type << std::endl;
-        
-        int32_t hp;
-        socket.recvall(&hp, sizeof(int32_t), &was_closed);
-        hp = ntohl(hp);
-        std::cout << "Entity hp: " << hp << std::endl; 
 
-        int32_t position_x;
-        int32_t position_y;
-        socket.recvall(&position_x, sizeof(int32_t), &was_closed);
-        socket.recvall(&position_y, sizeof(int32_t), &was_closed);
-        position_x = ntohl(position_x); 
-        position_y = ntohl(position_y); 
+        int32_t hit_point = receive_int32_number();
+        std::cout << "Entity hp: " << hit_point << std::endl; 
+
+
+        int32_t position_x = receive_int32_number(); 
+        int32_t position_y = receive_int32_number(); 
+
         std::cout << "Entity x: " << position_x << " y: " << position_y << std::endl; 
 
         Entity* entity = nullptr;
-        if (strcmp(type, "player") == 0) {
-            entity = new Player(id, position_x, position_y, hp);
+        if (type == "player" ) {
+            entity = new Player(id, position_x, position_y, hit_point);
         }
         entities[id] = entity;
         entities_len--; 
