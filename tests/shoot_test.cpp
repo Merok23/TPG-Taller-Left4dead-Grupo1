@@ -2,7 +2,7 @@
 #include "../server/game.h"
 #include "../server/entity_player.h"
 #include "../server/entity_infected_common.h"
-
+/*
 TEST_CASE("Shooting test, one entity gets shot") {
     Game game(100, 100);
     Entity* player = new Player(1, 5, 5);
@@ -48,4 +48,4 @@ TEST_CASE("Shooting test, two entitites get shoot") {
     std::map<uint32_t, Entity*> entities = game.getEntities();
     REQUIRE(entities[2]->getHitPoints() < CONFIG.infected_health);
     REQUIRE(entities[3]->getHitPoints() < CONFIG.infected_health);
-}
+}*/

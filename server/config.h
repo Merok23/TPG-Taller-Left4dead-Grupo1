@@ -1,3 +1,4 @@
+#include <cstdint>
 #pragma once
 
 struct config {
@@ -12,6 +13,7 @@ struct config {
     int scenario_width;
     int scenario_height;
     int default_radius;
+    long int invalid_id;
 };
 
 

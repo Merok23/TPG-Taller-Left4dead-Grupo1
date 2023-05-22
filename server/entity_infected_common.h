@@ -19,4 +19,5 @@ class CommonInfected : public Infected {
     private:
         bool isInRange(Entity* entity);
         void setChase(Entity* entity);
+        bool checkForBorderCaseRange(int32_t soldier_x, int32_t infected_x);
 };
