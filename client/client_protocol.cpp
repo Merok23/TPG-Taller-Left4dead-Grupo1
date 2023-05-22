@@ -18,7 +18,7 @@ ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_c
     return; 
 }   
 
-void ClientProtocol::send_int32_number(int32_t number) {
+void ClientProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
@@ -29,8 +29,8 @@ void ClientProtocol::sendMoving(int x, int y) {
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
      
-    send_int32_number(x);
-    send_int32_number(y);
+    sendInteger(x);
+    sendInteger(y);
 }
 
 
@@ -39,7 +39,7 @@ void ClientProtocol::sendAddPlayer() {
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
 }
 
-uint32_t ClientProtocol::receieve_uint32_number() {
+uint32_t ClientProtocol::receieveUnsignedInteger() {
     uint32_t number;
     socket.recvall(&number, sizeof(uint32_t), &was_closed);
     number = ntohl(number);
@@ -56,7 +56,7 @@ std::string ClientProtocol::receiveString() {
     return std::string(string.begin(), string.end());
 }
 
-int32_t ClientProtocol::receive_int32_number() {
+int32_t ClientProtocol::receiveInteger() {
     int32_t  number;
     socket.recvall(&number, sizeof(uint32_t), &was_closed);
     number = ntohl(number);
@@ -64,21 +64,21 @@ int32_t ClientProtocol::receive_int32_number() {
 }
 std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
-    uint32_t entities_len = receieve_uint32_number();
+    uint32_t entities_len = receieveUnsignedInteger();
     if (was_closed) throw std::exception();
 
     while(entities_len > 0) {
-        uint32_t id = receieve_uint32_number();
+        uint32_t id = receieveUnsignedInteger();
         if (was_closed) throw std::exception();
 
         std::string type = receiveString();
         if (was_closed) throw std::exception();
 
-        int32_t hit_point = receive_int32_number();
+        int32_t hit_point = receiveInteger();
         if (was_closed) throw std::exception();
 
-        int32_t position_x = receive_int32_number(); 
-        int32_t position_y = receive_int32_number(); 
+        int32_t position_x = receiveInteger(); 
+        int32_t position_y = receiveInteger(); 
         if (was_closed) throw std::exception();
 
 

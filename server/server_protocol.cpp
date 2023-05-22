@@ -20,7 +20,7 @@ ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_c
     return; 
 }
 
-int32_t ServerProtocol::receive_int32_number() {
+int32_t ServerProtocol::receiveInteger() {
     int32_t number;
     socket.recvall(&number, sizeof(int32_t), &was_closed);
     number = ntohl(number);
@@ -32,8 +32,8 @@ Action* ServerProtocol::receiveAction() {
     if (was_closed) return NULL; 
     Action* action = NULL;
     if (command == MOVE) {
-        int32_t position_x = receive_int32_number();
-        int32_t position_y = receieve_uint32_number();
+        int32_t position_x = receiveInteger();
+        int32_t position_y = receieveUnsignedInteger();
         if (was_closed) throw std::exception();
 
         std::array<int32_t, 2> positionArray = {position_x, position_y};
@@ -56,14 +56,14 @@ bool ServerProtocol::isFinished() {
     return was_closed;
 }
 
-uint32_t ServerProtocol::receieve_uint32_number() {
+uint32_t ServerProtocol::receieveUnsignedInteger() {
     uint32_t number;
     socket.recvall(&number, sizeof(uint32_t), &was_closed);
     number = ntohl(number);
     return number;
 }
 
-void ServerProtocol::send_uint32_number(uint32_t number) {
+void ServerProtocol::sendUnsignedInteger(uint32_t number) {
     uint32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(uint32_t), &was_closed);
 }
@@ -75,27 +75,27 @@ void ServerProtocol::sendString(const std::string& string) {
     socket.sendall((char*)string.c_str(), string.length(), &was_closed);
 }
 
-void ServerProtocol::send_int32_number(int32_t number) {
+void ServerProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
 
 void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
-    send_uint32_number(entities.size());
+    sendUnsignedInteger(entities.size());
     for (auto entity : entities) {
-        send_uint32_number(entity.first); //id
+        sendUnsignedInteger(entity.first); //id
         if (was_closed) throw std::exception();
 
         sendString(entity.second->getEntityType());
         if (was_closed) throw std::exception();
 
 
-        send_int32_number(entity.second->getHitPoints());
+        sendInteger(entity.second->getHitPoints());
         if (was_closed) throw std::exception();
 
-        send_int32_number(entity.second->getDirectionOfMovement()->getX());
-        send_int32_number(entity.second->getDirectionOfMovement()->getY());
+        sendInteger(entity.second->getDirectionOfMovement()->getX());
+        sendInteger(entity.second->getDirectionOfMovement()->getY());
         if (was_closed) throw std::exception();
     }
 }

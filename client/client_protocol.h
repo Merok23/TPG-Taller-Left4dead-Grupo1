@@ -10,10 +10,10 @@ class ClientProtocol {
     Socket socket; 
     bool was_closed; 
 
-    uint32_t receieve_uint32_number();
+    uint32_t receieveUnsignedInteger();
     std::string receiveString();
-    int32_t receive_int32_number();
-    void send_int32_number(int32_t number);
+    int32_t receiveInteger();
+    void sendInteger(int32_t number);
 
     public:
     explicit ClientProtocol(Socket socket);
