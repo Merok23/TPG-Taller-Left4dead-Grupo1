@@ -1,4 +1,9 @@
 #include "position.h"
+#include <cmath>
+#include <vector>
+#include <tuple>
+#include <limits>
+#include "config.h"
 # pragma once
 
 #define RADIUS 5 //se debe leer del config
@@ -22,5 +27,8 @@ class Movement {
         bool isLookingAt(Movement &other); //doesn't take into account looping map :l
         int32_t calculateDistance(Movement &other);
         void setChase(Movement &other, int speed);
+    private:
+        std::tuple<int32_t, int32_t> getBestDirection(double normalized_x, double normalized_y);
+        double distance(std::tuple<double, double> direction1, std::tuple<int32_t, int32_t> direction2);
         
 };
