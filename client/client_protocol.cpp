@@ -23,11 +23,11 @@ void ClientProtocol::sendMoving(int x, int y) {
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
      
-    uint32_t position_x =  htonl((uint32_t)x);
-    uint32_t position_y = htonl((uint32_t)y);   
+    int32_t position_x =  htonl((int32_t)x);
+    int32_t position_y = htonl((int32_t)y);   
     
-    socket.sendall(&position_x, sizeof(uint32_t), &was_closed); 
-    socket.sendall(&position_y, sizeof(uint32_t), &was_closed);
+    socket.sendall(&position_x, sizeof(int32_t), &was_closed); 
+    socket.sendall(&position_y, sizeof(int32_t), &was_closed);
 }
 
 
@@ -37,8 +37,8 @@ void ClientProtocol::sendAddPlayer() {
 }
 
 void ClientProtocol::receiveGameState() {
-    int32_t entities_len;
-    socket.recvall(&entities_len, sizeof(int32_t), &was_closed);
+    uint32_t entities_len;
+    socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
     entities_len = ntohl(entities_len);
     std::cout << "Entities size " << entities_len << std::endl; 
     std::map<uint32_t, Entity*> entities;
