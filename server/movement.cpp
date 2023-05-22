@@ -43,10 +43,8 @@ bool Movement::isAligned(Movement &other, const uint32_t &border) {
     int64_t y = other.getY();
     int64_t my_y = this->getY();
     int64_t difference = y - my_y;
-    int64_t bigger_radius = this->getRadius();
-    if (other.getRadius() > bigger_radius) bigger_radius = other.getRadius();
     if (difference < 0) difference *= -1;
-    if (difference <= bigger_radius) return true;
+    if (difference <= this->getRadius()) return true;
     else return false;
 }
 

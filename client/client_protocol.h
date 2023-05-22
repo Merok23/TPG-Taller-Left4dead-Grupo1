@@ -15,7 +15,6 @@ class ClientProtocol {
     void sendMoving(int x, int y);
     void sendAddPlayer();
     bool isFinished();
-    std::unique_ptr<GameState>  receiveGameState();
-    std::string recievePlayerMovement();
+    void  receiveGameState();
 };
 #endif

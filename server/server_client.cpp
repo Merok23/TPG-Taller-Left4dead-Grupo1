@@ -14,9 +14,9 @@
 ServerClient::ServerClient(Socket socket, Queue<Action*>& game_queue, GameLoop& game_loop) : 
     protocol(std::move(socket)), 
         client_queue(MAX_ELEMENTS_QUEUE),
-            receive_thread(protocol, game_queue), 
-                send_thread(protocol, client_queue) {
-    game_loop.addClientQueue(client_queue);
+            id(game_loop.addClientQueue(client_queue)), 
+                receive_thread(protocol, game_queue, id), 
+                    send_thread(protocol, client_queue) {
     receive_thread.start();
     send_thread.start();
 }

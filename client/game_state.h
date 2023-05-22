@@ -4,7 +4,7 @@
 #include <map>
 class GameState {
     private:
-    std::map<u_int32_t, Entity*> entities;
+    std::map<uint32_t, Entity*> entities;
 
     public: 
     explicit GameState(const std::map<u_int32_t, Entity*>& entities);

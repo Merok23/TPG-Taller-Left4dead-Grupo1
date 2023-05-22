@@ -3,11 +3,16 @@
 #include <stdio.h>
 #include <functional>
 #include <iostream>
+#include "id_handler.h"
 
-#include "../server/game.h"
 class Action {
+    private:
+        uint32_t client_id;
     public:
-        virtual void execute(Game& game) = 0; //Como no es instanciable, no hace falta constructor.
+        Action() : client_id(8589934591) {};
+        virtual void execute(IdHandler& handler) = 0; //Como no es instanciable, no hace falta constructor.
+        void setClientId(uint32_t client_id);
+        uint32_t getClientId(); 
         virtual ~Action() {} ; // Se especifica "noexcept" para el destructor virtual
 };
 #endif

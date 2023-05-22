@@ -3,30 +3,30 @@
 #include "config.h"
 
 #define MAX_ELEMENTS_QUEUE 1000
-GameLoop::GameLoop() : game_queue(MAX_ELEMENTS_QUEUE), game(CONFIG.scenario_width, CONFIG.scenario_height), finished(false) {
+GameLoop::GameLoop() : 
+    game_queue(MAX_ELEMENTS_QUEUE), 
+    game(CONFIG.scenario_width, CONFIG.scenario_height), 
+    id_handler(game), 
+    finished(false), 
+    client_id(0) {
     return; 
-}
-
-void GameLoop::addPlayer(uint32_t id, Queue<std::shared_ptr<GameStateForClient>>& queue) {
-    player_queues[id] = &queue;
-    Player newPlayer = Player(id, 5, 5);
-    Entity* player = &newPlayer;
-    game.addEntity(player);
 }
 
 Queue<Action*>& GameLoop::getQueue() {
     return game_queue;
 }
 
-void GameLoop::addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue) {
-    player_queues[0] = &queue;
+int GameLoop::addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue) {
+    player_queues[client_id++] = &queue;
+    return client_id;
+
 }
 void GameLoop::run() {
     const int iterationsPerSecond = 20;
     Action* action = nullptr;
     while(!finished) {
         while(game_queue.try_pop(action)) {
-            action->execute(game);
+            action->execute(id_handler);
             delete action;
             std::shared_ptr<GameStateForClient> game_state = game.update();
             std::shared_ptr<GameStateForClient> shared_game_state(game_state);

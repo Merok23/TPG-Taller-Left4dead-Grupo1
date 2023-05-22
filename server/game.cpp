@@ -1,6 +1,11 @@
 #include "game.h"
 
-Game::Game(int32_t width, int32_t height) : entities(), gameMap(width,height), infected(), soldiers() {}
+Game::Game(int32_t width, int32_t height) : 
+    entities(),
+    gameMap(width,height),
+    infected(),
+    soldiers(),
+    current_id(0) {}
 
 void Game::addEntity(Entity* entity) {
     this->entities[entity->getId()] = entity;
@@ -10,6 +15,11 @@ void Game::addEntity(Entity* entity) {
     } else {
         this->soldiers[entity->getId()] = entity;
     }
+    this->current_id++;
+}
+
+uint32_t Game::getCurrentId() {
+    return this->current_id;
 }
 
 void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
@@ -17,9 +27,9 @@ void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
 }
 
 void Game::setShooting(const uint32_t &id) {
-    std::vector<VectorWrapper> entities_hit;
+    std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
-    std::vector<HitEntity> entities_hit_for_entity = setUpHitEntities(entities_hit);
+    std::vector<HitEntity> entities_hit_for_entity = setUpHitEntities(entities_hit);//(entity, distance)
     this->entities[id]->shoot(entities_hit_for_entity);
 }
 

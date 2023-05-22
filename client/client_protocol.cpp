@@ -36,52 +36,86 @@ void ClientProtocol::sendAddPlayer() {
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
 }
 
-std::unique_ptr<GameState> ClientProtocol::receiveGameState() {
-    uint32_t entities_len;
-    socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
+void ClientProtocol::receiveGameState() {
+    int32_t entities_len;
+    socket.recvall(&entities_len, sizeof(int32_t), &was_closed);
     entities_len = ntohl(entities_len);
-
+    std::cout << "Entities size " << entities_len << std::endl; 
     std::map<uint32_t, Entity*> entities;
-    for (uint32_t i = 0; i < entities_len; i++) {
-        int32_t id;
+    while(entities_len > 0) {
+        uint32_t id;
         socket.recvall(&id, sizeof(uint32_t), &was_closed);
         id = ntohl(id);
-       
-        uint16_t type_len; 
-        socket.recvall(&type_len, sizeof(uint16_t), &was_closed); 
-        type_len = ntohs(type_len); 
+        std::cout << "Entity id: " << id << std::endl; 
+
+        uint32_t type_len; 
+        socket.recvall(&type_len, sizeof(uint32_t), &was_closed); 
+        type_len = ntohl(type_len); 
 
         char type[MAX_TYPE_LENGHT]; 
         socket.recvall(&type, type_len, &was_closed); 
-        type[type_len - 1] = '\0'; 
-    
+        type[type_len] = '\0'; 
+        std::cout << "Entity type: " << type << std::endl;
+        
         int32_t hp;
-        socket.recvall(&hp, sizeof(uint32_t), &was_closed);
+        socket.recvall(&hp, sizeof(int32_t), &was_closed);
         hp = ntohl(hp);
-        
-        int32_t position[2];
-        socket.recvall(position, sizeof(uint32_t) * 2, &was_closed);
-        
+        std::cout << "Entity hp: " << hp << std::endl; 
+
+        int32_t position_x;
+        int32_t position_y;
+        socket.recvall(&position_x, sizeof(int32_t), &was_closed);
+        socket.recvall(&position_y, sizeof(int32_t), &was_closed);
+        position_x = ntohl(position_x); 
+        position_y = ntohl(position_y); 
+        std::cout << "Entity x: " << position_x << " y: " << position_y << std::endl; 
+
         Entity* entity = nullptr;
-        if (strcmp(type, "Player") == 0) {
-            entity = new Player(id, position[0], position[1], hp);
+        if (strcmp(type, "player") == 0) {
+            entity = new Player(id, position_x, position_y, hp);
         }
-        entities.at(id) = entity;
+        entities[id] = entity;
+        entities_len--; 
     }
-    std::unique_ptr<GameState> game_state(new GameState(entities));
-    return game_state;
+    //std::unique_ptr<GameState> game_state(new GameState(entities));
+    //return game_state;
 }
 
-std::string ClientProtocol::recievePlayerMovement() {
-    uint32_t position_x;
-    uint32_t position_y;
-    socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
-    socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
-    position_x = ntohl(position_x);
-    position_y = ntohl(position_y);
-    std::string movement = std::to_string(position_x) + " " + std::to_string(position_y);
-    return movement;   
-}
+/* std::string ClientProtocol::recievePlayerMovement() {
+    int32_t len = 0;
+    socket.recvall(&len, sizeof(int32_t), &was_closed);
+    len = ntohl(len);
+    std::string big_movement = "";
+    while (len > 0) {
+        uint32_t id;
+        socket.recvall(&id, sizeof(uint32_t), &was_closed);
+        id = ntohl(id);
+
+
+        uint32_t position_x;
+        uint32_t position_y;
+        socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
+        socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
+        position_x = ntohl(position_x);
+        position_y = ntohl(position_y);
+        std::string player = "Entity: ";
+        player += std::to_string(len);
+        player += "\n";
+        std::string movement = std::to_string(position_x) + " " + std::to_string(position_y) + "\n";
+        big_movement += player;
+        big_movement += movement;
+        len--;
+    }
+    return big_movement;   
+} */
+ /*
+    *len_entities
+    *Entity_id
+    *Entity_type //strlen -> string
+    *Entity_hitpoints
+    *Entity_position_x 
+    *Entity_position_y
+    */
 
 bool ClientProtocol::isFinished() {
     return !was_closed;
