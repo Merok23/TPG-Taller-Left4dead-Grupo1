@@ -22,7 +22,7 @@ uint32_t Game::getCurrentId() {
     return this->current_id;
 }
 
-void Game::setMoving(const uint32_t &id, const int8_t &x, const int8_t &y) {
+void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
     this->entities[id]->move(x,y);
 }
 

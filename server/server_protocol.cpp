@@ -28,13 +28,13 @@ Action* ServerProtocol::receiveAction() {
     }
     Action* action = NULL;
     if (command == MOVE) {
-        uint32_t position_x;
-        uint32_t position_y;
-        socket.recvall(&position_x, sizeof(uint32_t), &was_closed);
-        socket.recvall(&position_y, sizeof(uint32_t), &was_closed);
+        int32_t position_x;
+        int32_t position_y;
+        socket.recvall(&position_x, sizeof(int32_t), &was_closed);
+        socket.recvall(&position_y, sizeof(int32_t), &was_closed);
         position_x = ntohl(position_x);
         position_y = ntohl(position_y);
-        std::array<uint32_t, 2> positionArray = {position_x, position_y};
+        std::array<int32_t, 2> positionArray = {position_x, position_y};
         Moving* moving_action = new Moving(positionArray); 
         action = moving_action;
         return action;
@@ -68,6 +68,7 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         uint32_t entity_id = entity.first;
         entity_id = htonl(entity_id);
         socket.sendall(&entity_id, sizeof(uint32_t), &was_closed);
+
         if (was_closed) throw std::exception();
         std::string entity_type = entity.second->getEntityType();
         uint32_t entity_type_len = entity_type.length();
@@ -76,10 +77,13 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         if (was_closed) throw std::exception();
         socket.sendall(entity_type.c_str(), entity_type.length(), &was_closed);
         if (was_closed) throw std::exception();
+
+
         int32_t hit_points = entity.second->getHitPoints();
         hit_points = htonl(hit_points);
         socket.sendall(&hit_points, sizeof(int32_t), &was_closed);
         if (was_closed) throw std::exception();
+        
         Movement *movement = entity.second->getDirectionOfMovement();
         int32_t movement_x = movement->getX();
         int32_t movement_y = movement->getY();
