@@ -48,3 +48,42 @@ TEST_CASE("Movement test, three way collision", "[movement]") {
     REQUIRE(movement.checkForCollision(movement3) == true);
     REQUIRE(movement2.checkForCollision(movement3) == true);
 }
+
+TEST_CASE("Movement test, when it's created it's facing left", "[movement]") {
+    Movement movement(5, 5, 5);
+    REQUIRE(movement.isFacingLeft() == true);
+}
+
+TEST_CASE("Movement test, when it moves right, it faces right", "[movement]") {
+    Movement movement(5, 5, 5);
+    movement.setDirection(1,0);
+    movement.move();
+    REQUIRE(movement.isFacingLeft() == false);
+}
+
+TEST_CASE("Movement test, if it moves right and then stops, it still faces right", "[movement]") {
+    Movement movement(5, 5, 5);
+    movement.setDirection(1,0);
+    movement.move();
+    movement.setDirection(0,0);
+    movement.move();
+    REQUIRE(movement.isFacingLeft() == false);
+}
+
+TEST_CASE("Movement test, if it moves left and then stops, it still faces left", "[movement]") {
+    Movement movement(5, 5, 5);
+    movement.setDirection(-1,0);
+    movement.move();
+    movement.setDirection(0,0);
+    movement.move();
+    REQUIRE(movement.isFacingLeft() == true);
+}
+
+TEST_CASE("Movement test, if it moves right and then left, it faces left", "[movement]") {
+    Movement movement(5, 5, 5);
+    movement.setDirection(1,0);
+    movement.move();
+    movement.setDirection(-1,0);
+    movement.move();
+    REQUIRE(movement.isFacingLeft() == true);
+}

@@ -1,7 +1,10 @@
 #include "movement.h"
 //x and y is the starting position
 Movement::Movement(int x, int y, double radius) 
-    : x_movement(0), y_movement(0), centre(x, y, radius) {}
+    : x_movement(0), 
+    y_movement(0), 
+    centre(x, y, radius), 
+    facing_left(true) {}
 
 int32_t Movement::getX() {
     return this->centre.getX();
@@ -26,6 +29,8 @@ double Movement::getRadius() {
 void Movement::setDirection(int x, int y) {
     this->x_movement = x;
     this->y_movement = y;
+    if (x < 0) this->facing_left = true;
+    else if (x > 0) this->facing_left = false;
 }
 
 void Movement::move() {
@@ -37,6 +42,10 @@ bool Movement::checkForCollision(const Movement &other) {
     Position aux = Position(this->centre.getX(), this->centre.getY(), this->centre.getRadius());
     aux.move(this->x_movement, this->y_movement);
     return aux.checkForCollision(other.centre);
+}
+
+bool Movement::isFacingLeft() {
+    return this->facing_left;
 }
 
 bool Movement::isAligned(Movement &other, const uint32_t &border) {

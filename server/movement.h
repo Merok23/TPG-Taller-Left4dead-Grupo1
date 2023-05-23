@@ -13,6 +13,7 @@ class Movement {
         int8_t x_movement;
         int8_t y_movement;
         Position centre;
+        bool facing_left;
     public:
         Movement(int x, int y, double radius);
         int32_t getX();
@@ -23,6 +24,7 @@ class Movement {
         void setDirection(int x, int y);
         void move();
         bool checkForCollision(const Movement &other);
+        bool isFacingLeft();
         bool isAligned(Movement &other, const uint32_t &border);
         bool isLookingAt(Movement &other); //doesn't take into account looping map :l
         int32_t calculateDistance(Movement &other);
