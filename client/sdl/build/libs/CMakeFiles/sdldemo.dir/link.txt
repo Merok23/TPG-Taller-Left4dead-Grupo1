@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsdldemo.a CMakeFiles/sdldemo.dir/Area.cpp.o CMakeFiles/sdldemo.dir/Animation.cpp.o CMakeFiles/sdldemo.dir/Exception.cpp.o CMakeFiles/sdldemo.dir/SdlTexture.cpp.o CMakeFiles/sdldemo.dir/SdlException.cpp.o CMakeFiles/sdldemo.dir/SdlWindow.cpp.o
+/usr/bin/ranlib libsdldemo.a

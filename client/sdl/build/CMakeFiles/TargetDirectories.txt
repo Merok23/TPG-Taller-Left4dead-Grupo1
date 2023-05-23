@@ -1,0 +1,6 @@
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles/sdl-events-prueba.dir
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles/edit_cache.dir
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles/rebuild_cache.dir
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/libs/CMakeFiles/sdldemo.dir
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/libs/CMakeFiles/edit_cache.dir
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/libs/CMakeFiles/rebuild_cache.dir
