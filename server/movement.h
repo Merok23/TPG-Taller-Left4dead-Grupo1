@@ -25,6 +25,7 @@ class Movement {
         void move();
         bool checkForCollision(const Movement &other);
         bool isFacingLeft();
+        bool isMovingUp(); 
         bool isAligned(Movement &other, const uint32_t &border);
         bool isLookingAt(Movement &other); //doesn't take into account looping map :l
         int32_t calculateDistance(Movement &other);

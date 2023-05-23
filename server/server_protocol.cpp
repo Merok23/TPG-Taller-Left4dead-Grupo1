@@ -100,6 +100,14 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
 
         sendInteger(entity.second->getDirectionOfMovement()->getY());
         if (was_closed) return;
+
+        uint8_t isFacingLeft = (entity.second->getDirectionOfMovement()->isFacingLeft());
+        socket.sendall(&isFacingLeft, sizeof(uint8_t), &was_closed);
+        if (was_closed) return;
+
+        uint8_t isFacingUp = (entity.second->getDirectionOfMovement()->isMovingUp());
+        socket.sendall(&isFacingUp, sizeof(uint8_t), &was_closed);
+        if (was_closed) return;
     }
 }
 

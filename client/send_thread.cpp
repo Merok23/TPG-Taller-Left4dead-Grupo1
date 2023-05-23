@@ -8,6 +8,10 @@ void SendThread::run() {
     while (!finished) {
         try {
             line = queue_comandos.pop();
+            if (protocol.isFinished()) {
+                stop(); 
+                break; 
+            }
             std::istringstream iss(line);
             std::string action; 
             iss >> action;
@@ -18,7 +22,6 @@ void SendThread::run() {
                 iss >> x >> y;
                 protocol.sendMoving(x, y); 
         }
-        if (protocol.isFinished()) finished = true; 
         } catch(std::runtime_error& e) {
             std::string message = e.what();
             if (message.compare("The queue is closed") == 0) {

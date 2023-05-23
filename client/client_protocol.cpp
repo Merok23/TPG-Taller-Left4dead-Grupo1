@@ -37,6 +37,7 @@ void ClientProtocol::sendMoving(int x, int y) {
 void ClientProtocol::sendAddPlayer() {
     uint8_t action = ADD_PLAYER;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
 }
 
 uint32_t ClientProtocol::receieveUnsignedInteger() {
@@ -62,6 +63,13 @@ int32_t ClientProtocol::receiveInteger() {
     number = ntohl(number);
     return number;
 }
+
+uint8_t ClientProtocol::receiveUnsignedSmallInteger() {
+    uint8_t command;
+    socket.recvall(&command, sizeof(uint8_t), &was_closed);
+    return command;
+}
+
 GameState* ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieveUnsignedInteger();
@@ -81,8 +89,12 @@ GameState* ClientProtocol::receiveGameState() {
         int32_t position_y = receiveInteger(); 
         if (was_closed) return NULL; 
 
+        bool is_facing_left = (bool)receiveUnsignedSmallInteger();
+        if (was_closed) return NULL;
 
-        Entity* entity  = new Entity(id, type, hit_point,  position_x, position_y);
+        bool is_moving_up = (bool)receiveUnsignedSmallInteger();
+
+        Entity* entity  = new Entity(id, type, hit_point,  position_x, position_y, is_facing_left, is_moving_up);
         
         entities[id] = entity;
         entities_len--; 

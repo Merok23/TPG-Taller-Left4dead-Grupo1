@@ -48,6 +48,10 @@ bool Movement::isFacingLeft() {
     return this->facing_left;
 }
 
+bool Movement::isMovingUp() {
+    return (this->y_movement > 0);
+}
+
 bool Movement::isAligned(Movement &other, const uint32_t &border) {
     int64_t y = other.getY();
     int64_t my_y = this->getY();

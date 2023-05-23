@@ -14,6 +14,7 @@ class ClientProtocol {
     std::string receiveString();
     int32_t receiveInteger();
     void sendInteger(int32_t number);
+    uint8_t receiveUnsignedSmallInteger();
 
     public:
     explicit ClientProtocol(Socket socket);
