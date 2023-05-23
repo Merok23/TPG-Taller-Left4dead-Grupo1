@@ -15,6 +15,7 @@ class GameLoop : public Thread {
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
     std::atomic<bool> finished;
     std::atomic<int> client_id; 
+    std::mutex mutex;
 
     public:
     explicit GameLoop();
@@ -22,6 +23,7 @@ class GameLoop : public Thread {
     Queue<Action*>& getQueue();
 
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
+    void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     virtual void run() override;
 
     void stop();

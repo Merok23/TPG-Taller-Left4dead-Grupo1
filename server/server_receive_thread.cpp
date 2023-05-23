@@ -27,18 +27,19 @@ void ReceiveThread::receiveCommands() {
             if(protocol.isFinished()) {
                 finished = true;
                 break;
-            }   
+            } 
             if (action) game_queue.push(action);  
-        } catch (const std::runtime_error& e) {
-            std::cerr << "ERROR: " << e.what() << std::endl;
-            break;            
-        } 
+        } catch(std::runtime_error& e) {
+            std::string message = e.what();
+            if (message == "The queue is closed") {
+                finished = true;
+            } 
+        }
     }  
 } 
 
 void ReceiveThread::stop() {
         finished = true;
-        protocol.closeSocket();
 } 
 
 bool ReceiveThread::isFinished() {

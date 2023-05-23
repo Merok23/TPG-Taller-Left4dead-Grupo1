@@ -17,6 +17,7 @@ class SendThread : public Thread {
         SendThread(ClientProtocol& protocol, Queue<std::string>& queue_comandos);
         
         void stop();
+        bool isFinished();
         virtual void run() override; 
 };
 

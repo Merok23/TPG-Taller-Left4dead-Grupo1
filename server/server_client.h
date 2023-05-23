@@ -9,6 +9,7 @@
 class ServerClient {
     private: 
     ServerProtocol protocol;
+    GameLoop& game_loop;    
     Queue<std::shared_ptr<GameStateForClient>> client_queue;
     int id; //no se como inicializar numero random aún 
     ReceiveThread receive_thread;

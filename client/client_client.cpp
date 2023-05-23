@@ -26,7 +26,7 @@ void Client::run() {
     send_thread->start();
     receive_thread->start();
     std::string line;
-    while (!finished) {
+    while (!finished) { 
         std::getline(std::cin, line);
         if (line == "leave") {
             finished = true; 

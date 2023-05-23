@@ -69,17 +69,17 @@ GameState* ClientProtocol::receiveGameState() {
 
     while(entities_len > 0) {
         uint32_t id = receieveUnsignedInteger();
-        if (was_closed) throw std::exception();
+        if (was_closed) return NULL;
 
         std::string type = receiveString();
-        if (was_closed) throw std::exception();
+        if (was_closed) return NULL;
 
         int32_t hit_point = receiveInteger();
-        if (was_closed) throw std::exception();
+        if (was_closed) return NULL;
 
         int32_t position_x = receiveInteger(); 
         int32_t position_y = receiveInteger(); 
-        if (was_closed) throw std::exception();
+        if (was_closed) return NULL; 
 
 
         Entity* entity  = new Entity(id, type, hit_point,  position_x, position_y);
@@ -96,6 +96,6 @@ bool ClientProtocol::isFinished() {
 
 void ClientProtocol::closeSocket() {
     if (was_closed) return;
-    socket.shutdown(2);
+    socket.shutdown(SHUT_RDWR);
     socket.close();
 }

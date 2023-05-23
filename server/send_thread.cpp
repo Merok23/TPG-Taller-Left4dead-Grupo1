@@ -12,7 +12,7 @@ void SendThread::run() {
             protocol.sendGameState(game_state); 
         } catch(std::runtime_error& e) {
             std::string message = e.what();
-            if (message.compare("The queue is closed") == 0) {
+            if (message == "The queue is closed") {
                 finished = true;
             } 
         }

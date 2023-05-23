@@ -33,8 +33,9 @@ Action* ServerProtocol::receiveAction() {
     Action* action = NULL;
     if (command == MOVE) {
         int32_t position_x = receiveInteger();
+        if (was_closed) return NULL;
         int32_t position_y = receieveUnsignedInteger();
-        if (was_closed) throw std::exception();
+        if (was_closed) return NULL;
 
         std::array<int32_t, 2> positionArray = {position_x, position_y};
         action = new Moving(positionArray); 
@@ -83,26 +84,28 @@ void ServerProtocol::sendInteger(int32_t number) {
 void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     sendUnsignedInteger(entities.size());
+    if (was_closed) return;
     for (auto entity : entities) {
         sendUnsignedInteger(entity.first); //id
-        if (was_closed) throw std::exception();
+        if (was_closed) return;
 
         sendString(entity.second->getEntityType());
-        if (was_closed) throw std::exception();
-
+        if (was_closed) return;
 
         sendInteger(entity.second->getHitPoints());
-        if (was_closed) throw std::exception();
+        if (was_closed) return;
 
         sendInteger(entity.second->getDirectionOfMovement()->getX());
+        if (was_closed) return;
+
         sendInteger(entity.second->getDirectionOfMovement()->getY());
-        if (was_closed) throw std::exception();
+        if (was_closed) return;
     }
 }
 
 
 void ServerProtocol::closeSocket() {
     if (was_closed) return;
-    socket.shutdown(2);
+    socket.shutdown(SHUT_RDWR);
     socket.close();
 }
