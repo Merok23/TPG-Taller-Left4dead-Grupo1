@@ -14,14 +14,22 @@
 #include "Animation.h"
 #include "SdlTexture.h"
 
+#include <iostream>
+
 Animation::Animation(const SdlTexture *texture) : texture(texture), currentFrame(0),
                                                   numFrames(this->texture->getWidth() / this->texture->getHeight()),
-                                                  size(this->texture->getHeight()), elapsed(0.0f) {
+                                                  size(this->texture->getHeight()), elapsed(0.0f),
+                                                  amountAnimationsMade(0) {
     assert(this->numFrames > 0);
     assert(this->size > 0);
 }
 
 Animation::~Animation() {}
+
+bool Animation::amountPlayed() {
+    return amountAnimationsMade;
+}
+
 
 void Animation::update(float dt) {
     this->elapsed += dt;
@@ -30,6 +38,8 @@ void Animation::update(float dt) {
         this->advanceFrame();
         this->elapsed -= FRAME_RATE;
     }
+    if (currentFrame+1 == numFrames)
+        amountAnimationsMade++;
 }
 
 /**

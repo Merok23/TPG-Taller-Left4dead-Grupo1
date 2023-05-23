@@ -8,14 +8,23 @@
 #include "Animation.h"
 #include "Player.h"
 
+#define BACKGROUND_WIDTH 1920
+#define BACKGROUND_HEIGTH 1080
+
+#define CAMARA_START_X 300
+#define CAMARA_WIDTH 1320 //300 pixels to the left and 300 pixels to the right start hidden
+#define CAMARA_MAX_X 1920-CAMARA_WIDTH
+
+#define SCROLL_THREASHOLD 350
+
 static bool handleEvents(Player &player);
-static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &srcArea, Area &destArea);
+static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &destArea);
 static void update(Player &player, float dt);
 
 int main(int argc, char** argv){
     try {
 
-        SdlWindow window(1920, 1080); //creo la ventana
+        SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
 
         SdlTexture s1_idle("assets/Soldier_1/Idle.png", //path de la imagen
                     window,  //donde lo meto
@@ -29,18 +38,21 @@ int main(int argc, char** argv){
                     window,  //donde lo meto
                     Color{0x11, 0x11, 0x11}); //no se que es esto
         
-        SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
-        Area srcArea(0, 0, 1980, 1080);
-        Area destArea(0, 0, 1800, 1000);
+        SdlTexture s1_die("assets/Soldier_1/Dead.png", //path de la imagen
+                    window,  //donde lo meto
+                    Color{0x11, 0x11, 0x11}); //no se que es esto
 
-        Player player_1(s1_idle, s1_run, s1_shot1);
+        SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
+        Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
+
+        Player player_1(s1_idle, s1_run, s1_shot1, s1_die);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(player_1);
             update(player_1, FRAME_RATE);
-            render(window, player_1, im, srcArea, destArea);
+            render(window, player_1, im, destArea);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -81,6 +93,9 @@ static bool handleEvents(Player &player) {
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
                         player.shoot();
                         break;
+                    case SDLK_h: //le "pegaron"
+                        player.hurt();
+                        break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
                 }
@@ -106,9 +121,25 @@ static bool handleEvents(Player &player) {
     return true;
 }
 
-static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &srcArea, Area &destArea) {
+static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
+    int cameraX = CAMARA_START_X;
+    if (player.getX() <= SCROLL_THREASHOLD - 100) {
+        cameraX = player.getX() + ( CAMARA_WIDTH / 220);
+        if (cameraX < 0)
+            cameraX = 0;
+    }
+
+    std::cout << "El x del player es: " << player.getX() << " y el tope es " << 1070 << std::endl;
+        
+    if (player.getX() >= CAMARA_WIDTH - SCROLL_THREASHOLD) {
+        cameraX = player.getX() - ( CAMARA_WIDTH / 2);
+        if (cameraX > BACKGROUND_WIDTH - CAMARA_WIDTH)
+            cameraX = BACKGROUND_WIDTH - CAMARA_WIDTH;
+    }
+    Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
+
     player.render(); //le delego al player la responsabilidad de saber renderizarse
     window.render();
 }

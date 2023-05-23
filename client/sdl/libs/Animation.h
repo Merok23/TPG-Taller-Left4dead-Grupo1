@@ -21,6 +21,7 @@ class Animation {
     ~Animation();
     void update(float dt);
     void render(const Area& dst, const SDL_RendererFlip &flipType);
+    bool amountPlayed();
 
 
    private:
@@ -35,6 +36,8 @@ class Animation {
     int size;
     /** Time elapsed since last update. */
     float elapsed;
+    /** The number of times the animation was showed*/
+    int amountAnimationsMade;
 };
 
 #endif  //__ANIMATION_H__
