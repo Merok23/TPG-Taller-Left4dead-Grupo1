@@ -29,6 +29,11 @@ void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
 void Game::setShooting(const uint32_t &id) {
     std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
+    //remueve los que no son infectados
+    entities_hit.erase(std::remove_if(entities_hit.begin(), entities_hit.end(), [this](VectorWrapper& entity_hit) {
+        return this->infected.find(entity_hit.getId()) == this->infected.end();
+    }), entities_hit.end());
+
     std::vector<HitEntity> entities_hit_for_entity = setUpHitEntities(entities_hit);//(entity, distance)
     this->entities[id]->shoot(entities_hit_for_entity);
 }

@@ -16,6 +16,10 @@ void Player::update(Map& map) {
     if (this->state == MOVING_SOLDIER) {
         map.move(this->getId());
     }
+    int32_t hit_points = this->getHitPoints();
+    hit_points -= this->getDamageForTheRound();
+    this->setHitPoints(hit_points);
+    this->setDamageForTheRound(0);
 }
 
 void Player::shoot(std::vector<HitEntity>& entities_hit) {

@@ -63,8 +63,8 @@ bool Movement::isLookingAt(Movement &other) {
     int64_t x = other.getX();
     int64_t my_x = this->getX();
     int64_t x_difference = x - my_x;
-    if (x_difference < 0 && this->x_movement < 0) return true;
-    else if (x_difference > 0 && this->x_movement > 0) return true;
+    if (x_difference < 0 && this->facing_left) return true;
+    else if (x_difference > 0 && !this->facing_left) return true;
     else return false;
 }
 

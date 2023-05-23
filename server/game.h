@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <map>
 #include <functional>
+#include <algorithm>
 
 #include "vector_wrapper.h"
 #include "../common/queue.h"
