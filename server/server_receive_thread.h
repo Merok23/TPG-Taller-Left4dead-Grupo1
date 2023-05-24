@@ -6,25 +6,30 @@
 #include "server_protocol.h"
 #include "../common/queue.h"
 #include "../server/game.h"
-#include "action.h"
-
+#include "../server/game_handler.h"
 
 class ReceiveThread : public Thread {
     private:
         ServerProtocol& protocol; 
-        Queue<Action*>& game_queue; 
+        GameHandler& game_handler;
+        Queue<std::shared_ptr<GameStateForClient>>& client_queue;
         std::atomic<bool> finished;
-        int client_id;  
+        uint32_t client_id;
+        uint32_t room_id;
+        bool start_playing; 
 
     public:
         ReceiveThread(ServerProtocol& protocol, 
-            Queue<Action*>& queue, int client_id);
+            GameHandler& game_handler, 
+                Queue<std::shared_ptr<GameStateForClient>>& client_queue);
         
-        void receiveCommands(); 
         void stop();
+        void receiveGameActions();
+        void receiveCommand();
         bool isFinished();
         virtual void run() override {
-            receiveCommands();
+            receiveCommand(); 
+            receiveGameActions();
         }
 };
 #endif
