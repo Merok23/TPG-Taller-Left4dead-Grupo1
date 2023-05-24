@@ -5,18 +5,18 @@
 #define MAX_ELEMENTS_QUEUE 10000
 
 ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)),finished(false) {
-    game_loop.start();
+    GameHandler game_handler;
 }
 
 void ClientAccepter::run() {
-    acceptClient(game_loop.getQueue(), game_loop);
+    acceptClient();
 }
 
-void ClientAccepter::acceptClient(Queue<Action*>&  game_queue, GameLoop& game_loop) {
+void ClientAccepter::acceptClient() {
     while (!finished){
         try {
         Socket socket = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(socket), game_queue, game_loop);
+        ServerClient* client = new ServerClient(std::move(socket), game_handler);
         clients.push_back(client);
     } catch (LibError &e) {
         if (finished) return;
@@ -45,8 +45,6 @@ void ClientAccepter::stop() {
         clients.pop_front();
         delete client;
     }
-    game_loop.stop(); 
-    game_loop.join(); 
     recieving_socket.shutdown(SHUT_RDWR); 
     recieving_socket.close();
 }

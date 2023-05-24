@@ -13,7 +13,6 @@ GameLoop::GameLoop() :
     mutex() {}
 
 Queue<Action*>& GameLoop::getQueue() {
-    std::unique_lock<std::mutex> lock(mutex); 
     return game_queue;
 }
 

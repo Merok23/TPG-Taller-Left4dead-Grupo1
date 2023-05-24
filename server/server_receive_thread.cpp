@@ -11,15 +11,29 @@
 #include "server_receive_thread.h"
 
 ReceiveThread::ReceiveThread(ServerProtocol& protocol, 
-            Queue<Action*>& queue, int client_id) : 
-                protocol(protocol), game_queue(queue), 
-                    finished(false), 
-                        client_id(client_id) {
+            GameHandler& game_handler, Queue<std::shared_ptr<GameStateForClient>>& client_queue) : 
+                protocol(protocol),  
+                    game_handler(game_handler),
+                        client_queue(client_queue),
+                            finished(false) {
     return; 
 }
 
 
 void ReceiveThread::receiveCommands() {
+    std::string command = protocol.receiveCommand(); 
+        uint32_t client_id = 0;
+        uint32_t room_id = 0;
+    if (command == "create room") {
+        std::string room_name = protocol.receiveRoomName();
+        room_id = game_handler.createRoom(room_name, client_queue, client_id);
+        protocol.sendRoomId(room_id);
+    } else if (command == "join") {
+        room_id = protocol.receiveRoomId();
+        bool ok = game_handler.joinRoom(room_id, client_queue, client_id);
+        protocol.sendJoinResponse(ok);  
+    } 
+    Queue<Action*>& game_queue = game_handler.getQueue(room_id);
     while (!finished) {
         try {
             Action* action = protocol.receiveAction();
