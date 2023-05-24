@@ -6,6 +6,20 @@
 #include "action_moving.h"
 #include "action_create_player.h"
 
+enum COMMANDS_TYPE {
+    DEFAULT,
+    CREATE_ROOM,
+    JOIN_ROOM
+};
+typedef struct COMMANDS {
+    COMMANDS_TYPE type;
+    std::string room_name;
+    uint32_t room_id;
+
+    COMMANDS() : 
+        type(DEFAULT), room_name(""), room_id(0) {}
+} command_t;
+
 
 class ServerProtocol {
     private:
@@ -22,7 +36,7 @@ class ServerProtocol {
     public:
     explicit ServerProtocol(Socket socket);
     Action* receiveAction();
-    std::string receiveCommand();
+    command_t receiveCommand();
     std::string receiveRoomName();
     uint32_t receiveRoomId();
     void sendRoomId(uint32_t room_id);

@@ -12,8 +12,8 @@
 #include "server_protocol.h"
 
 
-#define CREATE_ROOM 0x01
-#define JOIN_ROOM 0x02
+#define CREATE 0x01
+#define JOIN 0x02
 #define ADD_PLAYER 0x03
 #define MOVE 0x04
 
@@ -122,13 +122,18 @@ std::string ServerProtocol::receiveString() {
     return std::string(string.begin(), string.end());
 }
 
-std::string ServerProtocol::receiveCommand() {
+command_t ServerProtocol::receiveCommand() {
     uint8_t command;
     socket.recvall(&command, sizeof(uint8_t), &was_closed);
-    printf("command: %d\n", command);
-    if (command == CREATE_ROOM) return "create room";
-    if (command == JOIN_ROOM) return "join";
-    return " "; 
+    command_t return_command = command_t(); 
+    if (command == CREATE) {
+        return_command.type = CREATE_ROOM;
+        return_command.room_name = receiveRoomName();
+    } else if (command == JOIN) {
+        return_command.type = JOIN_ROOM;
+        return_command.room_id = receiveRoomId();
+    }
+    return return_command;
 }
 
 std::string ServerProtocol::receiveRoomName() {

@@ -15,45 +15,57 @@ ReceiveThread::ReceiveThread(ServerProtocol& protocol,
                 protocol(protocol),  
                     game_handler(game_handler),
                         client_queue(client_queue),
-                            finished(false) {
-    return; 
+                            finished(false), 
+                                client_id(0), 
+                                    room_id(0), 
+                                        start_playing(false) {}
+
+
+void ReceiveThread::receiveCommand() {
+    while (!finished && !this->start_playing) {
+        command_t command = protocol.receiveCommand();
+        if(protocol.isFinished() || command.type == COMMANDS_TYPE::DEFAULT) {
+            finished = true;
+            break;
+        }
+        if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
+            room_id = game_handler.createRoom(command.room_name, client_queue, client_id);
+            protocol.sendRoomId(room_id);
+            start_playing = true;
+        } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {
+            start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id);
+            protocol.sendJoinResponse(start_playing);
+            if (start_playing) room_id = command.room_id;  
+        }
+    } 
 }
 
-
-void ReceiveThread::receiveCommands() {
-    std::string command = protocol.receiveCommand(); 
-        uint32_t client_id = 0;
-        uint32_t room_id = 0;
-    if (command == "create room") {
-        std::string room_name = protocol.receiveRoomName();
-        room_id = game_handler.createRoom(room_name, client_queue, client_id);
-        protocol.sendRoomId(room_id);
-    } else if (command == "join") {
-        room_id = protocol.receiveRoomId();
-        bool ok = game_handler.joinRoom(room_id, client_queue, client_id);
-        protocol.sendJoinResponse(ok);  
-    } 
+void ReceiveThread::receiveGameActions() {
+    if (!start_playing) return;
     Queue<Action*>& game_queue = game_handler.getQueue(room_id);
     while (!finished) {
         try {
             Action* action = protocol.receiveAction();
-            if (action) action->setClientId(client_id); 
             if(protocol.isFinished()) {
                 finished = true;
                 break;
             } 
-            if (action) game_queue.push(action);  
-        } catch(std::runtime_error& e) {
-            std::string message = e.what();
-            if (message == "The queue is closed") {
-                finished = true;
-            } 
-        }
-    }  
-} 
+            if (action) {
+                action->setClientId(client_id);  
+                game_queue.push(action);  
+            }
+        } catch(const ClosedQueue &e) {
+            if (finished) return; 
+            std::cerr << "Error: " << e.what() << std::endl;
+            finished = true;
+        } 
+    }
+}
+
 
 void ReceiveThread::stop() {
         finished = true;
+        game_handler.leaveRoom(room_id, client_queue);
 } 
 
 bool ReceiveThread::isFinished() {

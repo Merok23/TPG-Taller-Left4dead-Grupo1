@@ -24,7 +24,8 @@ Client::Client(const char* hostname, const char* servname) :
 
 void Client::run() {
     std::string line;
-    while(true) { //ale ma va a matar por este while true
+    bool started_playing = false;
+    while(!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
         std::string word1, word2, word3;
@@ -33,43 +34,37 @@ void Client::run() {
             iss >> word2; 
             if (word2 == "room") {
                 iss >> word3;
-                printf("Creating room %s\n", word3.c_str());
-                command_t command; 
+                command_t command = command_t(); 
                 command.type = CREATE_ROOM;
-                command.room_id = 0;
-                command.room_name = ""; 
-                command.x_position = 0;
-                command.y_position = 0;
                 protocol.sendCommand(command);
-                std::cout << "Room id: " << protocol.receiveRoomId() << std::endl;
+                std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
-            break; 
+            started_playing = true;
         }
         else if (word1 == "join") {
             int code;
             iss >> code;
-            command_t command; 
+            command_t command = command_t(); 
             command.type = JOIN_ROOM;
             command.room_id = code;
-            command.room_name = "";
-            command.x_position = 0;
-            command.y_position = 0;
             protocol.sendCommand(command); 
             int response = protocol.receiveJoinResponse();
-            if (response == 1) std::cout << "Joined room " << code  <<  " successfully"<< std::endl;
+            if (response == 1) {
+                std::cout << "Joined room " << code  <<  " successfully"<< std::endl;
+                started_playing = true;
+            }    
             if (response == 0) std::cout << "Join room " << code << " failed" << std::endl;
-            break;
         } else if (word1 == "leave") {
             finished = true; 
+            started_playing = true;
             break;
         } else {
             std::cout << "Commands are: create room (name) or join room (id)" << std::endl;
         }
     }
-    if (!finished) {
-        send_thread->start();
-        receive_thread->start();
-    }
+
+    send_thread->start();
+    receive_thread->start();
 
     while (!finished) { 
         std::getline(std::cin, line);

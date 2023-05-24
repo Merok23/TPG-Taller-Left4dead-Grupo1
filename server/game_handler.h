@@ -18,8 +18,8 @@ class GameHandler {
     uint32_t createRoom(const std::string& room_name, Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
     bool joinRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
     Queue<Action*>& getQueue(uint32_t room_id);
-    uint32_t getClientId(); 
-    void getGameInfo(uint32_t room_id, uint32_t& client_id, Queue<Action*>& queue);
+    uint32_t getClientId();
+    void leaveRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>&);
     ~GameHandler();
 };
 #endif

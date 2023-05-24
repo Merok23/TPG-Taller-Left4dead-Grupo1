@@ -6,6 +6,7 @@
 #include "game_state.h"
 
 enum COMMANDS_TYPE {
+    DEFAULT,
     CREATE_ROOM,
     JOIN_ROOM,
     MOVE_PLAYER,
@@ -14,9 +15,12 @@ enum COMMANDS_TYPE {
 typedef struct COMMANDS {
     COMMANDS_TYPE type;
     std::string room_name; 
-    //uint32_t room_id;
-    //int32_t x_position;
-   // int32_t y_position;
+    uint32_t room_id;
+    int32_t x_position;
+    int32_t y_position;
+
+    COMMANDS() : 
+        type(DEFAULT), room_name(""), room_id(0), x_position(0), y_position(0) {}
 } command_t;
 
 
