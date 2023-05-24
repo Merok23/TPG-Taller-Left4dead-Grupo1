@@ -2,6 +2,8 @@
 #define SERVER_RECIEVE_THREAD_H
 
 #include <atomic>
+#include <memory>
+
 #include "../common/thread.h"
 #include "server_protocol.h"
 #include "../common/queue.h"
@@ -27,9 +29,6 @@ class ReceiveThread : public Thread {
         void receiveGameActions();
         void receiveCommand();
         bool isFinished();
-        virtual void run() override {
-            receiveCommand(); 
-            receiveGameActions();
-        }
+        virtual void run() override;
 };
 #endif

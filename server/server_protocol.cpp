@@ -1,14 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sstream>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <iostream>
-#include <fstream>
+#include <vector>
 #include <array>
+#include <map>
+#include <utility>
+
 #include "server_protocol.h"
 
 
@@ -49,7 +43,6 @@ Action* ServerProtocol::receiveAction() {
         Action *action = &newPlayer;
         std::shared_ptr<Action> create_player_action(action); */
         action =  new CreatePlayer();
-        
     }
     return action;
 }

@@ -1,3 +1,10 @@
+#ifndef SERVER_ENTITY_INFECTED_H
+#define SERVER_ENTITY_INFECTED_H
+
+#include <vector>
+#include <map>
+#include <utility>
+
 #include "entity.h"
 #include "config.h"
 #pragma once
@@ -16,3 +23,4 @@ class Infected : public Entity {
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) = 0;
         virtual ~Infected() override;
 };
+#endif

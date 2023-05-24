@@ -1,10 +1,16 @@
+#ifndef SERVER_ENTITY_H
+#define SERVER_ENTITY_H
+
 #include <cstdint>
 #include <functional>
+#include <vector>
+#include <string>
+#include <utility>
+
 #include "map.h"
 #include "movement.h"
 #include "hit_entity.h"
 #include "config.h"
-#include <vector>
 
 #pragma once
 
@@ -31,5 +37,5 @@ class Entity {
         virtual void shoot(std::vector<HitEntity>& entities_hit) = 0;
         virtual bool isInfected() = 0;
         virtual ~Entity() = 0;
-        
 };
+#endif

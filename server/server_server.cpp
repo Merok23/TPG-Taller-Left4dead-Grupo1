@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sstream>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <iostream>
-#include <fstream>
+#include <string>
 
 #include "server_server.h"
 #define MAX_ELEMENTS_QUEUE 1000

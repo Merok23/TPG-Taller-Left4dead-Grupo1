@@ -1,14 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
+#include <string>
 #include <sstream>
-#include <sys/types.h>
-#include <netinet/in.h>
 #include <iostream>
-#include <fstream>
-#include <thread>
+#include <utility>
+
 
 #include "client_client.h"
 #define MAX_ELEMENTS 10000
@@ -25,7 +19,7 @@ Client::Client(const char* hostname, const char* servname) :
 void Client::run() {
     std::string line;
     bool started_playing = false;
-    while(!started_playing) { 
+    while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
         std::string word1, word2, word3;
@@ -40,8 +34,7 @@ void Client::run() {
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;
-        }
-        else if (word1 == "join") {
+        } else if (word1 == "join") {
             int code;
             iss >> code;
             command_t command = command_t(); 
@@ -96,5 +89,3 @@ Client::~Client() {
     delete send_thread;
     delete receive_thread;    
 }
-
- 

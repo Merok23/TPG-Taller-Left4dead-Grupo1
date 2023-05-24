@@ -9,6 +9,9 @@
 #include <iostream>
 #include <fstream>
 
+#include <map>
+#include <utility>
+
 #include "client_protocol.h"
 #define MAX_TYPE_LENGHT 200
 
@@ -53,10 +56,14 @@ void ClientProtocol::sendCreateRoom(const std::string& room_name) {
     sendString(room_name);
 }
 void ClientProtocol::sendCommand(command_t command) {
-    if (command.type == COMMANDS_TYPE::CREATE_ROOM) sendCreateRoom(command.room_name); 
-    if (command.type == COMMANDS_TYPE::JOIN_ROOM) sendJoinRoom(command.room_id);
-    if (command.type == COMMANDS_TYPE::ADD_PLAYER) sendAddPlayer();
-    if (command.type == COMMANDS_TYPE::MOVE_PLAYER) sendMoving(command.x_position, command.y_position);
+    if (command.type == COMMANDS_TYPE::CREATE_ROOM) 
+        sendCreateRoom(command.room_name); 
+    else if (command.type == COMMANDS_TYPE::JOIN_ROOM) 
+        sendJoinRoom(command.room_id);
+    else if (command.type == COMMANDS_TYPE::ADD_PLAYER) 
+        sendAddPlayer();
+    else if (command.type == COMMANDS_TYPE::MOVE_PLAYER) 
+        sendMoving(command.x_position, command.y_position);
 }
 void ClientProtocol::sendMoving(int x, int y) {
     uint8_t action = MOVE;  
@@ -120,7 +127,7 @@ GameState* ClientProtocol::receiveGameState() {
     uint32_t entities_len = receieveUnsignedInteger();
     if (was_closed) return NULL; 
 
-    while(entities_len > 0) {
+    while (entities_len > 0) {
         uint32_t id = receieveUnsignedInteger();
         if (was_closed) return NULL;
 
@@ -139,7 +146,8 @@ GameState* ClientProtocol::receiveGameState() {
 
         bool is_moving_up = (bool)receiveUnsignedSmallInteger();
 
-        Entity* entity  = new Entity(id, type, hit_point,  position_x, position_y, is_facing_left, is_moving_up);
+        Entity* entity  = new Entity(id, type, hit_point,  
+            position_x, position_y, is_facing_left, is_moving_up);
         
         entities[id] = entity;
         entities_len--; 

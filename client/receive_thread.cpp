@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "receive_thread.h"
 
 ReceiveThread::ReceiveThread(ClientProtocol& protocol, 
@@ -7,7 +9,7 @@ ReceiveThread::ReceiveThread(ClientProtocol& protocol,
 void ReceiveThread::run() {
     while (!finished) {
         GameState* game_state = protocol.receiveGameState();
-        if(protocol.isFinished()) {
+        if (protocol.isFinished()) {
                 finished = true;
                 break;
         }   

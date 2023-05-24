@@ -1,3 +1,6 @@
+#ifndef SERVER_ID_HANDLER_H
+#define SERVER_ID_HANDLER_H
+
 #include <map>
 #include <cstdint>
 #include <mutex>
@@ -16,3 +19,4 @@ class IdHandler {
         //SHOOTING IS NOT FULLY IMPLEMENTED YET
         void shoot(uint32_t client_id);
 };
+#endif

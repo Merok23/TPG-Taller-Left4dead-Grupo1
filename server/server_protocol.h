@@ -2,6 +2,9 @@
 #define SERVER_PROTOCOL_H
 
 #include <array>
+#include <string>
+#include <memory>
+
 #include "../common/socket.h"
 #include "action_moving.h"
 #include "action_create_player.h"
@@ -32,13 +35,13 @@ class ServerProtocol {
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
     std::string receiveString();
+    std::string receiveRoomName();
+    uint32_t receiveRoomId();
 
     public:
     explicit ServerProtocol(Socket socket);
     Action* receiveAction();
     command_t receiveCommand();
-    std::string receiveRoomName();
-    uint32_t receiveRoomId();
     void sendRoomId(uint32_t room_id);
     void sendJoinResponse(bool accepted);
     void sendGameState(std::shared_ptr<GameStateForClient> game_state);

@@ -1,5 +1,8 @@
 #ifndef SERVER_CLIENT_H
 #define SERVER_CLIENT_H
+
+#include <memory>
+
 #include "server_protocol.h"
 #include "server_receive_thread.h"
 #include "send_thread.h"

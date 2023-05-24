@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <map>
 #include <functional>
+#include <vector>
+#include <memory>
 
 #include "vector_wrapper.h"
 #include "../common/queue.h"
@@ -13,7 +15,6 @@
 #include "hit_entity.h"
 #include "entity_infected.h"
 #include "entity_player.h"
-#pragma once
 
 class Game {
     private: 
@@ -35,5 +36,4 @@ class Game {
     private:
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
 };
-
-#endif //GAME_H_
+#endif 

@@ -2,8 +2,7 @@
 #define CLIENT_ENTITY_H
 #include <cstdint>
 #include <functional>
-
-#pragma once
+#include <string>
 
 class Entity {
     private:
@@ -16,7 +15,8 @@ class Entity {
         bool is_moving_up;
         
     public:
-        Entity(uint32_t id, const std::string& type, int32_t hit_points, uint32_t x, uint32_t y, bool facing_left, bool moving_up);
+        Entity(uint32_t id, const std::string& type, int32_t hit_points, 
+            uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         uint32_t getId();
         int32_t getHitPoints();
         std::string getType(); 

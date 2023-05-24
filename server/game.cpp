@@ -29,7 +29,8 @@ void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
 void Game::setShooting(const uint32_t &id) {
     std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
-    std::vector<HitEntity> entities_hit_for_entity = setUpHitEntities(entities_hit);//(entity, distance)
+    std::vector<HitEntity> entities_hit_for_entity = 
+        setUpHitEntities(entities_hit);//(entity, distance)
     this->entities[id]->shoot(entities_hit_for_entity);
 }
 

@@ -1,3 +1,6 @@
+#ifndef SERVER_MOVEMENT_H
+#define SERVER_MOVEMENT_H
+
 #include "position.h"
 #include <cmath>
 #include <vector>
@@ -14,6 +17,7 @@ class Movement {
         int8_t y_movement;
         Position centre;
         bool facing_left;
+        
     public:
         Movement(int x, int y, double radius);
         int32_t getX();
@@ -30,8 +34,11 @@ class Movement {
         bool isLookingAt(Movement &other); //doesn't take into account looping map :l
         int32_t calculateDistance(Movement &other);
         void setChase(Movement &other, int speed);
+
     private:
-        std::tuple<int32_t, int32_t> getBestDirection(double normalized_x, double normalized_y);
-        double distance(std::tuple<double, double> direction1, std::tuple<int32_t, int32_t> direction2);
-        
+        std::tuple<int32_t, int32_t> getBestDirection(double normalized_x,
+            double normalized_y);
+        double distance(std::tuple<double, double> direction1,
+            std::tuple<int32_t, int32_t> direction2);
 };
+#endif

@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "send_thread.h"
 
 SendThread::SendThread(ServerProtocol& protocol, 

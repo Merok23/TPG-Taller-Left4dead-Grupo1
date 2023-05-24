@@ -1,5 +1,6 @@
 #include "game_loop.h"
 #include <algorithm>
+#include <utility>
 #include <chrono>
 #include "config.h"
 
@@ -27,18 +28,16 @@ void GameLoop::deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& que
     auto it = std::find_if(player_queues.begin(), player_queues.end(),
         [&](const std::pair<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*>& pair) {
             return pair.second == &queue;
-        }
-    );
+        });
     if (it != player_queues.end()) player_queues.erase(it);
-    
 }
 
 
 void GameLoop::run() {
     const int iterationsPerSecond = 20;
     Action* action = nullptr;
-    while(!finished) {
-        while(game_queue.try_pop(action)) {
+    while (!finished) {
+        while (game_queue.try_pop(action)) {
             action->execute(id_handler);
             delete action;
         std::shared_ptr<GameStateForClient> game_state = game.update();

@@ -1,6 +1,7 @@
 #ifndef CLIENT_PROTOCOL_H
 #define CLIENT_PROTOCOL_H
 #include <memory>
+#include <string>
 #include <vector>
 #include "../common/socket.h"
 #include "game_state.h"
@@ -36,14 +37,15 @@ class ClientProtocol {
     void sendUnsignedInteger(uint32_t number);
     uint8_t receiveUnsignedSmallInteger();
     void sendString(const std::string& string);
-
-    public:
-    explicit ClientProtocol(Socket socket);
-    void sendCommand(command_t command);
     void sendCreateRoom(const std::string& room_name);
     void sendJoinRoom(int room_id);
     void sendMoving(int x, int y);
     void sendAddPlayer();
+    
+
+    public:
+    explicit ClientProtocol(Socket socket);
+    void sendCommand(command_t command);
     bool isFinished();
     void closeSocket();
     uint32_t receiveRoomId();

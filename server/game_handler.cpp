@@ -1,3 +1,4 @@
+#include <utility>
 #include "game_handler.h"
 
 GameHandler::GameHandler(): rooms_id(0), mutex() {}  //cambiar el 0 por una constante
@@ -23,13 +24,15 @@ Queue<Action*>& GameHandler::getQueue(uint32_t room_id) {
     return it->second->getQueue();
 }
 
-void GameHandler::leaveRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>& queue) {
+void GameHandler::leaveRoom(uint32_t room_id, 
+    Queue<std::shared_ptr<GameStateForClient>>& queue) {
     std::lock_guard<std::mutex> lock(mutex);
     auto it = rooms.find(room_id);
     it->second->deleteClientQueue(queue);
 }
 
-bool GameHandler::joinRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id) {
+bool GameHandler::joinRoom(uint32_t room_id, 
+    Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id) {
     std::lock_guard<std::mutex> lock(mutex);
     auto it = rooms.find(room_id);
     if (it == rooms.end()) return false;

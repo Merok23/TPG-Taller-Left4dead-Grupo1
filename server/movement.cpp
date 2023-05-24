@@ -59,17 +59,24 @@ bool Movement::isAligned(Movement &other, const uint32_t &border) {
     int64_t bigger_radius = this->getRadius();
     if (other.getRadius() > bigger_radius) bigger_radius = other.getRadius();
     if (difference < 0) difference *= -1;
-    if (difference <= bigger_radius) return true;
-    else return false;
+    if (difference <= bigger_radius) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Movement::isLookingAt(Movement &other) {
     int64_t x = other.getX();
     int64_t my_x = this->getX();
     int64_t x_difference = x - my_x;
-    if (x_difference < 0 && this->x_movement < 0) return true;
-    else if (x_difference > 0 && this->x_movement > 0) return true;
-    else return false;
+    if (x_difference < 0 && this->x_movement < 0)  {
+        return true; 
+    } else if (x_difference > 0 && this->x_movement > 0) {
+        return true; 
+    } else {
+        return false;
+    }
 }
 
 int32_t Movement::calculateDistance(Movement &other) {
@@ -129,7 +136,8 @@ std::tuple<int32_t, int32_t> Movement::getBestDirection(double normalized_x, dou
 }
 
 
-double Movement::distance(std::tuple<double, double> direction1, std::tuple<int32_t, int32_t> direction2) {
+double Movement::distance(std::tuple<double, double> direction1, 
+    std::tuple<int32_t, int32_t> direction2) {
     double x1 = std::get<0>(direction1);
     double y1 = std::get<1>(direction1);
     double x2 = std::get<0>(direction2);

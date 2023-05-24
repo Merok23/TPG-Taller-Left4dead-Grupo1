@@ -1,7 +1,11 @@
 #include <sstream>
+#include <string>
 #include "send_thread.h"
 
-SendThread::SendThread(ClientProtocol& protocol, Queue<std::string>& queue) : protocol(protocol), queue_comandos(queue), finished(false) {}
+SendThread::SendThread(ClientProtocol& protocol, Queue<std::string>& queue) : 
+    protocol(protocol), 
+        queue_comandos(queue), 
+            finished(false) {}
 
 void SendThread::run() {
     std::string line;

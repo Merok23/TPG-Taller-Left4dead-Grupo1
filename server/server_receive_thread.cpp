@@ -21,10 +21,15 @@ ReceiveThread::ReceiveThread(ServerProtocol& protocol,
                                         start_playing(false) {}
 
 
+void ReceiveThread::run() {
+    receiveCommand();
+    receiveGameActions();
+}
+
 void ReceiveThread::receiveCommand() {
     while (!finished && !this->start_playing) {
         command_t command = protocol.receiveCommand();
-        if(protocol.isFinished() || command.type == COMMANDS_TYPE::DEFAULT) {
+        if (protocol.isFinished() || command.type == COMMANDS_TYPE::DEFAULT) {
             finished = true;
             break;
         }
@@ -46,7 +51,7 @@ void ReceiveThread::receiveGameActions() {
     while (!finished) {
         try {
             Action* action = protocol.receiveAction();
-            if(protocol.isFinished()) {
+            if (protocol.isFinished()) {
                 finished = true;
                 break;
             } 
