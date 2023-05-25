@@ -28,6 +28,7 @@ class Entity {
         int32_t getDamageForTheRound();
         void setHitPoints(int32_t hit_points);
         void setDamageForTheRound(int32_t damage);
+        void resetDamageForTheRound();
         Movement* getDirectionOfMovement();
         virtual std::string getEntityType(); 
         //seguramente no sea necesario que sea virtual e = 0

@@ -5,6 +5,7 @@ Game::Game(int32_t width, int32_t height) :
     gameMap(width,height),
     infected(),
     soldiers(),
+    shooting_soldiers(),
     current_id(0) {}
 
 void Game::addEntity(Entity* entity) {
@@ -24,6 +25,7 @@ uint32_t Game::getCurrentId() {
 
 void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
     this->entities[id]->move(x,y);
+    this->shooting_soldiers.remove(id);
 }
 
 void Game::setShooting(const uint32_t &id) {
@@ -37,6 +39,14 @@ void Game::setShooting(const uint32_t &id) {
     std::vector<HitEntity> entities_hit_for_entity = 
         setUpHitEntities(entities_hit);//(entity, distance)
     this->entities[id]->shoot(entities_hit_for_entity);
+}
+
+void Game::addShootingEntity(const uint32_t &id) {
+    this->shooting_soldiers.push_back(id);
+}
+
+void Game::removeShootingEntity(const uint32_t &id) {
+    this->shooting_soldiers.remove(id);
 }
 
 std::vector<HitEntity> Game::setUpHitEntities(const std::vector<VectorWrapper>& entities_hit) {
@@ -55,14 +65,28 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 }
 
 std::shared_ptr<GameStateForClient> Game::update() {
-    infectedCheckForSoldiersInRange();
-    for (auto&& id_entity : this->entities) {
-        id_entity.second->update(std::ref(this->gameMap));
-    }
+    this->infectedCheckForSoldiersInRange();
+    this->checkForShooting();
+    this->updateAllEntities();
     std::shared_ptr<GameStateForClient> game_state = 
         std::make_shared<GameStateForClient>(this->entities, 
             this->gameMap.getWidth(), this->gameMap.getHeight());
     return game_state;
+}
+
+void Game::checkForShooting() {
+    if (this->shooting_soldiers.empty()) {
+        return;
+    }
+    for (auto soldier : this->shooting_soldiers) {
+        this->setShooting(soldier);
+    }
+}
+
+void Game::updateAllEntities() {
+    for (auto&& id_entity : this->entities) {
+        id_entity.second->update(std::ref(this->gameMap));
+    }
 }
 
 void Game::infectedCheckForSoldiersInRange() {

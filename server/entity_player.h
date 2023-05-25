@@ -11,7 +11,8 @@
 
 enum SoldierState {
     IDLE_SOLDIER,
-    MOVING_SOLDIER
+    MOVING_SOLDIER,
+    SHOOTING_SOLDIER
 };
 
 class Player : public Entity {

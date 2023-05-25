@@ -89,3 +89,33 @@ TEST_CASE("Shooting test, soldier shoots infected and doesn't damage friendly un
     REQUIRE(entities[2]->getHitPoints() == CONFIG.soldier_health);
     REQUIRE(entities[3]->getHitPoints() < CONFIG.infected_health);
 }
+
+
+TEST_CASE("Shooting test, soldier stops shooting by moving", "[shooting]") {
+    Game game(100, 100);
+    Entity* player = new Player(1, 5, 5);
+    Entity* infected = new CommonInfected(2, 20, 5);
+    game.addEntity(player);
+    game.addEntity(infected);
+    game.setShooting(1);
+    game.setMoving(1, 1, 0);
+    game.update();
+    std::map<uint32_t, Entity*> entities = game.getEntities();
+    REQUIRE(entities[2]->getHitPoints() == CONFIG.infected_health);
+}
+
+TEST_CASE("Shooting test, soldier stops shooting on command", "[shooting]") {
+    Game game(100, 100);
+    Entity* player = new Player(1, 5, 5);
+    Entity* infected = new CommonInfected(2, 20, 5);
+    game.addEntity(player);
+    game.addEntity(infected);
+    game.setMoving(1, 1, 0);
+    game.update();
+    game.addShootingEntity(1);
+    game.update();
+    game.removeShootingEntity(1);
+    game.update();
+    std::map<uint32_t, Entity*> entities = game.getEntities();
+    REQUIRE(entities[2]->getHitPoints() == CONFIG.infected_health - 50);
+}

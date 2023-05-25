@@ -24,10 +24,12 @@ void Player::update(Map& map) {
     int32_t hit_points = this->getHitPoints();
     hit_points -= this->getDamageForTheRound();
     this->setHitPoints(hit_points);
-    this->setDamageForTheRound(0);
+    this->resetDamageForTheRound();
 }
 
 void Player::shoot(std::vector<HitEntity>& entities_hit) {
+    //if no ammo, return (or reload)
+    this->state = SHOOTING_SOLDIER;
     for (auto entity_hit : entities_hit) {
         Entity* entity = entity_hit.getEntity();
         entity->setDamageForTheRound(50);

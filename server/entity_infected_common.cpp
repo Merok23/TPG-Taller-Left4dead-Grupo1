@@ -25,7 +25,7 @@ void CommonInfected::update(Map& map) {
     int32_t hit_points = this->getHitPoints();
     hit_points -= this->getDamageForTheRound();
     this->setHitPoints(hit_points);
-    this->setDamageForTheRound(0);
+    this->resetDamageForTheRound();
 }
 
 void CommonInfected::move(int32_t x_movement, int32_t y_movement) {
