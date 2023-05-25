@@ -7,7 +7,7 @@
 
 #include "../common/socket.h"
 #include "action_moving.h"
-#include "action_create_player.h"
+#include "action_create_soldier_idf.h"
 
 enum COMMANDS_TYPE {
     DEFAULT,

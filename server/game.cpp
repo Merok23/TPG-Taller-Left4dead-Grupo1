@@ -28,7 +28,7 @@ void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
     this->shooting_soldiers.remove(id);
 }
 
-void Game::setShooting(const uint32_t &id) {
+void Game::shootingEntitiesShoot(const uint32_t &id) {
     std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
     //remueve los que no son infectados
@@ -42,11 +42,17 @@ void Game::setShooting(const uint32_t &id) {
     this->entities[id]->shoot(entities_hit_for_entity);
 }
 
-void Game::addShootingEntity(const uint32_t &id) {
+void Game::setShooting(const uint32_t &id) {
     this->shooting_soldiers.push_back(id);
 }
 
-void Game::removeShootingEntity(const uint32_t &id) {
+void Game::setReloading(const uint32_t &id) {
+    this->shooting_soldiers.remove(id);
+    Player *player = dynamic_cast<Player*>(this->entities[id]);
+    player->setReload();
+}
+
+void Game::stopShooting(const uint32_t &id) {
     this->shooting_soldiers.remove(id);
 }
 
@@ -76,11 +82,9 @@ std::shared_ptr<GameStateForClient> Game::update() {
 }
 
 void Game::checkForShooting() {
-    if (this->shooting_soldiers.empty()) {
-        return;
-    }
+    if (this->shooting_soldiers.empty()) return;
     for (auto soldier : this->shooting_soldiers) {
-        this->setShooting(soldier);
+        this->shootingEntitiesShoot(soldier);
     }
 }
 

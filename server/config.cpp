@@ -12,5 +12,10 @@ const struct config CONFIG {
     20000, // scenario_width
     20000, // scenario_height
     5, // default_radius
-    8589934591 // invalid_id
+    8589934591, // invalid_id
+    50, // weapon_idf_base_damage
+    100, // weapon_idf_range
+    1000, // weapon_idf_magazine_size
+    20, // weapon_idf_burst_size
+    0.5 // weapon_idf_distance_modifier
 };

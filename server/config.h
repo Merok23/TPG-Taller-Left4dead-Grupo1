@@ -14,6 +14,11 @@ struct config {
     int scenario_height;
     int default_radius;
     long int invalid_id;
+    int weapon_idf_base_damage;
+    int weapon_idf_range;
+    int weapon_idf_magazine_size;
+    int weapon_idf_burst_size;
+    double weapon_idf_distance_modifier;
 };
 
 

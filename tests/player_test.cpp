@@ -2,10 +2,12 @@
 #include "../server/game.h"
 #include "../server/entity_player.h"
 #include "../server/config.h"
+#include "../server/weapon_idf.h"
 
 TEST_CASE("Player test, player moves 10 units", "[player]") {
     Game game(100, 100);
-    Entity* player = new Player(1, 5, 5);
+    Weapon* weapon = new MachineGun(); 
+    Entity* player = new Player(1, 5, 5, weapon);
     game.addEntity(player);
     game.setMoving(1, 1, 1);
     game.update();
@@ -16,8 +18,10 @@ TEST_CASE("Player test, player moves 10 units", "[player]") {
 
 TEST_CASE("Player test, tries to move through other player and can't", "[player]") {
     Game game(100, 100);
-    Entity* player = new Player(1, 5, 5);
-    Entity* player2 = new Player(2, 15, 5);
+    Weapon* weapon = new MachineGun(); 
+    Weapon* weapon2 = new MachineGun(); 
+    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* player2 = new Player(2, 15, 5, weapon2);
     game.addEntity(player);
     game.addEntity(player2);
     game.setMoving(1, 1, 0);
@@ -30,8 +34,10 @@ TEST_CASE("Player test, tries to move through other player and can't", "[player]
 TEST_CASE
 ("Player test, tries to move beyond a player and is stopped by the other player", "[player]") {
     Game game(100, 100);
-    Entity* player = new Player(1, 5, 5);
-    Entity* player2 = new Player(2, 25, 5);
+    Weapon* weapon = new MachineGun(); 
+    Weapon* weapon2 = new MachineGun(); 
+    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* player2 = new Player(2, 25, 5, weapon2);
     game.addEntity(player);
     game.addEntity(player2);
     game.setMoving(1, 1, 0);
