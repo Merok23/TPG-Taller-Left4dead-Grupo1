@@ -24,8 +24,10 @@ TEST_CASE("Game test, set a direction and then update, so the player MOVES", "[g
     game.addEntity(player);
     game.setMoving(1, 1, 1);
     game.update();
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + (1 * CONFIG.soldier_speed));
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + (1 * CONFIG.soldier_speed));
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 
+        + (1 * CONFIG.soldier_speed));
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 
+        + (1 * CONFIG.soldier_speed));
 }
 
 TEST_CASE("Game test, player doesn't move after update because of colition", "[game]") {

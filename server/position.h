@@ -1,5 +1,9 @@
+#ifndef SERVER_POSITION_H
+#define SERVER_POSITION_H
+
 #include <math.h>
 #include <cstdint>
+#include <utility>
 # pragma once
 
 
@@ -18,3 +22,5 @@ class Position {
         void move(int x, int y);
         bool checkForCollision(const Position &other_position);
 };
+#endif
+

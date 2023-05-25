@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "map.h"
 
 Map::Map(uint32_t width, uint32_t height) : 
@@ -67,8 +69,9 @@ std::vector<VectorWrapper> Map::shoot(uint32_t id) {
         if (entity.first != id) {
             if (this->entities[id]->isLookingAt(*entity.second)){
                 if (this->entities[id]->isAligned(*entity.second, this->height)) {
-                    VectorWrapper element(entity.first, entity.second->calculateDistance(*this->entities[id]));
-                    aligned_entitites.push_back(element);
+                    VectorWrapper element(entity.first,    
+                        entity.second->calculateDistance(*this->entities[id]));
+                            aligned_entitites.push_back(element);
                 }
             }
         }

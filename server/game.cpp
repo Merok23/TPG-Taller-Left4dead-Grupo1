@@ -34,7 +34,8 @@ void Game::setShooting(const uint32_t &id) {
         return this->infected.find(entity_hit.getId()) == this->infected.end();
     }), entities_hit.end());
 
-    std::vector<HitEntity> entities_hit_for_entity = setUpHitEntities(entities_hit);//(entity, distance)
+    std::vector<HitEntity> entities_hit_for_entity = 
+        setUpHitEntities(entities_hit);//(entity, distance)
     this->entities[id]->shoot(entities_hit_for_entity);
 }
 

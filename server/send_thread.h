@@ -1,9 +1,11 @@
 #ifndef SERVER_SEND_THREAD_H
 #define SERVER_SEND_THREAD_H
+#include <atomic>   
+#include <memory>
+
 #include "../common/thread.h"   
 #include "server_protocol.h"
 #include "../common/queue.h"
-#include <atomic>   
 
 
 class SendThread : public Thread {
@@ -20,5 +22,4 @@ class SendThread : public Thread {
         void stop();
         virtual void run() override; 
 };
-
 #endif

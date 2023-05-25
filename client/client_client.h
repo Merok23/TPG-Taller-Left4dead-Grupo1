@@ -2,6 +2,7 @@
 #define CLIENT_CLIENT_H
 
 #include <list>
+#include <string>
 #include "send_thread.h"
 #include "receive_thread.h"
 #include "../common/queue.h"

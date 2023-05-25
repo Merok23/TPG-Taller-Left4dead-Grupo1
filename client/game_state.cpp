@@ -11,6 +11,8 @@ void GameState::print() {
         std::cout << "hp: " << id_entity.second->getHitPoints() << std::endl;
         std::cout << "x: " << id_entity.second->getPositionX() << std::endl;
         std::cout << "y: " << id_entity.second->getPositionY() << std::endl;
+        std::cout << "is facing left: " << id_entity.second->isFacingLeft() << std::endl;
+        std::cout << "is moving up: " << id_entity.second->isMovingUp() << std::endl;
     }
 }
 

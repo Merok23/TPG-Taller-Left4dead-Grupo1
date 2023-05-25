@@ -1,3 +1,7 @@
+#include <string> 
+#include <vector>
+#include <utility>
+
 #include "entity_player.h"
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
@@ -9,7 +13,8 @@ Player::Player(int id, uint32_t positionX, uint32_t positionY) :
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
     this->state = MOVING_SOLDIER;
-    this->getDirectionOfMovement()->setDirection(x_movement * CONFIG.soldier_speed, y_movement * CONFIG.soldier_speed);
+    this->getDirectionOfMovement()->setDirection(x_movement * CONFIG.soldier_speed,
+        y_movement * CONFIG.soldier_speed);
 }
 
 void Player::update(Map& map) {

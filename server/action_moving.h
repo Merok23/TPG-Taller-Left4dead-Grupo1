@@ -1,3 +1,6 @@
+#ifndef SERVER_ACTION_MOVING_H
+#define SERVER_ACTION_MOVING_H
+
 #include "action.h"
 #include <functional>
 #include <iostream>
@@ -7,10 +10,7 @@ class Moving : public Action {
 
     public:
     explicit Moving(std::array<int32_t, 2> position); 
-    virtual void execute(IdHandler& handler) override {
-        handler.setMoving(this->getClientId(), position[0], position[1]);
-        return;    
-    }
-    ~Moving() override {}  
-
+    virtual void execute(IdHandler& handler) override;
+    ~Moving() override;
 };
+#endif

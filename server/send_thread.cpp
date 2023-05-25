@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "send_thread.h"
 
 SendThread::SendThread(ServerProtocol& protocol, 
@@ -10,11 +12,10 @@ void SendThread::run() {
         try {
             std::shared_ptr<GameStateForClient> game_state = client_queue.pop();
             protocol.sendGameState(game_state); 
-        } catch(std::runtime_error& e) {
-            std::string message = e.what();
-            if (message.compare("The queue is closed") == 0) {
-                finished = true;
-            } 
+        } catch(const ClosedQueue &e) {
+            if (finished) return; 
+            std::cerr << "Error: " << e.what() << std::endl;
+            finished = true;
         }
     } 
 }
