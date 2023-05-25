@@ -27,7 +27,8 @@ TEST_CASE("Player test, tries to move through other player and can't", "[player]
     REQUIRE(entities[1]->getDirectionOfMovement()->getY() == 5);
 }
 
-TEST_CASE("Player test, tries to move beyond a player and is stopped by the other player", "[player]") {
+TEST_CASE
+("Player test, tries to move beyond a player and is stopped by the other player", "[player]") {
     Game game(100, 100);
     Entity* player = new Player(1, 5, 5);
     Entity* player2 = new Player(2, 25, 5);
