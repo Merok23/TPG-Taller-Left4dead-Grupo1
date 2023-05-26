@@ -1,5 +1,5 @@
-#ifndef SERVER_WEAPON_IDF_H
-#define SERVER_WEAPON_IDF_H
+#ifndef SERVER_WEAPON_P90_H
+#define SERVER_WEAPON_P90_H
 
 #include "weapon.h"
 #include "config.h"
@@ -7,7 +7,7 @@
 # pragma once
 
 
-class MachineGun : public Weapon {
+class AssaultRifle : public Weapon {
     private:
         uint32_t base_damage;
         uint32_t range;
@@ -17,7 +17,7 @@ class MachineGun : public Weapon {
         double distance_modifier;
         
     public:
-        MachineGun();
+        AssaultRifle();
         virtual uint32_t getAmmoLeft() override;
         virtual bool inRange(uint32_t distance) override;
         virtual int32_t calculateDamage
@@ -26,6 +26,6 @@ class MachineGun : public Weapon {
         virtual bool emptyMagazine() override;
         virtual void useAmmo() override;
         virtual std::string getWeaponType() override;
-        virtual ~MachineGun() {}
+        virtual ~AssaultRifle() {}
 };
 #endif

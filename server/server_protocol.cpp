@@ -42,7 +42,7 @@ Action* ServerProtocol::receiveAction() {
         /* CreatePlayer newPlayer = CreatePlayer(100000);
         Action *action = &newPlayer;
         std::shared_ptr<Action> create_player_action(action); */
-        action =  new CreatePlayer();
+        action =  new CreateSoldierIdf();
     }
     return action;
 }

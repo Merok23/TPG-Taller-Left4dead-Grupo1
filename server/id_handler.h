@@ -14,7 +14,7 @@ class IdHandler {
         std::mutex m;
     public:
         explicit IdHandler(Game &game);
-        void createPlayer(uint32_t client_id);
+        void createPlayer(uint32_t client_id, Weapon* weapon);
         void setMoving(uint32_t client_id, int32_t x, int32_t y);
         //SHOOTING IS NOT FULLY IMPLEMENTED YET
         void shoot(uint32_t client_id);

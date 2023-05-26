@@ -3,10 +3,12 @@
 #include "../server/entity_player.h"
 #include "../server/entity_infected_common.h"
 #include "../server/config.h"
+#include "../server/weapon_idf.h"
 
 TEST_CASE("Infected test, infected follows a soldier on the X axis", "[common_infected]") {
     Game game(100, 100);
-    Entity* player = new Player(1, CONFIG.common_infected_range, 5);
+    Weapon* weapon = new MachineGun(); 
+    Entity* player = new Player(1, CONFIG.common_infected_range, 5, weapon);
     Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -17,7 +19,8 @@ TEST_CASE("Infected test, infected follows a soldier on the X axis", "[common_in
 
 TEST_CASE("Infected test, infected follows a soldier on the Y axis", "[common_infected]") {
     Game game(100, 100);
-    Entity* player = new Player(1, 5, CONFIG.common_infected_range);
+    Weapon* weapon = new MachineGun(); 
+    Entity* player = new Player(1, 5, CONFIG.common_infected_range, weapon);
     Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -29,7 +32,8 @@ TEST_CASE("Infected test, infected follows a soldier on the Y axis", "[common_in
 TEST_CASE
 ("Infected test, soldiers is far away from infected so he doesn't follow", "[common_infected]") {
     Game game(1000, 1000); 
-    Entity* player = new Player(1, CONFIG.common_infected_range * 2, 5);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1, CONFIG.common_infected_range * 2, 5, weapon);
     Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -41,7 +45,9 @@ TEST_CASE
 
 TEST_CASE("Infected test, infected follows a soldier on the X and Y axis", "[common_infected]") {
     Game game(100, 100);
-    Entity* player = new Player(1, CONFIG.common_infected_range/2, CONFIG.common_infected_range/2);
+    Weapon* weapon = new MachineGun();
+    Entity* player = 
+    new Player(1, CONFIG.common_infected_range/2, CONFIG.common_infected_range/2, weapon);
     Entity* infected = new CommonInfected(2, 5, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -55,7 +61,8 @@ TEST_CASE
 ("Infected test, infected follows a soldier through the X border soldier start, infected end.",
      "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
-    Entity* player = new Player(1,CONFIG.common_infected_range - 10, 5);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1,CONFIG.common_infected_range - 10, 5, weapon);
     Entity* infected = new CommonInfected(2, CONFIG.scenario_width, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -68,7 +75,8 @@ TEST_CASE
 ("Infected rest, infected follos soldier through the X border, soldier end infected start",
      "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
-    Entity* player = new Player(1, CONFIG.scenario_width - 10, 5);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1, CONFIG.scenario_width - 10, 5, weapon);
     Entity* infected = new CommonInfected(2, 0, 5);
     game.addEntity(player);
     game.addEntity(infected);

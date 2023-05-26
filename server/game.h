@@ -26,19 +26,22 @@ class Game {
         std::map<uint32_t, Entity*> soldiers;
         std::list<uint32_t> shooting_soldiers;
         uint32_t current_id;
+        
     public:
         explicit Game(int32_t width, int32_t height);
         void addEntity(Entity* entity);
         void setMoving(const uint32_t& id, const int32_t &x,const int32_t &y);
         void setShooting(const uint32_t& id);
-        void addShootingEntity(const uint32_t& id);
-        void removeShootingEntity(const uint32_t& id);
+        void stopShooting(const uint32_t& id);
+        void setReloading(const uint32_t& id);
         std::map<uint32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
         void infectedCheckForSoldiersInRange();
         uint32_t getCurrentId();
         ~Game();
+        
     private:
+        void shootingEntitiesShoot(const uint32_t& id);
         void updateAllEntities();
         void checkForShooting();
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
