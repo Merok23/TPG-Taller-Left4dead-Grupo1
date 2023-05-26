@@ -99,7 +99,6 @@ TEST_CASE("Shooting test, soldier shoots infected and doesn't damage friendly un
     REQUIRE(entities[3]->getHitPoints() < CONFIG.infected_health);
 }
 
-
 TEST_CASE("Shooting test, soldier stops shooting by moving", "[shooting]") {
     Game game(100, 100);
     Weapon* weapon = new MachineGun(); 
@@ -132,6 +131,21 @@ TEST_CASE("Shooting test, soldier stops shooting on command", "[shooting]") {
     REQUIRE(entities[2]->getHitPoints() == initialEntities[2]->getHitPoints());
 }
 
+TEST_CASE("Shooting test, soldier hits infected that is not aligned dead centre", "[shooting]") {
+    Game game(100, 100);
+    Weapon* weapon = new MachineGun(); 
+    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* infected = new CommonInfected(2, 20, 10);
+    game.addEntity(player);
+    game.addEntity(infected);
+    game.setMoving(1, 1, 0);
+    game.update();
+    game.setShooting(1);
+    game.update();
+    std::map<uint32_t, Entity*> entities = game.getEntities();
+    REQUIRE(entities[2]->getHitPoints() < CONFIG.infected_health);
+}
+
 TEST_CASE("Shooting test, soldier reloads on command", "[shooting]") {
     Game game(100, 100);
     Weapon* weapon = new MachineGun(); 
@@ -140,6 +154,33 @@ TEST_CASE("Shooting test, soldier reloads on command", "[shooting]") {
     game.setShooting(1);
     game.update();
     game.setReloading(1);
+    game.update();
+    int ammo_left = weapon->getAmmoLeft();
+    REQUIRE(ammo_left == CONFIG.weapon_idf_magazine_size);
+}
+
+TEST_CASE("Shooting test, soldier stops shooting when it moves", "[shooting]") {
+    Game game(100, 100);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1, 5, 5, weapon);
+    game.addEntity(player);
+    game.setShooting(1);
+    game.update();
+    game.setMoving(1, 1, 0);
+    game.update();
+    int ammo_left = weapon->getAmmoLeft();
+    REQUIRE(ammo_left == CONFIG.weapon_idf_magazine_size - CONFIG.weapon_idf_burst_size);
+}
+
+TEST_CASE("Shooting test, soldier stops shooting when it reloads", "[shooting]") {
+    Game game(100, 100);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1, 5, 5, weapon);
+    game.addEntity(player);
+    game.setShooting(1);
+    game.update();
+    game.setReloading(1);
+    game.update();
     game.update();
     int ammo_left = weapon->getAmmoLeft();
     REQUIRE(ammo_left == CONFIG.weapon_idf_magazine_size);

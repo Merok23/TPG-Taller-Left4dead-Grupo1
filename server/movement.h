@@ -26,6 +26,8 @@ class Movement {
         void setX(int32_t x);
         void setY(int32_t y);
         void setDirection(int x, int y);
+        void lookRight();
+        void lookLeft();
         void move();
         bool checkForCollision(const Movement &other);
         bool isFacingLeft();

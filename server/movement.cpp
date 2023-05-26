@@ -44,6 +44,14 @@ bool Movement::checkForCollision(const Movement &other) {
     return aux.checkForCollision(other.centre);
 }
 
+void Movement::lookLeft() {
+    this->facing_left = true;
+}
+
+void Movement::lookRight() {
+    this->facing_left = false;
+}
+
 bool Movement::isFacingLeft() {
     return this->facing_left;
 }

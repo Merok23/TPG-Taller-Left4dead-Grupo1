@@ -14,7 +14,10 @@ Player::Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon) :
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
     this->state = MOVING_SOLDIER;
-    this->getDirectionOfMovement()->setDirection(x_movement * CONFIG.soldier_speed,
+    Movement* myMovement = this->getDirectionOfMovement();
+    if (x_movement > 0) myMovement->lookRight();//looks to the direction
+    if (x_movement < 0) myMovement->lookLeft();//but it doesn't move.
+    myMovement->setDirection(x_movement * CONFIG.soldier_speed,
         y_movement * CONFIG.soldier_speed);
 }
 
