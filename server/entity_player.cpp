@@ -13,6 +13,7 @@ Player::Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon) :
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
+    if (this->state == DEAD_SOLDIER) return;
     this->state = MOVING_SOLDIER;
     Movement* myMovement = this->getDirectionOfMovement();
     if (x_movement > 0) myMovement->lookRight();//looks to the direction
@@ -22,6 +23,7 @@ void Player::move(int32_t x_movement, int32_t y_movement) {
 }
 
 void Player::update(Map& map) {
+    if (this->state == DEAD_SOLDIER) return;
     if (this->state == MOVING_SOLDIER) {
         map.move(this->getId());
     }
@@ -29,13 +31,23 @@ void Player::update(Map& map) {
         this->my_weapon->reload();
         this->state = IDLE_SOLDIER;
     }
+    this->resolveDamage();
+    if (this->getHitPoints() < 0) this->state = DEAD_SOLDIER;
+}
+
+void Player::resolveDamage() {
     int32_t hit_points = this->getHitPoints();
     hit_points -= this->getDamageForTheRound();
     this->setHitPoints(hit_points);
     this->resetDamageForTheRound();
 }
 
+bool Player::isDead() {
+    return (this->state == DEAD_SOLDIER);
+}
+
 void Player::shoot(std::vector<HitEntity>& entities_hit) {
+    if (this->state == DEAD_SOLDIER) return;
     //if no ammo reloads
     if (this->my_weapon->emptyMagazine()) {
         this->setReload();

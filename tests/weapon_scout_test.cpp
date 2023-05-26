@@ -57,8 +57,8 @@ TEST_CASE("Scout damage falls off for each zombie hit", "[scout]") {
     game.setShooting(1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[2]->getHitPoints() > entities[3]->getHitPoints());
-    REQUIRE(entities[3]->getHitPoints() > entities[4]->getHitPoints());
+    REQUIRE(entities[2]->getHitPoints() < entities[3]->getHitPoints());
+    REQUIRE(entities[3]->getHitPoints() < entities[4]->getHitPoints());
 }
 
 TEST_CASE("Scout reloads after it's out of rounds", "[scout]") {
@@ -70,9 +70,10 @@ TEST_CASE("Scout reloads after it's out of rounds", "[scout]") {
     for(int i = 0; i < CONFIG.weapon_scout_magazine_size; i++) {
         game.update();
     }
-    int ammo_left = weapon->getAmmoLeft();       
+    int ammo_left = weapon->getAmmoLeft();
+    REQUIRE(weapon->emptyMagazine() == true);
     REQUIRE(ammo_left == 0);
     game.update();
     ammo_left = weapon->getAmmoLeft();
-    REQUIRE(ammo_left == CONFIG.weapon_scout_base_damage);
+    REQUIRE(ammo_left == CONFIG.weapon_scout_magazine_size);
 }

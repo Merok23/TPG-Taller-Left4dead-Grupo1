@@ -10,7 +10,8 @@
 
 enum CommonInfectedState {
     IDLE_INFECTED,
-    MOVING_INFECTED
+    MOVING_INFECTED,
+    DEAD_INFECTED
 };
 
 
@@ -23,8 +24,10 @@ class CommonInfected : public Infected {
         virtual void update(Map& map) override;
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, 
             Entity*> &soldiers) override;
+        virtual bool isDead() override;
             
     private:
+        void resolveDamage();
         bool isInRange(Entity* entity);
         void setChase(Entity* entity);
         bool checkForBorderCaseRange(int32_t soldier_x, int32_t infected_x);

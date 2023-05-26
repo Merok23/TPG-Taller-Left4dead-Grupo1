@@ -91,7 +91,16 @@ void Game::checkForShooting() {
 void Game::updateAllEntities() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
+        if (id_entity.second->isDead() && id_entity.second->isInfected()) {
+            this->gameMap.removeEntity(id_entity.first);
+            this->removeEntity(id_entity.first);
+        }
     }
+}
+
+void Game::removeEntity(const uint32_t &id) {
+    this->infected.erase(id);
+    this->soldiers.erase(id);
 }
 
 void Game::infectedCheckForSoldiersInRange() {

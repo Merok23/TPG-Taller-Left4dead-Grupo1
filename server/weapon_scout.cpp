@@ -14,7 +14,8 @@ bool Scout::inRange(uint32_t distance) {
 int32_t Scout::calculateDamage(const uint32_t &distance, const uint32_t &hitCount) {
     double damage = 0;
     if (this->emptyMagazine()) return 0;
-    damage = this->base_damage * CONFIG.weapon_scout_damage_falloff * hitCount;
+    damage = this->base_damage * (1 - CONFIG.weapon_scout_damage_falloff * (hitCount - 1));
+    if (damage < 0) return 0;
     return (int32_t) damage;
 }
 
@@ -27,7 +28,7 @@ bool Scout::emptyMagazine() {
 }
 
 void Scout::useAmmo() {
-    this->rounds_left -= -1;
+    this->rounds_left -= 1;
 }
 
 std::string Scout::getWeaponType() {

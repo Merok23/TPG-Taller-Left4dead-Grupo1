@@ -15,7 +15,8 @@ enum SoldierState {
     IDLE_SOLDIER,
     MOVING_SOLDIER,
     SHOOTING_SOLDIER,
-    RELOADING_SOLDIER
+    RELOADING_SOLDIER,
+    DEAD_SOLDIER
 };
 
 class Player : public Entity {
@@ -31,10 +32,12 @@ class Player : public Entity {
         void setReload();
         virtual bool isInfected() override;
         virtual std::string getEntityType() override;
+        virtual bool isDead() override;
         std::string getWeaponType();
         int32_t getAmmoLeft();
         virtual ~Player() override;
     private:
+        void resolveDamage();
         void removeInfectedOutOfRange(std::vector<HitEntity>& entities_hit);
         void orderByDistance(std::vector<HitEntity>& entities_hit);
 };

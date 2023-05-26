@@ -8,6 +8,9 @@ CommonInfected::CommonInfected(uint32_t id, uint32_t positionX, uint32_t positio
     state(IDLE_INFECTED) {}
 
 void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) {
+    //this shouldn't happen since when it's dead its removed from the game
+    //but it's here for a border case where it was killed before chasing
+    if (this->state == DEAD_INFECTED) return;
     auto iterator = std::find_if(soldiers.begin(), 
         soldiers.end(), [this](std::pair<uint32_t, Entity*> soldier) {
         return this->isInRange(soldier.second);
@@ -19,16 +22,30 @@ void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Enti
 }
 
 void CommonInfected::update(Map& map) {
+    if (this->state == DEAD_INFECTED) return;
     if (this->state == MOVING_INFECTED) {
         map.move(this->getId());
     }
+    this->resolveDamage(); 
+    if (this->getHitPoints() <= 0) {
+        this->state = DEAD_INFECTED; 
+    }
+
+}
+
+void CommonInfected::resolveDamage() {
     int32_t hit_points = this->getHitPoints();
     hit_points -= this->getDamageForTheRound();
     this->setHitPoints(hit_points);
     this->resetDamageForTheRound();
 }
 
+bool CommonInfected::isDead() {
+    return (this->state == DEAD_INFECTED);
+}
+
 void CommonInfected::move(int32_t x_movement, int32_t y_movement) {
+    if (this->state == DEAD_INFECTED) return; 
     this->state = MOVING_INFECTED;
     this->getDirectionOfMovement()->setDirection(x_movement * CONFIG.infected_speed,
         y_movement * CONFIG.infected_speed);

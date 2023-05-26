@@ -30,6 +30,7 @@ class Game {
     public:
         explicit Game(int32_t width, int32_t height);
         void addEntity(Entity* entity);
+        void removeEntity(const uint32_t& id);
         void setMoving(const uint32_t& id, const int32_t &x,const int32_t &y);
         void setShooting(const uint32_t& id);
         void stopShooting(const uint32_t& id);
