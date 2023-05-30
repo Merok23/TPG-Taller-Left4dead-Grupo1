@@ -1,6 +1,6 @@
-#include "../libs/Area.h"
+#include "Area.h"
 #include "Player.h"
-#include "../libs/SdlTexture.h"
+#include "SdlTexture.h"
 
 #include <iostream>
 

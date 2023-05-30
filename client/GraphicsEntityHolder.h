@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <map>
-#include "../libs/SdlTexture.h"
+#include "SdlTexture.h"
 #include "Player.h"
 
 class GraphicsEntityHolder {

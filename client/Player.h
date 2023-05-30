@@ -1,15 +1,17 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include "../libs/Animation.h"
+#include "Animation.h"
 #include <memory>
 #include <map>
+
 enum AnimationName {
     AN_IDLE,
     AN_RUN,
     AN_SHOOT,
     AN_DIE
 };
+
 class Player {
 public:
     Player(std::map<AnimationName, SdlTexture*> textures);

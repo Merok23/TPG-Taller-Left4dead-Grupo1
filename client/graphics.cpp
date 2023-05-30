@@ -1,20 +1,8 @@
-#include "main.h"
-
-#define BACKGROUND_WIDTH 1920
-#define BACKGROUND_HEIGTH 1080
-
-#define CAMARA_START_X 300
-#define CAMARA_WIDTH 1320 //300 pixels to the left and 300 pixels to the right start hidden
-#define CAMARA_MAX_X 1920-CAMARA_WIDTH
-
-#define SCROLL_THREASHOLD 350
-
-static bool handleEvents(GraphicsEntityHolder &gr_entity_holder);
-static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
-static void update(GraphicsEntityHolder &gr_entity_holder, float dt);
+#include "graphics.h"
 
 
-int main(int argc, char** argv){
+
+void Graphics::run(){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
@@ -61,9 +49,7 @@ int main(int argc, char** argv){
 
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
-        return 1;
     }
-    return 0;
 }
 
 /**
@@ -71,7 +57,7 @@ int main(int argc, char** argv){
  * En un juego real no se tomará de a un evento por vuelta del gameloop, sino que se deberán tomar TODOS
  * o N eventos por vuelta
  */
-static bool handleEvents(GraphicsEntityHolder &gr_entity_holder) {
+bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder) {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
@@ -121,7 +107,7 @@ static bool handleEvents(GraphicsEntityHolder &gr_entity_holder) {
     return true;
 }
 
-static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
     // if (gr_entity_holder.getMainPlayer()->getX() <= SCROLL_THREASHOLD - 100) {
@@ -142,6 +128,6 @@ static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Sd
     window.render();
 }
 
-static void update(GraphicsEntityHolder &gr_entity_holder, float dt) {
+void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt) {
     gr_entity_holder.update(dt);
 }

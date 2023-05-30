@@ -19,24 +19,25 @@ Client::Client(const char* hostname, const char* servname) :
 }
 
 void Client::run() {
-        while (connected) {
-            std::string line;
-            std::getline(std::cin, line);
-            std::istringstream iss(line);
-            std::string action; 
-            iss >> action;
-            if (action == "leave") {
-                break; 
-            }
-            if (action == "move") {
-                int x;
-                int y;
-                iss >> x; 
-                iss >> y; 
-                this->protocol.sendMoving(x, y);
-                continue; 
-            } else { 
-                std::cout << "Invalid command" << std::endl; 
-            } 
+    graphics.run();
+    while (connected) {
+        std::string line;
+        std::getline(std::cin, line);
+        std::istringstream iss(line);
+        std::string action; 
+        iss >> action;
+        if (action == "leave") {
+            break; 
+        }
+        if (action == "move") {
+            int x;
+            int y;
+            iss >> x; 
+            iss >> y; 
+            this->protocol.sendMoving(x, y);
+            continue; 
+        } else { 
+            std::cout << "Invalid command" << std::endl; 
+        } 
     }
 }

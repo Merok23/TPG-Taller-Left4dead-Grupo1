@@ -16,12 +16,14 @@
 #include "../common/client_protocol.h"
 #include "../common/socket.h"
 
+#include "graphics.h"
 
 
 class Client {
     private: 
     Socket socket;  
     ClientProtocol protocol;
+    Graphics graphics;
     int game_id;
     bool connected; 
 
