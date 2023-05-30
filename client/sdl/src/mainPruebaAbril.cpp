@@ -16,7 +16,6 @@ static void update(GraphicsEntityHolder &gr_entity_holder, float dt);
 
 int main(int argc, char** argv){
     try {
-
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
