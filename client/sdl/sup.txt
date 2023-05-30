@@ -1,0 +1,1424 @@
+{
+   Memcheck:Cond
+   fun:_ZN10CGLContext8GetStateIiEEbjPT_
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+
+{
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_MakeCurrent
+   fun:X11_GL_CreateContext
+   fun:SDL_GL_CreateContext_REAL
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   Memcheck:Cond
+   fun:_ZN10CGLContext8GetStateIiEEbjPT_
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   5
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+
+{
+   7
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   8
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext8GetStateIiEEbjPT_
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_MakeCurrent
+   fun:X11_GL_CreateContext
+   fun:SDL_GL_CreateContext_REAL
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:DestroyShaderProgram
+   fun:GL_DestroyShaderContext
+   fun:GL_DestroyRenderer
+   fun:SDL_DestroyRenderer_REAL
+   fun:SDL_DestroyRenderer
+   fun:_ZN9SdlWindowD1Ev
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZL6renderR9SdlWindowR6PlayerR10SdlTextureR4Area
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:main
+}

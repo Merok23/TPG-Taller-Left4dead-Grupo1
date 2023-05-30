@@ -3,9 +3,9 @@
 #include <exception>
 #include <unistd.h>
 
-#include "SdlWindow.h"
-#include "SdlTexture.h"
-#include "Animation.h"
+#include "../libs/SdlWindow.h"
+#include "../libs/SdlTexture.h"
+#include "../libs/Animation.h"
 #include "Player.h"
 
 #define BACKGROUND_WIDTH 1920
@@ -129,8 +129,6 @@ static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &dest
         if (cameraX < 0)
             cameraX = 0;
     }
-
-    std::cout << "El x del player es: " << player.getX() << " y el tope es " << 1070 << std::endl;
         
     if (player.getX() >= CAMARA_WIDTH - SCROLL_THREASHOLD) {
         cameraX = player.getX() - ( CAMARA_WIDTH / 2);

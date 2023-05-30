@@ -624,8 +624,7 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Animation.h \
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlException.h \
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Exception.h \
-  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h \
-  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Animation.h
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h
 
 
 /usr/local/include/SDL2/SDL_image.h:
