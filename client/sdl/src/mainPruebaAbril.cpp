@@ -1,11 +1,5 @@
-#include <SDL2/SDL.h>
-#include <iostream>
-#include <exception>
-#include <unistd.h>
+#include "main.h"
 
-#include "../libs/SdlWindow.h"
-#include "../libs/SdlTexture.h"
-#include "../libs/Animation.h"
 #include "Player.h"
 
 #define BACKGROUND_WIDTH 1920
@@ -17,35 +11,51 @@
 
 #define SCROLL_THREASHOLD 350
 
+
+
 static bool handleEvents(Player &player);
 static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &destArea);
 static void update(Player &player, float dt);
+
 
 int main(int argc, char** argv){
     try {
 
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
-
-        SdlTexture s1_idle("assets/Soldier_1/Idle.png", //path de la imagen
-                    window,  //donde lo meto
-                    Color{0x11, 0x11, 0x11}); //no se que es esto
-
-        SdlTexture s1_run("assets/Soldier_1/Run.png", //path de la imagen
-                    window,  //donde lo meto
-                    Color{0x11, 0x11, 0x11}); //no se que es esto
-        
-        SdlTexture s1_shot1("assets/Soldier_1/Shot_1.png", //path de la imagen
-                    window,  //donde lo meto
-                    Color{0x11, 0x11, 0x11}); //no se que es esto
-        
-        SdlTexture s1_die("assets/Soldier_1/Dead.png", //path de la imagen
-                    window,  //donde lo meto
-                    Color{0x11, 0x11, 0x11}); //no se que es esto
-
         SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-        Player player_1(s1_idle, s1_run, s1_shot1, s1_die);
+
+
+        std::map<AnimationName, SdlTexture*> textures;
+
+        SdlTexture s1_idle("assets/Soldier_1/Idle.png", //path de la imagen
+                    window  //donde lo meto
+                    );
+        textures[AN_IDLE] = &s1_idle;
+        std::cout << "Pude agregar el s1_idle" << std::endl;
+
+        SdlTexture s1_run("assets/Soldier_1/Run.png", //path de la imagen
+                    window //donde lo meto
+                    );
+        textures[AN_RUN] = &s1_run;
+        std::cout << "Pude agregar el s1_run" << std::endl;
+        
+        SdlTexture s1_shot1("assets/Soldier_1/Shot_1.png", //path de la imagen
+                    window  //donde lo meto
+                    );
+        textures[AN_SHOOT] = &s1_shot1;
+        std::cout << "Pude agregar el s1_shot1" << std::endl;
+        
+        SdlTexture s1_die("assets/Soldier_1/Dead.png", //path de la imagen
+                    window  //donde lo meto
+                    );
+        textures[AN_DIE] = &s1_die;
+        std::cout << "Pude agregar el s1_die" << std::endl;
+
+
+        Player player_1(textures);
+        std::cout << "Pude crear el jugador" << std::endl;
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;

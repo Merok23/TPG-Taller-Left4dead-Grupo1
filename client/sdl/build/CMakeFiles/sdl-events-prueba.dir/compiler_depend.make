@@ -283,6 +283,37 @@ CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o: /home/parallels/Desktop/Talle
   /usr/include/c++/9/bits/functional_hash.h \
   /usr/include/c++/9/bits/basic_string.tcc \
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Exception.h \
+  /usr/include/c++/9/memory \
+  /usr/include/c++/9/bits/stl_construct.h \
+  /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/stdexcept \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /usr/include/c++/9/map \
+  /usr/include/c++/9/bits/stl_tree.h \
+  /usr/include/c++/9/bits/stl_map.h \
+  /usr/include/c++/9/bits/stl_multimap.h \
+  /usr/include/c++/9/bits/erase_if.h \
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlTexture.h \
+  /usr/local/include/SDL2/SDL_image.h \
+  /usr/local/include/SDL2/SDL.h \
   /usr/include/c++/9/iostream \
   /usr/include/c++/9/ostream \
   /usr/include/c++/9/ios \
@@ -291,7 +322,6 @@ CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o: /home/parallels/Desktop/Talle
   /usr/include/c++/9/bits/locale_classes.tcc \
   /usr/include/c++/9/system_error \
   /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
-  /usr/include/c++/9/stdexcept \
   /usr/include/c++/9/streambuf \
   /usr/include/c++/9/bits/streambuf.tcc \
   /usr/include/c++/9/bits/basic_ios.h \
@@ -310,6 +340,7 @@ CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o: /home/parallels/Desktop/Talle
 
 CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/mainPruebaAbril.cpp \
   /usr/include/stdc-predef.h \
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/main.h \
   /usr/local/include/SDL2/SDL.h \
   /usr/local/include/SDL2/SDL_main.h \
   /usr/local/include/SDL2/SDL_stdinc.h \
@@ -624,12 +655,35 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Animation.h \
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlException.h \
   /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Exception.h \
-  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h
+  /usr/include/c++/9/map \
+  /usr/include/c++/9/bits/stl_tree.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/stl_map.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/stl_multimap.h \
+  /usr/include/c++/9/bits/erase_if.h \
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h \
+  /usr/include/c++/9/memory \
+  /usr/include/c++/9/bits/stl_construct.h \
+  /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h
 
-
-/usr/local/include/SDL2/SDL_image.h:
-
-/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlTexture.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
@@ -640,6 +694,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 /usr/include/x86_64-linux-gnu/bits/posix_opt.h:
 
 /usr/include/unistd.h:
+
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/main.h:
 
 /usr/include/c++/9/bits/istream.tcc:
 
@@ -657,10 +713,6 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/include/c++/9/bits/basic_ios.h:
 
-/usr/include/c++/9/bits/streambuf.tcc:
-
-/usr/include/c++/9/stdexcept:
-
 /usr/include/c++/9/system_error:
 
 /usr/include/c++/9/bits/locale_classes.tcc:
@@ -671,6 +723,50 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/include/c++/9/iostream:
 
+/usr/local/include/SDL2/SDL_image.h:
+
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlTexture.h:
+
+/usr/include/c++/9/bits/erase_if.h:
+
+/usr/include/c++/9/bits/stl_multimap.h:
+
+/usr/include/c++/9/bits/streambuf.tcc:
+
+/usr/include/c++/9/bits/stl_map.h:
+
+/usr/include/c++/9/map:
+
+/usr/include/c++/9/backward/auto_ptr.h:
+
+/usr/include/c++/9/bits/atomic_base.h:
+
+/usr/include/c++/9/bits/refwrap.h:
+
+/usr/include/c++/9/stdexcept:
+
+/usr/include/c++/9/array:
+
+/usr/include/c++/9/tuple:
+
+/usr/include/c++/9/bits/stl_relops.h:
+
+/usr/include/c++/9/utility:
+
+/usr/include/c++/9/bits/unique_ptr.h:
+
+/usr/include/c++/9/bits/uses_allocator.h:
+
+/usr/include/c++/9/ext/concurrence.h:
+
+/usr/include/c++/9/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/9/bits/allocated_ptr.h:
+
+/usr/include/c++/9/bits/stl_construct.h:
+
+/usr/include/c++/9/memory:
+
 /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/Exception.h:
 
 /usr/include/c++/9/bits/basic_string.tcc:
@@ -679,7 +775,11 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
+/usr/include/c++/9/bits/stl_tempbuf.h:
+
 /usr/include/errno.h:
+
+/usr/include/c++/9/bits/stl_uninitialized.h:
 
 /usr/include/c++/9/cerrno:
 
@@ -740,6 +840,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 /usr/include/c++/9/cmath:
 
 /usr/include/c++/9/math.h:
+
+/usr/include/c++/9/bits/stl_tree.h:
 
 /usr/include/ctype.h:
 
@@ -823,6 +925,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
+/usr/include/c++/9/bits/atomic_lockfree_defines.h:
+
 /usr/include/c++/9/cstdlib:
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
@@ -872,6 +976,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 /usr/include/alloca.h:
 
 /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/mainPruebaAbril.cpp:
+
+/usr/include/c++/9/bits/shared_ptr.h:
 
 /usr/include/stdlib.h:
 
@@ -953,6 +1059,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/local/include/SDL2/SDL_joystick.h:
 
+/usr/include/c++/9/bits/shared_ptr_atomic.h:
+
 /usr/include/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
@@ -1000,6 +1108,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/libs/SdlWindow.h:
 
 /usr/local/include/SDL2/SDL_audio.h:
+
+/usr/include/c++/9/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/gthr-default.h:
 
@@ -1135,6 +1245,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 
 /usr/local/include/SDL2/SDL_keyboard.h:
 
+/usr/include/c++/9/bits/shared_ptr_base.h:
+
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
@@ -1188,6 +1300,8 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
 /usr/include/c++/9/bits/memoryfwd.h:
 
 /usr/include/c++/9/bits/stl_algobase.h:
+
+/usr/include/c++/9/bits/invoke.h:
 
 /usr/include/c++/9/bits/exception_defines.h:
 

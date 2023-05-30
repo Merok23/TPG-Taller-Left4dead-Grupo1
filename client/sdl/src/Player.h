@@ -2,10 +2,17 @@
 #define __PLAYER_H__
 
 #include "../libs/Animation.h"
-
+#include <memory>
+#include <map>
+enum AnimationName {
+    AN_IDLE,
+    AN_RUN,
+    AN_SHOOT,
+    AN_DIE
+};
 class Player {
 public:
-    Player(SdlTexture &texture_idle, SdlTexture &texture_run, SdlTexture &texture_shot, SdlTexture &texture_die);
+    Player(std::map<AnimationName, SdlTexture*> &textures);
     ~Player();
     void update(float dt);
     void render();
@@ -23,10 +30,6 @@ public:
     int getY();
 
 private:
-    Animation an_idle;
-    Animation an_run;
-    Animation an_shoot;
-    Animation an_die;
     bool facingLeft;
     bool facingUp;
     bool moving_x;
@@ -35,6 +38,10 @@ private:
     int x;
     int y;
     int health;
+    std::unique_ptr<Animation> an_idle;
+    std::unique_ptr<Animation> an_run;
+    std::unique_ptr<Animation> an_shoot;
+    std::unique_ptr<Animation> an_die;
 };
 
 #endif // __PLAYER_H__
