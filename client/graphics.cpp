@@ -4,12 +4,13 @@
 GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
 
+    //vamos a tener que reemplazar el ../../ por una funcion que levante de la configuracion el path
     textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
     textures[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
-    return GraphicsEntityHolder(std::move(textures));
+    return GraphicsEntityHolder(gs, std::move(textures));
 }
 
 void Graphics::run(GameState *gs){

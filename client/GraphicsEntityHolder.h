@@ -5,10 +5,11 @@
 #include <map>
 #include "SdlTexture.h"
 #include "Player.h"
+#include "game_state.h"
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
+    GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
