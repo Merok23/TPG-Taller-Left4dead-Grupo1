@@ -1,37 +1,30 @@
 #include "graphics.h"
 
+
+GraphicsEntityHolder start_main_player(SdlWindow &window) {
+    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
+    
+    SdlTexture s1_idle("../../assets/Soldier_1/Idle.png", window);
+    SdlTexture s1_run("../../assets/Soldier_1/Run.png", window);
+    SdlTexture s1_shot1("../../assets/Soldier_1/Shot_1.png", window); 
+    SdlTexture s1_die("../../assets/Soldier_1/Dead.png",window);
+
+    textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
+    textures[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
+    textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
+    textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
+
+
+    return GraphicsEntityHolder(std::move(textures));
+}
+
 void Graphics::run(){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-        std::map<AnimationName, SdlTexture*> textures;
-
-        SdlTexture s1_idle("../../assets/Soldier_1/Idle.png", //path de la imagen
-                    window  //donde lo meto
-                    );
-        textures[AN_IDLE] = &s1_idle;
-
-        SdlTexture s1_run("../../assets/Soldier_1/Run.png", //path de la imagen
-                    window //donde lo meto
-                    );
-        textures[AN_RUN] = &s1_run;
-        
-        SdlTexture s1_shot1("../../assets/Soldier_1/Shot_1.png", //path de la imagen
-                    window  //donde lo meto
-                    );
-        textures[AN_SHOOT] = &s1_shot1;
-        
-        SdlTexture s1_die("../../assets/Soldier_1/Dead.png", //path de la imagen
-                    window  //donde lo meto
-                    );
-        textures[AN_DIE] = &s1_die;
-
-
-        //Player player_1(std::move(textures));
-        GraphicsEntityHolder gr_entity_holder(std::move(textures));
-
+        GraphicsEntityHolder gr_entity_holder = start_main_player(window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;

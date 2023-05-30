@@ -8,7 +8,7 @@
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(std::map<AnimationName, SdlTexture *> textures);
+    GraphicsEntityHolder(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();

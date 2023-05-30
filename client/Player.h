@@ -14,7 +14,7 @@ enum AnimationName {
 
 class Player {
 public:
-    Player(std::map<AnimationName, SdlTexture*> textures);
+    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
     ~Player();
     void update(float dt);
     void render();

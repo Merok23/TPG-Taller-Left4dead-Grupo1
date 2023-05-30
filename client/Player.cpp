@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, SdlTexture*> textures): 
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures): 
     facingLeft(false), facingUp(false), 
     moving_x(false), moving_y(false), shooting(false), 
     x(270), y(670), health(100)

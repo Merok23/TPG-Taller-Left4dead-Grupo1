@@ -1,6 +1,6 @@
 #include "GraphicsEntityHolder.h"
 
-GraphicsEntityHolder::GraphicsEntityHolder(std::map<AnimationName, SdlTexture *> textures) :
+GraphicsEntityHolder::GraphicsEntityHolder(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures) :
     MainPlayer(new Player(std::move(textures))) {
 
         entities[0] = MainPlayer; //por ahora hardcodeo que el mainPLayer tiene id 0
