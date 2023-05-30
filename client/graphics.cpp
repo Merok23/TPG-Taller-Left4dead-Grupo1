@@ -3,11 +3,6 @@
 
 GraphicsEntityHolder start_main_player(SdlWindow &window) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
-    
-    SdlTexture s1_idle("../../assets/Soldier_1/Idle.png", window);
-    SdlTexture s1_run("../../assets/Soldier_1/Run.png", window);
-    SdlTexture s1_shot1("../../assets/Soldier_1/Shot_1.png", window); 
-    SdlTexture s1_die("../../assets/Soldier_1/Dead.png",window);
 
     textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
     textures[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
