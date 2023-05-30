@@ -14,7 +14,7 @@ enum AnimationName {
 
 class Player {
 public:
-    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
+    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, int32_t x_position, int32_t y_position, int32_t hit_points);
     ~Player();
     void update(float dt);
     void render();
@@ -37,9 +37,10 @@ private:
     bool moving_x;
     bool moving_y;
     bool shooting;
-    int x;
-    int y;
-    int health;
+    int32_t x;
+    int32_t y;
+    int32_t health;
+    int32_t max_health;
     std::map<AnimationName, std::unique_ptr<Animation>> animations;
 };
 

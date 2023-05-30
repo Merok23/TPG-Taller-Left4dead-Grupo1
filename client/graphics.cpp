@@ -10,16 +10,19 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
+    std::cout << "Cree todas las texturas, estoy por crear el holder" << std::endl;
     return GraphicsEntityHolder(gs, std::move(textures));
 }
 
 void Graphics::run(GameState *gs){
     try {
+        std::cout << "Estoy en graphics.run()" << std::endl;
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
         GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
+        std::cout << "Tengo el graphics entity holder creado" << std::endl;
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;

@@ -59,31 +59,35 @@ void Client::run() {
     send_thread->start();
     receive_thread->start();
 
+
+    graphics.run(NULL);
     while (!finished) { 
         std::getline(std::cin, line);
         if (line == "leave") {
             finished = true; 
             break; 
-        } else if (line == "create_player") {
-            std::cout << "Se ingreso a create player" << std::endl;
-
-            //necesito hablar con el server para que me pase la data del player
-            std::string room_name("nueva_sala");
-            command_t command(ADD_PLAYER, room_name, 0, 770, 700);
-            std::cout << "Cree el comando" << std::endl;
-            protocol.sendCommand(command);
-            std::cout << "MAnde el comando" << std::endl;
-            GameState* gs = NULL;
-            do { gs = protocol.receiveGameState(); } while (!gs);
-            std::cout << "Recibi rta del comando" << std::endl;
+        } 
+        //POR AHORA CORTO COMUNICACION CON EL CLIENTE
+        // else if (line == "create_player") {
+        //     int id = 0;
+        //     std::cin >> id;
+        //     std::cout << "Registre el id por consola" << std::endl;
+        //     std::string room_name("nueva_sala");
+        //     command_t command(ADD_PLAYER, room_name, id, 770, 700);
+        //     std::cout << "Estoy por llamar a sendCommand" << std::endl;
+        //     protocol.sendCommand(command);
+        //     std::cout << "Volvi de sendCommand" << std::endl;
+        //     GameState* gs = NULL;
+        //     do { 
+        //     std::cout << "Estoy por llamar a receiveGameState" << std::endl;
+        //         gs = protocol.receiveGameState(); 
+        //     std::cout << "Volvi de receiveGameState" << std::endl;
+        //     } while (!gs);
             
-            graphics.run(gs);
-
-            std::cout << "Levante el juego" << std::endl;
-
-
-            //queue_comandos.push(line);
-        }  
+        //     std::cout << "Estoy por llamar a graphics.run" << std::endl;
+        //     
+        //     //queue_comandos.push(line);
+        // }
     }
 }
  

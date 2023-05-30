@@ -4,10 +4,10 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures): 
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
     moving_x(false), moving_y(false), shooting(false), 
-    x(270), y(670), health(100)
+    x(x_position), y(y_position), health(hit_points), max_health(hit_points)
     {
         auto it = textures.find(AN_IDLE);
         if (it != textures.end())
@@ -25,8 +25,7 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures):
         if (it != textures.end())
             animations[AN_DIE] = std::unique_ptr<Animation>(new Animation(it->second));
 
-    } //esta x e y son relativas a la imagen actual en el background --> si el background empieza en el pixel 300, x(50) es dentro de la pantalla, no tenes que moverte 250 pixeles
-
+    }
 Player::~Player() {}
 
 int Player::getX() {

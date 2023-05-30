@@ -77,7 +77,9 @@ void ServerProtocol::sendInteger(int32_t number) {
 
 void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
+    std::cout << "A punto de llamar a sendUnsignedInteger" << std::endl;
     sendUnsignedInteger(entities.size());
+    std::cout << "Volvi de sendUnsignedInteger" << std::endl;
     if (was_closed) return;
     for (auto entity : entities) {
         sendUnsignedInteger(entity.first); //id
