@@ -12,9 +12,13 @@ public:
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
+
+    void update(float& dt);
+    void render();
     
 
 private:
+    std::map<uint32_t, std::shared_ptr<Player>> entities;
     std::shared_ptr<Player> MainPlayer;
 };
 

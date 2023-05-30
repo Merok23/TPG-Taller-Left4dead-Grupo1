@@ -139,10 +139,10 @@ static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Sd
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
-    gr_entity_holder.getMainPlayer()->render(); //le delego al player la responsabilidad de saber renderizarse
+    gr_entity_holder.render(); //le delego al player la responsabilidad de saber renderizarse
     window.render();
 }
 
 static void update(GraphicsEntityHolder &gr_entity_holder, float dt) {
-    gr_entity_holder.getMainPlayer()->update(dt);
+    gr_entity_holder.update(dt);
 }
