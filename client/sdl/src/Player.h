@@ -38,10 +38,7 @@ private:
     int x;
     int y;
     int health;
-    std::unique_ptr<Animation> an_idle;
-    std::unique_ptr<Animation> an_run;
-    std::unique_ptr<Animation> an_shoot;
-    std::unique_ptr<Animation> an_die;
+    std::map<AnimationName, std::unique_ptr<Animation>> animations;
 };
 
 #endif // __PLAYER_H__

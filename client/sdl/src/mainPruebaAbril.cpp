@@ -25,8 +25,6 @@ int main(int argc, char** argv){
         SdlTexture im("assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-
-
         std::map<AnimationName, SdlTexture*> textures;
 
         SdlTexture s1_idle("assets/Soldier_1/Idle.png", //path de la imagen
