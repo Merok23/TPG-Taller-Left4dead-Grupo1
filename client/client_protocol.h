@@ -39,7 +39,6 @@ class ClientProtocol {
     void sendString(const std::string& string);
     void sendCreateRoom(const std::string& room_name);
     void sendJoinRoom(int room_id);
-    void sendMoving(int x, int y);
     void sendAddPlayer();
     
 
@@ -50,6 +49,7 @@ class ClientProtocol {
     void closeSocket();
     uint32_t receiveRoomId();
     bool receiveJoinResponse();
+    void sendMoving(int x, int y);
 
     GameState* receiveGameState();
 };
