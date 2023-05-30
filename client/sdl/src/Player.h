@@ -12,7 +12,7 @@ enum AnimationName {
 };
 class Player {
 public:
-    Player(std::map<AnimationName, SdlTexture*> &textures);
+    Player(std::map<AnimationName, SdlTexture*> textures);
     ~Player();
     void update(float dt);
     void render();

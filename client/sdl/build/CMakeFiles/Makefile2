@@ -98,12 +98,12 @@ libs/clean: libs/CMakeFiles/sdldemo.dir/clean
 CMakeFiles/sdl-events-prueba.dir/all: libs/CMakeFiles/sdldemo.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sdl-events-prueba.dir/build.make CMakeFiles/sdl-events-prueba.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sdl-events-prueba.dir/build.make CMakeFiles/sdl-events-prueba.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles --progress-num=1,2,3 "Built target sdl-events-prueba"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles --progress-num=1,2,3,4 "Built target sdl-events-prueba"
 .PHONY : CMakeFiles/sdl-events-prueba.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sdl-events-prueba.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/sdl-events-prueba.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles 0
 .PHONY : CMakeFiles/sdl-events-prueba.dir/rule
@@ -124,7 +124,7 @@ CMakeFiles/sdl-events-prueba.dir/clean:
 libs/CMakeFiles/sdldemo.dir/all:
 	$(MAKE) $(MAKESILENT) -f libs/CMakeFiles/sdldemo.dir/build.make libs/CMakeFiles/sdldemo.dir/depend
 	$(MAKE) $(MAKESILENT) -f libs/CMakeFiles/sdldemo.dir/build.make libs/CMakeFiles/sdldemo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles --progress-num=4,5,6,7,8,9,10 "Built target sdldemo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/build/CMakeFiles --progress-num=5,6,7,8,9,10,11 "Built target sdldemo"
 .PHONY : libs/CMakeFiles/sdldemo.dir/all
 
 # Build rule for subdir invocation for target.

@@ -667,7 +667,7 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
   /usr/include/c++/9/bits/invoke.h \
   /usr/include/c++/9/bits/stl_multimap.h \
   /usr/include/c++/9/bits/erase_if.h \
-  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h \
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/GraphicsEntityHolder.h \
   /usr/include/c++/9/memory \
   /usr/include/c++/9/bits/stl_construct.h \
   /usr/include/c++/9/bits/stl_uninitialized.h \
@@ -682,8 +682,11 @@ CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o: /home/parallels/Desk
   /usr/include/c++/9/bits/shared_ptr_atomic.h \
   /usr/include/c++/9/bits/atomic_base.h \
   /usr/include/c++/9/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/9/backward/auto_ptr.h
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.h
 
+
+/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/GraphicsEntityHolder.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 

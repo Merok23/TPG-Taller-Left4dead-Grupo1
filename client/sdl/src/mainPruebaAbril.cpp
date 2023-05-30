@@ -1,7 +1,5 @@
 #include "main.h"
 
-#include "Player.h"
-
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
 
@@ -11,11 +9,9 @@
 
 #define SCROLL_THREASHOLD 350
 
-
-
-static bool handleEvents(Player &player);
-static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &destArea);
-static void update(Player &player, float dt);
+static bool handleEvents(GraphicsEntityHolder &gr_entity_holder);
+static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
+static void update(GraphicsEntityHolder &gr_entity_holder, float dt);
 
 
 int main(int argc, char** argv){
@@ -31,36 +27,33 @@ int main(int argc, char** argv){
                     window  //donde lo meto
                     );
         textures[AN_IDLE] = &s1_idle;
-        std::cout << "Pude agregar el s1_idle" << std::endl;
 
         SdlTexture s1_run("assets/Soldier_1/Run.png", //path de la imagen
                     window //donde lo meto
                     );
         textures[AN_RUN] = &s1_run;
-        std::cout << "Pude agregar el s1_run" << std::endl;
         
         SdlTexture s1_shot1("assets/Soldier_1/Shot_1.png", //path de la imagen
                     window  //donde lo meto
                     );
         textures[AN_SHOOT] = &s1_shot1;
-        std::cout << "Pude agregar el s1_shot1" << std::endl;
         
         SdlTexture s1_die("assets/Soldier_1/Dead.png", //path de la imagen
                     window  //donde lo meto
                     );
         textures[AN_DIE] = &s1_die;
-        std::cout << "Pude agregar el s1_die" << std::endl;
 
 
-        Player player_1(textures);
-        std::cout << "Pude crear el jugador" << std::endl;
+        //Player player_1(std::move(textures));
+        GraphicsEntityHolder gr_entity_holder(std::move(textures));
+
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
-            running = handleEvents(player_1);
-            update(player_1, FRAME_RATE);
-            render(window, player_1, im, destArea);
+            running = handleEvents(gr_entity_holder);
+            update(gr_entity_holder, FRAME_RATE);
+            render(window, gr_entity_holder, im, destArea);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -79,7 +72,7 @@ int main(int argc, char** argv){
  * En un juego real no se tomará de a un evento por vuelta del gameloop, sino que se deberán tomar TODOS
  * o N eventos por vuelta
  */
-static bool handleEvents(Player &player) {
+static bool handleEvents(GraphicsEntityHolder &gr_entity_holder) {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
@@ -87,22 +80,22 @@ static bool handleEvents(Player &player) {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: //tocaron la tecla de izquierda
-                        player.moveLeft();
+                        gr_entity_holder.getMainPlayer()->moveLeft();
                         break;
                     case SDLK_RIGHT: //tocaron la tecla de derecha
-                        player.moveRigth();
+                        gr_entity_holder.getMainPlayer()->moveRigth();
                         break;
                     case SDLK_UP: //tocaron la tecla de izquierda
-                        player.moveUp();
+                        gr_entity_holder.getMainPlayer()->moveUp();
                         break;
                     case SDLK_DOWN: //tocaron la tecla de derecha
-                        player.moveDown();
+                        gr_entity_holder.getMainPlayer()->moveDown();
                         break;
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
-                        player.shoot();
+                        gr_entity_holder.getMainPlayer()->shoot();
                         break;
                     case SDLK_h: //le "pegaron"
-                        player.hurt();
+                        gr_entity_holder.getMainPlayer()->hurt();
                         break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
@@ -113,13 +106,13 @@ static bool handleEvents(Player &player) {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: case SDLK_RIGHT:
-                        player.stopMovingX();
+                        gr_entity_holder.getMainPlayer()->stopMovingX();
                         break;
                     case SDLK_UP: case SDLK_DOWN:
-                        player.stopMovingY();
+                        gr_entity_holder.getMainPlayer()->stopMovingY();
                         break;
                     case SDLK_d: case SDLK_SPACE:
-                        player.stopShooting();
+                        gr_entity_holder.getMainPlayer()->stopShooting();
                         break;
                 }
             }
@@ -129,27 +122,27 @@ static bool handleEvents(Player &player) {
     return true;
 }
 
-static void render(SdlWindow &window, Player &player, SdlTexture &im, Area &destArea) {
+static void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
-    if (player.getX() <= SCROLL_THREASHOLD - 100) {
-        cameraX = player.getX() + ( CAMARA_WIDTH / 220);
-        if (cameraX < 0)
-            cameraX = 0;
-    }
+    // if (gr_entity_holder.getMainPlayer()->getX() <= SCROLL_THREASHOLD - 100) {
+    //     cameraX = gr_entity_holder.getMainPlayer()->getX() + ( CAMARA_WIDTH / 220);
+    //     if (cameraX < 0)
+    //         cameraX = 0;
+    // }
         
-    if (player.getX() >= CAMARA_WIDTH - SCROLL_THREASHOLD) {
-        cameraX = player.getX() - ( CAMARA_WIDTH / 2);
-        if (cameraX > BACKGROUND_WIDTH - CAMARA_WIDTH)
-            cameraX = BACKGROUND_WIDTH - CAMARA_WIDTH;
-    }
+    // if (gr_entity_holder.getMainPlayer()->getX() >= CAMARA_WIDTH - SCROLL_THREASHOLD) {
+    //     cameraX = gr_entity_holder.getMainPlayer()->getX() - ( CAMARA_WIDTH / 2);
+    //     if (cameraX > BACKGROUND_WIDTH - CAMARA_WIDTH)
+    //         cameraX = BACKGROUND_WIDTH - CAMARA_WIDTH;
+    // }
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
-    player.render(); //le delego al player la responsabilidad de saber renderizarse
+    gr_entity_holder.getMainPlayer()->render(); //le delego al player la responsabilidad de saber renderizarse
     window.render();
 }
 
-static void update(Player &player, float dt) {
-    player.update(dt);
+static void update(GraphicsEntityHolder &gr_entity_holder, float dt) {
+    gr_entity_holder.getMainPlayer()->update(dt);
 }

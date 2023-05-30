@@ -18,6 +18,7 @@ include_directories(${PROJECT_SOURCE_DIR}/libs)
 add_executable (sdl-events-prueba
   src/mainPruebaAbril.cpp
   src/Player.cpp
+  src/GraphicsEntityHolder.cpp
 )
 
 
