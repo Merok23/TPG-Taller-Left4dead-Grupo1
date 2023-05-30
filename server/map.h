@@ -1,6 +1,11 @@
+#ifndef SERVER_MAP_H
+#define SERVER_MAP_H
+
 #include <cstdint>
 #include <map>
 #include <vector>
+#include <utility>
+
 #include "movement.h"
 #include "vector_wrapper.h"
 # pragma once
@@ -23,4 +28,7 @@ class Map {
     private:
         //intentionally recieves a copy
         bool checkForBorderCollision(Movement entity);
+        bool moveClosestToBorder(Movement *entity);
+        //bool makeBestMovement(Movement *entity, Movement *other_entity);
 };
+#endif

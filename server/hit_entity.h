@@ -1,3 +1,6 @@
+#ifndef SERVER_HIT_ENTITY_H
+#define SERVER_HIT_ENTITY_H
+
 #include <cstdint>
 #pragma once
 
@@ -15,3 +18,4 @@ class HitEntity {
         uint32_t getDistance();
         ~HitEntity();
 };
+#endif

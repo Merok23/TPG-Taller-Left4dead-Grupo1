@@ -64,3 +64,23 @@ TEST_CASE("Map test, entity colides with the border of the map Y axis", "[map]")
     REQUIRE(map.getEntities()[1]->getX() == 5);
     REQUIRE(map.getEntities()[1]->getY() == 5);
 }
+
+TEST_CASE("Map test, entity goes past 0 and goes to the end of the map", "[map]") {
+    Map map(100, 100);
+    Movement movement(5, 5, 5);
+    movement.setDirection(-10,0);
+    map.addEntity(1, &movement);
+    REQUIRE(map.move(1) == true);
+    REQUIRE(map.getEntities()[1]->getX() == 95);
+    REQUIRE(map.getEntities()[1]->getY() == 5);
+}
+
+TEST_CASE("Map test, entity goes past the map width and returns to the begining", "[map]") {
+    Map map(100, 100);
+    Movement movement(95, 5, 5);
+    movement.setDirection(10,0);
+    map.addEntity(1, &movement);
+    REQUIRE(map.move(1) == true);
+    REQUIRE(map.getEntities()[1]->getX() == 5);
+    REQUIRE(map.getEntities()[1]->getY() == 5);
+}

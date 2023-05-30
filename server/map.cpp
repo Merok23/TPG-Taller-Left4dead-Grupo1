@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "map.h"
 
 Map::Map(uint32_t width, uint32_t height) : 
@@ -24,7 +26,7 @@ void Map::addEntity(const uint32_t &id, Movement *entity) {
 bool Map::move(const uint32_t& id) {
     bool moved = true;
     Movement *entity = this->entities[id];
-    if (checkForBorderCollision(*entity)) return false;
+    if (checkForBorderCollision(*entity)) return moveClosestToBorder(entity);
     for (auto mapEntity : entities) {
         if (mapEntity.first != id) {
             if (entity->checkForCollision(*mapEntity.second)) {
@@ -36,7 +38,29 @@ bool Map::move(const uint32_t& id) {
     if (moved) {
         entity->move();
     }
+    int64_t signed_width = this->width;
+    if (entity->getX() > signed_width) {
+        entity->setX(entity->getX() - signed_width);
+    } else if (entity->getX() < 0) {
+        entity->setX(signed_width + entity->getX());
+    }
     return moved;
+}
+
+
+bool Map::moveClosestToBorder(Movement *entity) {
+    Movement copy = *entity;
+    int32_t initial_y = copy.getY();
+    copy.move();
+    int32_t y = copy.getY();
+    int32_t radius = entity->getRadius();
+    int64_t signed_height = this->height;
+    if (y - radius < 0) {
+        entity->setY(radius);
+    } else if (y + radius > signed_height) {
+        entity->setY(signed_height - radius);
+    }
+    return (initial_y != entity->getY());
 }
 
 std::vector<VectorWrapper> Map::shoot(uint32_t id) {
@@ -45,8 +69,9 @@ std::vector<VectorWrapper> Map::shoot(uint32_t id) {
         if (entity.first != id) {
             if (this->entities[id]->isLookingAt(*entity.second)){
                 if (this->entities[id]->isAligned(*entity.second, this->height)) {
-                    VectorWrapper element(entity.first, entity.second->calculateDistance(*this->entities[id]));
-                    aligned_entitites.push_back(element);
+                    VectorWrapper element(entity.first,    
+                        entity.second->calculateDistance(*this->entities[id]));
+                            aligned_entitites.push_back(element);
                 }
             }
         }
@@ -54,11 +79,6 @@ std::vector<VectorWrapper> Map::shoot(uint32_t id) {
     return aligned_entitites;
 }
 
-//Only checks for y axis because x should loop (map is a torus)
-//X THING NOT IMPLEMENTED!!!!
-//the problem with that is that the movement is done in the entity
-//and only the map know the width of the map, maybe the entity should
-//have a special method to jump the x axis to the origin.
 bool Map::checkForBorderCollision(Movement entity) {
     entity.move();
     int64_t y = entity.getY();

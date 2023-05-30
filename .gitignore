@@ -35,3 +35,10 @@
 build/*
 
 !build/.gitkeep
+
+#cpplint
+cpplint.py
+filter_options.txt
+execute.sh
+
+client/sdl/build*

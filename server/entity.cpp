@@ -1,9 +1,11 @@
+#include <string>
+
 #include "entity.h"
 
 Entity::Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y) : 
     id(id),
     hit_points(hit_points),
-    direction_of_movement(x, y, RADIUS),
+    direction_of_movement(x, y, CONFIG.default_radius),
     damage_for_the_round(0) {}
 
 uint32_t Entity::getId() {
@@ -12,6 +14,10 @@ uint32_t Entity::getId() {
 
 void Entity::setDamageForTheRound(int32_t damage) {
     this->damage_for_the_round += damage;
+}
+
+void Entity::resetDamageForTheRound() {
+    this->damage_for_the_round = 0;
 }
 
 int32_t Entity::getHitPoints() {
@@ -28,4 +34,10 @@ int32_t Entity::getDamageForTheRound() {
 
 void Entity::setHitPoints(int32_t hit_points) {
     this->hit_points = hit_points;
+}
+Entity::~Entity() {}
+
+std::string Entity::getEntityType() {
+    std::string type = "entity";
+    return type;
 }

@@ -1,30 +1,53 @@
+#include <utility>
+
 #include "client_accepter.h"
 #include "server_client.h"
 
+
 #define MAX_ELEMENTS_QUEUE 10000
 
-ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), finished(false) {}
-
-void ClientAccepter::run() {
-    GameLoop* game_loop = new GameLoop();
-    while (!finished) {
-        acceptClient(game_loop);
-    }
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)),finished(false) {
+    GameHandler game_handler;
 }
 
-void ClientAccepter::acceptClient(GameLoop* game_loop) {
-    try {
+void ClientAccepter::run() {
+    acceptClient();
+}
+
+void ClientAccepter::acceptClient() {
+    while (!finished){
+        try {
         Socket socket = recieving_socket.accept();
-        ServerClient* client = new ServerClient(std::move(socket), game_loop->getQueue());
-        std::cout << "El client es " << client << std::endl;
+        ServerClient* client = new ServerClient(std::move(socket), game_handler);
+        clients.push_back(client);
     } catch (LibError &e) {
         if (finished) return;
         std::cout << e.what() << std::endl;
+    }
+    removeDeadClients(); 
+    }
+}
+
+void ClientAccepter::removeDeadClients() {
+    auto it = clients.begin();
+    while (it != clients.end()) {
+        if ((*it)->isFinished()) {
+            delete *it;
+            it = clients.erase(it);
+        } else {
+            ++it;
+        }
     }
 }
 
 void ClientAccepter::stop() {
     finished = true;
+    while (!clients.empty()) {
+        auto client = clients.front();
+        clients.pop_front();
+        delete client;
+    }
+    recieving_socket.shutdown(SHUT_RDWR); 
     recieving_socket.close();
 }
 

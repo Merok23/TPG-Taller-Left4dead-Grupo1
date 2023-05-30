@@ -1,17 +1,25 @@
 #ifndef SERVER_CLIENT_H
 #define SERVER_CLIENT_H
-#include "../common/server_protocol.h"
+
+#include <memory>
+
+#include "server_protocol.h"
 #include "server_receive_thread.h"
-#include "../common/action.h"
+#include "send_thread.h"
+#include "action.h"
+#include "game_handler.h"
 
 class ServerClient {
     private: 
     ServerProtocol protocol;
-    //int id; //no se como inicializar numero random aún 
+    GameHandler& game_handler;  
+    Queue<std::shared_ptr<GameStateForClient>> client_queue;
     ReceiveThread receive_thread;
-    //SendThread send_thread;
+    SendThread send_thread; 
     
     public:
-    ServerClient(Socket socket, Queue<std::shared_ptr<Action>>&  game_queue); 
+    ServerClient(Socket socket, GameHandler& game_handler); 
+    bool isFinished();
+    ~ServerClient();
 };  
 #endif
