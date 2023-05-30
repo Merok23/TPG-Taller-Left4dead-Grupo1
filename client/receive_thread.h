@@ -11,12 +11,12 @@
 class ReceiveThread : public Thread {
     private:
         ClientProtocol& protocol; 
-        Queue<GameState*>& game_states; 
+        Queue<GameState *>& game_states; 
         std::atomic<bool> finished;
 
     public:
         ReceiveThread(ClientProtocol& protocol, 
-            Queue<GameState*>& queue);
+            Queue<GameState *>& queue);
         
         void stop();
         bool isFinished();

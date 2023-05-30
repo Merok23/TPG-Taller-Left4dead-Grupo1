@@ -1,7 +1,7 @@
 #include "graphics.h"
 
 
-GraphicsEntityHolder start_main_player(SdlWindow &window) {
+GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
 
     textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
@@ -12,13 +12,13 @@ GraphicsEntityHolder start_main_player(SdlWindow &window) {
     return GraphicsEntityHolder(std::move(textures));
 }
 
-void Graphics::run(){
+void Graphics::run(GameState *gs){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-        GraphicsEntityHolder gr_entity_holder = start_main_player(window);
+        GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;

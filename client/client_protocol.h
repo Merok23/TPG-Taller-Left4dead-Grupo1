@@ -22,6 +22,10 @@ typedef struct COMMANDS {
 
     COMMANDS() : 
         type(DEFAULT), room_name(""), room_id(0), x_position(0), y_position(0) {}
+    
+    COMMANDS(COMMANDS_TYPE _type, std::string _room_name, uint32_t _room_id, int32_t _x_position, int32_t _y_position) :
+        type(_type), room_name(_room_name), room_id(_room_id), x_position(_x_position), y_position(_y_position) {}
+
 } command_t;
 
 

@@ -13,6 +13,7 @@
 #include <map>
 
 #include "GraphicsEntityHolder.h"
+#include "game_state.h"
 
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
@@ -25,7 +26,7 @@
 
 class Graphics {
     public:
-    void run();
+    void run(GameState *gs);
 
     private:
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder);

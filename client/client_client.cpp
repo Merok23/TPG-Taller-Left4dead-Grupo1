@@ -17,9 +17,23 @@ Client::Client(const char* hostname, const char* servname) :
 }
 
 void Client::run() {
-    //necesito hablar con el server para que me pase la data del player
-    //a ese entity que se recibe se lo mando a graphics
-    graphics.run();
+//DONDE VA ESTE CODIGO
+
+    // //necesito hablar con el server para que me pase la data del player
+    // std::string room_name("nueva_sala");
+    // command_t command(ADD_PLAYER, room_name, 0, 370, 700);
+    // std::cout << "A punto de enviar el comando " << std::endl;
+    // protocol.sendCommand(command);
+    // //a ese entity que se recibe se lo mando a graphics
+    // GameState* gs = NULL;
+    // do {
+    //     gs = protocol.receiveGameState();
+    // } while (!gs);
+     
+    // graphics.run(gs);
+
+
+    
     std::string line;
     while (connected) {
         std::getline(std::cin, line);
