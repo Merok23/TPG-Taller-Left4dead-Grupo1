@@ -17,6 +17,8 @@ Client::Client(const char* hostname, const char* servname) :
 }
 
 void Client::run() {
+    //necesito hablar con el server para que me pase la data del player
+    //a ese entity que se recibe se lo mando a graphics
     graphics.run();
     std::string line;
     while (connected) {

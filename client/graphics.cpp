@@ -9,7 +9,6 @@ GraphicsEntityHolder start_main_player(SdlWindow &window) {
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
-
     return GraphicsEntityHolder(std::move(textures));
 }
 
