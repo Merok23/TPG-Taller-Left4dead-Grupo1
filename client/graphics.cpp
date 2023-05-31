@@ -15,7 +15,6 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
 
 void Graphics::run(GameState *gs){
     try {
-        std::cout << "Estoy en graphics.run()" << std::endl;
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height

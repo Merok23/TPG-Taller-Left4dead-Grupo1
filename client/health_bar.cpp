@@ -21,5 +21,4 @@ void HealthBar::render() {
     SDL_RenderPresent(renderer);
 }
 
-
 HealthBar::~HealthBar() {}

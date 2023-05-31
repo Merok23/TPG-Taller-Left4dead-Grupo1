@@ -5,7 +5,7 @@ IdHandler::IdHandler(Game &game) : game(game), my_ids(), m() {}
 void IdHandler::createPlayer(uint32_t client_id, Weapon* weapon) {
     std::unique_lock<std::mutex> lock(m);
     my_ids[client_id] = game.getCurrentId();
-    Entity* entity = new Player(game.getCurrentId(), 5, 5, weapon); //posiciones?
+    Entity* entity = new Player(game.getCurrentId(), 910, 300, weapon); //posiciones?
     game.addEntity(entity);
 }
 
