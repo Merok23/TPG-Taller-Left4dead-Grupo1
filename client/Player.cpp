@@ -4,9 +4,9 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, int32_t x_position, int32_t y_position, int32_t hit_points) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
-    moving_x(false), moving_y(false), shooting(false), 
+    moving_x(false), moving_y(false), shooting(false),  id(id),
     x(x_position), y(y_position), health(hit_points), max_health(hit_points)
     {
         auto it = textures.find(AN_IDLE);
@@ -40,29 +40,47 @@ int Player::getY() {
  * Notar que el manejo de eventos y la actualización de modelo ocurren en momentos distintos.
  * Esto les va a resultar muy util en un juego multiplaforma. 
  */
-void Player::update(float dt) {
+void Player::update(float dt, GameState *gs) {
+    if (gs) {
+        auto it = gs->entities.find(id);
+        if (it != gs->entities.end()) { //mi personaje debe ser actualizado
+            moving_x = (x != it->second->getPositionX());
+            x = it->second->getPositionX();
+
+            moving_y = (y != it->second->getPositionY());
+            y = it->second->getPositionY();
+            
+            health = it->second->getHitPoints();
+            
+            facingLeft = it->second->isFacingLeft();
+            facingUp = it->second->isMovingUp();
+        }
+    }
+
     auto it_die = animations.find(AN_DIE);
     if (moving_x) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        if (facingLeft) {
-            if (x >= -100)
-                x -= 10; //me dice cu'antos pixeles me muevo
-        }
-        else {
-            if (x <= 1220)
-                x += 10;
+        {// if (facingLeft) {
+        //     if (x >= -100)
+        //         x -= 10; //me dice cu'antos pixeles me muevo
+        // }
+        // else {
+        //     if (x <= 1220)
+        //         x += 10;
+        // }
         }
             
     } else if (moving_y) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        if (facingUp)
-            y -= 10; //me dice cu'antos pixeles me muevo
-        else
-            y += 10;
+        {// if (facingUp)
+        //     y -= 10; //me dice cu'antos pixeles me muevo
+        // else
+        //     y += 10;
+        }
     } else if (shooting) {
         auto it = animations.find(AN_SHOOT);
         if (it != animations.end())

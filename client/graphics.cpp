@@ -76,26 +76,26 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                     case SDLK_LEFT: {
                         std::string command("move -1 0");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->moveLeft();
+                        //gr_entity_holder.getMainPlayer()->moveLeft();
                         break;
                     }
                         
                     case SDLK_RIGHT: {
                         std::string command("move 1 0");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->moveRigth();
+                        //gr_entity_holder.getMainPlayer()->moveRigth();
                         break;
                     }
                     case SDLK_UP: {
-                        std::string command("move 0 1");
+                        std::string command("move 0 -1");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->moveUp();
+                        //gr_entity_holder.getMainPlayer()->moveUp();
                         break;
                     }
                     case SDLK_DOWN: {
-                        std::string command("move 0 -1");
+                        std::string command("move 0 1");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->moveDown();
+                        //gr_entity_holder.getMainPlayer()->moveDown();
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
@@ -148,10 +148,12 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
 }
 
 void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
-     GameState* gs = NULL;
-    // while (gs == NULL) {
-    //     game_states.try_pop(gs);
-    // }
-    //std::cout << "Graphics::update gs is " << gs << std::endl;
+    GameState* gs = NULL;
+    int i = 0;
+    while (gs == NULL && i < 20) {
+        std::cout << "Estoy en el loop de Graphics::update. i es " << i << " y gs es " << gs << std::endl;
+        game_states.try_pop(gs);
+        i++;
+    }
     gr_entity_holder.update(dt, gs);
 }

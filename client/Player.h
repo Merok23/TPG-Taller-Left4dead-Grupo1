@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 
 #include "Animation.h"
+#include "game_state.h"
 #include <memory>
 #include <map>
 
@@ -14,9 +15,9 @@ enum AnimationName {
 
 class Player {
 public:
-    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, int32_t x_position, int32_t y_position, int32_t hit_points);
+    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
     ~Player();
-    void update(float dt);
+    void update(float dt, GameState *gs);
     void render();
     void moveRigth();
     void moveLeft();
@@ -37,6 +38,7 @@ private:
     bool moving_x;
     bool moving_y;
     bool shooting;
+    uint32_t id;
     int32_t x;
     int32_t y;
     int32_t health;

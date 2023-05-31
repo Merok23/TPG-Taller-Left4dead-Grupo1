@@ -8,8 +8,10 @@ SendThread::SendThread(ClientProtocol& protocol, Queue<std::string>& queue) :
             finished(false) {}
 
 void SendThread::run() {
+    std::cout << "Estoy en SendThread::run" <<std::endl;
     std::string line;
     while (!finished) {
+        std::cout << "Nuevo loop" <<std::endl;
         try {
             line = queue_comandos.pop();
             if (protocol.isFinished()) {
@@ -20,10 +22,12 @@ void SendThread::run() {
             std::string action; 
             iss >> action;
             if (action == "create") {
+                std::cout << "Estoy en caso create" <<std::endl;
                 command_t command = command_t(); 
                 command.type = ADD_PLAYER;
                 protocol.sendCommand(command);
             } else if (action == "move") {
+                std::cout << "Estoy en caso move" <<std::endl;
                 // si presionan boton izqueirdo
                 // "move -1 0"
 
@@ -44,6 +48,8 @@ void SendThread::run() {
                 command.type = MOVE_PLAYER;
                 command.x_position = x;
                 command.y_position = y;
+
+                std::cout << "El command.type es " << command.type << std::endl;
                 protocol.sendCommand(command);
             }
         } catch(const ClosedQueue &e) {
