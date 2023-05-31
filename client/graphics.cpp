@@ -26,9 +26,13 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
+            std::cout << "Dentro del loop de running" << std::endl;
             running = handleEvents(gr_entity_holder, queue_comandos);
+            std::cout << "handleEvents hecho" << std::endl;
             update(gr_entity_holder, FRAME_RATE, game_states);
+            std::cout << "update hecho" << std::endl;
             render(window, gr_entity_holder, im, destArea, hb);
+            std::cout << "render hecho" << std::endl;
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -144,9 +148,10 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
 }
 
 void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
-    // GameState* gs = NULL;
-    //     while (gs == NULL) {
-    //         game_states.try_pop(gs);
-    //     }
-    gr_entity_holder.update(dt);
+     GameState* gs = NULL;
+    // while (gs == NULL) {
+    //     game_states.try_pop(gs);
+    // }
+    //std::cout << "Graphics::update gs is " << gs << std::endl;
+    gr_entity_holder.update(dt, gs);
 }

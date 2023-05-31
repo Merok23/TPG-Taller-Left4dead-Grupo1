@@ -14,7 +14,7 @@ public:
 
     std::shared_ptr<Player> getMainPlayer();
 
-    void update(float& dt);
+    void update(float& dt, GameState *gs);
     void render();
     
 
