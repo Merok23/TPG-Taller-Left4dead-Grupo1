@@ -68,10 +68,15 @@ void Client::run() {
         else if (line == "create") {
             queue_comandos.push(line);
             GameState* gs = NULL;
-            while (gs == NULL) {
+            bool leave = false;
+            while (!leave) {
                 game_states.try_pop(gs);
+                if (gs) {
+                    if (!gs->entities.empty()) {
+                        leave = true;
+                    }
+                }
             }
-            std::cout << "en client_client gs es " << gs << std::endl;
             graphics.run(gs, queue_comandos, game_states);
         }
     }

@@ -9,7 +9,6 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
-    std::cout << "Cree todas las texturas, estoy por crear el holder" << std::endl;
     return GraphicsEntityHolder(gs, std::move(textures));
 }
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
@@ -19,20 +18,15 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
         GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
-        std::cout << "Tengo el graphics entity holder creado" << std::endl;
 
         HealthBar hb(100, window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
-            std::cout << "Dentro del loop de running" << std::endl;
             running = handleEvents(gr_entity_holder, queue_comandos);
-            std::cout << "handleEvents hecho" << std::endl;
             update(gr_entity_holder, FRAME_RATE, game_states);
-            std::cout << "update hecho" << std::endl;
             render(window, gr_entity_holder, im, destArea, hb);
-            std::cout << "render hecho" << std::endl;
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -52,23 +46,6 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
 bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos) {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
-// si presionan boton izqueirdo
-                // "move -1 0"
-
-                // si presionan boton derecho
-                // move 1 0
-
-                // si presionan boton arriba
-                // move 0 1
-
-                // si presionan boton abajo
-                // move 0 -1
-
-                // si dejan de presionar
-                // move 0 0
-
-//            queue_comandos.push(line);
-
         switch(event.type) {
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
@@ -76,26 +53,22 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                     case SDLK_LEFT: {
                         std::string command("move -1 0");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer()->moveLeft();
                         break;
                     }
                         
                     case SDLK_RIGHT: {
                         std::string command("move 1 0");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer()->moveRigth();
                         break;
                     }
                     case SDLK_UP: {
                         std::string command("move 0 -1");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer()->moveUp();
                         break;
                     }
                     case SDLK_DOWN: {
                         std::string command("move 0 1");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer()->moveDown();
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
@@ -115,13 +88,11 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                     case SDLK_LEFT: case SDLK_RIGHT: {
                         std::string command("move 0 0");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->stopMovingX();
                         break;
                     }
                     case SDLK_UP: case SDLK_DOWN: {
                         std::string command("move 0 0");
                         queue_comandos.push(command);
-                        gr_entity_holder.getMainPlayer()->stopMovingY();
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE:
@@ -151,7 +122,6 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
     GameState* gs = NULL;
     int i = 0;
     while (gs == NULL && i < 20) {
-        std::cout << "Estoy en el loop de Graphics::update. i es " << i << " y gs es " << gs << std::endl;
         game_states.try_pop(gs);
         i++;
     }

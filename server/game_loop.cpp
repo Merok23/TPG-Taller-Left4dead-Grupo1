@@ -40,12 +40,18 @@ void GameLoop::run() {
         while (game_queue.try_pop(action)) {
             action->execute(id_handler);
             delete action;
-
-            std::shared_ptr<GameStateForClient> game_state = game.update();
+        /*std::shared_ptr<GameStateForClient> game_state = game.update();
             for (auto& player_queue : player_queues) {
                 player_queue.second->push(game_state);
-            }
+            }*/
+
         } 
+
+        std::shared_ptr<GameStateForClient> game_state = game.update();
+        for (auto& player_queue : player_queues) {
+            player_queue.second->push(game_state);
+        }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / iterationsPerSecond));
     }
 }
