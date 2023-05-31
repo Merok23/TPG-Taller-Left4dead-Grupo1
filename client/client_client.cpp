@@ -72,7 +72,7 @@ void Client::run() {
                 game_states.try_pop(gs);
             }
             std::cout << "en client_client gs es " << gs << std::endl;
-            graphics.run(gs);
+            graphics.run(gs, queue_comandos, game_states);
         }
     }
 }

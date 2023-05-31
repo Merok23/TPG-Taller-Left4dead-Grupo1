@@ -24,6 +24,20 @@ void SendThread::run() {
                 command.type = ADD_PLAYER;
                 protocol.sendCommand(command);
             } else if (action == "move") {
+                // si presionan boton izqueirdo
+                // "move -1 0"
+
+                // si presionan boton derecho
+                // move 1 0
+
+                // si presionan boton arriba
+                // move 0 1
+
+                // si presionan boton abajo
+                // move 0 -1
+
+                // si dejan de presionar
+                // move 0 0
                 int x, y;
                 iss >> x >> y;
                 command_t command = command_t(); 

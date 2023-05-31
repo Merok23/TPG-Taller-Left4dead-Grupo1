@@ -15,6 +15,7 @@
 #include "game_state.h"
 
 #include "health_bar.h"
+#include "../common/queue.h"
 
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
@@ -27,12 +28,12 @@
 
 class Graphics {
     public:
-    void run(GameState *gs);
+    void run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states);
 
     private:
-    bool handleEvents(GraphicsEntityHolder &gr_entity_holder);
+    bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos);
+    void update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states);
     void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea, HealthBar &hb);
-    void update(GraphicsEntityHolder &gr_entity_holder, float dt);
 
 };
 

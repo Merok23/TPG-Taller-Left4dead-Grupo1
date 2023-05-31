@@ -12,8 +12,7 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     std::cout << "Cree todas las texturas, estoy por crear el holder" << std::endl;
     return GraphicsEntityHolder(gs, std::move(textures));
 }
-
-void Graphics::run(GameState *gs){
+void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
@@ -27,8 +26,8 @@ void Graphics::run(GameState *gs){
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
-            running = handleEvents(gr_entity_holder);
-            update(gr_entity_holder, FRAME_RATE);
+            running = handleEvents(gr_entity_holder, queue_comandos);
+            update(gr_entity_holder, FRAME_RATE, game_states);
             render(window, gr_entity_holder, im, destArea, hb);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
@@ -46,25 +45,55 @@ void Graphics::run(GameState *gs){
  * En un juego real no se tomará de a un evento por vuelta del gameloop, sino que se deberán tomar TODOS
  * o N eventos por vuelta
  */
-bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder) {
+bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos) {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
+// si presionan boton izqueirdo
+                // "move -1 0"
+
+                // si presionan boton derecho
+                // move 1 0
+
+                // si presionan boton arriba
+                // move 0 1
+
+                // si presionan boton abajo
+                // move 0 -1
+
+                // si dejan de presionar
+                // move 0 0
+
+//            queue_comandos.push(line);
+
         switch(event.type) {
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT: //tocaron la tecla de izquierda
+                    case SDLK_LEFT: {
+                        std::string command("move -1 0");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->moveLeft();
                         break;
-                    case SDLK_RIGHT: //tocaron la tecla de derecha
+                    }
+                        
+                    case SDLK_RIGHT: {
+                        std::string command("move 1 0");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->moveRigth();
                         break;
-                    case SDLK_UP: //tocaron la tecla de izquierda
+                    }
+                    case SDLK_UP: {
+                        std::string command("move 0 1");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->moveUp();
                         break;
-                    case SDLK_DOWN: //tocaron la tecla de derecha
+                    }
+                    case SDLK_DOWN: {
+                        std::string command("move 0 -1");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->moveDown();
                         break;
+                    }
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
                         gr_entity_holder.getMainPlayer()->shoot();
                         break;
@@ -79,12 +108,18 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder) {
             case SDL_KEYUP: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT: case SDLK_RIGHT:
+                    case SDLK_LEFT: case SDLK_RIGHT: {
+                        std::string command("move 0 0");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->stopMovingX();
                         break;
-                    case SDLK_UP: case SDLK_DOWN:
+                    }
+                    case SDLK_UP: case SDLK_DOWN: {
+                        std::string command("move 0 0");
+                        queue_comandos.push(command);
                         gr_entity_holder.getMainPlayer()->stopMovingY();
                         break;
+                    }
                     case SDLK_d: case SDLK_SPACE:
                         gr_entity_holder.getMainPlayer()->stopShooting();
                         break;
@@ -100,17 +135,6 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
                 HealthBar &hb) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
-    // if (gr_entity_holder.getMainPlayer()->getX() <= SCROLL_THREASHOLD - 100) {
-    //     cameraX = gr_entity_holder.getMainPlayer()->getX() + ( CAMARA_WIDTH / 220);
-    //     if (cameraX < 0)
-    //         cameraX = 0;
-    // }
-        
-    // if (gr_entity_holder.getMainPlayer()->getX() >= CAMARA_WIDTH - SCROLL_THREASHOLD) {
-    //     cameraX = gr_entity_holder.getMainPlayer()->getX() - ( CAMARA_WIDTH / 2);
-    //     if (cameraX > BACKGROUND_WIDTH - CAMARA_WIDTH)
-    //         cameraX = BACKGROUND_WIDTH - CAMARA_WIDTH;
-    // }
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
@@ -119,6 +143,10 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     window.render();
 }
 
-void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt) {
+void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
+    // GameState* gs = NULL;
+    //     while (gs == NULL) {
+    //         game_states.try_pop(gs);
+    //     }
     gr_entity_holder.update(dt);
 }
