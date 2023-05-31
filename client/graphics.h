@@ -9,11 +9,12 @@
 #include "SdlWindow.h"
 #include "SdlTexture.h"
 #include "Animation.h"
-
 #include <map>
 
 #include "GraphicsEntityHolder.h"
 #include "game_state.h"
+
+#include "health_bar.h"
 
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
@@ -30,7 +31,7 @@ class Graphics {
 
     private:
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder);
-    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
+    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea, HealthBar &hb);
     void update(GraphicsEntityHolder &gr_entity_holder, float dt);
 
 };

@@ -1,6 +1,5 @@
 #include "graphics.h"
 
-
 GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
 
@@ -24,12 +23,14 @@ void Graphics::run(GameState *gs){
         GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
         std::cout << "Tengo el graphics entity holder creado" << std::endl;
 
+        HealthBar hb(100, window);
+
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(gr_entity_holder);
             update(gr_entity_holder, FRAME_RATE);
-            render(window, gr_entity_holder, im, destArea);
+            render(window, gr_entity_holder, im, destArea, hb);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -96,7 +97,8 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder) {
     return true;
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea,
+                HealthBar &hb) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
     // if (gr_entity_holder.getMainPlayer()->getX() <= SCROLL_THREASHOLD - 100) {
@@ -114,6 +116,7 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render(); //le delego al player la responsabilidad de saber renderizarse
+    hb.render();
     window.render();
 }
 

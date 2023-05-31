@@ -16,14 +16,14 @@ set(TARGET_DIR target)
 set(TESTS_DIR tests)
 
 file(GLOB COMMON_SRCS ${COMMON_DIR}/*.cpp)
-file(GLOB CLIENT_SRCS ${CLIENT_DIR}/*.cpp ${CLIENT_DIR}/main/main.cpp)
+file(GLOB CLIENT_SRCS ${CLIENT_DIR}/*.cpp ${CLIENT_DIR}/main/main.cpp  ${CLIENT_DIR}/health_bar.cpp)
 file(GLOB SERVER_SRCS_FOR_TESTS ${SERVER_DIR}/*.cpp EXCLUDE ${SERVER_DIR}/main)
 file(GLOB SERVER_SRCS ${SERVER_DIR}/*.cpp ${SERVER_DIR}/main/main.cpp)
 file(GLOB TESTS_SRCS ${TESTS_DIR}/*.cpp)
 
 add_library(common_objects OBJECT ${COMMON_SRCS})
 
-add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS})
+add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${CLIENT_DIR}/health_bar.cpp)
 target_link_libraries(client_executable PRIVATE Threads::Threads SDL2 SDL2_image)
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
