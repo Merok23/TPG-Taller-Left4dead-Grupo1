@@ -45,21 +45,18 @@ uint32_t Player::getId() {
  * Notar que el manejo de eventos y la actualización de modelo ocurren en momentos distintos.
  * Esto les va a resultar muy util en un juego multiplaforma. 
  */
-void Player::update(float dt, GameState *gs) {
-    if (gs) {
-        auto it = gs->entities.find(id);
-        if (it != gs->entities.end()) { //mi personaje debe ser actualizado
-            moving_x = (x != it->second->getPositionX());
-            x = it->second->getPositionX();
+void Player::update(float dt, Entity *entity) {
+    if (entity) {
+        moving_x = (x != entity->getPositionX());
+        x = entity->getPositionX();
 
-            moving_y = (y != it->second->getPositionY());
-            y = it->second->getPositionY();
-            
-            //health_bar.update(it->second->getHitPoints()); //aca recibo la nueva data del server y la funcion damage dejaria de existir
-            
-            facingLeft = it->second->isFacingLeft();
-            facingUp = it->second->isMovingUp();
-        }
+        moving_y = (y != entity->getPositionY());
+        y = entity->getPositionY();
+        
+        //health_bar.update(it->second->getHitPoints()); //aca recibo la nueva data del server y la funcion damage dejaria de existir
+        
+        facingLeft = entity->isFacingLeft();
+        facingUp = entity->isMovingUp();
     }
 
     auto it_die = animations.find(AN_DIE);

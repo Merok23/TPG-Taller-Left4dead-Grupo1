@@ -18,7 +18,7 @@ class Player {
 public:
     Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
     ~Player();
-    void update(float dt, GameState *gs);
+    void update(float dt, Entity *entity);
     void render();
     void moveRigth();
     void moveLeft();

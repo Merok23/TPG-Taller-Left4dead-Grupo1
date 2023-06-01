@@ -24,44 +24,16 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 }
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
-    for (auto i = entities.begin(); i != entities.end();) {
-        uint32_t id = i->second->getId();
-        // chequeo en gs->entities si est'a el id de pair.second->getId()
-        auto it_entity = entities.find(id);
-        if (it_entity != entities.end()) {
-            // si esta, tengo que actualizar uno de los mios. Le mando esa data para actualizar a mi pair.second->update y saco ese elemento del hash
-            //i->second->update(dt, it_entity->second); //aca deberia mandar el entity
-            //y saco el elemento del hash
-            //i = entities.erase(i);
-        } else {
-            // si no esta, no tengo que actualizar uno de los mios con nueva data, solo tengo que actualizar las animations. Llamdo a update sin esa data
-            //i->second->update(dt, NULL);
-            //i++;
+    for (const auto& pair : entities) { //loopeo mis entidades
+        uint32_t id = pair.second->getId();
+        auto it_entity = gs->entities.find(id); //busco al elemento en el mapa de entities de gs
+        if (it_entity != gs->entities.end()) { //lo encontre, lo tengo que actualizar
+            pair.second->update(dt, it_entity->second);
+            gs->entities.erase(id); //saco el elemento de gs->entities
+        } else { //no esta el elemento en gs->entities, no tiene data nueva
+            pair.second->update(dt, NULL); //actualizo igual los grame
         }
-        i->second->update(dt, gs);
-        i++;
     }
-    
-    {// for (const auto& pair : entities) {
-    //     uint32_t id = pair.second->getId();
-    //     // chequeo en gs->entities si est'a el id de pair.second->getId()
-    //     auto it = entities.find(id);
-    //     if (it != entities.end()) {
-    //         //lo encontre --> actualizo el elemento
-    //         //pair.second->update(dt, it->second); //aca deberia mandar el entity
-    //         //y saco el elemento del hash
-    //         //
-    //     } else {
-    //         //no lo encontre, le paso un null porque solo necesito actualizar los frames
-    //         //pair.second->update(dt, NULL);
-    //     }
-    //     // si esta, tengo que actualizar uno de los mios. Le mando esa data para actualizar a mi pair.second->update y saco ese elemento del hash
-    //     // si no esta, no tengo que actualizar uno de los mios con nueva data, solo tengo que actualizar las animations. Llamdo a update sin esa data
-    //     pair.second->update(dt, gs);
-    // }
-    }
-    
-    
     //cuando termine de revisar y actualizar todos los mios, puede ser que me hayan quedado elementos en 
     //gs->entities sin matchear (porque son entities nuevas)
     //si gs->entities esta vacio, todo lo que me mandaron era para actualizar y ya saque todo del hash.
