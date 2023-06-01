@@ -18,9 +18,9 @@ void HealthBar::update(int32_t new_health) {
 
 void HealthBar::render() {
     SDL_SetRenderDrawColor(renderer, 67, 2, 7, 255); //darker red for the outer bar
-    float total_amount =  max_health * 5; 
+    float total_amount =  max_health * 3; 
     std::cout << "total_amount is " << total_amount << std::endl;
-    SDL_Rect outer_bar = {200, 20, static_cast<int>(total_amount), 10}; // position and size of the outer bar
+    SDL_Rect outer_bar = {50, 20, static_cast<int>(total_amount), 10}; // position and size of the outer bar
     SDL_RenderFillRect(renderer, &outer_bar);
 
 
