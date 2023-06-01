@@ -62,25 +62,11 @@ void Player::update(float dt, GameState *gs) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        {// if (facingLeft) {
-        //     if (x >= -100)
-        //         x -= 10; //me dice cu'antos pixeles me muevo
-        // }
-        // else {
-        //     if (x <= 1220)
-        //         x += 10;
-        // }
-        }
             
     } else if (moving_y) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        {// if (facingUp)
-        //     y -= 10; //me dice cu'antos pixeles me muevo
-        // else
-        //     y += 10;
-        }
     } else if (shooting) {
         auto it = animations.find(AN_SHOOT);
         if (it != animations.end())
