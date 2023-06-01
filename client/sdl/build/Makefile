@@ -142,6 +142,30 @@ sdldemo/fast:
 	$(MAKE) $(MAKESILENT) -f libs/CMakeFiles/sdldemo.dir/build.make libs/CMakeFiles/sdldemo.dir/build
 .PHONY : sdldemo/fast
 
+src/GraphicsEntityHolder.o: src/GraphicsEntityHolder.cpp.o
+.PHONY : src/GraphicsEntityHolder.o
+
+# target to build an object file
+src/GraphicsEntityHolder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sdl-events-prueba.dir/build.make CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o
+.PHONY : src/GraphicsEntityHolder.cpp.o
+
+src/GraphicsEntityHolder.i: src/GraphicsEntityHolder.cpp.i
+.PHONY : src/GraphicsEntityHolder.i
+
+# target to preprocess a source file
+src/GraphicsEntityHolder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sdl-events-prueba.dir/build.make CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.i
+.PHONY : src/GraphicsEntityHolder.cpp.i
+
+src/GraphicsEntityHolder.s: src/GraphicsEntityHolder.cpp.s
+.PHONY : src/GraphicsEntityHolder.s
+
+# target to generate assembly for a file
+src/GraphicsEntityHolder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sdl-events-prueba.dir/build.make CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.s
+.PHONY : src/GraphicsEntityHolder.cpp.s
+
 src/Player.o: src/Player.cpp.o
 .PHONY : src/Player.o
 
@@ -200,6 +224,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... sdl-events-prueba"
 	@echo "... sdldemo"
+	@echo "... src/GraphicsEntityHolder.o"
+	@echo "... src/GraphicsEntityHolder.i"
+	@echo "... src/GraphicsEntityHolder.s"
 	@echo "... src/Player.o"
 	@echo "... src/Player.i"
 	@echo "... src/Player.s"

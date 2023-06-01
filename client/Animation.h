@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 
+#include <memory>
 #include "SdlException.h"
 
 #define FRAME_RATE 1000000.0f/25.0f
@@ -17,7 +18,7 @@ class Area;
 
 class Animation {
    public:
-    Animation(const SdlTexture *texture);
+    Animation(const std::shared_ptr<SdlTexture>texture);
     ~Animation();
     void update(float dt);
     void render(const Area& dst, const SDL_RendererFlip &flipType);
@@ -27,7 +28,7 @@ class Animation {
    private:
     void advanceFrame();
     /** SDL texture of the raw image. */
-    const SdlTexture *texture;
+    const std::shared_ptr<SdlTexture> texture;
     /** Current animation frame. */
     int currentFrame;
     /** Total number of frames in the sprite. */

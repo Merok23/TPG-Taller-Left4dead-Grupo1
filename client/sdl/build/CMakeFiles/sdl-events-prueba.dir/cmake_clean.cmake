@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o"
+  "CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o.d"
   "CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o"
   "CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o.d"
   "CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o"

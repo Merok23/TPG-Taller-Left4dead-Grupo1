@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/GraphicsEntityHolder.cpp" "CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o" "gcc" "CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o.d"
   "/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/Player.cpp" "CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o" "gcc" "CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o.d"
   "/home/parallels/Desktop/Taller-I/TP-Final/TP-Left4Dead/TPG-Taller-Left4dead-Grupo1/client/sdl/src/mainPruebaAbril.cpp" "CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o" "gcc" "CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o.d"
   )

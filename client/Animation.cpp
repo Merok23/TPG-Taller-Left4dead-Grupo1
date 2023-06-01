@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-Animation::Animation(const SdlTexture *texture) : texture(texture), currentFrame(0),
+Animation::Animation(const std::shared_ptr<SdlTexture> texture) : texture(texture), currentFrame(0),
                                                   numFrames(this->texture->getWidth() / this->texture->getHeight()),
                                                   size(this->texture->getHeight()), elapsed(0.0f),
                                                   amountAnimationsMade(0) {

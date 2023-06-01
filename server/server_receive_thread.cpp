@@ -73,6 +73,7 @@ void ReceiveThread::stop() {
         if (start_playing) game_handler.leaveRoom(room_id, client_queue);
 } 
 
+
 bool ReceiveThread::isFinished() {
     return finished;
 }

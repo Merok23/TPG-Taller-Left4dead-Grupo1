@@ -1,6 +1,23 @@
 #ifndef CLIENT_CLIENT_H
 #define CLIENT_CLIENT_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <netdb.h>
+#include <sstream>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <iostream>
+#include <fstream>
+#include <thread>
+
+#include "../client/client_protocol.h"
+#include "../common/socket.h"
+
+#include "graphics.h"
+
 #include <list>
 #include <string>
 #include "send_thread.h"
@@ -10,6 +27,9 @@
 class Client {
     private: 
     ClientProtocol protocol;
+    Graphics graphics;
+    int game_id;
+    bool connected; 
     Queue<std::string> queue_comandos; 
     Queue<GameState*> game_states;
     SendThread* send_thread;

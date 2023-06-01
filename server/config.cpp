@@ -9,8 +9,8 @@ const struct config CONFIG {
     5, // infected_radius
     50, // infected_range
     10, // common_infected_speed
-    20000, // scenario_width
-    20000, // scenario_height
+    1920, // scenario_width
+    1080, // scenario_height
     5, // default_radius
     8589934591, // invalid_id
     50, // weapon_idf_base_damage

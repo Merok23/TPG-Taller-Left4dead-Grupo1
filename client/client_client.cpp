@@ -64,9 +64,21 @@ void Client::run() {
         if (line == "leave") {
             finished = true; 
             break; 
-        } else  {
+        } 
+        else if (line == "create") {
             queue_comandos.push(line);
-        }  
+            GameState* gs = NULL;
+            bool leave = false;
+            while (!leave) {
+                game_states.try_pop(gs);
+                if (gs) {
+                    if (!gs->entities.empty()) {
+                        leave = true;
+                    }
+                }
+            }
+            graphics.run(gs, queue_comandos, game_states);
+        }
     }
 }
  
