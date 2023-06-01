@@ -1,13 +1,13 @@
-#include "Area.h"
+#include "health_bar.h"
 #include "Player.h"
 #include "SdlTexture.h"
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
     moving_x(false), moving_y(false), shooting(false),  id(id),
-    x(x_position), y(y_position), health(hit_points), max_health(hit_points)
+    x(x_position), y(y_position), health_bar(hit_points, window)
     {
         auto it = textures.find(AN_IDLE);
         if (it != textures.end())
@@ -28,12 +28,17 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, ui
     }
 Player::~Player() {}
 
-int Player::getX() {
+int32_t Player::getX() {
     return x;
 }
 
-int Player::getY() {
+int32_t Player::getY() {
     return y;
+}
+
+
+uint32_t Player::getId() {
+    return id;
 }
 
 /*
@@ -50,7 +55,7 @@ void Player::update(float dt, GameState *gs) {
             moving_y = (y != it->second->getPositionY());
             y = it->second->getPositionY();
             
-            health = it->second->getHitPoints();
+            //health_bar.update(it->second->getHitPoints()); //aca recibo la nueva data del server y la funcion damage dejaria de existir
             
             facingLeft = it->second->isFacingLeft();
             facingUp = it->second->isMovingUp();
@@ -62,31 +67,17 @@ void Player::update(float dt, GameState *gs) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        {// if (facingLeft) {
-        //     if (x >= -100)
-        //         x -= 10; //me dice cu'antos pixeles me muevo
-        // }
-        // else {
-        //     if (x <= 1220)
-        //         x += 10;
-        // }
-        }
             
     } else if (moving_y) {
         auto it = animations.find(AN_RUN);
         if (it != animations.end())
             it->second->update(dt);
-        {// if (facingUp)
-        //     y -= 10; //me dice cu'antos pixeles me muevo
-        // else
-        //     y += 10;
-        }
     } else if (shooting) {
         auto it = animations.find(AN_SHOOT);
         if (it != animations.end())
             it->second->update(dt);
     } else if (it_die != animations.end()) {
-        if (health <= 0 && it_die->second->amountPlayed() == 0) {
+        if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
             it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
         }
     } else {
@@ -111,17 +102,19 @@ void Player::render() {
         if (it != animations.end())
             it->second->render(destArea, flip);
     }
-    else if (health <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
+    else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
             it_die->second->render(destArea, flip);
     else {
         auto it = animations.find(AN_IDLE);
         if (it != animations.end())
             it->second->render(destArea, flip);
     }
+
+    health_bar.render();
 }
 
 void Player::hurt() {
-    health = health-50;
+    health_bar.damage(20); //esto es para probar, mas adelante lo tengo que recibir del server
 }
 
 void Player::moveRigth() {

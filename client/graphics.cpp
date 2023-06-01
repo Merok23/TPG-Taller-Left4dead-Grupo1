@@ -9,7 +9,7 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
-    return GraphicsEntityHolder(gs, std::move(textures));
+    return GraphicsEntityHolder(gs, std::move(textures), window);
 }
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {
@@ -19,7 +19,7 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
 
         GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
 
-        HealthBar hb(100, window);
+        HealthBar hb(300, window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
@@ -113,8 +113,8 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
-    gr_entity_holder.render(); //le delego al player la responsabilidad de saber renderizarse
-    hb.render();
+    gr_entity_holder.render();
+    //hb.render();
     window.render();
 }
 
