@@ -9,7 +9,7 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
     textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
-    return GraphicsEntityHolder(gs, std::move(textures));
+    return GraphicsEntityHolder(gs, std::move(textures), window);
 }
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {
@@ -114,8 +114,7 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render();
-    hb.update(100); //despues lo muevo al player
-    hb.render();
+    //hb.render();
     window.render();
 }
 

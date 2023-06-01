@@ -4,12 +4,13 @@
 #include <memory>
 #include <map>
 #include "SdlTexture.h"
+#include "SdlWindow.h"
 #include "Player.h"
 #include "game_state.h"
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures);
+    GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, SdlWindow &window);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
@@ -19,6 +20,7 @@ public:
     
 
 private:
+    SdlWindow &window;
     std::map<uint32_t, std::shared_ptr<Player>> entities;
     std::shared_ptr<Player> MainPlayer;
 };

@@ -1,11 +1,14 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures) {
+GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, SdlWindow &window) :
+    window(window)
+{
         for (auto& pair : gs->entities) {
             if (pair.second->getType() == "player") {
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             std::move(textures),
+                                                            window,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
                                                             pair.second->getPositionY(),
