@@ -28,12 +28,17 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, co
     }
 Player::~Player() {}
 
-int Player::getX() {
+int32_t Player::getX() {
     return x;
 }
 
-int Player::getY() {
+int32_t Player::getY() {
     return y;
+}
+
+
+uint32_t Player::getId() {
+    return id;
 }
 
 /*

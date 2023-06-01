@@ -30,8 +30,10 @@ public:
     void stopShooting();
     void hurt();
 
-    int getX();
-    int getY();
+    int32_t getX();
+    int32_t getY();
+    uint32_t getId();
+
 
 private:
     bool facingLeft;

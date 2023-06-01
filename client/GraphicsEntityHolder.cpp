@@ -25,7 +25,13 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
     for (const auto& pair : entities) {
+        uint32_t id = pair.second->getId();
         // chequeo en gs->entities si est'a el id de pair.second->getId()
+        auto it = entities.find(id);
+        if (it != entities.end()) {
+            //lo encontre --> actualizo el elemento
+            //pair.second->update(dt, it->second); //aca deberia mandar el entity
+        }
         // si esta, tengo que actualizar uno de los mios. Le mando esa data para actualizar a mi pair.second->update y saco ese elemento del hash
         // si no esta, no tengo que actualizar uno de los mios con nueva data, solo tengo que actualizar las animations. Llamdo a update sin esa data
         pair.second->update(dt, gs);
