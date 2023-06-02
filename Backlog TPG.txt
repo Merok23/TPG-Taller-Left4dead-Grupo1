@@ -1,0 +1,22 @@
+To do:
+Now:
+-CommonInfected(Attack) (con timer de inactividad!) - Alejo!
+-Armas(Reloading time) (con timer de inactividad!)
+-Derribos, levantamientos y muertes de jugador (todo, pre requisito: CommonInfected(Attack))
+-Entidad crater (todo)
+
+Later:
+-Spawneo de zombies(Clear the zone y survival)
+-Modo clear the zone (todo)
+-Modo survival (todo)
+-Granadas daño (todo)
+-Granadas humo (todo)
+-Bombardeo aereo (todo)
+-Jumper(todo)
+-Witch(todo)
+-Spear(todo)
+-Venom(todo)
+-Bordes camara (todo)
+
+Posible mejora de performance:
+Codigo de shooting podria ser solo de scout
