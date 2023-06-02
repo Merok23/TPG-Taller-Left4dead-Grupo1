@@ -98,13 +98,12 @@ int32_t Movement::calculateDistance(Movement &other) {
 void Movement::setChase(Movement &other, int speed) {
     int32_t x_difference = other.getX() - this->getX();
     int32_t y_difference = other.getY() - this->getY();
-    int32_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
+    double distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
     if (distance == 0) return;
     double x_difference_double = x_difference;
     double y_difference_double = y_difference;
-    double distance_double = distance;
-    double normalized_x = x_difference_double / distance_double;
-    double normalized_y = y_difference_double / distance_double;
+    double normalized_x = x_difference_double / distance;
+    double normalized_y = y_difference_double / distance;
     std::tuple<int32_t, int32_t> direction = getBestDirection(normalized_x, normalized_y);
     if (std::get<0>(direction) != 0) {
         if (std::abs(CONFIG.scenario_width - std::abs(x_difference)) < std::abs(x_difference)) {
