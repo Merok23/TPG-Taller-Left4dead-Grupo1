@@ -61,11 +61,19 @@ void Client::run() {
 
     while (!finished) { 
         std::getline(std::cin, line);
-        if (line == "leave") {
+        std::istringstream iss(line);
+        std::string word1, word2; 
+        iss >> word1;
+        if (word1 == "leave") {
             finished = true; 
             break; 
         } 
-        else if (line == "create") {
+        else if (word1 == "create") {
+            iss >> word2;
+            if (word2 != "idf" || word2 != "p90" || word2 != "scout") {
+                std::cout << "Invalid weapon" << std::endl;
+                continue;
+            }
             queue_comandos.push(line);
             GameState* gs = NULL;
             bool leave = false;
@@ -78,6 +86,8 @@ void Client::run() {
                 }
             }
             graphics.run(gs, queue_comandos, game_states);
+        } else {
+            std::cout << "Commands are: create (weapon)" << std::endl;
         }
     }
 }

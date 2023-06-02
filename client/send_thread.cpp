@@ -17,11 +17,13 @@ void SendThread::run() {
                 break; 
             }
             std::istringstream iss(line);
-            std::string action; 
+            std::string action, weapon; 
             iss >> action;
             if (action == "create") {
+                iss >> weapon;  
                 command_t command = command_t(); 
                 command.type = ADD_PLAYER;
+                command.weapon = weapon;
                 protocol.sendCommand(command);
             } else if (action == "move") {
                 int x, y;

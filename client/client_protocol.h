@@ -16,12 +16,16 @@ enum COMMANDS_TYPE {
 typedef struct COMMANDS {
     COMMANDS_TYPE type;
     std::string room_name; 
+    std::string weapon;
     uint32_t room_id;
     int32_t x_position;
     int32_t y_position;
 
     COMMANDS() : 
-        type(DEFAULT), room_name(""), room_id(0), x_position(0), y_position(0) {}
+        type(DEFAULT), room_name(""), weapon(""), room_id(0), x_position(0), y_position(0) {}
+
+         COMMANDS(COMMANDS_TYPE _type, const std::string& _room_name, const std::string& _weapon, uint32_t _room_id, int32_t _x_position, int32_t _y_position) :
+        type(_type), room_name(_room_name), weapon(_weapon), room_id(_room_id), x_position(_x_position), y_position(_y_position) {}
 } command_t;
 
 
@@ -40,7 +44,7 @@ class ClientProtocol {
     void sendCreateRoom(const std::string& room_name);
     void sendJoinRoom(int room_id);
     void sendMoving(int x, int y);
-    void sendAddPlayer();
+    void sendAddPlayer(const std::string& weapon);
     State stringToState(const std::string& state);
     
 

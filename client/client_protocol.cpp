@@ -61,7 +61,7 @@ void ClientProtocol::sendCommand(command_t command) {
     else if (command.type == COMMANDS_TYPE::JOIN_ROOM) 
         sendJoinRoom(command.room_id);
     else if (command.type == COMMANDS_TYPE::ADD_PLAYER) 
-        sendAddPlayer();
+        sendAddPlayer(command.weapon);
     else if (command.type == COMMANDS_TYPE::MOVE_PLAYER) 
         sendMoving(command.x_position, command.y_position);
 }
@@ -86,10 +86,13 @@ bool ClientProtocol::receiveJoinResponse() {
     return (bool)response;
 }
 
-void ClientProtocol::sendAddPlayer() {
+void ClientProtocol::sendAddPlayer(const std::string& weapon) {
     uint8_t action = ADD;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
+
+    sendString(weapon);
+    if (was_closed) return;
 }
 
 uint32_t ClientProtocol::receieveUnsignedInteger() {

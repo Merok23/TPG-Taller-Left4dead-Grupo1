@@ -42,7 +42,11 @@ Action* ServerProtocol::receiveAction() {
         /* CreatePlayer newPlayer = CreatePlayer(100000);
         Action *action = &newPlayer;
         std::shared_ptr<Action> create_player_action(action); */
-        action =  new CreateSoldierIdf();
+        std::string weapon = receiveString();
+        if (was_closed) return NULL;
+        if (weapon == "idf") action =  new CreateSoldierIdf();
+        else if (weapon == "p90") action = new CreateSoldierP90();
+        else if (weapon == "scout") action = new CreateSoldierScout();
     }
     return action;
 }
