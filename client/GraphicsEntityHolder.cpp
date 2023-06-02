@@ -22,7 +22,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<AnimationName
 //     //return MainPlayer;
 // }
 
-void GraphicsEntityHolder::add_entity(Entity *entity) {
+std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     //tengo que crear un nuevo elemento con la data que me pasaron.
     std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             this->textures, //por ahora, que compartan texturas
@@ -32,6 +32,7 @@ void GraphicsEntityHolder::add_entity(Entity *entity) {
                                                             entity->getPositionY(),
                                                             entity->getHitPoints());  
     entities[entity->getId()] = player;
+    return player;
 }
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
@@ -55,7 +56,8 @@ void GraphicsEntityHolder::update(float& dt, GameState *gs) {
 
     if (gs != NULL) {
         for (const auto &pair : gs->entities) {
-            add_entity(pair.second);
+            std::shared_ptr<Player> player = add_player(pair.second);
+            player->update(dt, NULL);
         }
     }
 }

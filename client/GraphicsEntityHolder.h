@@ -20,7 +20,7 @@ public:
     
 
 private:
-    void add_entity(Entity *entity);
+    std::shared_ptr<Player> add_player(Entity *entity);
     
     SdlWindow &window;
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
