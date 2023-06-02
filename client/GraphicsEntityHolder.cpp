@@ -23,27 +23,44 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
+void GraphicsEntityHolder::add_entity(Entity *entity) {
+    //tengo que crear un nuevo elemento con la data que me pasaron.
+    // std::shared_ptr<Player> entity = std::make_shared<Player>(
+    //                                                         std::move(textures),
+    //                                                         window,
+    //                                                         entity->getId(),
+    //                                                         entity->getPositionX(),
+    //                                                         entity->getPositionY(),
+    //                                                         entity->getHitPoints());  
+    // entities[entity->getId()] = entity;
+
+    //REVISAR TEMA DE LAS TEXTURAS
+
+}
+
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
-    for (const auto& pair : entities) { //loopeo mis entidades
-        uint32_t id = pair.second->getId();
-        auto it_entity = gs->entities.find(id); //busco al elemento en el mapa de entities de gs
-        if (it_entity != gs->entities.end()) { //lo encontre, lo tengo que actualizar
-            pair.second->update(dt, it_entity->second);
-            gs->entities.erase(id); //saco el elemento de gs->entities
-        } else { //no esta el elemento en gs->entities, no tiene data nueva
-            pair.second->update(dt, NULL); //actualizo igual los grame
+    for (const auto &pair : this->entities) {
+        uint32_t this_id = pair.second->getId();
+        if (gs != NULL) {
+            auto it_gs_entity = gs->entities.find(this_id);
+
+            if (it_gs_entity != gs->entities.end()) {
+                gs->entities.erase(this_id);
+                pair.second->update(dt, it_gs_entity->second);
+            } else {
+                pair.second->update(dt, NULL);
+            }
+        } else {
+            pair.second->update(dt, NULL);
         }
     }
-    //cuando termine de revisar y actualizar todos los mios, puede ser que me hayan quedado elementos en 
-    //gs->entities sin matchear (porque son entities nuevas)
-    //si gs->entities esta vacio, todo lo que me mandaron era para actualizar y ya saque todo del hash.
-    //si gs->entities no esta vacio, es porque habia elementos que no matchearon con ningun id de mi hash de entities --> son nuevos --> hay que crearlos
 
-    //la condicion de este for me deberia kickear al toque si no hay elementos restantes
-    //for (const auto& pair : gs->entities) {
-        //tengo que crear la nueva entity y agregarla al mapa
-        //algo como entities.add_entity(pair.second) o algo asi
-    //}    
+    //ahora deberia actualizar todos los elementos de gs que me sobraron
+    if (gs != NULL ) {
+        for (const auto &pair : gs->entities) {
+            add_entity(pair.second);
+        }
+    }
 }
 
 void GraphicsEntityHolder::render() {
