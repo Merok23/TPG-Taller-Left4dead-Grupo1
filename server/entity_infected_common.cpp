@@ -79,3 +79,10 @@ bool CommonInfected::checkForBorderCaseRange(int32_t soldier_x, int32_t infected
     return (((soldier_x + CONFIG.scenario_width - infected_x) < CONFIG.common_infected_range) 
         && (infected_x + CONFIG.common_infected_range > CONFIG.scenario_width));
 }
+
+
+std::string CommonInfected::getState() {
+    if (this->state == IDLE_INFECTED) return "idle";
+    if (this->state == MOVING_INFECTED) return "moving";
+    return "dead";
+}

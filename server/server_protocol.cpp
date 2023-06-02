@@ -83,7 +83,17 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendUnsignedInteger(entity.first); //id
         if (was_closed) return;
 
+        sendString(entity.second->getState());
+        if (was_closed) return;
+
         sendString(entity.second->getEntityType());
+        if (was_closed) return;
+
+        if (entity.second->getEntityType() == "player") {
+            Player* player = dynamic_cast<Player*>(entity.second);
+            sendString(player->getWeaponType());
+            sendInteger(player->getAmmoLeft());
+        }
         if (was_closed) return;
 
         sendInteger(entity.second->getHitPoints());
@@ -104,7 +114,6 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         if (was_closed) return;
     }
 }
-
 std::string ServerProtocol::receiveString() {
     uint32_t len; 
     socket.recvall(&len, sizeof(uint32_t), &was_closed); 

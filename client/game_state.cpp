@@ -13,6 +13,10 @@ void GameState::print() {
         std::cout << "y: " << id_entity.second->getPositionY() << std::endl;
         std::cout << "is facing left: " << id_entity.second->isFacingLeft() << std::endl;
         std::cout << "is moving up: " << id_entity.second->isMovingUp() << std::endl;
+        std::cout << "state: " << id_entity.second->getState() << std::endl;
+        std::cout << "weapon type: " << id_entity.second->getWeaponType() << std::endl;
+        std::cout << "ammo left: " << id_entity.second->getAmmoLeft() << std::endl;
+
     }
 }
 
