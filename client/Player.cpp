@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
     moving_x(false), moving_y(false), shooting(false),  id(id),
     x(x_position), y(y_position), health_bar(hit_points, window)
@@ -106,8 +106,11 @@ void Player::render() {
         if (it != animations.end())
             it->second->render(destArea, flip);
     }
+    if (id % 2) //solo para probar
+        health_bar.render(200, 50);
+    else 
+        health_bar.render(200, 80);
 
-    health_bar.render();
 }
 
 void Player::hurt() {

@@ -4,10 +4,11 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
 
     //vamos a tener que reemplazar el ../../ por una funcion que levante de la configuracion el path
-    textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
-    textures[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
-    textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
-    textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
+    (textures)[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
+    (textures)[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
+    (textures)[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
+    (textures)[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
+
 
     return GraphicsEntityHolder(gs, std::move(textures), window);
 }
@@ -53,29 +54,33 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                     case SDLK_LEFT: {
                         std::string command("move -1 0");
                         queue_comandos.push(command);
+                        //gr_entity_holder.getMainPlayer2()->moveLeft();
                         break;
                     }
                         
                     case SDLK_RIGHT: {
                         std::string command("move 1 0");
                         queue_comandos.push(command);
+                        //gr_entity_holder.getMainPlayer2()->moveRigth();
                         break;
                     }
                     case SDLK_UP: {
                         std::string command("move 0 -1");
                         queue_comandos.push(command);
+                        //gr_entity_holder.getMainPlayer2()->moveUp();
                         break;
                     }
                     case SDLK_DOWN: {
                         std::string command("move 0 1");
                         queue_comandos.push(command);
+                        //gr_entity_holder.getMainPlayer2()->moveDown();
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
-                        gr_entity_holder.getMainPlayer()->shoot();
+                        //gr_entity_holder.getMainPlayer()->shoot();
                         break;
                     case SDLK_h: //le "pegaron"
-                        gr_entity_holder.getMainPlayer()->hurt();
+                        //gr_entity_holder.getMainPlayer()->hurt();
                         break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
@@ -96,7 +101,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE:
-                        gr_entity_holder.getMainPlayer()->stopShooting();
+                        //gr_entity_holder.getMainPlayer()->stopShooting();
                         break;
                 }
             }
@@ -114,7 +119,6 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render();
-    //hb.render();
     window.render();
 }
 
