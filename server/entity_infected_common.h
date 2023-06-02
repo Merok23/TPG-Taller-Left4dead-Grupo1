@@ -25,7 +25,7 @@ class CommonInfected : public Infected {
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, 
             Entity*> &soldiers) override;
         virtual bool isDead() override;
-            
+        virtual std::string getState() override;    
     private:
         void resolveDamage();
         bool isInRange(Entity* entity);

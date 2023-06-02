@@ -33,6 +33,7 @@ class Player : public Entity {
         virtual bool isInfected() override;
         virtual std::string getEntityType() override;
         virtual bool isDead() override;
+        virtual std::string getState() override;
         std::string getWeaponType();
         int32_t getAmmoLeft();
         virtual ~Player() override;

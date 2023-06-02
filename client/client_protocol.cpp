@@ -122,6 +122,18 @@ uint8_t ClientProtocol::receiveUnsignedSmallInteger() {
     return command;
 }
 
+State ClientProtocol::stringToState(const std::string& state) {
+    if (state == "moving") {
+        return RUN;
+    } else if (state == "shooting") {
+        return SHOOT;
+    } else if (state == "reloading") {
+        return RELOAD;
+    } else if (state == "dead") {
+        return DIE;
+    }
+    return IDLE;
+}
 GameState* ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieveUnsignedInteger();
@@ -131,8 +143,23 @@ GameState* ClientProtocol::receiveGameState() {
         uint32_t id = receieveUnsignedInteger();
         if (was_closed) return NULL;
 
+        std::string state = receiveString();
+        if (was_closed) return NULL;
+        State state_enum = stringToState(state);
+
         std::string type = receiveString();
         if (was_closed) return NULL;
+
+        std::string weapon_type = "none";
+        int32_t ammo_left = -1; 
+
+        if (type == "player") {
+            weapon_type = receiveString();
+            if (was_closed) return NULL;
+
+            ammo_left = receiveInteger();
+            if (was_closed) return NULL;
+        }
 
         int32_t hit_point = receiveInteger();
         if (was_closed) return NULL;
@@ -146,7 +173,7 @@ GameState* ClientProtocol::receiveGameState() {
 
         bool is_moving_up = (bool)receiveUnsignedSmallInteger();
 
-        Entity* entity  = new Entity(id, type, hit_point,  
+        Entity* entity  = new Entity(id, type, state_enum, weapon_type, ammo_left, hit_point,  
             position_x, position_y, is_facing_left, is_moving_up);
         
         entities[id] = entity;
@@ -154,7 +181,6 @@ GameState* ClientProtocol::receiveGameState() {
     }
     return (new GameState(entities));
 }
-
 bool ClientProtocol::isFinished() {
     return was_closed;
 }
