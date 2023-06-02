@@ -23,7 +23,7 @@ class Player : public Entity {
     private:
         SoldierState state;
         Weapon* my_weapon;
-        
+
     public:
         Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon);
         virtual void move(int32_t x_movement, int32_t y_movement) override;

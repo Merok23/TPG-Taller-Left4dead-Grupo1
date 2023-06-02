@@ -98,8 +98,7 @@ int32_t Player::getAmmoLeft() {
 }
 
 std::string Player::getEntityType() {
-    std::string type = "player";
-    return type; 
+    return "player"; 
 }
 
 std::string Player::getWeaponType() {
