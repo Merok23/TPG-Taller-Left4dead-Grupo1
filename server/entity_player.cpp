@@ -82,7 +82,8 @@ void Player::setReload() {
 }
 
 void Player::removeInfectedOutOfRange(std::vector<HitEntity> & entities_hit) {
-    auto iterator = std::remove_if(entities_hit.begin(), entities_hit.end(), [this](HitEntity& entity_hit) {
+    auto iterator = std::remove_if
+    (entities_hit.begin(), entities_hit.end(), [this](HitEntity& entity_hit) {
         return !this->my_weapon->inRange(entity_hit.getDistance());
     });
     entities_hit.erase(iterator, entities_hit.end());

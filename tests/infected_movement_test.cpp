@@ -72,7 +72,7 @@ TEST_CASE
 }
 
 TEST_CASE
-("Infected rest, infected follos soldier through the X border, soldier end infected start",
+("Infected test, infected follos soldier through the X border, soldier end infected start",
      "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun();
@@ -85,4 +85,33 @@ TEST_CASE
     REQUIRE
     (entities[2]->getDirectionOfMovement()->getX() == 
     CONFIG.scenario_width - (1 * CONFIG.common_infected_speed));
+}
+
+TEST_CASE
+("Infected test, infected collides with another infected and stays behind it",
+ "[common_infected]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* infected1 = new CommonInfected(2, 15, 5);
+    Entity* infected2 = new CommonInfected(3, 35, 5);
+    game.addEntity(player);
+    game.addEntity(infected1);
+    game.addEntity(infected2);
+    game.update();
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == 15);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == 5);
+    //infected 2 moved to player but got stuck behind infected 1
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 25);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == 5);
+    game.update();
+    //everyone stays the same
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == 15);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 25);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == 5);
 }

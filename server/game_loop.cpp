@@ -44,7 +44,6 @@ void GameLoop::run() {
             for (auto& player_queue : player_queues) {
                 player_queue.second->push(game_state);
             }*/
-
         } 
 
         std::shared_ptr<GameStateForClient> game_state = game.update();

@@ -100,13 +100,11 @@ void Movement::setChase(Movement &other, int speed) {
     int32_t y_difference = other.getY() - this->getY();
     int32_t distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
     if (distance == 0) return;
-    //this is not optimal, we should see the distance
-    //between the 8 possible directions and pick the best
-    //but for now this will do for testing.
     double x_difference_double = x_difference;
     double y_difference_double = y_difference;
-    double normalized_x = x_difference_double / distance;
-    double normalized_y = y_difference_double / distance;
+    double distance_double = distance;
+    double normalized_x = x_difference_double / distance_double;
+    double normalized_y = y_difference_double / distance_double;
     std::tuple<int32_t, int32_t> direction = getBestDirection(normalized_x, normalized_y);
     if (std::get<0>(direction) != 0) {
         if (std::abs(CONFIG.scenario_width - std::abs(x_difference)) < std::abs(x_difference)) {

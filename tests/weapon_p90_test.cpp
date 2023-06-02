@@ -76,7 +76,9 @@ TEST_CASE("P90 weapon test, has to recharge ammo as expected", "[p90]") {
     REQUIRE(ammo_left == CONFIG.weapon_p90_magazine_size);
 }
 
-TEST_CASE("P90 weapon test, only damage an infected out of two, the second is out of range", "[scout]") {
+TEST_CASE
+("P90 weapon test, only damage an infected out of two, the second is out of range",
+ "[scout]") {
     Game game(100, 100);
     Weapon* weapon = new AssaultRifle(); 
     Entity* player = new Player(1, 5, 5, weapon);

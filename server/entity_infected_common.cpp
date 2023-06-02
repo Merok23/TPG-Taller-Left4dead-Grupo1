@@ -30,7 +30,6 @@ void CommonInfected::update(Map& map) {
     if (this->getHitPoints() <= 0) {
         this->state = DEAD_INFECTED; 
     }
-
 }
 
 void CommonInfected::resolveDamage() {
@@ -77,6 +76,6 @@ bool CommonInfected::checkForBorderCaseRange(int32_t soldier_x, int32_t infected
             < CONFIG.common_infected_range);
     }
     //infected is on the end of the map and soldier on the start
-    return (((infected_x - soldier_x - CONFIG.scenario_width) < CONFIG.common_infected_range) 
+    return (((soldier_x + CONFIG.scenario_width - infected_x) < CONFIG.common_infected_range) 
         && (infected_x + CONFIG.common_infected_range > CONFIG.scenario_width));
 }
