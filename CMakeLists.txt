@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L")
 
 find_package(Threads REQUIRED)
-
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(Catch2 3 REQUIRED)
 
 
@@ -24,7 +25,9 @@ file(GLOB TESTS_SRCS ${TESTS_DIR}/*.cpp)
 add_library(common_objects OBJECT ${COMMON_SRCS})
 
 add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${CLIENT_DIR}/health_bar.cpp)
-target_link_libraries(client_executable PRIVATE Threads::Threads SDL2 SDL2_image)
+target_link_libraries(client_executable PRIVATE Threads::Threads)
+target_link_libraries(client_executable PRIVATE SDL2)
+target_link_libraries(client_executable PRIVATE SDL2_image)
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
 target_link_libraries(server_executable PRIVATE Threads::Threads)
