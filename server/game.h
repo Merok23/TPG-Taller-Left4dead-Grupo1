@@ -45,6 +45,7 @@ class Game {
         void shootingEntitiesShoot(const uint32_t& id);
         void updateAllEntities();
         void checkForShooting();
+        void checkForInfectedAttack();
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
 };
 #endif 

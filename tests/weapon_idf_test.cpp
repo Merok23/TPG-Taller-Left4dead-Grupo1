@@ -51,7 +51,7 @@ TEST_CASE
 TEST_CASE
 ("IDF weapon test, it doesn't cause damage to the infected because he is out of range.", 
     "[idf]") {
-    Game game(100, 100);
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun(); 
     Entity* player = new Player(1, 5, 5, weapon);
     Entity* some_infected = new CommonInfected(2, CONFIG.weapon_idf_range + 10, 5);

@@ -76,7 +76,7 @@ TEST_CASE
      "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun();
-    Entity* player = new Player(1, CONFIG.scenario_width - 10, 5, weapon);
+    Entity* player = new Player(1, CONFIG.scenario_width - 25, 5, weapon);
     Entity* infected = new CommonInfected(2, 0, 5);
     game.addEntity(player);
     game.addEntity(infected);
