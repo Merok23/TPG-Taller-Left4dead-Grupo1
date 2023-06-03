@@ -16,4 +16,8 @@ bool Infected::isInfected() {
     return true;
 }
 
+std::string Infected::getState() {
+    return "";
+}
+
 Infected::~Infected() {}

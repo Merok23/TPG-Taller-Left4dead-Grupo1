@@ -105,6 +105,15 @@ std::string Player::getWeaponType() {
     return this->my_weapon->getWeaponType();
 }
 
+std::string Player::getState() {
+    if (this->state == IDLE_SOLDIER) return "idle";
+    else if (this->state == MOVING_SOLDIER) return "moving";
+    else if (this->state == SHOOTING_SOLDIER) return "shooting";
+    else if (this->state == RELOADING_SOLDIER) return "reloading";
+    return "dead";
+}
+
 Player::~Player() {
     delete this->my_weapon;
 }
+

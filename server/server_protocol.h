@@ -8,6 +8,8 @@
 #include "../common/socket.h"
 #include "action_moving.h"
 #include "action_create_soldier_idf.h"
+#include "action_create_soldier_p90.h"
+#include "action_create_soldier_scout.h"
 
 enum COMMANDS_TYPE {
     DEFAULT,
@@ -37,6 +39,7 @@ class ServerProtocol {
     std::string receiveString();
     std::string receiveRoomName();
     uint32_t receiveRoomId();
+
 
     public:
     explicit ServerProtocol(Socket socket);

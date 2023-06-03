@@ -103,3 +103,10 @@ void CommonInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Ent
         this->incapacitated = attack_cooldown;
     }
 }
+
+
+std::string CommonInfected::getState() {
+    if (this->state == IDLE_INFECTED) return "idle";
+    if (this->state == MOVING_INFECTED) return "moving";
+    return "dead";
+}
