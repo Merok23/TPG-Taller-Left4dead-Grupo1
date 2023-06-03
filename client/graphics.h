@@ -13,7 +13,7 @@
 
 #include "GraphicsEntityHolder.h"
 #include "game_state.h"
-#include "health_bar.h"
+#include "visual_bar.h"
 #include "../common/queue.h"
 
 #define BACKGROUND_WIDTH 1920
@@ -32,7 +32,7 @@ class Graphics {
     private:
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos);
     void update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states);
-    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea, HealthBar &hb);
+    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
 
 };
 

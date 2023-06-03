@@ -1,4 +1,4 @@
-#include "health_bar.h"
+#include "visual_bar.h"
 #include "Player.h"
 #include "SdlTexture.h"
 
@@ -7,7 +7,7 @@
 Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
     moving_x(false), moving_y(false), shooting(false),  id(id),
-    x(x_position), y(y_position), health_bar(hit_points, window)
+    x(x_position), y(y_position), health_bar(hit_points, window), ammo(200, window)
 {
     auto it = textures.find(AN_IDLE);
     if (it != textures.end())
@@ -43,35 +43,43 @@ uint32_t Player::getId() {
     return id;
 }
 
+
+void Player::recharge() {
+    ammo.max();
+}
+
 /*
  * Notar que el manejo de eventos y la actualización de modelo ocurren en momentos distintos.
  * Esto les va a resultar muy util en un juego multiplaforma. 
  */
 void Player::update(float dt, Entity *entity) {
     if (entity) {
-        switch (entity->state)
-        {
-        case IDLE:
-            current_animation = AN_IDLE;
-            break;
+        // switch (entity->state)
+        // {
+        // case IDLE:
+        //     current_animation = AN_IDLE;
+        //     break;
         
-        case RUN:
-            current_animation = AN_RUN;
-            break;
+        // case RUN:
+        //     current_animation = AN_RUN;
+        //     break;
         
-        case SHOOT:
-            current_animation = AN_SHOOT;
-            break;
+        // case SHOOT:
+        //     current_animation = AN_SHOOT;
+        //     break;
         
-        case DIE:
-            current_animation = AN_DIE;
-            break;
+        // case DIE:
+        //     current_animation = AN_DIE;
+        //     break;
         
-        case RELOAD:
-            current_animation = AN_RELOAD;
-            break;
+        // case RELOAD:
+        //     current_animation = AN_RELOAD;
+        //     break;
         
-        }
+        // }
+        moving_x = (x != entity->getPositionX());
+        moving_y = (y != entity->getPositionY());
+            
         x = entity->getPositionX();
         y = entity->getPositionY();
         
@@ -81,33 +89,33 @@ void Player::update(float dt, Entity *entity) {
         facingUp = entity->isMovingUp();
     }
 
-    auto it_current = animations.find(current_animation);
-    if (it_current != animations.end())
-            it_current->second->update(dt);
+    // auto it_current = animations.find(current_animation);
+    // if (it_current != animations.end())
+    //         it_current->second->update(dt);
 
-    // auto it_die = animations.find(AN_DIE);
-    // if (current_animation == AN_RUN) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
+    auto it_die = animations.find(AN_DIE);
+    if (moving_x) {
+        auto it = animations.find(AN_RUN);
+        if (it != animations.end())
+            it->second->update(dt);
             
-    // } else if (moving_y) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
-    // } else if (shooting) {
-    //     auto it = animations.find(AN_SHOOT);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
-    // } else if (it_die != animations.end()) {
-    //     if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
-    //         it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
-    //     }
-    // } else {
-    //     auto it = animations.find(AN_IDLE);
-    //     if (it != animations.end())
-    //         it->second->update(0); //buscar como controlar el speed de idle si le paso dt
-    // }
+    } else if (moving_y) {
+        auto it = animations.find(AN_RUN);
+        if (it != animations.end())
+            it->second->update(dt);
+    } else if (shooting) {
+        auto it = animations.find(AN_SHOOT);
+        if (it != animations.end())
+            it->second->update(dt);
+    } else if (it_die != animations.end()) {
+        if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
+            it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
+        }
+    } else {
+        auto it = animations.find(AN_IDLE);
+        if (it != animations.end())
+            it->second->update(0); //buscar como controlar el speed de idle si le paso dt
+    }
 }
 
 void Player::render() {
@@ -115,29 +123,32 @@ void Player::render() {
     Area destArea(x, y, 200, 200); //100 100 es que tan grande es el rect'angulo para el elemento
     
 
-    auto it_current = animations.find(current_animation);
-    if (it_current != animations.end())
-            it_current->second->render(destArea, flip);
+    // auto it_current = animations.find(current_animation);
+    // if (it_current != animations.end())
+    //         it_current->second->render(destArea, flip);
     
-    // auto it_die = animations.find(AN_DIE);
+    auto it_die = animations.find(AN_DIE);
     
-    // if (moving_x || moving_y) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    // }
-    // else  if (shooting) {
-    //     auto it = animations.find(AN_SHOOT);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    // }
-    // else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
-    //         it_die->second->render(destArea, flip);
-    // else {
-    //     auto it = animations.find(AN_IDLE);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    //}
+    if (moving_x || moving_y) {
+        auto it = animations.find(AN_RUN);
+        if (it != animations.end())
+            it->second->render(destArea, flip);
+    }
+    else  if (shooting) {
+        auto it = animations.find(AN_SHOOT);
+        if (it != animations.end())
+            it->second->render(destArea, flip);
+    }
+    else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
+            it_die->second->render(destArea, flip);
+    else {
+        auto it = animations.find(AN_IDLE);
+        if (it != animations.end())
+            it->second->render(destArea, flip);
+    }
+
+    health_bar.render(50, 200);
+    ammo.render(50, 300);
 
 }
 
@@ -173,6 +184,7 @@ void Player::shoot() {
     moving_x = false;
     moving_y = false;
     shooting = true;
+    ammo.damage(5);
 }
 
 void Player::stopMovingX() {

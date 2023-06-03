@@ -5,7 +5,7 @@
 #include "game_state.h"
 #include <memory>
 #include <map>
-#include "health_bar.h"
+#include "visual_bar.h"
 
 enum AnimationName {
     AN_IDLE,
@@ -17,7 +17,8 @@ enum AnimationName {
 
 class Player {
 public:
-    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
+    Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
+            uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
     ~Player();
     void update(float dt, Entity *entity);
     void render();
@@ -30,6 +31,7 @@ public:
     void shoot();
     void stopShooting();
     void hurt();
+    void recharge();
 
     int32_t getX();
     int32_t getY();
@@ -42,11 +44,13 @@ private:
     bool moving_x;
     bool moving_y;
     bool shooting;
+    bool recharging;
     uint32_t id;
     int32_t x;
     int32_t y;
     AnimationName current_animation;
-    HealthBar health_bar;
+    VisualBar health_bar;
+    VisualBar ammo;
     std::map<AnimationName, std::unique_ptr<Animation>> animations;
 };
 

@@ -22,13 +22,14 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, s
                                                             pair.second->getPositionY(),
                                                             pair.second->getHitPoints());  
                 entities[pair.second->getId()] = player;
+                MainPlayer = player;
             }
         }
     }
 
-// std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
-//     //return MainPlayer;
-// }
+std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
+    return MainPlayer;
+}
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     //tengo que crear un nuevo elemento con la data que me pasaron.

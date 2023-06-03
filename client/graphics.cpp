@@ -1,8 +1,6 @@
 #include "graphics.h"
 
 GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
-
-
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
 
     textures_holder[SOLDIER_IDF][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Idle.png", window));
@@ -34,14 +32,12 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
 
         GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
 
-        HealthBar hb(300, window);
-
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(gr_entity_holder, queue_comandos);
             update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, im, destArea, hb);
+            render(window, gr_entity_holder, im, destArea);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -68,33 +64,31 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                     case SDLK_LEFT: {
                         std::string command("move -1 0");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer2()->moveLeft();
                         break;
-                    }
-                        
+                    }  
                     case SDLK_RIGHT: {
                         std::string command("move 1 0");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer2()->moveRigth();
                         break;
                     }
                     case SDLK_UP: {
                         std::string command("move 0 -1");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer2()->moveUp();
                         break;
                     }
                     case SDLK_DOWN: {
                         std::string command("move 0 1");
                         queue_comandos.push(command);
-                        //gr_entity_holder.getMainPlayer2()->moveDown();
                         break;
                     }
-                    case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
-                        //gr_entity_holder.getMainPlayer()->shoot();
+                    case SDLK_d: case SDLK_SPACE: 
+                        gr_entity_holder.getMainPlayer()->shoot();
+                        break;
+                    case SDLK_r:
+                        gr_entity_holder.getMainPlayer()->recharge();
                         break;
                     case SDLK_h: //le "pegaron"
-                        //gr_entity_holder.getMainPlayer()->hurt();
+                        gr_entity_holder.getMainPlayer()->hurt();
                         break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
@@ -115,7 +109,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE:
-                        //gr_entity_holder.getMainPlayer()->stopShooting();
+                        gr_entity_holder.getMainPlayer()->stopShooting();
                         break;
                 }
             }
@@ -125,8 +119,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
     return true;
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea,
-                HealthBar &hb) {
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);

@@ -19,7 +19,7 @@ public:
     GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window);
     ~GraphicsEntityHolder();
 
-    //std::shared_ptr<Player> getMainPlayer();
+    std::shared_ptr<Player> getMainPlayer();
 
     void update(float& dt, GameState *gs);
     void render();
