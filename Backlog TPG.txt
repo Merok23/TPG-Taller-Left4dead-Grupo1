@@ -1,6 +1,5 @@
 To do:
 Now:
--Entidad crater (todo) - Alejo!
 -Derribos, levantamientos y muertes de jugador (todo, pre requisito: CommonInfected(Attack)) - Naths!
 
 Later:
@@ -22,3 +21,4 @@ Codigo de shooting podria ser solo de scout
 DONE:
 -CommonInfected(Attack) (con timer de inactividad!) - Alejo!
 -Armas(Reloading time) (con timer de inactividad!) - Alejo!
+-Entidad crater (todo) - Alejo!

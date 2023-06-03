@@ -5,8 +5,8 @@
 #include "entity_player.h"
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
-Player::Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon) : 
-    Entity(id, CONFIG.soldier_health, positionX, positionY), 
+Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weapon) : 
+    Entity(id, CONFIG.soldier_health, positionX, positionY, CONFIG.soldier_radius), 
     my_weapon(weapon),
     incapacitated(0),
     reload_cooldown(CONFIG.soldier_reload_cooldown) {
@@ -100,6 +100,10 @@ void Player::removeInfectedOutOfRange(std::vector<HitEntity> & entities_hit) {
 
 bool Player::isInfected() {
     return false;
+}
+
+bool Player::isSoldier() {
+    return true;
 }
 
 int32_t Player::getAmmoLeft() {

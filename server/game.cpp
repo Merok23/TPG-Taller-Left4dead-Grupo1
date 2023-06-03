@@ -13,7 +13,7 @@ void Game::addEntity(Entity* entity) {
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
     if (entity->isInfected()) {
         this->infected[entity->getId()] = entity;
-    } else {
+    } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
     }
     this->current_id++;
