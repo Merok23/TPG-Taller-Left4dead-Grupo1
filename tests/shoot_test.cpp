@@ -92,10 +92,12 @@ TEST_CASE("Shooting test, soldier shoots infected and doesn't damage friendly un
     game.addEntity(player2);
     game.addEntity(infected);
     game.setMoving(1, 1, 0);
+    game.update();
     game.setShooting(1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[2]->getHitPoints() == CONFIG.soldier_health);
+    //the infected will attack once
+    REQUIRE(entities[2]->getHitPoints() == CONFIG.soldier_health - CONFIG.common_infected_damage);
     REQUIRE(entities[3]->getHitPoints() < CONFIG.infected_health);
 }
 

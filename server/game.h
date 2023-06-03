@@ -24,6 +24,14 @@ class Game {
         Map gameMap;
         std::map<uint32_t, Entity*> infected;
         std::map<uint32_t, Entity*> soldiers;
+        /*
+         * Shooting soldiers as a list has a funny bug
+         * if you shoot twice with one soldier, for example 
+         * it will try to shoot twice, but for doing that
+         * you have to press two attack buttons at the same time
+         * which is not possible, so it's not a big deal
+         * the solution is changing to a map.
+        */
         std::list<uint32_t> shooting_soldiers;
         uint32_t current_id;
         
@@ -45,6 +53,7 @@ class Game {
         void shootingEntitiesShoot(const uint32_t& id);
         void updateAllEntities();
         void checkForShooting();
+        void checkForInfectedAttack();
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
 };
 #endif 
