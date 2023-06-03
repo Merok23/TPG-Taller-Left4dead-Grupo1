@@ -56,29 +56,47 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
  */
 bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos) {
     SDL_Event event;
+    bool static moving_left = false;
+    bool static moving_right = false;
+    bool static moving_up= false;
+    bool static moving_down = false;
+    //bool static shooting = false;
+    
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: {
-                        std::string command("move -1 0");
-                        queue_comandos.push(command);
+                        if (!moving_left){
+                            std::string command("move -1 0");
+                            queue_comandos.push(command);
+                            moving_left = true;
+                        }
                         break;
                     }  
                     case SDLK_RIGHT: {
-                        std::string command("move 1 0");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 1 0");
+                            queue_comandos.push(command);
+                            moving_right = true;
+                        }
                         break;
                     }
                     case SDLK_UP: {
-                        std::string command("move 0 -1");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 0 -1");
+                            queue_comandos.push(command);
+                            moving_up = true;
+                        }
                         break;
                     }
                     case SDLK_DOWN: {
-                        std::string command("move 0 1");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 0 1");
+                            queue_comandos.push(command);
+                            moving_down = true;
+                        }
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE: 
@@ -98,14 +116,13 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
             case SDL_KEYUP: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT: case SDLK_RIGHT: {
-                        std::string command("move 0 0");
-                        queue_comandos.push(command);
-                        break;
-                    }
-                    case SDLK_UP: case SDLK_DOWN: {
-                        std::string command("move 0 0");
-                        queue_comandos.push(command);
+                    case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
+                        if (moving_right || moving_left || moving_up || moving_down) {
+                            std::string command("move 0 0");
+                            queue_comandos.push(command);
+
+                            moving_down = moving_left = moving_right = moving_up = false;
+                        }
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE:
