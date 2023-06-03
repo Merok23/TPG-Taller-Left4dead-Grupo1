@@ -9,7 +9,9 @@
 
 
 enum EntityType {
-    SOLDIER_IDF
+    SOLDIER_IDF,
+    SOLDIER_P90,
+    SOLDIER_SCOUT
 };
 
 class GraphicsEntityHolder {

@@ -9,6 +9,11 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, s
         for (auto& pair : gs->entities) {
             if (pair.second->getType() == "player") {
                 auto it = this->textures_holder.find(SOLDIER_IDF);
+                if (pair.second->getWeaponType() == "scout")
+                    it = this->textures_holder.find(SOLDIER_SCOUT);
+                else if (pair.second->getWeaponType() == "p90")
+                    it = this->textures_holder.find(SOLDIER_P90);
+                    
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             it->second,
                                                             window,
