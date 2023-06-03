@@ -18,8 +18,8 @@ class Entity {
         uint32_t id;
         std::string type;
         State state;
-        std::string weapon_type;
-        int32_t ammo_left;
+        std::string weapon_type; //para la textura
+        int32_t ammo_left; //para la cantidad de balas
         int32_t hit_points;
         int32_t x_position;
         int32_t y_position;

@@ -11,6 +11,7 @@ enum AnimationName {
     AN_IDLE,
     AN_RUN,
     AN_SHOOT,
+    AN_RELOAD, 
     AN_DIE
 };
 
