@@ -1,13 +1,16 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<AnimationName, std::shared_ptr<SdlTexture>> textures, SdlWindow &window) :
-    window(window), textures(std::move(textures))
+
+
+GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window) :
+    window(window), textures_holder(std::move(textures_holder))
 {
         for (auto& pair : gs->entities) {
             if (pair.second->getType() == "player") {
+                auto it = this->textures_holder.find(SOLDIER_IDF);
                 std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            this->textures,
+                                                            it->second,
                                                             window,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
@@ -24,8 +27,9 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<AnimationName
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     //tengo que crear un nuevo elemento con la data que me pasaron.
+    auto it = this->textures_holder.find(SOLDIER_IDF);
     std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            this->textures, //por ahora, que compartan texturas
+                                                            it->second, //por ahora, que compartan texturas
                                                             window,
                                                             entity->getId(),
                                                             entity->getPositionX(),

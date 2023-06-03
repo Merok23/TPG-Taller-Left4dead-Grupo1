@@ -1,16 +1,16 @@
 #include "graphics.h"
 
 GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
-    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
-
-    //vamos a tener que reemplazar el ../../ por una funcion que levante de la configuracion el path
-    (textures)[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
-    (textures)[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
-    (textures)[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
-    (textures)[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
 
 
-    return GraphicsEntityHolder(gs, std::move(textures), window);
+    std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
+
+    textures_holder[SOLDIER_IDF][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Idle.png", window));
+    textures_holder[SOLDIER_IDF][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Shoot_1.png", window));
+    textures_holder[SOLDIER_IDF][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Run.png", window));
+    textures_holder[SOLDIER_IDF][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Dead.png", window));
+
+    return GraphicsEntityHolder(gs, std::move(textures_holder), window);
 }
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {

@@ -13,7 +13,6 @@
 
 #include "GraphicsEntityHolder.h"
 #include "game_state.h"
-
 #include "health_bar.h"
 #include "../common/queue.h"
 
