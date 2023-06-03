@@ -42,29 +42,31 @@ TEST_CASE("Dead state test, infected gets killed and you can walk over it", "[dy
 }
 
 TEST_CASE("Dead state test, infected can walk over dead infected", "[dying]") {
-    Game game(10000, 100);
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new Scout();
     Entity* player = new Player(1, 5, 5, weapon);
     Entity* infected = new CommonInfected(2, 25, 5);
-    Entity* infected2 = new CommonInfected(3, 9995, 5);
+    Entity* infected2 = new CommonInfected(3, 0, 5);
     game.addEntity(player);
     game.addEntity(infected);
-    game.addEntity(infected2);
     game.setMoving(1, 1, 0);
     game.update();
     game.setShooting(1);
     game.update();
     REQUIRE(game.getEntities()[2]->isDead() == true);
-    REQUIRE(game.getEntities()[3]->isDead() == false);
     game.setMoving(1, 1, 0);
     game.update();
     game.update();
-    //player it's at 35, 5
+    game.update();
+    //player it's at 45, 5
     REQUIRE
-    (game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + (CONFIG.soldier_speed * 3));
+    (game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + (CONFIG.soldier_speed * 4));
+    game.addEntity(infected2);
+    REQUIRE(game.getEntities()[3]->isDead() == false);
     game.setMoving(1, 0, 0);
     game.update();
     game.update();
+    game.update();
     //infected 2 should catch up with the player and walk over the dead infected
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 25);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 30);
 }

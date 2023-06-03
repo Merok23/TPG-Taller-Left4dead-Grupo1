@@ -32,7 +32,7 @@ void Player::update(Map& map) {
         this->state = IDLE_SOLDIER;
     }
     this->resolveDamage();
-    if (this->getHitPoints() < 0) this->state = DEAD_SOLDIER;
+    if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
 }
 
 void Player::resolveDamage() {

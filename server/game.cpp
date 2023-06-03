@@ -74,6 +74,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 std::shared_ptr<GameStateForClient> Game::update() {
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
+    this->checkForInfectedAttack();
     this->updateAllEntities();
     std::shared_ptr<GameStateForClient> game_state = 
         std::make_shared<GameStateForClient>(this->entities, 
@@ -85,6 +86,13 @@ void Game::checkForShooting() {
     if (this->shooting_soldiers.empty()) return;
     for (auto soldier : this->shooting_soldiers) {
         this->shootingEntitiesShoot(soldier);
+    }
+}
+
+void Game::checkForInfectedAttack() {
+    for (auto&& id_entity : this->infected) {
+        Infected* infected = dynamic_cast<Infected*>(id_entity.second);
+        infected->checkForSoldiersInRangeAndSetAttack(this->soldiers);
     }
 }
 

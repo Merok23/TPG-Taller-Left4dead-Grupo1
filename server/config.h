@@ -8,8 +8,11 @@ struct config {
     int infected_health;
     int infected_speed;
     int infected_radius;
-    int common_infected_range;
+    int common_infected_range; //this is the range for chasing
     int common_infected_speed;
+    int common_infected_attack_range; //this one for attacking.
+    int common_infected_damage;
+    int common_infected_attack_cooldown;
     int scenario_width;
     int scenario_height;
     int default_radius;
