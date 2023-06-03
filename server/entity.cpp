@@ -2,10 +2,10 @@
 
 #include "entity.h"
 
-Entity::Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y) : 
+Entity::Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y, uint32_t radius) : 
     id(id),
     hit_points(hit_points),
-    direction_of_movement(x, y, CONFIG.default_radius),
+    direction_of_movement(x, y, radius),
     damage_for_the_round(0) {}
 
 uint32_t Entity::getId() {

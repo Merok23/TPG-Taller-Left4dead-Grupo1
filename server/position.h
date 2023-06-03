@@ -6,6 +6,10 @@
 #include <utility>
 # pragma once
 
+//This is here so it can check for the torus effect
+//when colliding, it would be best if it was not here
+#include "config.h"
+
 
 class Position {
     private:

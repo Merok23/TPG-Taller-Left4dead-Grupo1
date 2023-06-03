@@ -4,7 +4,7 @@
 #include "entity_infected_common.h"
 
 CommonInfected::CommonInfected(uint32_t id, uint32_t positionX, uint32_t positionY) : 
-    Infected(id, positionX, positionY, CONFIG.infected_health),
+    Infected(id, positionX, positionY, CONFIG.infected_health, CONFIG.common_infected_radius),
     state(IDLE_INFECTED),
     look_range(CONFIG.common_infected_range),
     attack_range(CONFIG.common_infected_attack_range),

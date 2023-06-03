@@ -22,7 +22,7 @@ class Entity {
         int32_t damage_for_the_round;
         
     public:
-        Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y);
+        Entity(uint32_t id, int32_t hit_points, uint32_t x, uint32_t y, uint32_t radius);
         uint32_t getId();
         int32_t getHitPoints();
         int32_t getDamageForTheRound();

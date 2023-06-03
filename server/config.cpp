@@ -13,6 +13,9 @@ const struct config CONFIG {
     15, //common_infected_attack_range
     10, // common_infected_damage
     40, // common_infected_attack_cooldown
+    5, // common_infected_radius
+    20, // crater_radius
+    100, // crater_hit_points
     1920, // scenario_width
     1080, // scenario_height
     5, // default_radius
