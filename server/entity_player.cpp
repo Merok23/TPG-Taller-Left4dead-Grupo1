@@ -23,10 +23,13 @@ void Player::move(int32_t x_movement, int32_t y_movement) {
     if (x_movement < 0) myMovement->lookLeft();//but it doesn't move.
     myMovement->setDirection(x_movement * CONFIG.soldier_speed,
         y_movement * CONFIG.soldier_speed);
+    if (x_movement == 0 && y_movement == 0) this->state = IDLE_SOLDIER;
 }
 
 void Player::update(Map& map) {
     if (this->state == DEAD_SOLDIER) return;
+    this->resolveDamage();
+    if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
     if (this->incapacitated > 0) {
         this->incapacitated--;
         return;
@@ -39,8 +42,6 @@ void Player::update(Map& map) {
         this->incapacitated = reload_cooldown;
         this->state = IDLE_SOLDIER;
     }
-    this->resolveDamage();
-    if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
 }
 
 void Player::resolveDamage() {
