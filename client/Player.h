@@ -45,6 +45,7 @@ private:
     uint32_t id;
     int32_t x;
     int32_t y;
+    AnimationName current_animation;
     HealthBar health_bar;
     std::map<AnimationName, std::unique_ptr<Animation>> animations;
 };

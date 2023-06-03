@@ -9,6 +9,7 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
     textures_holder[SOLDIER_IDF][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Shoot_1.png", window));
     textures_holder[SOLDIER_IDF][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Run.png", window));
     textures_holder[SOLDIER_IDF][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Dead.png", window));
+    textures_holder[SOLDIER_IDF][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Recharge.png", window));
 
     return GraphicsEntityHolder(gs, std::move(textures_holder), window);
 }

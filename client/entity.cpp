@@ -7,14 +7,14 @@ Entity::Entity(uint32_t id, const std::string& type, State state, const std::str
         bool facing_left, bool moving_up) : 
             id(id),
                 type(type),
-                    state(state),
+                    
                         weapon_type(weapon_type),
                             ammo_left(ammo_left),
                                 hit_points(hit_points),
                                     x_position(x), 
                                         y_position(y), 
                                             is_facing_left(facing_left), 
-                                                is_moving_up(moving_up) {}
+                                                is_moving_up(moving_up), state(state) {}
 
 
 
