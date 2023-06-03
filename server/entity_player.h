@@ -23,6 +23,8 @@ class Player : public Entity {
     private:
         SoldierState state;
         Weapon* my_weapon;
+        int32_t incapacitated;
+        int32_t reload_cooldown;
 
     public:
         Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon);

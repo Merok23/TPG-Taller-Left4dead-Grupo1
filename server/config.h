@@ -5,6 +5,7 @@ struct config {
     int soldier_health;
     int soldier_speed;
     int soldier_radius;
+    int soldier_reload_cooldown;
     int infected_health;
     int infected_speed;
     int infected_radius;
