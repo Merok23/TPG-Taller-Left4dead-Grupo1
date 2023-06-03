@@ -33,6 +33,7 @@ class Player : public Entity {
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
         void setReload();
         virtual bool isInfected() override;
+        virtual bool isSoldier() override;
         virtual std::string getEntityType() override;
         virtual bool isDead() override;
         virtual std::string getState() override;

@@ -102,6 +102,10 @@ bool Player::isInfected() {
     return false;
 }
 
+bool Player::isSoldier() {
+    return true;
+}
+
 int32_t Player::getAmmoLeft() {
     return this->my_weapon->getAmmoLeft();
 }

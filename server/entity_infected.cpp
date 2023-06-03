@@ -16,6 +16,10 @@ bool Infected::isInfected() {
     return true;
 }
 
+bool Infected::isSoldier() {
+    return false;
+}
+
 std::string Infected::getState() {
     return "";
 }

@@ -7,6 +7,7 @@ class Crater : public Entity {
         virtual void update(Map& map) override;
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
         virtual bool isInfected() override;
+        virtual bool isSoldier() override;
         virtual std::string getEntityType() override;
         virtual bool isDead() override;
         virtual std::string getState() override;

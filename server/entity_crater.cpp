@@ -12,6 +12,10 @@ bool Crater::isInfected() {
     return false;
 }
 
+bool Crater::isSoldier() {
+    return false;
+}
+
 std::string Crater::getEntityType() {
     std::string type = "crater";
     return type;
