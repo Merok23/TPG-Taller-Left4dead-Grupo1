@@ -1,7 +1,9 @@
 #include "graphics.h"
 
-GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
+GraphicsEntityHolder start_graphics_entity(GameState *gs, SdlWindow &window) {
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
+
+    //quiero que todo este codigo este en otro lado
 
     textures_holder[SOLDIER_IDF][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Idle.png", window));
     textures_holder[SOLDIER_IDF][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Shoot_1.png", window));
@@ -24,13 +26,15 @@ GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
 
     return GraphicsEntityHolder(gs, std::move(textures_holder), window);
 }
+
+
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-        GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
+        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;

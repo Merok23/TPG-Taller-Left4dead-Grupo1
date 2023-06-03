@@ -32,10 +32,16 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
-    //tengo que crear un nuevo elemento con la data que me pasaron.
+    //por ahora solo me envian players, no infectados
+
     auto it = this->textures_holder.find(SOLDIER_IDF);
+    if (entity->getWeaponType() == "scout")
+        it = this->textures_holder.find(SOLDIER_SCOUT);
+    else if (entity->getWeaponType() == "p90")
+        it = this->textures_holder.find(SOLDIER_P90);
+
     std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            it->second, //por ahora, que compartan texturas
+                                                            it->second,
                                                             window,
                                                             entity->getId(),
                                                             entity->getPositionX(),
@@ -46,7 +52,6 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
 }
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
-    
     for (const auto &pair : this->entities) {
         uint32_t this_id = pair.second->getId();
         
