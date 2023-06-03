@@ -1,32 +1,47 @@
 #include "graphics.h"
 
-GraphicsEntityHolder start_main_player(GameState *gs, SdlWindow &window) {
-    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures;
+GraphicsEntityHolder start_graphics_entity(GameState *gs, SdlWindow &window) {
+    std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
 
-    //vamos a tener que reemplazar el ../../ por una funcion que levante de la configuracion el path
-    textures[AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Idle.png", window));
-    textures[AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Shot_1.png", window));
-    textures[AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Run.png", window));
-    textures[AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_1/Dead.png", window));
+    //quiero que todo este codigo este en otro lado
 
-    return GraphicsEntityHolder(gs, std::move(textures), window);
+    textures_holder[SOLDIER_IDF][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Idle.png", window));
+    textures_holder[SOLDIER_IDF][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Shoot_1.png", window));
+    textures_holder[SOLDIER_IDF][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Run.png", window));
+    textures_holder[SOLDIER_IDF][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Dead.png", window));
+    textures_holder[SOLDIER_IDF][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_IDF/Recharge.png", window));
+
+
+    textures_holder[SOLDIER_SCOUT][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_Scout/Idle.png", window));
+    textures_holder[SOLDIER_SCOUT][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_Scout/Shoot_1.png", window));
+    textures_holder[SOLDIER_SCOUT][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_Scout/Run.png", window));
+    textures_holder[SOLDIER_SCOUT][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_Scout/Dead.png", window));
+    textures_holder[SOLDIER_SCOUT][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_Scout/Recharge.png", window));
+
+    textures_holder[SOLDIER_P90][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_P90/Idle.png", window));
+    textures_holder[SOLDIER_P90][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_P90/Shoot_1.png", window));
+    textures_holder[SOLDIER_P90][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_P90/Run.png", window));
+    textures_holder[SOLDIER_P90][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_P90/Dead.png", window));
+    textures_holder[SOLDIER_P90][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture("../../assets/Soldier_P90/Recharge.png", window));
+
+    return GraphicsEntityHolder(gs, std::move(textures_holder), window);
 }
+
+
 void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
 
-        GraphicsEntityHolder gr_entity_holder = start_main_player(gs, window);
-
-        HealthBar hb(300, window);
+        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(gr_entity_holder, queue_comandos);
             update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, im, destArea, hb);
+            render(window, gr_entity_holder, im, destArea);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -45,34 +60,54 @@ void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<Game
  */
 bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos) {
     SDL_Event event;
+    bool static moving_left = false;
+    bool static moving_right = false;
+    bool static moving_up= false;
+    bool static moving_down = false;
+    //bool static shooting = false;
+    
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: {
-                        std::string command("move -1 0");
-                        queue_comandos.push(command);
+                        if (!moving_left){
+                            std::string command("move -1 0");
+                            queue_comandos.push(command);
+                            moving_left = true;
+                        }
                         break;
-                    }
-                        
+                    }  
                     case SDLK_RIGHT: {
-                        std::string command("move 1 0");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 1 0");
+                            queue_comandos.push(command);
+                            moving_right = true;
+                        }
                         break;
                     }
                     case SDLK_UP: {
-                        std::string command("move 0 -1");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 0 -1");
+                            queue_comandos.push(command);
+                            moving_up = true;
+                        }
                         break;
                     }
                     case SDLK_DOWN: {
-                        std::string command("move 0 1");
-                        queue_comandos.push(command);
+                        if (!moving_right){
+                            std::string command("move 0 1");
+                            queue_comandos.push(command);
+                            moving_down = true;
+                        }
                         break;
                     }
-                    case SDLK_d: case SDLK_SPACE: //tocaron la d o la barra especiadora
+                    case SDLK_d: case SDLK_SPACE: 
                         gr_entity_holder.getMainPlayer()->shoot();
+                        break;
+                    case SDLK_r:
+                        gr_entity_holder.getMainPlayer()->recharge();
                         break;
                     case SDLK_h: //le "pegaron"
                         gr_entity_holder.getMainPlayer()->hurt();
@@ -85,14 +120,13 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
             case SDL_KEYUP: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT: case SDLK_RIGHT: {
-                        std::string command("move 0 0");
-                        queue_comandos.push(command);
-                        break;
-                    }
-                    case SDLK_UP: case SDLK_DOWN: {
-                        std::string command("move 0 0");
-                        queue_comandos.push(command);
+                    case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
+                        if (moving_right || moving_left || moving_up || moving_down) {
+                            std::string command("move 0 0");
+                            queue_comandos.push(command);
+
+                            moving_down = moving_left = moving_right = moving_up = false;
+                        }
                         break;
                     }
                     case SDLK_d: case SDLK_SPACE:
@@ -106,15 +140,13 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
     return true;
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea,
-                HealthBar &hb) {
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
     int cameraX = CAMARA_START_X;
     Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render();
-    //hb.render();
     window.render();
 }
 

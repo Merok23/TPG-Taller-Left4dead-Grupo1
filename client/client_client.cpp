@@ -70,7 +70,7 @@ void Client::run() {
         } 
         else if (word1 == "create") {
             iss >> word2;
-            if (word2 != "idf" || word2 != "p90" || word2 != "scout") {
+            if (word2 != "idf" && word2 != "p90" && word2 != "scout") {
                 std::cout << "Invalid weapon" << std::endl;
                 continue;
             }
