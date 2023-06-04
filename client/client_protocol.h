@@ -11,23 +11,66 @@ enum COMMANDS_TYPE {
     CREATE_ROOM,
     JOIN_ROOM,
     MOVE_PLAYER,
+    SHOOT_PLAYER,
+    RELOAD_PLAYER,
     ADD_PLAYER
 };
-typedef struct COMMANDS {
+
+typedef struct command_t {
     COMMANDS_TYPE type;
-    std::string room_name; 
+    std::string room_name;
     std::string weapon;
+    int8_t moving_x;
+    int8_t moving_y;
+    bool shooting;
+    bool reloading;
     uint32_t room_id;
-    int32_t x_position;
-    int32_t y_position;
-
-    COMMANDS() : 
-        type(DEFAULT), room_name(""), weapon(""), room_id(0), x_position(0), y_position(0) {}
-
-         COMMANDS(COMMANDS_TYPE _type, const std::string& _room_name, const std::string& _weapon, uint32_t _room_id, int32_t _x_position, int32_t _y_position) :
-        type(_type), room_name(_room_name), weapon(_weapon), room_id(_room_id), x_position(_x_position), y_position(_y_position) {}
 } command_t;
 
+struct COMMANDS {
+    command_t createRoom(const std::string& name) {
+        command_t command;
+        command.type = CREATE_ROOM;
+        command.room_name = name;
+        return command;
+    }
+
+    command_t joinRoom(uint32_t id) {
+        command_t command;
+        command.type = JOIN_ROOM;
+        command.room_id = id;
+        return command;
+    }
+
+    command_t addPlayer(const std::string& weapon) {
+        command_t command;
+        command.type = ADD_PLAYER;
+        command.weapon = weapon;
+        return command;
+    }
+
+    command_t setDirectionOfMovement(int8_t x, int8_t y) {
+        command_t command;
+        command.type = MOVE_PLAYER;
+        command.moving_x = x;
+        command.moving_y = y;
+        return command;
+    }
+
+    command_t setShooting(bool shoot) {
+        command_t command;
+        command.type = SHOOT_PLAYER;
+        command.shooting = shoot;
+        return command;
+    }
+
+    command_t setReloading(bool reload) {
+        command_t command;
+        command.type = RELOAD_PLAYER;
+        command.reloading = reload;
+        return command;
+    }
+};
 
 class ClientProtocol {
     private:
@@ -43,8 +86,10 @@ class ClientProtocol {
     void sendString(const std::string& string);
     void sendCreateRoom(const std::string& room_name);
     void sendJoinRoom(int room_id);
-    void sendMoving(int x, int y);
+    void sendMoving(int8_t moving_x, int8_t moving_y);
     void sendAddPlayer(const std::string& weapon);
+    void sendShooting(bool shooting);
+    void sendReloading(bool reloading);
     State stringToState(const std::string& state);
     
 

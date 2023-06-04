@@ -7,6 +7,8 @@
 
 #include "../common/socket.h"
 #include "action_moving.h"
+#include "action_shooting.h"
+#include "action_reloading.h"
 #include "action_create_soldier_idf.h"
 #include "action_create_soldier_p90.h"
 #include "action_create_soldier_scout.h"

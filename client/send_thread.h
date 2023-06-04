@@ -12,11 +12,11 @@
 class SendThread : public Thread {
     private:
         ClientProtocol& protocol; 
-        Queue<std::string>& queue_comandos;
+        Queue<command_t>& queue_comandos;
         std::atomic<bool> finished; 
 
     public:
-        SendThread(ClientProtocol& protocol, Queue<std::string>& queue_comandos);
+        SendThread(ClientProtocol& protocol, Queue<command_t>& queue_comandos);
         
         void stop();
         virtual void run() override; 

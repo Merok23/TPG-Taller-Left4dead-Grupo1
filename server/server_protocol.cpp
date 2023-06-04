@@ -10,6 +10,8 @@
 #define JOIN 0x02
 #define ADD_PLAYER 0x03
 #define MOVE 0x04
+#define SHOOT_COMMAND 0x05
+#define RELOAD_COMMAND 0x06
 
 ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -27,26 +29,29 @@ Action* ServerProtocol::receiveAction() {
     if (was_closed) return NULL; 
     Action* action = NULL;
     if (command == MOVE) {
-        int32_t position_x = receiveInteger();
+        int8_t position_x;
+        socket.recvall(&position_x, sizeof(uint8_t), &was_closed);
         if (was_closed) return NULL;
-        int32_t position_y = receieveUnsignedInteger();
+        int8_t position_y;
+        socket.recvall(&position_y, sizeof(uint8_t), &was_closed);
         if (was_closed) return NULL;
 
-        std::array<int32_t, 2> positionArray = {position_x, position_y};
+        std::array<int8_t, 2> positionArray = {position_x, position_y};
         action = new Moving(positionArray); 
     } else if (command == ADD_PLAYER) {
-        //Por que esto es shared? si se pushea a una cola sola
-        //no es como en send que el game_loop le pushea a varias colas
-        //no bastaria con que este en el stack? o con un std::move?
-        //std::shared_ptr<Action> create_player_action = std::make_shared<CreatePlayer>(100); 
-        /* CreatePlayer newPlayer = CreatePlayer(100000);
-        Action *action = &newPlayer;
-        std::shared_ptr<Action> create_player_action(action); */
         std::string weapon = receiveString();
         if (was_closed) return NULL;
         if (weapon == "idf") action =  new CreateSoldierIdf();
         else if (weapon == "p90") action = new CreateSoldierP90();
         else if (weapon == "scout") action = new CreateSoldierScout();
+    } else if (command == SHOOT_COMMAND) {
+        uint32_t shooting;
+        socket.recvall(&shooting, sizeof(uint8_t), &was_closed);
+        action = new Shooting((bool)shooting);
+    } else if (command == RELOAD_COMMAND) {
+        uint32_t reloading;
+        socket.recvall(&reloading, sizeof(uint8_t), &was_closed);
+        action = new Reloading((bool)reloading);
     }
     return action;
 }

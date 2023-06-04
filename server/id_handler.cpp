@@ -14,7 +14,13 @@ void IdHandler::setMoving(uint32_t client_id, int32_t x, int32_t y) {
     game.setMoving(id, x, y);
 }
 
-void IdHandler::shoot(uint32_t client_id) {
+void IdHandler::shoot(uint32_t client_id, bool isShooting) {
     uint32_t id = my_ids[client_id];
-    game.setShooting(id);
+    if (isShooting) game.setShooting(id);
+    else game.stopShooting(id);
+}
+
+void IdHandler::reload(uint32_t client_id, bool isReloading) {
+    uint32_t id = my_ids[client_id];
+    game.setReloading(id);
 }

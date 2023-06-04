@@ -19,6 +19,7 @@ Client::Client(const char* hostname, const char* servname) :
 void Client::run() {
     std::string line;
     bool started_playing = false;
+    COMMANDS command;
     while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
@@ -28,19 +29,14 @@ void Client::run() {
             iss >> word2; 
             if (word2 == "room") {
                 iss >> word3;
-                command_t command = command_t(); 
-                command.type = CREATE_ROOM;
-                protocol.sendCommand(command);
+                protocol.sendCommand(command.createRoom(word3));
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;
         } else if (word1 == "join") {
             int code;
             iss >> code;
-            command_t command = command_t(); 
-            command.type = JOIN_ROOM;
-            command.room_id = code;
-            protocol.sendCommand(command); 
+            protocol.sendCommand(command.joinRoom(code)); 
             int response = protocol.receiveJoinResponse();
             if (response == 1) {
                 std::cout << "Joined room " << code  <<  " successfully"<< std::endl;
@@ -74,7 +70,7 @@ void Client::run() {
                 std::cout << "Invalid weapon" << std::endl;
                 continue;
             }
-            queue_comandos.push(line);
+            queue_comandos.push(command.addPlayer(word2));
             GameState* gs = NULL;
             bool leave = false;
             while (!leave) {
