@@ -67,6 +67,9 @@ void TexturesHolder::create_infected(EntityType entity_type, std::string path) {
     case WITCH:
         create_witch(path);
         break;
+
+    default:
+        break;
     }
 
 }
