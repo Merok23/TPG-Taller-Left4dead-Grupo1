@@ -8,11 +8,17 @@ void TexturesHolder::create_soldier(EntityType entity_type, std::string path) {
     img.replace(0, img.length(), "Shoot_1.png");
     textures_holder[entity_type][AN_SHOOT] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
+    img.replace(0, img.length(), "Walk.png");
+    textures_holder[entity_type][AN_WALK] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
     img.replace(0, img.length(), "Run.png");
     textures_holder[entity_type][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Dead.png");
     textures_holder[entity_type][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Hurt.png");
+    textures_holder[entity_type][AN_HURT] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Recharge.png");
     textures_holder[entity_type][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));

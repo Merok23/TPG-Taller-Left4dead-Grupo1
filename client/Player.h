@@ -9,10 +9,26 @@
 
 enum AnimationName {
     AN_IDLE,
+    AN_WALK,
     AN_RUN,
+    AN_RUN_ATTACK,
+    AN_JUMP,
+
+    AN_ATTACK1,
+    AN_ATTACK2,
+    AN_ATTACK3,
+    AN_BITE,
+    AN_SCREAM,
     AN_SHOOT,
-    AN_RELOAD, 
-    AN_DIE
+
+    AN_FALL,
+    AN_EATING,
+    AN_PROTECT,
+
+    AN_RELOAD,
+    AN_HURT,
+    AN_DIE,
+
 };
 
 class Player {

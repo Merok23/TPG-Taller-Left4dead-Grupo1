@@ -22,6 +22,7 @@ class TexturesHolder {
 
     private:
     void create_soldier(EntityType entity_type, std::string path);
+    //void create_venom(EntityType entity_type, std::string path);
 
     SdlWindow &window;
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
