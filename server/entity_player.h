@@ -38,6 +38,7 @@ class Player : public Entity {
         virtual bool isDead() override;
         virtual std::string getState() override;
         std::string getWeaponType();
+        void stopShooting();
         int32_t getAmmoLeft();
         virtual ~Player() override;
     private:

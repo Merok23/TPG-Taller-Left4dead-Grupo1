@@ -45,11 +45,11 @@ Action* ServerProtocol::receiveAction() {
         else if (weapon == "p90") action = new CreateSoldierP90();
         else if (weapon == "scout") action = new CreateSoldierScout();
     } else if (command == SHOOT_COMMAND) {
-        uint32_t shooting;
+        uint8_t shooting;
         socket.recvall(&shooting, sizeof(uint8_t), &was_closed);
         action = new Shooting((bool)shooting);
     } else if (command == RELOAD_COMMAND) {
-        uint32_t reloading;
+        uint8_t reloading;
         socket.recvall(&reloading, sizeof(uint8_t), &was_closed);
         action = new Reloading((bool)reloading);
     }

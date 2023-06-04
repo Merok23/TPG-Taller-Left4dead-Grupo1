@@ -80,6 +80,10 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
     this->my_weapon->useAmmo();
 }
 
+void Player::stopShooting() {
+    this->state = IDLE_SOLDIER;
+}
+
 void Player::orderByDistance(std::vector<HitEntity>& entities_hit) {
     std::sort(entities_hit.begin(), entities_hit.end(),
     [](HitEntity& entity_hit1, HitEntity& entity_hit2) {

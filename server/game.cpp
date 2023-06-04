@@ -52,9 +52,13 @@ void Game::setReloading(const uint32_t &id) {
     player->setReload();
 }
 
+
 void Game::stopShooting(const uint32_t &id) {
+    Player *player = dynamic_cast<Player*>(this->entities[id]);
+    player->stopShooting();
     this->shooting_soldiers.remove(id);
 }
+
 
 std::vector<HitEntity> Game::setUpHitEntities(const std::vector<VectorWrapper>& entities_hit) {
     std::vector<HitEntity> entities_hit_for_entity;
