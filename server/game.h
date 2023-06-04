@@ -19,6 +19,12 @@
 #include "entity_player.h"
 #include "entity_infected_common.h"
 
+
+enum GameMode {
+    SURVIVAL,
+    CLEAR_THE_ZONE 
+};
+
 class Game {
     private: 
         std::map<uint32_t, Entity*> entities;
@@ -41,6 +47,7 @@ class Game {
         
     public:
         explicit Game(int32_t width, int32_t height);
+        Game(int32_t width, int32_t height, GameMode gameMode);
         void addEntity(Entity* entity);
         void removeEntity(const uint32_t& id);
         void setMoving(const uint32_t& id, const int32_t &x,const int32_t &y);

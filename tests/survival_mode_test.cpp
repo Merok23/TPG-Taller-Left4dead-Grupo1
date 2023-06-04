@@ -47,3 +47,12 @@ TEST_CASE("Survival mode test, it spawns more and more zombies", "[survival]") {
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
     REQUIRE(game.getEntities().size() > size);
 }
+
+TEST_CASE("Survival mode test, game is not set on survival so noone spawns and infected don't get stronger", "[survival]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    game.addEntity(new CommonInfected(1, 5, 5));
+    int health = game.getEntities()[1]->getHitPoints();
+    for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    REQUIRE(game.getEntities()[1]->getHitPoints() == health);
+    REQUIRE(game.getEntities().size() == 1);
+}

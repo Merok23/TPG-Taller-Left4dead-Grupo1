@@ -10,6 +10,8 @@
 #include "entity_player.h"
 #include "id_handler.h" 
 
+
+
 class GameLoop : public Thread {
     private:
     Queue<Action*> game_queue;
@@ -21,7 +23,7 @@ class GameLoop : public Thread {
     std::mutex mutex;
 
     public:
-    GameLoop();
+    explicit GameLoop(GameMode gameMode);
     Queue<Action*>& getQueue();
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);

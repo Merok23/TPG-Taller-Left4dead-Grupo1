@@ -11,6 +11,17 @@ Game::Game(int32_t width, int32_t height) :
     survival_mode_multiplier(1),
     current_id(0) {}
 
+Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
+    entities(),
+    gameMap(width,height),
+    infected(),
+    soldiers(),
+    shooting_soldiers(),
+    survival_mode(gameMode == GameMode::SURVIVAL),
+    survival_mode_counter(CONFIG.survival_mode_timer),
+    survival_mode_multiplier(1),
+    current_id(0) {}
+
 void Game::addEntity(Entity* entity) {
     this->entities[entity->getId()] = entity;
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
