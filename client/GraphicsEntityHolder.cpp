@@ -1,21 +1,20 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-
-
-GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window) :
+//GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window) :
+GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textures_holder, SdlWindow &window) :
     window(window), textures_holder(std::move(textures_holder))
 {
         for (auto& pair : gs->entities) {
             if (pair.second->getType() == "player") {
-                auto it = this->textures_holder.find(SOLDIER_IDF);
+                std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
                 if (pair.second->getWeaponType() == "scout")
-                    it = this->textures_holder.find(SOLDIER_SCOUT);
+                    textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
                 else if (pair.second->getWeaponType() == "p90")
-                    it = this->textures_holder.find(SOLDIER_P90);
+                    textures = this->textures_holder.find_textures(SOLDIER_P90);
                     
                 std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            it->second,
+                                                            textures,
                                                             window,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
@@ -34,14 +33,14 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     //por ahora solo me envian players, no infectados
 
-    auto it = this->textures_holder.find(SOLDIER_IDF);
+    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
     if (entity->getWeaponType() == "scout")
-        it = this->textures_holder.find(SOLDIER_SCOUT);
+        textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
     else if (entity->getWeaponType() == "p90")
-        it = this->textures_holder.find(SOLDIER_P90);
+        textures = this->textures_holder.find_textures(SOLDIER_P90);
 
     std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            it->second,
+                                                            textures,
                                                             window,
                                                             entity->getId(),
                                                             entity->getPositionX(),

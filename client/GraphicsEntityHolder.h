@@ -6,17 +6,12 @@
 #include "SdlWindow.h"
 #include "Player.h"
 #include "game_state.h"
-
-
-enum EntityType {
-    SOLDIER_IDF,
-    SOLDIER_P90,
-    SOLDIER_SCOUT
-};
+#include "textures_holder.h"
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window);
+    //GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window);
+    GraphicsEntityHolder(GameState *gs, TexturesHolder textures_holder, SdlWindow &window);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
@@ -29,7 +24,8 @@ private:
     std::shared_ptr<Player> add_player(Entity *entity);
     
     SdlWindow &window;
-     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
+    //std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
+    TexturesHolder textures_holder;
     std::map<uint32_t, std::shared_ptr<Player>> entities;
     std::shared_ptr<Player> MainPlayer;
 };
