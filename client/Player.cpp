@@ -54,29 +54,29 @@ void Player::recharge() {
  */
 void Player::update(float dt, Entity *entity) {
     if (entity) {
-        // switch (entity->state)
-        // {
-        // case IDLE:
-        //     current_animation = AN_IDLE;
-        //     break;
+        switch (entity->state)
+        {
+        case IDLE:
+            current_animation = AN_IDLE;
+            break;
         
-        // case RUN:
-        //     current_animation = AN_RUN;
-        //     break;
+        case RUN:
+            current_animation = AN_RUN;
+            break;
         
-        // case SHOOT:
-        //     current_animation = AN_SHOOT;
-        //     break;
+        case SHOOT:
+            current_animation = AN_SHOOT;
+            break;
         
-        // case DIE:
-        //     current_animation = AN_DIE;
-        //     break;
+        case DIE:
+            current_animation = AN_DIE;
+            break;
         
-        // case RELOAD:
-        //     current_animation = AN_RELOAD;
-        //     break;
+        case RELOAD:
+            current_animation = AN_RELOAD;
+            break;
         
-        // }
+        }
         moving_x = (x != entity->getPositionX());
         moving_y = (y != entity->getPositionY());
             
@@ -89,33 +89,33 @@ void Player::update(float dt, Entity *entity) {
         facingUp = entity->isMovingUp();
     }
 
-    // auto it_current = animations.find(current_animation);
-    // if (it_current != animations.end())
-    //         it_current->second->update(dt);
+    auto it_current = animations.find(current_animation);
+    if (it_current != animations.end())
+            it_current->second->update(dt);
 
-    auto it_die = animations.find(AN_DIE);
-    if (moving_x) {
-        auto it = animations.find(AN_RUN);
-        if (it != animations.end())
-            it->second->update(dt);
+    // auto it_die = animations.find(AN_DIE);
+    // if (moving_x) {
+    //     auto it = animations.find(AN_RUN);
+    //     if (it != animations.end())
+    //         it->second->update(dt);
             
-    } else if (moving_y) {
-        auto it = animations.find(AN_RUN);
-        if (it != animations.end())
-            it->second->update(dt);
-    } else if (shooting) {
-        auto it = animations.find(AN_SHOOT);
-        if (it != animations.end())
-            it->second->update(dt);
-    } else if (it_die != animations.end()) {
-        if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
-            it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
-        }
-    } else {
-        auto it = animations.find(AN_IDLE);
-        if (it != animations.end())
-            it->second->update(0); //buscar como controlar el speed de idle si le paso dt
-    }
+    // } else if (moving_y) {
+    //     auto it = animations.find(AN_RUN);
+    //     if (it != animations.end())
+    //         it->second->update(dt);
+    // } else if (shooting) {
+    //     auto it = animations.find(AN_SHOOT);
+    //     if (it != animations.end())
+    //         it->second->update(dt);
+    // } else if (it_die != animations.end()) {
+    //     if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
+    //         it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
+    //     }
+    // } else {
+    //     auto it = animations.find(AN_IDLE);
+    //     if (it != animations.end())
+    //         it->second->update(0); //buscar como controlar el speed de idle si le paso dt
+    // }
 }
 
 void Player::render() {
