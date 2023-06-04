@@ -40,8 +40,10 @@ class ServerProtocol {
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
     std::string receiveString();
-    std::string receiveRoomName();
-    uint32_t receiveRoomId();
+    Action* receiveMoving();
+    Action* receiveShooting();
+    Action* receiveReloading();
+    Action* receiveAddPlayer();
 
 
     public:

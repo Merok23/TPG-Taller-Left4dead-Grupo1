@@ -90,8 +90,8 @@ class ClientProtocol {
     void sendJoinRoom(int room_id);
     void sendMoving(int8_t moving_x, int8_t moving_y);
     void sendAddPlayer(const std::string& weapon);
-    void sendShooting(bool shooting);
-    void sendReloading(bool reloading);
+    void sendShooting(int shooting);
+    void sendReloading(int reloading);
     State stringToState(const std::string& state);
     
 

@@ -25,11 +25,12 @@
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }   
-
+//--------------------------------- FUNCIONES DE ENVIAR BYTES ---------------------------------//
 void ClientProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
+
 void ClientProtocol::sendString(const std::string& string) {
     uint32_t len = string.length();
     len = htonl(len);
@@ -42,22 +43,8 @@ void ClientProtocol::sendUnsignedInteger(uint32_t number) {
     socket.sendall(&number_to_send, sizeof(uint32_t), &was_closed);
 }
 
-void ClientProtocol::sendJoinRoom(int room_id) {
-    uint8_t action = JOIN;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) return; 
 
-    sendUnsignedInteger(room_id);
-    if (was_closed) return;
-}
-void ClientProtocol::sendCreateRoom(const std::string& room_name, const std::string& game_mode) {
-    uint8_t action = CREATE;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) return; 
-
-    sendString(room_name);
-    sendString(game_mode);
-}
+//--------------------------------- FUNCIONES DE ENVIAR COMMANDOS PRIVADAS ---------------------------------//
 void ClientProtocol::sendCommand(command_t command) {
     if (command.type == COMMANDS_TYPE::CREATE_ROOM) 
         sendCreateRoom(command.room_name, command.game_mode); 
@@ -72,37 +59,68 @@ void ClientProtocol::sendCommand(command_t command) {
     else if (command.type == COMMANDS_TYPE::RELOAD_PLAYER)
         sendReloading(command.reloading);
 }
+
+void ClientProtocol::sendCreateRoom(const std::string& room_name, const std::string& game_mode) {
+    uint8_t action = CREATE;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
+
+    sendString(room_name);
+    if (was_closed) return;
+    sendString(game_mode);
+    if (was_closed) return;
+}
+
+void ClientProtocol::sendJoinRoom(int room_id) {
+    uint8_t action = JOIN;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
+
+    sendUnsignedInteger(room_id);
+    if (was_closed) return;
+}
+
+void ClientProtocol::sendAddPlayer(const std::string& weapon) {
+    uint8_t action = ADD;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
+
+    sendString(weapon);
+    if (was_closed) return;
+}
+
 void ClientProtocol::sendMoving(int8_t moving_x, int8_t moving_y) {
     uint8_t action = MOVE;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
-    uint8_t moving_byte = (uint8_t)moving_x;
-    socket.sendall(&moving_byte, sizeof(uint8_t), &was_closed);
+
+    socket.sendall(&moving_x, sizeof(int8_t), &was_closed);
     if (was_closed) return;
-    moving_byte = (uint8_t)moving_y;
-    socket.sendall(&moving_byte, sizeof(uint8_t), &was_closed);
+
+    socket.sendall(&moving_y, sizeof(int8_t), &was_closed);
     if (was_closed) return;
 }
 
-void ClientProtocol::sendShooting(bool shooting) {
+void ClientProtocol::sendShooting(int shooting) {
     uint8_t action = SHOOT_COMMAND;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) return; 
-    uint8_t shooting_byte = (uint8_t)shooting;
-    socket.sendall(&shooting_byte, sizeof(uint8_t), &was_closed);
+    if (was_closed) return;
+
+    socket.sendall(&shooting, sizeof(uint8_t), &was_closed);
     if (was_closed) return;
 }
 
 
-void ClientProtocol::sendReloading(bool reloading) {
+void ClientProtocol::sendReloading(int reloading) {
     uint8_t action = RELOAD_COMMAND;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
      
-    uint8_t reloading_byte = (uint8_t)reloading;
-    socket.sendall(&reloading_byte, sizeof(uint8_t), &was_closed);
+    socket.sendall(&reloading, sizeof(uint8_t), &was_closed);
     if (was_closed) return;
 }
+
+//--------------------------------- FUNCIONES DE RECIBIR RESPUESTA A COMANDOS ---------------------------------//
 
 uint32_t ClientProtocol::receiveRoomId() {
     uint32_t room_id = receieveUnsignedInteger();
@@ -116,57 +134,6 @@ bool ClientProtocol::receiveJoinResponse() {
     return (bool)response;
 }
 
-void ClientProtocol::sendAddPlayer(const std::string& weapon) {
-    uint8_t action = ADD;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) return; 
-
-    sendString(weapon);
-    if (was_closed) return;
-}
-
-uint32_t ClientProtocol::receieveUnsignedInteger() {
-    uint32_t number;
-    socket.recvall(&number, sizeof(uint32_t), &was_closed);
-    number = ntohl(number);
-    return number;
-}
-
-std::string ClientProtocol::receiveString() {
-    uint32_t len; 
-    socket.recvall(&len, sizeof(uint32_t), &was_closed); 
-    len = ntohl(len); 
-
-    std::vector<char> string(len, 0x00);
-    socket.recvall(string.data(), len, &was_closed);
-    return std::string(string.begin(), string.end());
-}
-
-int32_t ClientProtocol::receiveInteger() {
-    int32_t  number;
-    socket.recvall(&number, sizeof(uint32_t), &was_closed);
-    number = ntohl(number);
-    return number;
-}
-
-uint8_t ClientProtocol::receiveUnsignedSmallInteger() {
-    uint8_t command;
-    socket.recvall(&command, sizeof(uint8_t), &was_closed);
-    return command;
-}
-
-State ClientProtocol::stringToState(const std::string& state) {
-    if (state == "moving") {
-        return RUN;
-    } else if (state == "shooting") {
-        return SHOOT;
-    } else if (state == "reloading") {
-        return RELOAD;
-    } else if (state == "dead") {
-        return DIE;
-    }
-    return IDLE;
-}
 GameState* ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieveUnsignedInteger();
@@ -214,6 +181,53 @@ GameState* ClientProtocol::receiveGameState() {
     }
     return (new GameState(entities));
 }
+
+State ClientProtocol::stringToState(const std::string& state) {
+    if (state == "moving") {
+        return RUN;
+    } else if (state == "shooting") {
+        return SHOOT;
+    } else if (state == "reloading") {
+        return RELOAD;
+    } else if (state == "dead") {
+        return DIE;
+    }
+    return IDLE;
+}
+//--------------------------------- FUNCIONES DE RECIBIR BYTES PRIVADAS ---------------------------------//
+
+uint32_t ClientProtocol::receieveUnsignedInteger() {
+    uint32_t number;
+    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    number = ntohl(number);
+    return number;
+}
+
+std::string ClientProtocol::receiveString() {
+    uint32_t len; 
+    socket.recvall(&len, sizeof(uint32_t), &was_closed); 
+    len = ntohl(len); 
+
+    std::vector<char> string(len, 0x00);
+    socket.recvall(string.data(), len, &was_closed);
+    return std::string(string.begin(), string.end());
+}
+
+int32_t ClientProtocol::receiveInteger() {
+    int32_t  number;
+    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    number = ntohl(number);
+    return number;
+}
+
+uint8_t ClientProtocol::receiveUnsignedSmallInteger() {
+    uint8_t command;
+    socket.recvall(&command, sizeof(uint8_t), &was_closed);
+    return command;
+}
+
+//--------------------------------- OTRAS FUNCIONES ---------------------------------//
+
 bool ClientProtocol::isFinished() {
     return was_closed;
 }

@@ -28,8 +28,6 @@ class Client {
     private: 
     ClientProtocol protocol;
     Graphics graphics;
-    int game_id;
-    bool connected; 
     Queue<command_t> queue_comandos; 
     Queue<GameState*> game_states;
     SendThread* send_thread;
