@@ -35,7 +35,10 @@ struct config {
     int weapon_scout_range; 
     int weapon_scout_magazine_size; 
     double weapon_scout_distance_modifier; 
-    double weapon_scout_damage_falloff; 
+    double weapon_scout_damage_falloff;
+    int survival_mode_timer;
+    int survival_mode_max_common_infected;
+    double survival_mode_accumulator; //rate of spawn + stat multiplier
 };
 
 

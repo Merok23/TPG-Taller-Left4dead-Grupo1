@@ -6,6 +6,20 @@ Game::Game(int32_t width, int32_t height) :
     infected(),
     soldiers(),
     shooting_soldiers(),
+    survival_mode(false),
+    survival_mode_counter(CONFIG.survival_mode_timer),
+    survival_mode_multiplier(1),
+    current_id(0) {}
+
+Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
+    entities(),
+    gameMap(width,height),
+    infected(),
+    soldiers(),
+    shooting_soldiers(),
+    survival_mode(gameMode == GameMode::SURVIVAL),
+    survival_mode_counter(CONFIG.survival_mode_timer),
+    survival_mode_multiplier(1),
     current_id(0) {}
 
 void Game::addEntity(Entity* entity) {
@@ -76,6 +90,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 }
 
 std::shared_ptr<GameStateForClient> Game::update() {
+    if (this->survival_mode) survivalUpdate();
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
     this->checkForInfectedAttack();
@@ -85,6 +100,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
             this->gameMap.getWidth(), this->gameMap.getHeight());
     return game_state;
 }
+
 
 void Game::checkForShooting() {
     if (this->shooting_soldiers.empty()) return;
@@ -110,6 +126,10 @@ void Game::updateAllEntities() {
     }
 }
 
+void Game::setSurvivalMode() {
+    this->survival_mode = true;
+}
+
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
     this->soldiers.erase(id);
@@ -121,6 +141,49 @@ void Game::infectedCheckForSoldiersInRange() {
             Infected* infected = dynamic_cast<Infected*>(id_entity.second);
             infected->checkForSoldiersInRangeAndSetChase(this->soldiers);
         }
+    }
+}
+
+void Game::survivalUpdate() {
+    this->survival_mode_counter--;
+    if (this->survival_mode_counter != 0) return;
+    this->survival_mode_counter = CONFIG.survival_mode_timer;
+    this->spawnInfected();
+    this->makeInfectedStronger();
+    survival_mode_multiplier *= CONFIG.survival_mode_accumulator;
+}
+
+void Game::spawnCommonInfected(int ammount) {
+    for (int i = 0; i < ammount; i ++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
+            //id is not a problem (race condition) since there is no 
+            //other thread calling for addEntity in the game update
+            Entity* infected = new CommonInfected(current_id, x, y);
+            this->addEntity(infected);
+        }
+    }
+}
+
+bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
+        bool found = false;
+        while(!found) {
+            x = rand() % this->gameMap.getWidth() + radius;
+            y = rand() % this->gameMap.getHeight() + radius;
+            if (!this->gameMap.checkForCollisionInPosition(x, y, CONFIG.common_infected_radius)) found = true;
+        }
+        return found;
+}
+
+void Game::spawnInfected() {
+    this->spawnCommonInfected(rand() % CONFIG.survival_mode_max_common_infected);
+}
+
+void Game::makeInfectedStronger() {
+    for (auto& id_entity : this->infected) {
+        Infected* infected = dynamic_cast<Infected*>(id_entity.second);
+        infected->makeStronger(survival_mode_multiplier);
     }
 }
 

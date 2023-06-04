@@ -8,10 +8,15 @@ uint32_t GameHandler::createRoomId() {
 }
 
 uint32_t GameHandler::createRoom(const std::string& room_name, 
-        Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id) {
+        Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id, const std::string& game_mode) {
     std::lock_guard<std::mutex> lock(mutex);
     uint32_t room_id = createRoomId();
-    GameLoop* game_loop = new GameLoop();
+    GameLoop* game_loop;
+    if (game_mode == "Survival") {
+        game_loop = new GameLoop(GameMode::SURVIVAL);
+    } else {
+        game_loop = new GameLoop(GameMode::CLEAR_THE_ZONE);
+    }
     rooms.insert(std::make_pair(room_id, game_loop));
     game_loop->start();
     client_id = game_loop->addClientQueue(queue);

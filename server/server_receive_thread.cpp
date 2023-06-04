@@ -34,7 +34,7 @@ void ReceiveThread::receiveCommand() {
             break;
         }
         if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
-            room_id = game_handler.createRoom(command.room_name, client_queue, client_id);
+            room_id = game_handler.createRoom(command.room_name, client_queue, client_id, command.game_mode);
             protocol.sendRoomId(room_id);
             start_playing = true;
         } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {

@@ -140,6 +140,7 @@ command_t ServerProtocol::receiveCommand() {
     if (command == CREATE) {
         return_command.type = CREATE_ROOM;
         return_command.room_name = receiveRoomName();
+        return_command.game_mode = receiveString();
     } else if (command == JOIN) {
         return_command.type = JOIN_ROOM;
         return_command.room_id = receiveRoomId();

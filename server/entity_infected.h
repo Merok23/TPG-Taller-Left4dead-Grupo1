@@ -23,6 +23,7 @@ class Infected : public Entity {
         virtual bool isSoldier() override;
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) = 0;
         virtual void checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) = 0;
+        virtual void makeStronger(double factor) = 0;
         virtual std::string getState() override;
         virtual ~Infected() override;
 };
