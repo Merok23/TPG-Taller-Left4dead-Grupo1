@@ -2,38 +2,21 @@
 #include <string>
 #include "send_thread.h"
 
-SendThread::SendThread(ClientProtocol& protocol, Queue<std::string>& queue) : 
+SendThread::SendThread(ClientProtocol& protocol, Queue<command_t>& queue) : 
     protocol(protocol), 
         queue_comandos(queue), 
             finished(false) {}
 
 void SendThread::run() {
-    std::string line;
+    command_t command;
     while (!finished) {
         try {
-            line = queue_comandos.pop();
+            command = queue_comandos.pop();
             if (protocol.isFinished()) {
                 stop(); 
                 break; 
             }
-            std::istringstream iss(line);
-            std::string action, weapon; 
-            iss >> action;
-            if (action == "create") {
-                iss >> weapon;  
-                command_t command = command_t(); 
-                command.type = ADD_PLAYER;
-                command.weapon = weapon;
-                protocol.sendCommand(command);
-            } else if (action == "move") {
-                int x, y;
-                iss >> x >> y;
-                command_t command = command_t(); 
-                command.type = MOVE_PLAYER;
-                command.x_position = x;
-                command.y_position = y;
-                protocol.sendCommand(command);
-            }
+            protocol.sendCommand(command);
         } catch(const ClosedQueue &e) {
             if (finished) return; 
             std::cerr << "Error: " << e.what() << std::endl;

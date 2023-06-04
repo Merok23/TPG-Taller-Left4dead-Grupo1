@@ -30,7 +30,7 @@ class Client {
     Graphics graphics;
     int game_id;
     bool connected; 
-    Queue<std::string> queue_comandos; 
+    Queue<command_t> queue_comandos; 
     Queue<GameState*> game_states;
     SendThread* send_thread;
     ReceiveThread* receive_thread;

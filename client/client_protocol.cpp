@@ -19,6 +19,8 @@
 #define JOIN 0x02
 #define ADD 0x03
 #define MOVE 0x04
+#define SHOOT_COMMAND 0x05
+#define RELOAD_COMMAND 0x06
 
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -63,15 +65,42 @@ void ClientProtocol::sendCommand(command_t command) {
     else if (command.type == COMMANDS_TYPE::ADD_PLAYER) 
         sendAddPlayer(command.weapon);
     else if (command.type == COMMANDS_TYPE::MOVE_PLAYER) 
-        sendMoving(command.x_position, command.y_position);
+        sendMoving(command.moving_x, command.moving_y);
+    else if (command.type == COMMANDS_TYPE::SHOOT_PLAYER)
+        sendShooting(command.shooting);
+    else if (command.type == COMMANDS_TYPE::RELOAD_PLAYER)
+        sendReloading(command.reloading);
 }
-void ClientProtocol::sendMoving(int x, int y) {
+void ClientProtocol::sendMoving(int8_t moving_x, int8_t moving_y) {
     uint8_t action = MOVE;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
+    uint8_t moving_byte = (uint8_t)moving_x;
+    socket.sendall(&moving_byte, sizeof(uint8_t), &was_closed);
+    if (was_closed) return;
+    moving_byte = (uint8_t)moving_y;
+    socket.sendall(&moving_byte, sizeof(uint8_t), &was_closed);
+    if (was_closed) return;
+}
+
+void ClientProtocol::sendShooting(bool shooting) {
+    uint8_t action = SHOOT_COMMAND;  
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
+    uint8_t shooting_byte = (uint8_t)shooting;
+    socket.sendall(&shooting_byte, sizeof(uint8_t), &was_closed);
+    if (was_closed) return;
+}
+
+
+void ClientProtocol::sendReloading(bool reloading) {
+    uint8_t action = RELOAD_COMMAND;  
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
      
-    sendInteger(x);
-    sendInteger(y);
+    uint8_t reloading_byte = (uint8_t)reloading;
+    socket.sendall(&reloading_byte, sizeof(uint8_t), &was_closed);
+    if (was_closed) return;
 }
 
 uint32_t ClientProtocol::receiveRoomId() {

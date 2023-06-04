@@ -6,10 +6,10 @@
 #include <iostream>
 class Moving : public Action {
     private:
-    std::array<int32_t, 2> position;
+    std::array<int8_t, 2> position;
 
     public:
-    explicit Moving(std::array<int32_t, 2> position); 
+    explicit Moving(std::array<int8_t, 2> position); 
     virtual void execute(IdHandler& handler) override;
     ~Moving() override;
 };
