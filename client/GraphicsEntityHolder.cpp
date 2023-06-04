@@ -1,7 +1,6 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-//GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs, std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder, SdlWindow &window) :
 GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textures_holder, SdlWindow &window) :
     window(window), textures_holder(std::move(textures_holder))
 {
@@ -21,6 +20,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                                                             pair.second->getPositionY(),
                                                             pair.second->getHitPoints());  
                 entities[pair.second->getId()] = player;
+                players[pair.second->getId()] = player;
                 MainPlayer = player;
             }
         }
@@ -32,7 +32,6 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     //por ahora solo me envian players, no infectados
-
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
     if (entity->getWeaponType() == "scout")
         textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
