@@ -23,13 +23,13 @@ void Client::run() {
     while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        std::string word1, word2, word3;
+        std::string word1, word2, word3, word4;
         iss >> word1;
         if (word1 == "create") {
             iss >> word2; 
             if (word2 == "room") {
-                iss >> word3;
-                protocol.sendCommand(command.createRoom(word3));
+                iss >> word3 >> word4;
+                protocol.sendCommand(command.createRoom(word3, word4));
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;
@@ -81,7 +81,7 @@ void Client::run() {
                     }
                 }
             }
-            graphics.run(gs, queue_comandos, game_states);
+            //graphics.run(gs, queue_comandos, game_states);
         } else {
             std::cout << "Commands are: create (weapon)" << std::endl;
         }

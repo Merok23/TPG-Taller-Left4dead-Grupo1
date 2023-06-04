@@ -50,16 +50,17 @@ void ClientProtocol::sendJoinRoom(int room_id) {
     sendUnsignedInteger(room_id);
     if (was_closed) return;
 }
-void ClientProtocol::sendCreateRoom(const std::string& room_name) {
+void ClientProtocol::sendCreateRoom(const std::string& room_name, const std::string& game_mode) {
     uint8_t action = CREATE;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
 
     sendString(room_name);
+    sendString(game_mode);
 }
 void ClientProtocol::sendCommand(command_t command) {
     if (command.type == COMMANDS_TYPE::CREATE_ROOM) 
-        sendCreateRoom(command.room_name); 
+        sendCreateRoom(command.room_name, command.game_mode); 
     else if (command.type == COMMANDS_TYPE::JOIN_ROOM) 
         sendJoinRoom(command.room_id);
     else if (command.type == COMMANDS_TYPE::ADD_PLAYER) 

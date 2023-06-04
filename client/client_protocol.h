@@ -19,6 +19,7 @@ enum COMMANDS_TYPE {
 typedef struct command_t {
     COMMANDS_TYPE type;
     std::string room_name;
+    std::string game_mode;
     std::string weapon;
     int8_t moving_x;
     int8_t moving_y;
@@ -28,10 +29,11 @@ typedef struct command_t {
 } command_t;
 
 struct COMMANDS {
-    command_t createRoom(const std::string& name) {
+    command_t createRoom(const std::string& name, const std::string& game_mode) {
         command_t command;
         command.type = CREATE_ROOM;
         command.room_name = name;
+        command.game_mode = game_mode;
         return command;
     }
 
@@ -84,7 +86,7 @@ class ClientProtocol {
     void sendUnsignedInteger(uint32_t number);
     uint8_t receiveUnsignedSmallInteger();
     void sendString(const std::string& string);
-    void sendCreateRoom(const std::string& room_name);
+    void sendCreateRoom(const std::string& room_name, const std::string& game_mode);
     void sendJoinRoom(int room_id);
     void sendMoving(int8_t moving_x, int8_t moving_y);
     void sendAddPlayer(const std::string& weapon);
