@@ -17,6 +17,7 @@
 #include "hit_entity.h"
 #include "entity_infected.h"
 #include "entity_player.h"
+#include "entity_infected_common.h"
 
 class Game {
     private: 
@@ -26,13 +27,16 @@ class Game {
         std::map<uint32_t, Entity*> soldiers;
         /*
          * Shooting soldiers as a list has a funny bug
-         * if you shoot twice with one soldier, for example 
-         * it will try to shoot twice, but for doing that
-         * you have to press two attack buttons at the same time
+         * if you shoot twice with one soldier for example 
+         * it will try to shoot twice. but for doing that
+         * you'll have to press two attack buttons at the same time
          * which is not possible, so it's not a big deal
-         * the solution is changing to a map.
+         * the solution is changing it to a map.
         */
         std::list<uint32_t> shooting_soldiers;
+        bool survival_mode;
+        int survival_mode_counter;
+        double survival_mode_multiplier;
         uint32_t current_id;
         
     public:
@@ -47,6 +51,7 @@ class Game {
         std::shared_ptr<GameStateForClient> update();
         void infectedCheckForSoldiersInRange();
         uint32_t getCurrentId();
+        void setSurvivalMode();
         ~Game();
         
     private:
@@ -55,5 +60,10 @@ class Game {
         void checkForShooting();
         void checkForInfectedAttack();
         std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
+        void survivalUpdate();
+        void spawnInfected();
+        void spawnCommonInfected(int ammount);
+        bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
+        void makeInfectedStronger();
 };
 #endif 

@@ -34,5 +34,8 @@ const struct config CONFIG {
     1000, // weapon_scout_range
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
-    0.1 // weapon_scout_damage_falloff
+    0.1, // weapon_scout_damage_falloff
+    100, //survival_mode_timer
+    50, //survival_mode_max_common_infected
+    1.1 //survival_mode_accumulator
 };

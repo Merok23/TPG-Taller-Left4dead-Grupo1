@@ -93,4 +93,14 @@ void Map::removeEntity(const uint32_t &id) {
     this->entities.erase(id);
 }
 
+bool Map::checkForCollisionInPosition(const uint32_t &x, const uint32_t &y, const uint32_t &radius) {
+    Movement entity(x, y, radius);
+    for (auto entity_map : this->entities) {
+        if (entity_map.second->checkForCollision(entity)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 Map::~Map() {}

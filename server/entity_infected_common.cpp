@@ -104,6 +104,16 @@ void CommonInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Ent
     }
 }
 
+void CommonInfected::makeStronger(double factor) {
+    this->attack_damage *= factor;
+    this->attack_range *= factor;
+    this->attack_cooldown *= factor;
+    this->look_range *= factor;
+    this->speed *= factor;
+    int32_t hit_points = this->getHitPoints();
+    hit_points *= factor;
+    this->setHitPoints(hit_points);
+}
 
 std::string CommonInfected::getState() {
     if (this->state == IDLE_INFECTED) return "idle";
