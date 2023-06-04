@@ -1,6 +1,65 @@
 #include "graphics.h"
 
-GraphicsEntityHolder start_graphics_entity(GameState *gs, SdlWindow &window) {
+bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Queue<GameState*> &game_states, SdlWindow &window) {
+    // bool running = handleEvents(gr_entity_holder, queue_comandos);
+    // update(gr_entity_holder, FRAME_RATE, game_states);
+    // render(window, gr_entity_holder, im, destArea);
+    // return running;
+
+    return false; //por ahora
+}
+
+void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
+    try {
+        SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
+        SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
+        Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
+
+        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
+
+        //Gameloop - handle event, update game, render new screen
+        bool running = true;
+        while (running) {
+            running = handleEvents(gr_entity_holder, queue_comandos);
+            update(gr_entity_holder, FRAME_RATE, game_states);
+            render(window, gr_entity_holder, im, destArea);
+
+            // la cantidad de segundos que debo dormir se debe ajustar en función
+            // de la cantidad de tiempo que demoró el handleEvents y el render
+            usleep(FRAME_RATE);
+        }
+
+        /* Reemplazaria el game loop
+        // current date/time based on current system
+        time_t t1 = time(0);
+        int it = 0;
+        int rest = 0;
+
+        bool running = true;
+        while (running) {
+            running = game_loop(it, gr_entity_holder, game_states, window);
+            
+            time_t t2 = time(0);
+            rest = FRAME_RATE - (t2-t1);
+            if (rest < 0) {
+                int behind = -rest; //always positive
+                rest = rate - behind % rate;
+                int lost = behind + rest;
+                t1 += lost;
+                it += int(lost // rate); //floor division
+            }
+        }
+
+        usleep(rest);
+        t1 += FRAME_RATE;
+        it += 1;
+        */
+
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+GraphicsEntityHolder Graphics::start_graphics_entity(GameState *gs, SdlWindow &window) {
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
 
     //quiero que todo este codigo este en otro lado
@@ -27,31 +86,6 @@ GraphicsEntityHolder start_graphics_entity(GameState *gs, SdlWindow &window) {
     return GraphicsEntityHolder(gs, std::move(textures_holder), window);
 }
 
-
-void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
-    try {
-        SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
-        SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
-
-        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
-
-        //Gameloop - handle event, update game, render new screen
-        bool running = true;
-        while (running) {
-            running = handleEvents(gr_entity_holder, queue_comandos);
-            update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, im, destArea);
-
-            // la cantidad de segundos que debo dormir se debe ajustar en función
-            // de la cantidad de tiempo que demoró el handleEvents y el render
-            usleep(FRAME_RATE);
-        }
-
-    } catch (std::exception& e) {
-        std::cout << e.what() << std::endl;
-    }
-}
 
 /**
  * Va a tomar un evento de teclado, y actualizará el modelo en función de los eventos que lleguen.
@@ -153,7 +187,7 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
 void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
     GameState* gs = NULL;
     int i = 0;
-    while (gs == NULL && i < 20) {
+    while (gs == NULL && i < 20) { //REPASAR ESTO!
         game_states.try_pop(gs);
         i++;
     }

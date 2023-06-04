@@ -30,10 +30,12 @@ class Graphics {
     void run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states);
 
     private:
+    GraphicsEntityHolder start_graphics_entity(GameState *gs, SdlWindow &window);
+    bool game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Queue<GameState*> &game_states, SdlWindow &window);
+
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos);
     void update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states);
     void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
-
 };
 
 #endif // __GRAPHICS_H__
