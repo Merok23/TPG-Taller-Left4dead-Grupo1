@@ -41,8 +41,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
-size_t GraphicsEntityHolder::get_new_mass_center() {
-    //int mass_center = 0;
+void GraphicsEntityHolder::get_new_coordenates_center(size_t *x, size_t *y) {
     size_t x_total = 0;
     size_t y_total = 0;
     size_t i;
@@ -51,7 +50,8 @@ size_t GraphicsEntityHolder::get_new_mass_center() {
         y_total += players[i]->getY();
     }
 
-    return x_total / i; //REVISAAR
+    *x = x_total / i;
+    *y = y_total / i;
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {

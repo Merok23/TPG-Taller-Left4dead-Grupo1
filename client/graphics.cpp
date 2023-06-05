@@ -190,12 +190,20 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
 
-    int x = gr_entity_holder.get_new_mass_center();
+    size_t x;
+    size_t y;
+    gr_entity_holder.get_new_coordenates_center(&x, &y);
     
     if (x >= BACKGROUND_WIDTH-WINDOW_WIDTH)
         x = BACKGROUND_WIDTH-WINDOW_WIDTH;
     if (x <= 0)
         x = 0;
+
+    //por ahora no estoy usando la y
+    // if (y <= 0)
+    //     y = y;
+    // if (y >= BACKGROUND_HEIGTH-WINDOW_HEIGTH)
+    //     y = BACKGROUND_HEIGTH-WINDOW_HEIGTH;
 
     Area srcArea(x, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     im.render(srcArea, destArea, SDL_FLIP_NONE);

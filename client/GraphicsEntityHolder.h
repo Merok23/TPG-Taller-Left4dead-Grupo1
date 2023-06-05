@@ -15,7 +15,8 @@ public:
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
-    size_t get_new_mass_center();
+    void get_new_coordenates_center(size_t *x, size_t *y);
+
 
     void update(float& dt, GameState *gs);
     void render();
