@@ -12,7 +12,7 @@ Player::Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon) :
     Entity(id, CONFIG.soldier_health, positionX, positionY), 
     my_weapon(weapon){
     this->state = IDLE_SOLDIER;
-    this->lives = 3;
+    this->lives = 4;
     this->revival_countdown = 0;
     this->time_until_dead = 0;
 }
@@ -38,7 +38,7 @@ void Player::update(Map& map) {
         this->state = IDLE_SOLDIER;
     }
     if (this->state == REVIVING_SOLDIER) {
-        if (revival_countdown == CONFIG.soldier_time_to_revive && this->lives > 0) {
+        if (revival_countdown == CONFIG.soldier_time_to_revive - 1 && this->lives > 0) {
             this->state = IDLE_SOLDIER;
             this->setHitPoints(CONFIG.soldier_health / 2); 
             this->revival_countdown = 0;

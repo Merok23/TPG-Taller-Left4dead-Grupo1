@@ -51,7 +51,7 @@ TEST_CASE("Soldier is down after an attack", "[Game]") {
     game.addEntity(player2);
     game.update();
     REQUIRE(player_cast->isReviving() == true);
-    REQUIRE(player_cast->getLives() == 2);
+    REQUIRE(player_cast->getLives() == 3);
 
 } 
 
@@ -77,8 +77,7 @@ TEST_CASE("Doesnt revive fallen soldier because its too far", "[Game]") {
     game.addEntity(player2);
     game.update();
     REQUIRE(player_cast->isDown() == true);
-    REQUIRE(player_cast->getLives() == 2);
-
+    REQUIRE(player_cast->getLives() == 3);
 } 
 
 
@@ -132,7 +131,7 @@ TEST_CASE("Alive soldier after reviving him, with less lives", "[Game]") {
         game.update();
     } 
     REQUIRE(player_cast->isReviving() == false);
-    REQUIRE(player_cast->getLives() == 2);
+    REQUIRE(player_cast->getLives() == 3);
     REQUIRE(player_cast->getHitPoints() == CONFIG.soldier_health / 2);
 } 
 
@@ -146,12 +145,13 @@ TEST_CASE("Dead soldier because it was saved 3 times before", "[Game]") {
     game.addEntity(player);
     game.addEntity(infected);
     game.addEntity(player2);
-     int hp_after_attack = CONFIG.soldier_health - CONFIG.common_infected_damage;
+    Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
+    int hp_after_attack = CONFIG.soldier_health - CONFIG.common_infected_damage;
     int attacks_needed = hp_after_attack / CONFIG.common_infected_damage;
  
     for (int i = 1; i < CONFIG.common_infected_attack_cooldown * attacks_needed; i++) {
-        std::cout << "state: " << player->getState() << std::endl;
         game.update();
+        REQUIRE(player_cast->isReviving() == false);
     }
     game.update();// down
     //we shoot the infected
@@ -162,58 +162,87 @@ TEST_CASE("Dead soldier because it was saved 3 times before", "[Game]") {
     //stop shooting
     game.stopShooting(3);
     game.update();
-    Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
     REQUIRE(player_cast->isReviving() == true);
     
-    for (int i = 0; i < CONFIG.soldier_time_to_revive; i++) {
+    for (int i = 1; i < CONFIG.soldier_time_to_revive; i++) {
+        game.update();
+    }
+
+    REQUIRE(player_cast->isReviving() == false);
+    REQUIRE(player_cast->getLives() == 3);
+    REQUIRE(player_cast->getHitPoints() == CONFIG.soldier_health / 2); 
+
+    //Second time:
+    Entity* infected2 = new CommonInfected(4, 0, 5);
+    game.addEntity(infected2);
+    game.update();
+    for (int i = 1; i < CONFIG.common_infected_attack_cooldown * (attacks_needed/2); i++) {
+        game.update();
+        REQUIRE(player_cast->isReviving() == false);
+    }
+    game.update();// down
+    //we shoot the infected
+    game.setShooting(3);
+    game.update();
+    REQUIRE(game.getEntities()[4]->isDead() == true);
+    //infected is dead
+    //stop shooting
+    game.stopShooting(3);
+    game.update();
+    REQUIRE(player_cast->isReviving() == true);
+    for (int i = 1; i < CONFIG.soldier_time_to_revive; i++) {
         game.update();
     }
 
     REQUIRE(player_cast->isReviving() == false);
     REQUIRE(player_cast->getLives() == 2);
-    REQUIRE(player_cast->getHitPoints() == CONFIG.soldier_health / 2); 
-/*
-    // SECOND TIME
-    attacks_needed = (CONFIG.soldier_health/2) / CONFIG.common_infected_damage;
-    game.setMoving(3, 1, 0); //movemos al player 2 asi no esta en el rango de ataque; 
-    for (int i = 0; i < iterations; i++) game.update();
-    game.setMoving(3, 0, 0); //movemos al player 2 se quede quieto
+    REQUIRE(player_cast->getHitPoints() == CONFIG.soldier_health / 2);
+
+    //Third time:
+    Entity* infected3 = new CommonInfected(5, 0, 5);
+    game.addEntity(infected3);
     game.update();
-    Entity* infected2 = new CommonInfected(4, 0, 5);
-    game.addEntity(infected2);
+    for (int i = 1; i < CONFIG.common_infected_attack_cooldown * (attacks_needed/2); i++) {
+        game.update();
+        REQUIRE(player_cast->isReviving() == false);
+    }
+    game.update();// down
+    //we shoot the infected
+    game.setShooting(3);
     game.update();
-    for (int i = 1; i < CONFIG.common_infected_attack_cooldown * attacks_needed; i++) {
-        std::cout << "state: " << player_cast->getState() << std::endl;
+    REQUIRE(game.getEntities()[5]->isDead() == true);
+    //infected is dead
+    //stop shooting
+    game.stopShooting(3);
+    game.update();
+    REQUIRE(player_cast->isReviving() == true);
+    for (int i = 1; i < CONFIG.soldier_time_to_revive; i++) {
         game.update();
     }
 
-    //player is down:
-    game.update();
-    //we kill the zombie:
-    game.setMoving(3, -1, 0);
-    game.update();
-    game.setShooting(3);
-    game.update();
-    REQUIRE(game.getEntities()[4]->isDead() == true);
-    //we stop shooting and move to the rescue:
-    game.stopShooting(3);
-    game.update();
-    game.setMoving(3, -1, 0);
-    for (int i = 0; i < iterations; i++) game.update();
-    game.setMoving(3, 0, 0);
-    game.update();
-    REQUIRE(player_cast->isReviving() == true);
-    for (int i = 0; i < CONFIG.soldier_time_to_revive; i++) {
-        game.update();
-    } 
     REQUIRE(player_cast->isReviving() == false);
     REQUIRE(player_cast->getLives() == 1);
-*/
-    /*// THIRD TIME
-    infected->move(5,5);
-    for (int i = 0; i < CONFIG.common_infected_attack_cooldown * attacks_needed / 2  + 5; i++) {
+    REQUIRE(player_cast->getHitPoints() == CONFIG.soldier_health / 2);
+
+    //Fourth time, this time he dies:
+    Entity* infected4 = new CommonInfected(6, 0, 5);
+    game.addEntity(infected4);
+    game.update();
+    for (int i = 1; i < CONFIG.common_infected_attack_cooldown * (attacks_needed/2); i++) {
         game.update();
+        REQUIRE(player_cast->isReviving() == false);
     }
+    game.update();// down
+    //we shoot the infected
+    game.setShooting(3);
+    game.update();
+    REQUIRE(game.getEntities()[6]->isDead() == true);
+    //infected is dead
+    //stop shooting
+    game.stopShooting(3);
+    game.update();
+    REQUIRE(player_cast->isReviving() == false);
     REQUIRE(player_cast->isDead() == true);
-    REQUIRE(player_cast->getLives() == 0); */
+    REQUIRE(player_cast->getLives() == 0);
+    REQUIRE(player_cast->getHitPoints() == 0);
 }   
