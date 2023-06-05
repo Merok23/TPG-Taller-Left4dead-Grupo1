@@ -12,8 +12,10 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
-        SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        Area destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH); //x, y, width, height
+        Camera camera(window);
+
+        //SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
+        //Area destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH); //x, y, width, height
 
         GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
 
@@ -22,7 +24,7 @@ void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameSt
         while (running) {
             running = handleEvents(gr_entity_holder, queue_comandos);
             update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, im, destArea);
+            render(window, gr_entity_holder, camera);//im, destArea);
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
@@ -187,11 +189,8 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
     gr_entity_holder.update(dt, gs);
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
-    window.fill(); //lleno con el background gris
-
-    size_t x;
-    size_t y;
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {//SdlTexture &im, Area &destArea) {
+    size_t x, y;
     gr_entity_holder.get_new_coordenates_center(&x, &y);
     
     if (x >= BACKGROUND_WIDTH-WINDOW_WIDTH)
@@ -205,10 +204,8 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     // if (y >= BACKGROUND_HEIGTH-WINDOW_HEIGTH)
     //     y = BACKGROUND_HEIGTH-WINDOW_HEIGTH;
 
-    Area srcArea(x, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
-    im.render(srcArea, destArea, SDL_FLIP_NONE);
+    camera.render(x, y);
     gr_entity_holder.render();
-    
     window.render();
 }
 

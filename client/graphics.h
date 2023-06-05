@@ -15,21 +15,9 @@
 #include "game_state.h"
 #include "visual_bar.h"
 #include "../common/queue.h"
-
+#include "camera.h"
 #include "client_protocol.h" //deberia estar aca la definicion de command?
 
-#define BACKGROUND_WIDTH 1920
-#define BACKGROUND_HEIGTH 1080
-
-
-#define WINDOW_WIDTH (1920-400)
-#define WINDOW_HEIGTH (1080-200)
-
-#define CAMARA_START_X 300
-#define CAMARA_WIDTH 1320 //300 pixels to the left and 300 pixels to the right start hidden
-#define CAMARA_MAX_X 1920-CAMARA_WIDTH
-
-#define SCROLL_THREASHOLD 350
 
 class Graphics {
     public:
@@ -41,7 +29,7 @@ class Graphics {
 
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos);
     void update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states);
-    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea);
+    void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera); //, SdlTexture &im, Area &destArea);
 };
 
 #endif // __GRAPHICS_H__
