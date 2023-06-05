@@ -11,9 +11,9 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
-        SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
+        SdlWindow window(BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        Area destArea(0, 0, CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //x, y, width, height
+        Area destArea(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //x, y, width, height
 
         GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
 
@@ -77,7 +77,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     bool static moving_up= false;
     bool static moving_down = false;
     bool static shooting = false;
-    bool static reloading = false;
+    //bool static reloading = false;
     
     COMMANDS command;
     while(SDL_PollEvent(&event)) {
@@ -127,10 +127,11 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         //gr_entity_holder.getMainPlayer()->shoot();
                         
                     case SDLK_r: {
-                        if (!reloading) {
+                        //if (!reloading) {
+                        //    std::cout << "Recibi un reload" << std::endl;
                             queue_comandos.push(command.setReloading(true));
-                            reloading = true;
-                        }
+                        //    reloading = true;
+                        //}
                         break;
                     }
                         // gr_entity_holder.getMainPlayer()->recharge();
@@ -164,10 +165,10 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         break;
                     }
                     case SDLK_r: {
-                        if (reloading) {
+                        //if (reloading) {
                             queue_comandos.push(command.setReloading(false));
-                            reloading = false;
-                        }
+                        //    reloading = false;
+                        //}
                         break;
                     }
                         // gr_entity_holder.getMainPlayer()->stopShooting();
@@ -182,8 +183,8 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
-    int cameraX = CAMARA_START_X;
-    Area srcArea(cameraX, 200, CAMARA_WIDTH, BACKGROUND_HEIGTH-200);
+    int cameraX = 0; //CAMARA_START_X;
+    Area srcArea(cameraX, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render();
@@ -192,10 +193,11 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
 
 void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
     GameState* gs = NULL;
-    int i = 0;
-    while (gs == NULL && i < 20) { //REPASAR ESTO!
-        game_states.try_pop(gs);
-        i++;
-    }
+    // int i = 0;
+    // while (gs == NULL && i < 20) { //REPASAR ESTO!
+    //     game_states.try_pop(gs);
+    //     i++;
+    // }
+    while (game_states.try_pop(gs));
     gr_entity_holder.update(dt, gs);
 }

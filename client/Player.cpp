@@ -59,7 +59,7 @@ void Player::update(float dt, Entity *entity) {
             current_animation = AN_DIE;
             break;
         
-        case RELOAD:
+        case RELOAD: 
             current_animation = AN_RELOAD;
             break;
         
@@ -73,6 +73,7 @@ void Player::update(float dt, Entity *entity) {
         facingLeft = entity->isFacingLeft();
         facingUp = entity->isMovingUp();
     }
+
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end()) {
         it_current->second->update(dt);
@@ -106,16 +107,15 @@ void Player::update(float dt, Entity *entity) {
 
 void Player::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Area destArea(x, y, 200, 200); //100 100 es que tan grande es el rect'angulo para el elemento
+    Area destArea(x, y, 200, 200); //200 200 es que tan grande es el rect'angulo para el elemento
     
-
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end())
             it_current->second->render(destArea, flip);
     
     // auto it_die = animations.find(AN_DIE);
     
-    // if (moving_x || moving_y) {
+    {// if (moving_x || moving_y) {
     //     auto it = animations.find(AN_RUN);
     //     if (it != animations.end())
     //         it->second->render(destArea, flip);
@@ -132,10 +132,10 @@ void Player::render() {
     //     if (it != animations.end())
     //         it->second->render(destArea, flip);
     // }
+    }
 
     health_bar.render(50, 200);
     ammo.render(50, 300);
-
 }
 
 void Player::hurt() {

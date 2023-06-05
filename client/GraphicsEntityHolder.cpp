@@ -22,6 +22,17 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                 entities[pair.second->getId()] = player;
                 players[pair.second->getId()] = player;
                 MainPlayer = player;
+            } else {
+                std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
+                
+                std::shared_ptr<Player> player = std::make_shared<Player>(
+                                                            textures,
+                                                            window,
+                                                            pair.second->getId(),
+                                                            pair.second->getPositionX(),
+                                                            pair.second->getPositionY(),
+                                                            pair.second->getHitPoints());  
+                entities[pair.second->getId()] = player;
             }
         }
     }
@@ -31,22 +42,36 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
-    //por ahora solo me envian players, no infectados
-    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
-    if (entity->getWeaponType() == "scout")
-        textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
-    else if (entity->getWeaponType() == "p90")
-        textures = this->textures_holder.find_textures(SOLDIER_P90);
+    if (entity->getType() == "player") {
+            std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
+        if (entity->getWeaponType() == "scout")
+            textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
+        else if (entity->getWeaponType() == "p90")
+            textures = this->textures_holder.find_textures(SOLDIER_P90);
 
-    std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                            textures,
-                                                            window,
-                                                            entity->getId(),
-                                                            entity->getPositionX(),
-                                                            entity->getPositionY(),
-                                                            entity->getHitPoints());  
-    entities[entity->getId()] = player;
+        std::shared_ptr<Player> player = std::make_shared<Player>(
+                                                                textures,
+                                                                window,
+                                                                entity->getId(),
+                                                                entity->getPositionX(),
+                                                                entity->getPositionY(),
+                                                                entity->getHitPoints());  
+        entities[entity->getId()] = player;
+        return player;
+    } else {
+        std::cout << "Me piden agregar un infectado" << std::endl;
+        std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
+        
+        std::shared_ptr<Player> player = std::make_shared<Player>(
+                                                    textures,
+                                                    window,
+                                                    entity->getId(),
+                                                    entity->getPositionX(),
+                                                    entity->getPositionY(),
+                                                    entity->getHitPoints());  
+        entities[entity->getId()] = player;
     return player;
+    }
 }
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
@@ -69,6 +94,7 @@ void GraphicsEntityHolder::update(float& dt, GameState *gs) {
 
     if (gs != NULL) {
         for (const auto &pair : gs->entities) {
+            std::cout << "Me piden agregar un nuevo entity" << std::endl;
             std::shared_ptr<Player> player = add_player(pair.second);
             player->update(dt, NULL);
         }
