@@ -56,3 +56,12 @@ TEST_CASE("Survival mode test, game is not set on survival so noone spawns and i
     REQUIRE(game.getEntities()[1]->getHitPoints() == health);
     REQUIRE(game.getEntities().size() == 1);
 }
+
+TEST_CASE("Survival mode test, game's constructor with game mode works", "[survival]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
+    for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    REQUIRE(game.getEntities().size() > 0);
+    int health = game.getEntities()[1]->getHitPoints();
+    for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    REQUIRE(game.getEntities()[1]->getHitPoints() > health);
+}
