@@ -28,7 +28,7 @@ class Client {
     private: 
     ClientProtocol protocol;
     Graphics graphics;
-    Queue<std::string> queue_comandos; 
+    Queue<command_t> queue_comandos; 
     Queue<GameState*> game_states;
     SendThread* send_thread;
     ReceiveThread* receive_thread;

@@ -4,6 +4,7 @@ const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
     5, // soldier_radius
+    20, // soldier_reload_cooldown
     15, // soldier time_to_revive
     9, // soldier max_time_to_revive
     3, // soldier distance_to_revive
@@ -15,6 +16,9 @@ const struct config CONFIG {
     15, //common_infected_attack_range
     10, // common_infected_damage
     40, // common_infected_attack_cooldown
+    5, // common_infected_radius
+    20, // crater_radius
+    100, // crater_hit_points
     1920, // scenario_width
     1080, // scenario_height
     5, // default_radius
@@ -33,5 +37,8 @@ const struct config CONFIG {
     1000, // weapon_scout_range
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
-    0.1 // weapon_scout_damage_falloff
+    0.1, // weapon_scout_damage_falloff
+    100, //survival_mode_timer
+    50, //survival_mode_max_common_infected
+    1.1 //survival_mode_accumulator
 };

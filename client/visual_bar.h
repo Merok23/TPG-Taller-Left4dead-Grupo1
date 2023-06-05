@@ -1,5 +1,5 @@
-#ifndef __HEALTHBAR_H_
-#define __HEALTHBAR_H_
+#ifndef _VISUALBAR_H_
+#define _VISUALBAR_H_
 
 
 #include <memory>
@@ -11,14 +11,15 @@
 
 class SDL_Renderer;
 
-class HealthBar {
+class VisualBar {
    public:
-    HealthBar(int32_t max_health, const SdlWindow& window);
+    VisualBar(int32_t max_health, const SdlWindow& window);
     int32_t get_health();
     void damage(int32_t damage);
+    void max();
     void update(int32_t current_health);
-    void render();
-    ~HealthBar();
+    void render(int x_origin, int y_origin);
+    ~VisualBar();
 
    private:
     int32_t max_health;
@@ -26,4 +27,4 @@ class HealthBar {
     SDL_Renderer* renderer;
 };
 
-#endif  //__HEALTHBAR_H_
+#endif  //_VISUALBAR_H_

@@ -1,8 +1,8 @@
 #include "entity_infected.h"
 
 
-Infected::Infected(uint32_t id, uint32_t x, uint32_t y, int32_t hit_points) : 
-    Entity(id, hit_points, x, y) {}
+Infected::Infected(uint32_t id, uint32_t x, uint32_t y, int32_t hit_points, uint32_t radius) : 
+    Entity(id, hit_points, x, y, radius) {}
 
 
 //the infected shouldn't be able to shoot
@@ -14,6 +14,10 @@ void Infected::shoot(std::vector<HitEntity>& entities_hit) {
 
 bool Infected::isInfected() {
     return true;
+}
+
+bool Infected::isSoldier() {
+    return false;
 }
 
 std::string Infected::getState() {

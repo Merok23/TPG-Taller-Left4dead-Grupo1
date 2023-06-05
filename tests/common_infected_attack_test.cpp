@@ -88,4 +88,9 @@ TEST_CASE("Common infected attack, infected kills a soldier.", "[common infected
     REQUIRE(game.getEntities()[1]->getHitPoints() == 0);
     Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
     REQUIRE(player_cast->isDown());
+    //bonus, we try to move the soldier and it doesn't move:
+    game.setMoving(1, 1, 1);
+    game.update();
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == CONFIG.common_infected_attack_range);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
 }

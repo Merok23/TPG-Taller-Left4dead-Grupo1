@@ -1,8 +1,6 @@
 To do:
 Now:
--Armas(Reloading time) (con timer de inactividad!) - Alejo!
 -Derribos, levantamientos y muertes de jugador (todo, pre requisito: CommonInfected(Attack)) - Naths!
--Entidad crater (todo) - Alejo!
 
 Later:
 -Spawneo de zombies(Clear the zone y survival)
@@ -22,3 +20,5 @@ Codigo de shooting podria ser solo de scout
 
 DONE:
 -CommonInfected(Attack) (con timer de inactividad!) - Alejo!
+-Armas(Reloading time) (con timer de inactividad!) - Alejo!
+-Entidad crater (todo) - Alejo!

@@ -19,7 +19,7 @@ class GameHandler {
     public: 
     GameHandler();
     uint32_t createRoom(const std::string& room_name, 
-        Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
+        Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id, const std::string& game_mode);
     bool joinRoom(uint32_t room_id, 
         Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
     Queue<Action*>& getQueue(uint32_t room_id);

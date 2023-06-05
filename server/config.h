@@ -5,6 +5,7 @@ struct config {
     int soldier_health;
     int soldier_speed;
     int soldier_radius;
+    int soldier_reload_cooldown;
     int soldier_time_to_revive;
     int soldier_max_time_until_dead;
     int soldier_max_distance_to_revive;
@@ -16,6 +17,9 @@ struct config {
     int common_infected_attack_range; //this one for attacking.
     int common_infected_damage;
     int common_infected_attack_cooldown;
+    int common_infected_radius;
+    int crater_radius;
+    int crater_hit_points; //it can't be hit but since it's an entity it's needed.
     int scenario_width;
     int scenario_height;
     int default_radius;
@@ -34,7 +38,10 @@ struct config {
     int weapon_scout_range; 
     int weapon_scout_magazine_size; 
     double weapon_scout_distance_modifier; 
-    double weapon_scout_damage_falloff; 
+    double weapon_scout_damage_falloff;
+    int survival_mode_timer;
+    int survival_mode_max_common_infected;
+    double survival_mode_accumulator; //rate of spawn + stat multiplier
 };
 
 

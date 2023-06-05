@@ -4,7 +4,7 @@
 #include "entity_infected_common.h"
 
 CommonInfected::CommonInfected(uint32_t id, uint32_t positionX, uint32_t positionY) : 
-    Infected(id, positionX, positionY, CONFIG.infected_health),
+    Infected(id, positionX, positionY, CONFIG.infected_health, CONFIG.common_infected_radius),
     state(IDLE_INFECTED),
     look_range(CONFIG.common_infected_range),
     attack_range(CONFIG.common_infected_attack_range),
@@ -104,6 +104,16 @@ void CommonInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Ent
     }
 }
 
+void CommonInfected::makeStronger(double factor) {
+    this->attack_damage *= factor;
+    this->attack_range *= factor;
+    this->attack_cooldown *= factor;
+    this->look_range *= factor;
+    this->speed *= factor;
+    int32_t hit_points = this->getHitPoints();
+    hit_points *= factor;
+    this->setHitPoints(hit_points);
+}
 
 std::string CommonInfected::getState() {
     if (this->state == IDLE_INFECTED) return "idle";

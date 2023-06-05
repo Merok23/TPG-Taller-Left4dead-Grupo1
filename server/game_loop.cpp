@@ -5,13 +5,19 @@
 #include "config.h"
 
 #define MAX_ELEMENTS_QUEUE 1000
-GameLoop::GameLoop() : 
+
+GameLoop::GameLoop(GameMode gameMode) : 
     game_queue(MAX_ELEMENTS_QUEUE), 
-    game(CONFIG.scenario_width, CONFIG.scenario_height), 
+    game(CONFIG.scenario_width, CONFIG.scenario_height, gameMode), 
     id_handler(game), 
     finished(false), 
     client_id(0), 
-    mutex() {}
+    mutex() {
+        //futuro posible switch
+        if (gameMode == GameMode::SURVIVAL) {
+            game.setSurvivalMode();
+        }
+    }
 
 Queue<Action*>& GameLoop::getQueue() {
     return game_queue;

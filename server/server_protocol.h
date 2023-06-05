@@ -7,6 +7,8 @@
 
 #include "../common/socket.h"
 #include "action_moving.h"
+#include "action_shooting.h"
+#include "action_reloading.h"
 #include "action_create_soldier_idf.h"
 #include "action_create_soldier_p90.h"
 #include "action_create_soldier_scout.h"
@@ -16,13 +18,14 @@ enum COMMANDS_TYPE {
     CREATE_ROOM,
     JOIN_ROOM
 };
+
 typedef struct COMMANDS {
     COMMANDS_TYPE type;
     std::string room_name;
     uint32_t room_id;
-
+    std::string game_mode;
     COMMANDS() : 
-        type(DEFAULT), room_name(""), room_id(0) {}
+        type(DEFAULT), room_name(""), room_id(0), game_mode("Survival") {}
 } command_t;
 
 
@@ -37,8 +40,10 @@ class ServerProtocol {
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
     std::string receiveString();
-    std::string receiveRoomName();
-    uint32_t receiveRoomId();
+    Action* receiveMoving();
+    Action* receiveShooting();
+    Action* receiveReloading();
+    Action* receiveAddPlayer();
 
 
     public:
