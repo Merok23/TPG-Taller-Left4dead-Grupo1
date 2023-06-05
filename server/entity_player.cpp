@@ -38,7 +38,7 @@ void Player::update(Map& map) {
         this->state = IDLE_SOLDIER;
     }
     if (this->state == REVIVING_SOLDIER) {
-        if (revival_countdown == CONFIG.time_to_revive && this->lives > 0) {
+        if (revival_countdown == CONFIG.soldier_time_to_revive && this->lives > 0) {
             this->state = IDLE_SOLDIER;
             this->setHitPoints(CONFIG.soldier_health / 2); 
             this->revival_countdown = 0;
@@ -47,7 +47,7 @@ void Player::update(Map& map) {
         }
     }
     if (this->state == DOWN_SOLDIER) {
-        if (time_until_dead == CONFIG.max_time_until_dead) {
+        if (time_until_dead == CONFIG.soldier_max_time_until_dead) {
             this->state = DEAD_SOLDIER;
             this->time_until_dead = 0;
             this->lives = 0;

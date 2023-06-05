@@ -5,6 +5,9 @@ struct config {
     int soldier_health;
     int soldier_speed;
     int soldier_radius;
+    int soldier_time_to_revive;
+    int soldier_max_time_until_dead;
+    int soldier_max_distance_to_revive;
     int infected_health;
     int infected_speed;
     int infected_radius;
@@ -32,9 +35,6 @@ struct config {
     int weapon_scout_magazine_size; 
     double weapon_scout_distance_modifier; 
     double weapon_scout_damage_falloff; 
-    int max_distance_to_revive;
-    int time_to_revive;
-    int max_time_until_dead;
 };
 
 

@@ -4,6 +4,9 @@ const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
     5, // soldier_radius
+    15, // soldier time_to_revive
+    9, // soldier max_time_to_revive
+    3, // soldier distance_to_revive
     80, // infected_health
     10, // infected_speed
     5, // infected_radius
@@ -30,8 +33,5 @@ const struct config CONFIG {
     1000, // weapon_scout_range
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
-    0.1, // weapon_scout_damage_falloff
-    3, // max_distance_to_revive
-    15, // time_to_revive
-    9 // max_time_to_revive
+    0.1 // weapon_scout_damage_falloff
 };

@@ -56,6 +56,34 @@ TEST_CASE("Soldier is down after an attack", "[Game]") {
 
 } 
 
+TEST_CASE("Doesnt revive fallen soldier because its too far", "[Game]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    Weapon* weapon = new Scout();
+    Entity* player = new Player(1, CONFIG.common_infected_attack_range, 5, weapon);
+    Entity* infected = new CommonInfected(2, 5, 5);
+    game.addEntity(player);
+    game.addEntity(infected);
+    game.update();
+    int hp_after_attack = CONFIG.soldier_health - CONFIG.common_infected_damage;
+    int attacks_needed = hp_after_attack / CONFIG.common_infected_damage;
+    REQUIRE(game.getEntities()[1]->getHitPoints() == hp_after_attack);
+
+    for (int i = 1; i < CONFIG.common_infected_attack_cooldown * attacks_needed; i++) {
+        game.update();
+    }
+    game.update();
+    Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
+    Weapon* weapon2 = new Scout();
+    int distance = CONFIG.common_infected_attack_range + (CONFIG.soldier_max_distance_to_revive * CONFIG.soldier_radius + 1);
+    Entity* player2 = new Player(3, distance, 3, weapon2);
+    game.addEntity(player2);
+    game.update();
+    REQUIRE(player_cast->isDown() == true);
+    REQUIRE(player_cast->getLives() == 2);
+
+} 
+
+
  TEST_CASE("Dead soldier because nobody saved him", "[Game]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new Scout();
@@ -74,7 +102,7 @@ TEST_CASE("Soldier is down after an attack", "[Game]") {
     game.update(); // DOWN
     infected->move(150,150); // para que no este en rango de ataque
     Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
-    for (int i = 0; i < CONFIG.max_time_until_dead; i++) {
+    for (int i = 0; i < CONFIG.soldier_max_time_until_dead; i++) {
         game.update();
     } 
     game.update(); //pasa el tiempo sin ayuda para morir
@@ -104,7 +132,7 @@ TEST_CASE("Alive soldier after reviving him, with less lives", "[Game]") {
     game.addEntity(player2);
     game.update();
     REQUIRE(player_cast->isReviving() == true);
-    for (int i = 0; i < CONFIG.time_to_revive; i++) {
+    for (int i = 0; i < CONFIG.soldier_time_to_revive; i++) {
         game.update();
     } 
     REQUIRE(player_cast->isReviving() == false);
@@ -123,7 +151,6 @@ TEST_CASE("Dead soldier because it was saved 3 times before", "[Game]") {
     int hp_after_attack = CONFIG.soldier_health - CONFIG.common_infected_damage;
     int attacks_needed = hp_after_attack / CONFIG.common_infected_damage;
     REQUIRE(game.getEntities()[1]->getHitPoints() == hp_after_attack);
-    std::cout << "attacks needed: " << CONFIG.common_infected_attack_cooldown * attacks_needed << std::endl;
     // FIRST TIME
     for (int i = 1; i < CONFIG.common_infected_attack_cooldown * attacks_needed; i++) {
         game.update();
@@ -136,7 +163,7 @@ TEST_CASE("Dead soldier because it was saved 3 times before", "[Game]") {
     game.addEntity(player2);
     game.update();
     REQUIRE(player_cast->isReviving() == true);
-    for (int i = 0; i < CONFIG.time_to_revive; i++) {
+    for (int i = 0; i < CONFIG.soldier_time_to_revive; i++) {
         game.update();
     } 
     REQUIRE(player_cast->isReviving() == false);
@@ -151,7 +178,7 @@ TEST_CASE("Dead soldier because it was saved 3 times before", "[Game]") {
     game.update();
     infected->move(1000,1000); // para que no este en rango de ataque
     REQUIRE(player_cast->isReviving() == true);
-    for (int i = 0; i < CONFIG.time_to_revive; i++) {
+    for (int i = 0; i < CONFIG.soldier_time_to_revive; i++) {
         game.update();
     } 
     REQUIRE(player_cast->isReviving() == false);
