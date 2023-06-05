@@ -1,6 +1,9 @@
 #include <string> 
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <chrono>
+#include <unordered_map>
 
 #include "entity_player.h"
 // la vida debe leerse de un config.
@@ -9,6 +12,9 @@ Player::Player(int id, uint32_t positionX, uint32_t positionY, Weapon* weapon) :
     Entity(id, CONFIG.soldier_health, positionX, positionY), 
     my_weapon(weapon){
     this->state = IDLE_SOLDIER;
+    this->lives = 3;
+    this->revival_countdown = 0;
+    this->time_until_dead = 0;
 }
 
 //prepares for movement, it'll move when the update method is called.
@@ -31,8 +37,32 @@ void Player::update(Map& map) {
         this->my_weapon->reload();
         this->state = IDLE_SOLDIER;
     }
+    if (this->state == REVIVING_SOLDIER) {
+        if (revival_countdown == CONFIG.time_to_revive) {
+            this->state = IDLE_SOLDIER;
+            this->setHitPoints(CONFIG.soldier_health / 2); 
+            this->revival_countdown = 0;
+        } else {
+            revival_countdown++;
+        }
+    }
+    if (this->state == DOWN_SOLDIER) {
+        if (time_until_dead == CONFIG.max_time_until_dead) {
+            this->state = DEAD_SOLDIER;
+            this->time_until_dead = 0;
+            return;
+        } else {
+            time_until_dead++;
+        }
+    }
     this->resolveDamage();
-    if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
+    if (this->getHitPoints() <= 0 && !this->isDown() && !this->isReviving()) {
+        this->state = DOWN_SOLDIER;
+        this->lives--;
+    }
+    if (this->lives <= 0) {
+        this->state = DEAD_SOLDIER;
+    }
 }
 
 void Player::resolveDamage() {
@@ -44,6 +74,14 @@ void Player::resolveDamage() {
 
 bool Player::isDead() {
     return (this->state == DEAD_SOLDIER);
+}
+
+bool Player::isDown() {
+    return (this->state == DOWN_SOLDIER);
+}
+
+bool Player::isReviving() {
+    return (this->state == REVIVING_SOLDIER);
 }
 
 void Player::shoot(std::vector<HitEntity>& entities_hit) {
@@ -68,6 +106,10 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
         entity->setDamageForTheRound(damage);
     }
     this->my_weapon->useAmmo();
+}
+
+void Player::setReviving() {
+    this->state = REVIVING_SOLDIER;
 }
 
 void Player::orderByDistance(std::vector<HitEntity>& entities_hit) {
@@ -106,11 +148,16 @@ std::string Player::getWeaponType() {
 }
 
 std::string Player::getState() {
-    if (this->state == IDLE_SOLDIER) return "idle";
-    else if (this->state == MOVING_SOLDIER) return "moving";
-    else if (this->state == SHOOTING_SOLDIER) return "shooting";
-    else if (this->state == RELOADING_SOLDIER) return "reloading";
-    return "dead";
+     std::unordered_map<int, std::string> stateMap = { //creo que puede ser un atributo? 
+        {IDLE_SOLDIER, "idle"},
+        {MOVING_SOLDIER, "moving"},
+        {SHOOTING_SOLDIER, "shooting"},
+        {RELOADING_SOLDIER, "reloading"},
+        {DOWN_SOLDIER, "down"},
+        {REVIVING_SOLDIER, "reviving"},
+        {DEAD_SOLDIER, "dead"}
+    };
+    return stateMap[this->state];
 }
 
 Player::~Player() {

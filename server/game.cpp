@@ -72,6 +72,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 }
 
 std::shared_ptr<GameStateForClient> Game::update() {
+    this->checkForRevivingSoldiers();
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
     this->checkForInfectedAttack();
@@ -116,6 +117,25 @@ void Game::infectedCheckForSoldiersInRange() {
         if (id_entity.second->isInfected()) {
             Infected* infected = dynamic_cast<Infected*>(id_entity.second);
             infected->checkForSoldiersInRangeAndSetChase(this->soldiers);
+        }
+    }
+}
+
+void Game::checkForRevivingSoldiers() {
+    for (auto& id_entity : this->entities) {
+        Player* player = dynamic_cast<Player*>(id_entity.second);
+        if (player && player->isDown()) {
+           Movement* soldier_down = player->getDirectionOfMovement();
+            for (auto& id_soldier : this->soldiers) {
+                Player* soldier = dynamic_cast<Player*>(id_soldier.second);
+                if (soldier && !soldier->isDead() && !soldier->isReviving() && !soldier->isDown()) {
+                    Movement* soldier_close = soldier->getDirectionOfMovement();
+                    double distance = (double)soldier_down->calculateDistance(*soldier_close);
+                    if (distance <= CONFIG.max_distance_to_revive * CONFIG.soldier_radius) {
+                        player->setReviving();
+                    }
+                }
+            }
         }
     }
 }

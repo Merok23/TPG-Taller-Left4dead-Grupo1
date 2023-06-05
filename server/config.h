@@ -32,6 +32,9 @@ struct config {
     int weapon_scout_magazine_size; 
     double weapon_scout_distance_modifier; 
     double weapon_scout_damage_falloff; 
+    int max_distance_to_revive;
+    int time_to_revive;
+    int max_time_until_dead;
 };
 
 

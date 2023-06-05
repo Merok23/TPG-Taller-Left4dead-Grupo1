@@ -30,5 +30,8 @@ const struct config CONFIG {
     1000, // weapon_scout_range
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
-    0.1 // weapon_scout_damage_falloff
+    0.1, // weapon_scout_damage_falloff
+    3, // max_distance_to_revive
+    15, // time_to_revive
+    9 // max_time_to_revive
 };

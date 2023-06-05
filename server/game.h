@@ -39,6 +39,7 @@ class Game {
         std::shared_ptr<GameStateForClient> update();
         void infectedCheckForSoldiersInRange();
         uint32_t getCurrentId();
+        void checkForRevivingSoldiers();
         ~Game();
         
     private:

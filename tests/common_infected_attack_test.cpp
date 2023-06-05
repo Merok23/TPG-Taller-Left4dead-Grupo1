@@ -86,5 +86,6 @@ TEST_CASE("Common infected attack, infected kills a soldier.", "[common infected
     }
     game.update();
     REQUIRE(game.getEntities()[1]->getHitPoints() == 0);
-    REQUIRE(game.getEntities()[1]->isDead());
+    Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
+    REQUIRE(player_cast->isDown());
 }
