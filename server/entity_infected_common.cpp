@@ -120,3 +120,7 @@ std::string CommonInfected::getState() {
     if (this->state == MOVING_INFECTED) return "moving";
     return "dead";
 }
+
+std::string CommonInfected::getEntityType() {
+    return "common_infected";
+}

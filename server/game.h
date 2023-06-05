@@ -59,6 +59,7 @@ class Game {
         void infectedCheckForSoldiersInRange();
         uint32_t getCurrentId();
         void setSurvivalMode();
+        void checkForRevivingSoldiers();
         ~Game();
         
     private:

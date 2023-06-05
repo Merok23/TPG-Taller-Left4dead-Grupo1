@@ -34,7 +34,8 @@ class CommonInfected : public Infected {
         virtual void checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) override;
         virtual void makeStronger(double factor) override;
         virtual bool isDead() override;
-        virtual std::string getState() override;    
+        virtual std::string getState() override; 
+        virtual std::string getEntityType() override;   
     private:
         void resolveDamage();
         bool isInRange(Entity* entity,const int32_t &range);

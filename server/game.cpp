@@ -91,6 +91,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 
 std::shared_ptr<GameStateForClient> Game::update() {
     if (this->survival_mode) survivalUpdate();
+    this->checkForRevivingSoldiers();
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
     this->checkForInfectedAttack();
@@ -184,6 +185,24 @@ void Game::makeInfectedStronger() {
     for (auto& id_entity : this->infected) {
         Infected* infected = dynamic_cast<Infected*>(id_entity.second);
         infected->makeStronger(survival_mode_multiplier);
+    }
+}
+
+void Game::checkForRevivingSoldiers() {
+    for (auto soldier : this->soldiers) {
+        Player* player = dynamic_cast<Player*>(soldier.second);
+        if (player->isDown()) {
+            for (auto other_player : this->soldiers) {
+                Player* close_soldier = dynamic_cast<Player*>(other_player.second);
+                if (!close_soldier->isDead() && !close_soldier->isReviving() && !close_soldier->isDown()) {
+                    int32_t radius = CONFIG.soldier_radius * CONFIG.soldier_max_distance_to_revive;
+                    //soldier_revivie_radius_multiplier
+                    if (this->gameMap.checkForReviving(soldier.first, other_player.first, radius)) {
+                        player->setReviving();
+                    }
+                }
+            }
+        }
     }
 }
 

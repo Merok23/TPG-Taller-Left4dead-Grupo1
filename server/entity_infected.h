@@ -21,6 +21,7 @@ class Infected : public Entity {
         virtual void shoot(std::vector<HitEntity>& entities_hit) override;
         virtual bool isInfected() override;
         virtual bool isSoldier() override;
+        virtual std::string getEntityType() override = 0;
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) = 0;
         virtual void checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) = 0;
         virtual void makeStronger(double factor) = 0;

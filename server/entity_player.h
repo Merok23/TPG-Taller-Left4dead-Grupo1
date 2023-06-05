@@ -16,6 +16,8 @@ enum SoldierState {
     MOVING_SOLDIER,
     SHOOTING_SOLDIER,
     RELOADING_SOLDIER,
+    DOWN_SOLDIER,
+    REVIVING_SOLDIER,
     DEAD_SOLDIER
 };
 
@@ -25,6 +27,9 @@ class Player : public Entity {
         Weapon* my_weapon;
         int32_t incapacitated;
         int32_t reload_cooldown;
+        int32_t revival_countdown;
+        int32_t time_until_dead;
+        int lives; 
 
     public:
         Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weapon);
@@ -40,6 +45,10 @@ class Player : public Entity {
         std::string getWeaponType();
         void stopShooting();
         int32_t getAmmoLeft();
+        uint8_t getLives();
+        bool isReviving();
+        bool isDown();
+        void setReviving();
         virtual ~Player() override;
     private:
         void resolveDamage();
