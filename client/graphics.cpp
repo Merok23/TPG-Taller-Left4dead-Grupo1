@@ -3,7 +3,7 @@
 bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Queue<GameState*> &game_states, SdlWindow &window) {
     // bool running = handleEvents(gr_entity_holder, queue_comandos);
     // update(gr_entity_holder, FRAME_RATE, game_states);
-    // render(window, gr_entity_holder, im, destArea);
+    // render(window, gr_entity_holder, camera);
     // return running;
 
     return false; //por ahora
@@ -14,20 +14,16 @@ void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameSt
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
         Camera camera(window);
 
-        //SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        //Area destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH); //x, y, width, height
-
-        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
+        TexturesHolder textures_holder(window);
+        GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(gr_entity_holder, queue_comandos);
             update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, camera);//im, destArea);
+            render(window, gr_entity_holder, camera);
 
-            // la cantidad de segundos que debo dormir se debe ajustar en función
-            // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
         }
 
@@ -61,11 +57,6 @@ void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameSt
         std::cout << e.what() << std::endl;
     }
 }
-GraphicsEntityHolder Graphics::start_graphics_entity(GameState *gs, SdlWindow &window) {
-    TexturesHolder textures_holder(window);
-    return GraphicsEntityHolder(gs, std::move(textures_holder), window);
-}
-
 
 /**
  * Va a tomar un evento de teclado, y actualizará el modelo en función de los eventos que lleguen.
@@ -189,33 +180,10 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
     gr_entity_holder.update(dt, gs);
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {//SdlTexture &im, Area &destArea) {
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
     size_t x, y;
     gr_entity_holder.get_new_coordenates_center(&x, &y);
-    
-    if (x >= BACKGROUND_WIDTH-WINDOW_WIDTH)
-        x = BACKGROUND_WIDTH-WINDOW_WIDTH;
-    if (x <= 0)
-        x = 0;
-
-    //por ahora no estoy usando la y
-    // if (y <= 0)
-    //     y = y;
-    // if (y >= BACKGROUND_HEIGTH-WINDOW_HEIGTH)
-    //     y = BACKGROUND_HEIGTH-WINDOW_HEIGTH;
-
     camera.render(x, y);
     gr_entity_holder.render();
     window.render();
 }
-
-/*
-el x e y de srcArea me dice donde empiezo a agarrar la imagen, y el width y height me dice cuanto agarro luego de la x e y que marque.
-
-Para que no se muestre toda la pantalla de una, sino que se muestren partes de la pantalla, necesito levantar solamente lo que voy a mostrar
---> el WINDOW_WIDTH y el WINDOW_HEIGHT
-
-Lo que yo voy a modificar son el x y el y
-el x puede ir desde 0 hasta background_width - window_width, para yo no mostrar una pantalla en negro
-
-*/
