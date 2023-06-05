@@ -47,7 +47,7 @@ TEST_CASE("Soldier is down after an attack", "[Game]") {
     game.update();
     Player *player_cast = dynamic_cast<Player*>(game.getEntities()[1]);
     Weapon* weapon2 = new Scout();
-    Entity* player2 = new Player(3, CONFIG.common_infected_attack_range, 3, weapon2);
+    Entity* player2 = new Player(3, CONFIG.common_infected_attack_range + 10, 5, weapon2);
     game.addEntity(player2);
     game.update();
     REQUIRE(player_cast->isReviving() == true);

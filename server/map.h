@@ -24,6 +24,7 @@ class Map {
         std::vector<VectorWrapper> shoot(uint32_t id);
         void addEntity(const uint32_t &id, Movement *entity);
         bool checkForCollisionInPosition(const uint32_t &x, const uint32_t &y, const uint32_t &radius);
+        bool checkForReviving(const uint32_t &id_down, const uint32_t &id_soldier, const int32_t &radius);
         void removeEntity(const uint32_t &id);
         ~Map();
     private:

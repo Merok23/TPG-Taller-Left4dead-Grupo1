@@ -21,7 +21,7 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
-    if (this->state == DEAD_SOLDIER) return;
+    if (this->state == DEAD_SOLDIER || this->state == REVIVING_SOLDIER || this->state == DOWN_SOLDIER) return;
     if (this->incapacitated > 0) return;
     this->state = MOVING_SOLDIER;
     Movement* myMovement = this->getDirectionOfMovement();
@@ -35,7 +35,6 @@ void Player::move(int32_t x_movement, int32_t y_movement) {
 void Player::update(Map& map) {
     if (this->state == DEAD_SOLDIER) return;
     this->resolveDamage();
-    if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
     if (this->incapacitated > 0) {
         this->incapacitated--;
         return;

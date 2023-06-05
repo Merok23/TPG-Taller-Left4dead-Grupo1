@@ -189,17 +189,16 @@ void Game::makeInfectedStronger() {
 }
 
 void Game::checkForRevivingSoldiers() {
-    for (auto& id_entity : this->entities) {
-        Player* down_soldier = dynamic_cast<Player*>(id_entity.second);
-        if (down_soldier && down_soldier->isDown()) {
-           Movement* soldier_down_mov = down_soldier->getDirectionOfMovement();
-            for (auto& id_soldier : this->soldiers) {
-                Player* close_soldier = dynamic_cast<Player*>(id_soldier.second);
-                if (close_soldier && !close_soldier->isDead() && !close_soldier->isReviving() && !close_soldier->isDown()) {
-                    Movement* close_soldier_mov = close_soldier->getDirectionOfMovement();
-                    double distance = (double)soldier_down_mov->calculateDistance(*close_soldier_mov);
-                    if (distance <= CONFIG.soldier_max_distance_to_revive * CONFIG.soldier_radius) {
-                        down_soldier->setReviving();
+    for (auto soldier : this->soldiers) {
+        Player* player = dynamic_cast<Player*>(soldier.second);
+        if (player->isDown()) {
+            for (auto other_player : this->soldiers) {
+                Player* close_soldier = dynamic_cast<Player*>(other_player.second);
+                if (!close_soldier->isDead() && !close_soldier->isReviving() && !close_soldier->isDown()) {
+                    int32_t radius = CONFIG.soldier_radius * CONFIG.soldier_max_distance_to_revive;
+                    //soldier_revivie_radius_multiplier
+                    if (this->gameMap.checkForReviving(soldier.first, other_player.first, radius)) {
+                        player->setReviving();
                     }
                 }
             }
