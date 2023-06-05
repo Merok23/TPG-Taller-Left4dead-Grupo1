@@ -29,6 +29,11 @@ void Client::run() {
             iss >> word2; 
             if (word2 == "room") {
                 iss >> word3 >> word4;
+                if (word4 != "survival") {
+                    std::cout << "No se ingreso el survival para el modo de juego. Empeza de nuevo" << std::endl;
+                    continue;
+                }
+                    
                 protocol.sendCommand(command.createRoom(word3, word4));
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
