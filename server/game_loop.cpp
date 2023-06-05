@@ -12,12 +12,7 @@ GameLoop::GameLoop(GameMode gameMode) :
     id_handler(game), 
     finished(false), 
     client_id(0), 
-    mutex() {
-        //futuro posible switch
-        if (gameMode == GameMode::SURVIVAL) {
-            game.setSurvivalMode();
-        }
-    }
+    mutex() {}
 
 Queue<Action*>& GameLoop::getQueue() {
     return game_queue;
