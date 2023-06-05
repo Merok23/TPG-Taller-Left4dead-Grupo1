@@ -21,6 +21,10 @@
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
 
+
+#define WINDOW_WIDTH (1920-400)
+#define WINDOW_HEIGTH (1080-200)
+
 #define CAMARA_START_X 300
 #define CAMARA_WIDTH 1320 //300 pixels to the left and 300 pixels to the right start hidden
 #define CAMARA_MAX_X 1920-CAMARA_WIDTH

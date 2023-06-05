@@ -11,9 +11,9 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
-        SdlWindow window(BACKGROUND_WIDTH-400, BACKGROUND_HEIGTH-200); //tamanio de la ventana correcto
+        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        Area destArea(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //x, y, width, height
+        Area destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH); //x, y, width, height
 
         GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
 
@@ -189,8 +189,8 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
-    int cameraX = 0; //CAMARA_START_X;
-    Area srcArea(cameraX, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH);
+    //int cameraX = 0; //CAMARA_START_X;
+    Area srcArea(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
 
     gr_entity_holder.render();
