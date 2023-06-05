@@ -33,6 +33,7 @@ void Player::update(Map& map) {
     if (this->incapacitated > 0) {
         this->incapacitated--;
         if (this->incapacitated != 0) this->state = RELOADING_SOLDIER;
+        else this->state = IDLE_SOLDIER;
         return;
     }
     if (this->state == MOVING_SOLDIER) {
