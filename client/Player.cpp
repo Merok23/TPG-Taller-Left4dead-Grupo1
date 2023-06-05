@@ -78,31 +78,6 @@ void Player::update(float dt, Entity *entity) {
     if (it_current != animations.end()) {
         it_current->second->update(dt);
     }
-
-    {// auto it_die = animations.find(AN_DIE);
-    // if (moving_x) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
-            
-    // } else if (moving_y) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
-    // } else if (shooting) {
-    //     auto it = animations.find(AN_SHOOT);
-    //     if (it != animations.end())
-    //         it->second->update(dt);
-    // } else if (it_die != animations.end()) {
-    //     if (health_bar.get_health() <= 0 && it_die->second->amountPlayed() == 0) {
-    //         it_die->second->update(dt); //buscar como controlar el speed y como hacer que una vez muerto, quede muerto
-    //     }
-    // } else {
-    //     auto it = animations.find(AN_IDLE);
-    //     if (it != animations.end())
-    //         it->second->update(0); //buscar como controlar el speed de idle si le paso dt
-    // }
-    }
 }
 
 void Player::render() {
@@ -113,29 +88,16 @@ void Player::render() {
     if (it_current != animations.end())
             it_current->second->render(destArea, flip);
     
-    // auto it_die = animations.find(AN_DIE);
-    
-    {// if (moving_x || moving_y) {
-    //     auto it = animations.find(AN_RUN);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    // }
-    // else  if (shooting) {
-    //     auto it = animations.find(AN_SHOOT);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    // }
-    // else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
-    //         it_die->second->render(destArea, flip);
-    // else {
-    //     auto it = animations.find(AN_IDLE);
-    //     if (it != animations.end())
-    //         it->second->render(destArea, flip);
-    // }
-    }
-
-    health_bar.render(50, 200);
     ammo.render(50, 300);
+    health_bar.render(50, 200);
+}
+
+
+VisualBar& Player::get_ammo() {
+    return this->ammo;
+}
+VisualBar& Player::get_health_bar() {
+    return this->health_bar;
 }
 
 void Player::hurt() {

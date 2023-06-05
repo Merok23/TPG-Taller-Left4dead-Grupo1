@@ -189,19 +189,18 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
-    //int cameraX = 0; //CAMARA_START_X;
-    // int static x = 0;
-    // if (x != BACKGROUND_WIDTH-WINDOW_WIDTH)
-    //     x = x+2;
 
-    int static x = BACKGROUND_WIDTH-WINDOW_WIDTH;
-    if (x != 0)
-        x = x-2;
+    int x = gr_entity_holder.get_new_mass_center();
+    
+    if (x >= BACKGROUND_WIDTH-WINDOW_WIDTH)
+        x = BACKGROUND_WIDTH-WINDOW_WIDTH;
+    if (x <= 0)
+        x = 0;
 
     Area srcArea(x, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     im.render(srcArea, destArea, SDL_FLIP_NONE);
-
     gr_entity_holder.render();
+    
     window.render();
 }
 

@@ -53,6 +53,9 @@ public:
     int32_t getY();
     uint32_t getId();
 
+    VisualBar &get_ammo();
+    VisualBar &get_health_bar();
+
 
 private:
     bool facingLeft;
