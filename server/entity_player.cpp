@@ -32,6 +32,7 @@ void Player::update(Map& map) {
     if (this->getHitPoints() <= 0) this->state = DEAD_SOLDIER;
     if (this->incapacitated > 0) {
         this->incapacitated--;
+        if (this->incapacitated != 0) this->state = RELOADING_SOLDIER;
         return;
     }
     if (this->state == MOVING_SOLDIER) {
@@ -40,7 +41,6 @@ void Player::update(Map& map) {
     if (this->state == RELOADING_SOLDIER) {
         this->my_weapon->reload();
         this->incapacitated = reload_cooldown;
-        this->state = IDLE_SOLDIER;
     }
 }
 
