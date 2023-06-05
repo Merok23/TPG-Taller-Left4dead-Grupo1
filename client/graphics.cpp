@@ -11,7 +11,7 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
-        SdlWindow window(BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //creo la ventana
+        SdlWindow window(BACKGROUND_WIDTH-400, BACKGROUND_HEIGTH-200); //tamanio de la ventana correcto
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
         Area destArea(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //x, y, width, height
 
