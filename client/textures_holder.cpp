@@ -1,5 +1,7 @@
 #include "textures_holder.h"
 
+#include <iostream>
+
 
 void TexturesHolder::create_soldier(EntityType entity_type, std::string path) {
     std::string img("Idle.png");
@@ -154,6 +156,5 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
 }
 
 std::map<AnimationName, std::shared_ptr<SdlTexture>> TexturesHolder::find_textures(EntityType entity_type) {
-    //buscar como asegurarme que entity_type es uno de los EntityType
     return this->textures_holder.find(entity_type)->second;
 }

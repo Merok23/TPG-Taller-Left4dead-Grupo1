@@ -48,7 +48,7 @@ void Client::run() {
             started_playing = true;
             break;
         } else {
-            std::cout << "Commands are: create room (name) or join room (id)" << std::endl;
+            std::cout << "Commands are: create room (name) survival or join room (id)" << std::endl;
         }
     }
 
@@ -81,7 +81,7 @@ void Client::run() {
                     }
                 }
             }
-            //graphics.run(gs, queue_comandos, game_states);
+            graphics.run(gs, queue_comandos, game_states);
         } else {
             std::cout << "Commands are: create (weapon)" << std::endl;
         }

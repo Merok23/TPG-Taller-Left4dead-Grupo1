@@ -13,7 +13,7 @@ VisualBar::VisualBar(int32_t max_health, const SdlWindow& window) :
     renderer(window.getRenderer()) {}
 
 void VisualBar::update(int32_t new_health) {
-    // this->current_health = new_health;
+    this->current_health = new_health;
 }
 
 void VisualBar::max() {
@@ -22,7 +22,7 @@ void VisualBar::max() {
 
 void VisualBar::render(int x_origin, int y_origin) {
     SDL_SetRenderDrawColor(renderer, 67, 2, 7, 255); //darker red for the outer bar
-    float total_amount =  max_health * 3;
+    float total_amount =  max_health;
     SDL_Rect outer_bar = {x_origin, y_origin, static_cast<int>(total_amount), 10}; // position and size of the outer bar
     SDL_RenderFillRect(renderer, &outer_bar);
 

@@ -9,7 +9,7 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
     return false; //por ahora
 }
 
-void Graphics::run(GameState *gs, Queue<std::string> &queue_comandos, Queue<GameState*> &game_states){
+void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
         SdlWindow window(CAMARA_WIDTH, BACKGROUND_HEIGTH-200); //creo la ventana
         SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
@@ -70,14 +70,16 @@ GraphicsEntityHolder Graphics::start_graphics_entity(GameState *gs, SdlWindow &w
  * En un juego real no se tomará de a un evento por vuelta del gameloop, sino que se deberán tomar TODOS
  * o N eventos por vuelta
  */
-bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::string> &queue_comandos) {
+bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos) {
     SDL_Event event;
     bool static moving_left = false;
     bool static moving_right = false;
     bool static moving_up= false;
     bool static moving_down = false;
-    //bool static shooting = false;
+    bool static shooting = false;
+    bool static reloading = false;
     
+    COMMANDS command;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN: {
@@ -85,42 +87,54 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: {
                         if (!moving_left){
-                            std::string command("move -1 0");
-                            queue_comandos.push(command);
+                            //std::string command("move -1 0");
+                            queue_comandos.push(command.setDirectionOfMovement(-1, 0));
                             moving_left = true;
                         }
                         break;
                     }  
                     case SDLK_RIGHT: {
                         if (!moving_right){
-                            std::string command("move 1 0");
-                            queue_comandos.push(command);
+                            //std::string command("move 1 0");
+                            queue_comandos.push(command.setDirectionOfMovement(1, 0));
                             moving_right = true;
                         }
                         break;
                     }
                     case SDLK_UP: {
-                        if (!moving_right){
-                            std::string command("move 0 -1");
-                            queue_comandos.push(command);
+                        if (!moving_up){
+                            //std::string command("move 0 -1");
+                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_up = true;
                         }
                         break;
                     }
                     case SDLK_DOWN: {
-                        if (!moving_right){
-                            std::string command("move 0 1");
-                            queue_comandos.push(command);
+                        if (!moving_down){
+                            //std::string command("move 0 1");
+                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_down = true;
                         }
                         break;
                     }
-                    case SDLK_d: case SDLK_SPACE: 
-                        gr_entity_holder.getMainPlayer()->shoot();
+                    case SDLK_d: case SDLK_SPACE: {
+                        if (!shooting) {
+                            queue_comandos.push(command.setShooting(true));
+                            shooting = true;
+                        }
                         break;
-                    case SDLK_r:
-                        gr_entity_holder.getMainPlayer()->recharge();
+                    }
+                        //gr_entity_holder.getMainPlayer()->shoot();
+                        
+                    case SDLK_r: {
+                        if (!reloading) {
+                            queue_comandos.push(command.setReloading(true));
+                            reloading = true;
+                        }
                         break;
+                    }
+                        // gr_entity_holder.getMainPlayer()->recharge();
+                        // break;
                     case SDLK_h: //le "pegaron"
                         gr_entity_holder.getMainPlayer()->hurt();
                         break; 
@@ -134,16 +148,30 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<std::s
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
                         if (moving_right || moving_left || moving_up || moving_down) {
-                            std::string command("move 0 0");
-                            queue_comandos.push(command);
+                            //std::string command("move 0 0");
+                            //queue_comandos.push(command);
+                            queue_comandos.push(command.setDirectionOfMovement(0, 0));
 
                             moving_down = moving_left = moving_right = moving_up = false;
                         }
                         break;
                     }
-                    case SDLK_d: case SDLK_SPACE:
-                        gr_entity_holder.getMainPlayer()->stopShooting();
+                    case SDLK_d: case SDLK_SPACE: {
+                        if (shooting) {
+                            queue_comandos.push(command.setShooting(false));
+                            shooting = false;
+                        }
                         break;
+                    }
+                    case SDLK_r: {
+                        if (reloading) {
+                            queue_comandos.push(command.setReloading(false));
+                            reloading = false;
+                        }
+                        break;
+                    }
+                        // gr_entity_holder.getMainPlayer()->stopShooting();
+                        // break;
                 }
             }
                 break; //FIN KEY_UP

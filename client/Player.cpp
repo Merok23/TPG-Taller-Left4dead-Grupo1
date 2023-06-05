@@ -9,21 +9,8 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
     moving_x(false), moving_y(false), shooting(false),  id(id),
     x(x_position), y(y_position), health_bar(hit_points, window), ammo(200, window)
 {
-    auto it = textures.find(AN_IDLE);
-    if (it != textures.end())
-        animations[AN_IDLE] = std::unique_ptr<Animation>(new Animation(it->second));
-
-    it = textures.find(AN_RUN);
-    if (it != textures.end())
-        animations[AN_RUN] = std::unique_ptr<Animation>(new Animation(it->second));
-    
-    it = textures.find(AN_SHOOT);
-    if (it != textures.end())
-        animations[AN_SHOOT] = std::unique_ptr<Animation>(new Animation(it->second));
-
-    it = textures.find(AN_DIE);
-    if (it != textures.end())
-        animations[AN_DIE] = std::unique_ptr<Animation>(new Animation(it->second));
+    for (const auto &pair : textures)
+        animations[pair.first] = std::unique_ptr<Animation>(new Animation(pair.second));
 
     current_animation = AN_IDLE;
 }
@@ -77,23 +64,21 @@ void Player::update(float dt, Entity *entity) {
             break;
         
         }
-        moving_x = (x != entity->getPositionX());
-        moving_y = (y != entity->getPositionY());
-            
         x = entity->getPositionX();
         y = entity->getPositionY();
         
-        //health_bar.update(it->second->getHitPoints()); //aca recibo la nueva data del server y la funcion damage dejaria de existir
+        health_bar.update(entity->getHitPoints());
+        ammo.update(entity->getAmmoLeft());
         
         facingLeft = entity->isFacingLeft();
         facingUp = entity->isMovingUp();
     }
-
     auto it_current = animations.find(current_animation);
-    if (it_current != animations.end())
-            it_current->second->update(dt);
+    if (it_current != animations.end()) {
+        it_current->second->update(dt);
+    }
 
-    // auto it_die = animations.find(AN_DIE);
+    {// auto it_die = animations.find(AN_DIE);
     // if (moving_x) {
     //     auto it = animations.find(AN_RUN);
     //     if (it != animations.end())
@@ -116,6 +101,7 @@ void Player::update(float dt, Entity *entity) {
     //     if (it != animations.end())
     //         it->second->update(0); //buscar como controlar el speed de idle si le paso dt
     // }
+    }
 }
 
 void Player::render() {
@@ -123,29 +109,29 @@ void Player::render() {
     Area destArea(x, y, 200, 200); //100 100 es que tan grande es el rect'angulo para el elemento
     
 
-    // auto it_current = animations.find(current_animation);
-    // if (it_current != animations.end())
-    //         it_current->second->render(destArea, flip);
+    auto it_current = animations.find(current_animation);
+    if (it_current != animations.end())
+            it_current->second->render(destArea, flip);
     
-    auto it_die = animations.find(AN_DIE);
+    // auto it_die = animations.find(AN_DIE);
     
-    if (moving_x || moving_y) {
-        auto it = animations.find(AN_RUN);
-        if (it != animations.end())
-            it->second->render(destArea, flip);
-    }
-    else  if (shooting) {
-        auto it = animations.find(AN_SHOOT);
-        if (it != animations.end())
-            it->second->render(destArea, flip);
-    }
-    else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
-            it_die->second->render(destArea, flip);
-    else {
-        auto it = animations.find(AN_IDLE);
-        if (it != animations.end())
-            it->second->render(destArea, flip);
-    }
+    // if (moving_x || moving_y) {
+    //     auto it = animations.find(AN_RUN);
+    //     if (it != animations.end())
+    //         it->second->render(destArea, flip);
+    // }
+    // else  if (shooting) {
+    //     auto it = animations.find(AN_SHOOT);
+    //     if (it != animations.end())
+    //         it->second->render(destArea, flip);
+    // }
+    // else if (health_bar.get_health() <= 0 && it_die != animations.end() && it_die->second->amountPlayed() == 0)
+    //         it_die->second->render(destArea, flip);
+    // else {
+    //     auto it = animations.find(AN_IDLE);
+    //     if (it != animations.end())
+    //         it->second->render(destArea, flip);
+    // }
 
     health_bar.render(50, 200);
     ammo.render(50, 300);

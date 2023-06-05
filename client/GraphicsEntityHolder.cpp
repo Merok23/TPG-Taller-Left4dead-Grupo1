@@ -11,7 +11,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                     textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
                 else if (pair.second->getWeaponType() == "p90")
                     textures = this->textures_holder.find_textures(SOLDIER_P90);
-                    
+                
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             textures,
                                                             window,
