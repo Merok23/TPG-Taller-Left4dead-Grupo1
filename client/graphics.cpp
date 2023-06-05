@@ -181,6 +181,12 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
+void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
+    GameState* gs = NULL;
+    while (game_states.try_pop(gs));
+    gr_entity_holder.update(dt, gs);
+}
+
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
     window.fill(); //lleno con el background gris
     int cameraX = 0; //CAMARA_START_X;
@@ -189,15 +195,4 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
 
     gr_entity_holder.render();
     window.render();
-}
-
-void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
-    GameState* gs = NULL;
-    // int i = 0;
-    // while (gs == NULL && i < 20) { //REPASAR ESTO!
-    //     game_states.try_pop(gs);
-    //     i++;
-    // }
-    while (game_states.try_pop(gs));
-    gr_entity_holder.update(dt, gs);
 }
