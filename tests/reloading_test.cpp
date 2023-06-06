@@ -92,3 +92,24 @@ TEST_CASE("Reloading test, soldier tries to shoot after it completly reloaded an
     int ammo_left = weapon->getAmmoLeft();
     REQUIRE(ammo_left == CONFIG.weapon_scout_magazine_size - 1);
 }
+
+TEST_CASE("Reloading test, soldier reloads and can move after it", "[reloading]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    Weapon* weapon = new Scout();
+    Entity* player = new Player(1, 5, 5, weapon);
+    game.addEntity(player);
+    game.setReloading(1);
+    game.update();
+    for (int i = 1; i < CONFIG.soldier_reload_cooldown; i++) {
+        game.update();
+    }
+    //reload complete:
+    game.update();
+    //moves:
+    game.setMoving(1, 1, 0);
+    game.update();
+    REQUIRE(game.getEntities()[1]->getState() == "moving");
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + 1 * CONFIG.soldier_speed);
+    game.update();
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5 + 2 * CONFIG.soldier_speed);
+}
