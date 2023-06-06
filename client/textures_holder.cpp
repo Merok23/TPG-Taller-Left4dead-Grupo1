@@ -36,10 +36,10 @@ void TexturesHolder::create_infected(EntityType entity_type, std::string path) {
     img.replace(0, img.length(), "Run.png");
     textures_holder[entity_type][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Attack1.png");
+    img.replace(0, img.length(), "Attack_1.png");
     textures_holder[entity_type][AN_ATTACK1] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Attack2.png");
+    img.replace(0, img.length(), "Attack_2.png");
     textures_holder[entity_type][AN_ATTACK2] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Dead.png");
@@ -80,7 +80,7 @@ void TexturesHolder::create_zombie(std::string path) {
     std::string img("Bite.png");
     textures_holder[ZOMBIE][AN_BITE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Attack3.png");
+    img.replace(0, img.length(), "Attack_3.png");
     textures_holder[ZOMBIE][AN_ATTACK3] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Jump.png");
@@ -136,10 +136,10 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     path.replace(0, path.length(), "../../assets/Soldier_P90/");
     create_soldier(SOLDIER_P90, path);
 
-    /*
+    
     path.replace(0, path.length(), "../../assets/Zombie/");
     create_infected(ZOMBIE, path);
-
+    /*
     path.replace(0, path.length(), "../../assets/Spear/");
     create_infected(SPEAR, path);
 

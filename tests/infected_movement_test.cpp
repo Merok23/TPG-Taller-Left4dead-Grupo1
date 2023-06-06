@@ -76,7 +76,9 @@ TEST_CASE
      "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun();
-    Entity* player = new Player(1, CONFIG.scenario_width - 25, 5, weapon);
+    int suma_radios = CONFIG.soldier_radius + CONFIG.common_infected_radius;
+    int posicion_x = CONFIG.scenario_width - suma_radios - CONFIG.common_infected_speed;
+    Entity* player = new Player(1, posicion_x, 5, weapon);
     Entity* infected = new CommonInfected(2, 0, 5);
     game.addEntity(player);
     game.addEntity(infected);
@@ -84,7 +86,7 @@ TEST_CASE
     std::map<uint32_t, Entity*> entities = game.getEntities();
     REQUIRE
     (entities[2]->getDirectionOfMovement()->getX() == 
-    CONFIG.scenario_width - (1 * CONFIG.common_infected_speed));
+    posicion_x + suma_radios);
 }
 
 TEST_CASE
@@ -92,26 +94,27 @@ TEST_CASE
  "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun();
-    Entity* player = new Player(1, 5, 5, weapon);
-    Entity* infected1 = new CommonInfected(2, 15, 5);
-    Entity* infected2 = new CommonInfected(3, 35, 5);
+    Entity* player = new Player(1, 0, CONFIG.soldier_radius, weapon);
+    int suma_radios = CONFIG.soldier_radius + CONFIG.common_infected_radius;
+    Entity* infected1 = new CommonInfected(2, suma_radios, CONFIG.soldier_radius);
+    Entity* infected2 = new CommonInfected(3, suma_radios + CONFIG.common_infected_radius, CONFIG.soldier_radius);
     game.addEntity(player);
     game.addEntity(infected1);
     game.addEntity(infected2);
     game.update();
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5);
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
-    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == 15);
-    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 0);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == suma_radios);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
     //infected 2 moved to player but got stuck behind infected 1
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 25);
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == suma_radios + CONFIG.common_infected_radius);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
     game.update();
     //everyone stays the same
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 5);
-    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
-    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == 15);
-    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == 5);
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == 25);
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == 5);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 0);
+    REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == suma_radios);
+    REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == suma_radios + CONFIG.common_infected_radius);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
 }

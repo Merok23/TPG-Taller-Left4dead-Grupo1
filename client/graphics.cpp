@@ -3,7 +3,7 @@
 bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Queue<GameState*> &game_states, SdlWindow &window) {
     // bool running = handleEvents(gr_entity_holder, queue_comandos);
     // update(gr_entity_holder, FRAME_RATE, game_states);
-    // render(window, gr_entity_holder, im, destArea);
+    // render(window, gr_entity_holder, camera);
     // return running;
 
     return false; //por ahora
@@ -11,21 +11,19 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
     try {
-        SdlWindow window(BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //creo la ventana
-        SdlTexture im("../../assets/backgrounds/War1/Bright/War.png", window);
-        Area destArea(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH); //x, y, width, height
+        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
+        Camera camera(window);
 
-        GraphicsEntityHolder gr_entity_holder = start_graphics_entity(gs, window);
+        TexturesHolder textures_holder(window);
+        GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
 
         //Gameloop - handle event, update game, render new screen
         bool running = true;
         while (running) {
             running = handleEvents(gr_entity_holder, queue_comandos);
             update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, im, destArea);
+            render(window, gr_entity_holder, camera);
 
-            // la cantidad de segundos que debo dormir se debe ajustar en función
-            // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
         }
 
@@ -59,11 +57,6 @@ void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameSt
         std::cout << e.what() << std::endl;
     }
 }
-GraphicsEntityHolder Graphics::start_graphics_entity(GameState *gs, SdlWindow &window) {
-    TexturesHolder textures_holder(window);
-    return GraphicsEntityHolder(gs, std::move(textures_holder), window);
-}
-
 
 /**
  * Va a tomar un evento de teclado, y actualizará el modelo en función de los eventos que lleguen.
@@ -104,7 +97,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_UP: {
                         if (!moving_up){
                             //std::string command("move 0 -1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_up = true;
                         }
                         break;
@@ -112,7 +105,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_DOWN: {
                         if (!moving_down){
                             //std::string command("move 0 1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_down = true;
                         }
                         break;
@@ -181,23 +174,14 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
-void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, SdlTexture &im, Area &destArea) {
-    window.fill(); //lleno con el background gris
-    int cameraX = 0; //CAMARA_START_X;
-    Area srcArea(cameraX, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGTH);
-    im.render(srcArea, destArea, SDL_FLIP_NONE);
-
-    gr_entity_holder.render();
-    window.render();
-}
-
 void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
     GameState* gs = NULL;
-    // int i = 0;
-    // while (gs == NULL && i < 20) { //REPASAR ESTO!
-    //     game_states.try_pop(gs);
-    //     i++;
-    // }
     while (game_states.try_pop(gs));
     gr_entity_holder.update(dt, gs);
+}
+
+void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
+    camera.render(gr_entity_holder);
+    gr_entity_holder.render();
+    window.render();
 }

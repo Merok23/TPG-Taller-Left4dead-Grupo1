@@ -118,6 +118,7 @@ void CommonInfected::makeStronger(double factor) {
 std::string CommonInfected::getState() {
     if (this->state == IDLE_INFECTED) return "idle";
     if (this->state == MOVING_INFECTED) return "moving";
+    if (this->state == ATTACKING_INFECTED) return "attacking";
     return "dead";
 }
 

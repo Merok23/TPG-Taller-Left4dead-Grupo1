@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <map>
+#include <vector>
 #include "SdlWindow.h"
 #include "Player.h"
 #include "game_state.h"
@@ -14,6 +15,8 @@ public:
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
+    void get_new_coordenates_center(int32_t *x, int32_t *y);
+    void update_x(int32_t delta_x); 
 
     void update(float& dt, GameState *gs);
     void render();
@@ -25,7 +28,7 @@ private:
     SdlWindow &window;
     TexturesHolder textures_holder;
     std::map<uint32_t, std::shared_ptr<Player>> entities;
-    std::map<uint32_t, std::shared_ptr<Player>> players;
+    std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Player> MainPlayer;
 };
 

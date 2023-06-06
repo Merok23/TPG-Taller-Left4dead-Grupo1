@@ -194,7 +194,8 @@ State ClientProtocol::stringToState(const std::string& state) {
         { "shooting", SHOOT },
         { "reloading", RELOAD },
         { "dead", DIE },
-        { "idle", IDLE}
+        { "idle", IDLE},
+        { "attacking", ATTACKING}
     };
 
     auto it = stateMap.find(state);
