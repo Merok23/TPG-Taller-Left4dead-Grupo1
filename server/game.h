@@ -42,6 +42,7 @@ class Game {
         std::list<uint32_t> shooting_soldiers;
         bool survival_mode;
         int survival_mode_counter;
+        int max_common_infected_per_spawn;
         double survival_mode_multiplier;
         uint32_t current_id;
         

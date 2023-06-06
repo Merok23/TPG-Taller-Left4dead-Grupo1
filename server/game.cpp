@@ -8,6 +8,7 @@ Game::Game(int32_t width, int32_t height) :
     shooting_soldiers(),
     survival_mode(false),
     survival_mode_counter(CONFIG.survival_mode_timer),
+    max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     survival_mode_multiplier(1),
     current_id(0) {}
 
@@ -19,6 +20,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     shooting_soldiers(),
     survival_mode(gameMode == GameMode::SURVIVAL),
     survival_mode_counter(CONFIG.survival_mode_timer),
+    max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     survival_mode_multiplier(1),
     current_id(0) {}
 
@@ -152,6 +154,7 @@ void Game::survivalUpdate() {
     this->spawnInfected();
     this->makeInfectedStronger();
     survival_mode_multiplier *= CONFIG.survival_mode_accumulator;
+    max_common_infected_per_spawn *= CONFIG.survival_mode_accumulator;
 }
 
 void Game::spawnCommonInfected(int ammount) {
@@ -178,7 +181,7 @@ bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
 }
 
 void Game::spawnInfected() {
-    this->spawnCommonInfected(rand() % CONFIG.survival_mode_max_common_infected);
+    this->spawnCommonInfected(rand() % this->max_common_infected_per_spawn + 1);
 }
 
 void Game::makeInfectedStronger() {
