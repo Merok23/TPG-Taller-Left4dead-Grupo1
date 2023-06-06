@@ -3,21 +3,21 @@
 const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
-    5, // soldier_radius
+    15, // soldier_radius
     20, // soldier_reload_cooldown
     15, // soldier time_to_revive
     9, // soldier max_time_to_revive
     3, // soldier distance_to_revive
     80, // infected_health
     10, // infected_speed
-    5, // infected_radius
-    50, // infected_range
+    15, // infected_radius
+    350, // infected_range
     10, // common_infected_speed
-    15, //common_infected_attack_range
+    20, //common_infected_attack_range
     10, // common_infected_damage
     40, // common_infected_attack_cooldown
     5, // common_infected_radius
-    20, // crater_radius
+    40, // crater_radius
     100, // crater_hit_points
     1920, // scenario_width
     1080, // scenario_height

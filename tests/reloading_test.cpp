@@ -96,7 +96,7 @@ TEST_CASE("Reloading test, soldier tries to shoot after it completly reloaded an
 TEST_CASE("Reloading test, soldier reloads and can move after it", "[reloading]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new Scout();
-    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* player = new Player(1, 5, CONFIG.soldier_radius, weapon);
     game.addEntity(player);
     game.setReloading(1);
     game.update();
