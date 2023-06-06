@@ -15,6 +15,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             textures,
                                                             window,
+                                                            true,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
                                                             pair.second->getPositionY(),
@@ -28,6 +29,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             textures,
                                                             window,
+                                                            false,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
                                                             pair.second->getPositionY(),
@@ -41,7 +43,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
-void GraphicsEntityHolder::get_new_coordenates_center(size_t *x, size_t *y) {
+void GraphicsEntityHolder::get_new_coordenates_center(int32_t *x, int32_t *y) {
     size_t x_total = 0;
     size_t y_total = 0;
     size_t i;
@@ -53,7 +55,14 @@ void GraphicsEntityHolder::get_new_coordenates_center(size_t *x, size_t *y) {
     *x = x_total / i;
     *y = y_total / i;
 }
-int i = 0;
+
+void GraphicsEntityHolder::update_x(int32_t delta_x) {
+    for (size_t i = 0; i < players.size(); ++i) {
+        players[i]->update_x(players[i]->getX() + delta_x);
+
+    }
+}
+
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     if (entity->getType() == "player") {
             std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
@@ -65,6 +74,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         std::shared_ptr<Player> player = std::make_shared<Player>(
                                                                 textures,
                                                                 window,
+                                                                true,
                                                                 entity->getId(),
                                                                 entity->getPositionX(),
                                                                 entity->getPositionY(),
@@ -72,19 +82,18 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         entities[entity->getId()] = player;
         players.push_back(player);
         return player;
-    } else if (i <= 1) {
-        std::cout << "Me piden agregar un infectado" << std::endl;
+    } else {
         std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
         
         std::shared_ptr<Player> player = std::make_shared<Player>(
                                                     textures,
                                                     window,
+                                                    false,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),
                                                     entity->getHitPoints());  
         entities[entity->getId()] = player;
-        i++;
         return player;
     }
     return NULL;
@@ -119,7 +128,9 @@ void GraphicsEntityHolder::update(float& dt, GameState *gs) {
 
 void GraphicsEntityHolder::render() {
     for (const auto& pair : entities) {
-        pair.second->render();
+        if (!pair.second->is_dead())
+            pair.second->render();
+        
         //pair.second->get_ammo().render(50, 300); //dependiendo de donde renderizo, titilan los demas que fueron renderizados en el mismo scope
         //pair.second->get_health_bar().render(50, 200);
     }

@@ -97,7 +97,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_UP: {
                         if (!moving_up){
                             //std::string command("move 0 -1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_up = true;
                         }
                         break;
@@ -105,7 +105,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_DOWN: {
                         if (!moving_down){
                             //std::string command("move 0 1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_down = true;
                         }
                         break;
@@ -181,9 +181,7 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
 }
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
-    size_t x, y;
-    gr_entity_holder.get_new_coordenates_center(&x, &y);
-    camera.render(x, y);
+    camera.render(gr_entity_holder);
     gr_entity_holder.render();
     window.render();
 }

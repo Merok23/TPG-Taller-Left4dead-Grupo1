@@ -191,6 +191,8 @@ State ClientProtocol::stringToState(const std::string& state) {
         return RELOAD;
     } else if (state == "dead") {
         return DIE;
+    } else if (state == "attacking") {
+        return ATTACKING;
     }
     return IDLE;
 }

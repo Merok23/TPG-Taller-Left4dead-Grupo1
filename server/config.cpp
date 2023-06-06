@@ -3,24 +3,24 @@
 const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
-    15, // soldier_radius
+    25, // soldier_radius
     20, // soldier_reload_cooldown
     15, // soldier time_to_revive
     9, // soldier max_time_to_revive
     3, // soldier distance_to_revive
     80, // infected_health
     10, // infected_speed
-    15, // infected_radius
+    25, // infected_radius
     350, // infected_range
     10, // common_infected_speed
-    20, //common_infected_attack_range
+    60, //common_infected_attack_range
     10, // common_infected_damage
     40, // common_infected_attack_cooldown
     5, // common_infected_radius
     40, // crater_radius
     100, // crater_hit_points
-    1920, // scenario_width
-    1080, // scenario_height
+    1920-400, //1920, // scenario_width
+    250,//1080, // scenario_height
     5, // default_radius
     8589934591, // invalid_id
     200, // weapon_idf_base_damage
@@ -38,7 +38,7 @@ const struct config CONFIG {
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
     0.1, // weapon_scout_damage_falloff
-    100, //survival_mode_timer
-    10, //survival_mode_max_common_infected
+    500, //survival_mode_timer
+    5, //survival_mode_max_common_infected
     1.1 //survival_mode_accumulator
 };
