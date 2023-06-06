@@ -141,6 +141,7 @@ void Player::orderByDistance(std::vector<HitEntity>& entities_hit) {
 }
 
 void Player::setReload() {
+    if (this->state == DEAD_SOLDIER || this->state == DOWN_SOLDIER) return;
     this->state = RELOADING_SOLDIER;
 }
 

@@ -28,13 +28,12 @@ enum AnimationName {
     AN_RELOAD,
     AN_HURT,
     AN_DIE,
-
 };
 
 class Player {
 public:
     Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
-            uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
+            bool is_player, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points);
     ~Player();
     void update(float dt, Entity *entity);
     void render();
@@ -68,6 +67,7 @@ private:
     bool shooting;
     bool recharging;
     bool dead;
+    bool is_player; //cambiar a clases con herencia
     uint32_t id;
     int32_t x;
     int32_t y;

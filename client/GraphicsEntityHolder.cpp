@@ -15,6 +15,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             textures,
                                                             window,
+                                                            true,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
                                                             pair.second->getPositionY(),
@@ -28,6 +29,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textur
                 std::shared_ptr<Player> player = std::make_shared<Player>(
                                                             textures,
                                                             window,
+                                                            false,
                                                             pair.second->getId(),
                                                             pair.second->getPositionX(),
                                                             pair.second->getPositionY(),
@@ -72,6 +74,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         std::shared_ptr<Player> player = std::make_shared<Player>(
                                                                 textures,
                                                                 window,
+                                                                true,
                                                                 entity->getId(),
                                                                 entity->getPositionX(),
                                                                 entity->getPositionY(),
@@ -85,6 +88,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         std::shared_ptr<Player> player = std::make_shared<Player>(
                                                     textures,
                                                     window,
+                                                    false,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),

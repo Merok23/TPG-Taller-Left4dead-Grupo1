@@ -4,9 +4,9 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, bool is_player, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
-    moving_x(false), moving_y(false), shooting(false), dead(false), id(id),
+    moving_x(false), moving_y(false), shooting(false), dead(false), is_player(is_player), id(id),
     x(x_position), y(y_position), health_bar(hit_points, window), ammo(200, window)
 {
     for (const auto &pair : textures)
@@ -66,7 +66,7 @@ void Player::update(float dt, Entity *entity) {
         }
         x = entity->getPositionX();
         y = entity->getPositionY();
-        
+
         health_bar.update(entity->getHitPoints());
         ammo.update(entity->getAmmoLeft());
         
@@ -95,9 +95,10 @@ void Player::render() {
     if (it_current != animations.end())
             it_current->second->render(destArea, flip);
     
-    ammo.render(50, 300);
-    health_bar.render(50, 200);
-
+    if (is_player) {
+        ammo.render(50, 300);
+        health_bar.render(50, 200);
+    }
 }
 
 void Player::update_x(int32_t x) {
