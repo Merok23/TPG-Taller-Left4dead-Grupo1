@@ -5,7 +5,6 @@
 
 #include "server_protocol.h"
 
-
 #define CREATE 0x01
 #define JOIN 0x02
 #define ADD_PLAYER 0x03
@@ -152,8 +151,8 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
 
         sendInteger(entity.second->getDirectionOfMovement()->getX());
         if (was_closed) return;
-
-        sendInteger(entity.second->getDirectionOfMovement()->getY());
+        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 450;
+        sendInteger(interface_y);
         if (was_closed) return;
 
         uint8_t isFacingLeft = (entity.second->getDirectionOfMovement()->isFacingLeft());

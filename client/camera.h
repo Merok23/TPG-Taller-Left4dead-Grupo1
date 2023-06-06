@@ -8,7 +8,6 @@
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
 
-
 #define WINDOW_WIDTH (1920-400)
 #define WINDOW_HEIGTH (1080-200)
 
@@ -23,6 +22,7 @@ class Camera {
     SdlWindow &window;
     SdlTexture background;
     Area destArea;
+    int x_old_camera;
 };
 
 #endif //__CAMERA_H__

@@ -3,31 +3,33 @@
 
 Camera::Camera(SdlWindow &window) : window(window), 
     background("../../assets/backgrounds/War1/Bright/War.png", window),
-    destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH) {}
+    destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH),
+    x_old_camera(0) {}
 
 
 void Camera::render(GraphicsEntityHolder &ge_holder) {
     window.fill(); //lleno con el background gris
-    int32_t x, y;
-    ge_holder.get_new_coordenates_center(&x, &y);
-    std::cout << "x of player is " << x << std::endl;
+    int32_t x_solders, y;
+    ge_holder.get_new_coordenates_center(&x_solders, &y);
 
-    x = x - WINDOW_WIDTH / 2; //100 es el player.width
-    if (x <= 0)
-        x = x;
-    else 
-        ge_holder.update_x(x);
-
-    //std::cout << "El x original es: " << x << std::endl;
-    //x = x - WINDOW_WIDTH/2;
+    int32_t x_camera = x_solders - WINDOW_WIDTH / 2; //390
+    //bool locked_camera = false;
     //std::cout << " el tope de x es " << BACKGROUND_WIDTH-WINDOW_WIDTH << std::endl;
-    // if (x >= BACKGROUND_WIDTH-WINDOW_WIDTH)//+WINDOW_WIDTH/2)
-    //     x = BACKGROUND_WIDTH-WINDOW_WIDTH;//+WINDOW_WIDTH/2;
-    // if (x <= 0)
-    //     x = 0;
-    
+    if (x_camera >= BACKGROUND_WIDTH-WINDOW_WIDTH) {
+        x_camera = BACKGROUND_WIDTH-WINDOW_WIDTH;
+       //locked_camera = true;
+    }
+    if (x_camera <= 0) {
+        x_camera = 0;
+        //locked_camera = true;
+    }
+        
+    //else 
+    //
+    int delta_x = x_camera - x_old_camera; // y el signo que onda
+    ge_holder.update_x(delta_x);  
 
-    std::cout << "x of camera is " << x << std::endl;
+    //std::cout << "x of camera is " << x << std::endl;
 
     //std::cout << "El x nuevo es: " << x << std::endl;
     
@@ -39,6 +41,7 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
     //     y = BACKGROUND_HEIGTH-WINDOW_HEIGTH;
 
 
-    Area srcArea(x, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
+    Area srcArea(x_camera, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     background.render(srcArea, destArea, SDL_FLIP_NONE);
+    x_old_camera = x_camera;
 }

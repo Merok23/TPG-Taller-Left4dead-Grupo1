@@ -97,7 +97,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_UP: {
                         if (!moving_up){
                             //std::string command("move 0 -1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_up = true;
                         }
                         break;
@@ -105,7 +105,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     case SDLK_DOWN: {
                         if (!moving_down){
                             //std::string command("move 0 1");
-                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
+                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_down = true;
                         }
                         break;

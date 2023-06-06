@@ -6,7 +6,7 @@
 
 Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
     facingLeft(false), facingUp(false), 
-    moving_x(false), moving_y(false), shooting(false),  id(id),
+    moving_x(false), moving_y(false), shooting(false), dead(false), id(id),
     x(x_position), y(y_position), health_bar(hit_points, window), ammo(200, window)
 {
     for (const auto &pair : textures)
@@ -80,6 +80,10 @@ void Player::update(float dt, Entity *entity) {
     }
 }
 
+bool Player::is_dead() {
+    return dead;
+}
+
 void Player::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Area destArea(x, y, 200, 200); //200 200 es que tan grande es el rect'angulo para el elemento
@@ -90,6 +94,9 @@ void Player::render() {
     
     ammo.render(50, 300);
     health_bar.render(50, 200);
+
+    if (current_animation == AN_DIE && it_current->second->amountPlayed() == 1)
+        dead = true;
 }
 
 void Player::update_x(int32_t x) {

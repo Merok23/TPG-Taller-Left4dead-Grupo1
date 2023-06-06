@@ -56,6 +56,8 @@ public:
     VisualBar &get_ammo();
     VisualBar &get_health_bar();
 
+    bool is_dead();
+
     void update_x(int32_t x);
 
 private:
@@ -65,6 +67,7 @@ private:
     bool moving_y;
     bool shooting;
     bool recharging;
+    bool dead;
     uint32_t id;
     int32_t x;
     int32_t y;
