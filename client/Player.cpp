@@ -76,7 +76,10 @@ void Player::update(float dt, Entity *entity) {
 
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end()) {
-        it_current->second->update(dt);
+        if (current_animation == AN_DIE && it_current->second->amountPlayed() == 1)
+            it_current->second->update(0);
+        else
+            it_current->second->update(dt);
     }
 }
 
@@ -95,8 +98,6 @@ void Player::render() {
     ammo.render(50, 300);
     health_bar.render(50, 200);
 
-    if (current_animation == AN_DIE && it_current->second->amountPlayed() == 1)
-        dead = true;
 }
 
 void Player::update_x(int32_t x) {
