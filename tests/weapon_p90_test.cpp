@@ -28,10 +28,10 @@ TEST_CASE("P90 weapon test, it causes damage to the infected", "[p90]") {
 TEST_CASE
 ("IDF weapon test, it doesn't cause damage to the infected because he is out of range.", 
     "[p90]") {
-    Game game(100, 100);
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new AssaultRifle(); 
-    Entity* player = new Player(1, 5, 5, weapon);
-    Entity* some_infected = new CommonInfected(2, CONFIG.weapon_p90_range + 10, 5);
+    Entity* player = new Player(1, 0, CONFIG.soldier_radius, weapon);
+    Entity* some_infected = new CommonInfected(2, CONFIG.weapon_p90_range + 10, CONFIG.soldier_radius);
     game.addEntity(player);
     game.addEntity(some_infected);
     //move left
