@@ -56,6 +56,7 @@ public:
     VisualBar &get_ammo();
     VisualBar &get_health_bar();
 
+    void update_x(int32_t x);
 
 private:
     bool facingLeft;

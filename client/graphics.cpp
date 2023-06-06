@@ -181,9 +181,7 @@ void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<Ga
 }
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
-    size_t x, y;
-    gr_entity_holder.get_new_coordenates_center(&x, &y);
-    camera.render(x, y);
+    camera.render(gr_entity_holder);
     gr_entity_holder.render();
     window.render();
 }

@@ -92,6 +92,9 @@ void Player::render() {
     health_bar.render(50, 200);
 }
 
+void Player::update_x(int32_t x) {
+    this->x = x;
+}
 
 VisualBar& Player::get_ammo() {
     return this->ammo;

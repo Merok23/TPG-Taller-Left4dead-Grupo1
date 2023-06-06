@@ -41,17 +41,28 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
-void GraphicsEntityHolder::get_new_coordenates_center(size_t *x, size_t *y) {
-    size_t x_total = 0;
-    size_t y_total = 0;
-    size_t i;
-    for (i = 0; i < players.size(); ++i) {
-        x_total += players[i]->getX();
-        y_total += players[i]->getY();
-    }
+void GraphicsEntityHolder::get_new_coordenates_center(int32_t *x, int32_t *y) {
+    // size_t x_total = 0;
+    // size_t y_total = 0;
+    // size_t i;
+    // for (i = 0; i < players.size(); ++i) {
+    //     x_total += players[i]->getX();
+    //     y_total += players[i]->getY();
+    // }
 
-    *x = x_total / i;
-    *y = y_total / i;
+    // *x = x_total / i;
+    // *y = y_total / i;
+
+    for (size_t i = 0; i < players.size(); ++i) {
+        *x = players[i]->getX();
+        *y = players[i]->getY();
+    }
+}
+
+void GraphicsEntityHolder::update_x(int32_t x) {
+    for (size_t i = 0; i < players.size(); ++i) {
+        players[i]->update_x(x);
+    }
 }
 int i = 0;
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
@@ -72,21 +83,22 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         entities[entity->getId()] = player;
         players.push_back(player);
         return player;
-    } else if (i <= 1) {
-        std::cout << "Me piden agregar un infectado" << std::endl;
-        std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
-        
-        std::shared_ptr<Player> player = std::make_shared<Player>(
-                                                    textures,
-                                                    window,
-                                                    entity->getId(),
-                                                    entity->getPositionX(),
-                                                    entity->getPositionY(),
-                                                    entity->getHitPoints());  
-        entities[entity->getId()] = player;
-        i++;
-        return player;
     }
+    // } else if (i <= 1) {
+    //     std::cout << "Me piden agregar un infectado" << std::endl;
+    //     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
+        
+    //     std::shared_ptr<Player> player = std::make_shared<Player>(
+    //                                                 textures,
+    //                                                 window,
+    //                                                 entity->getId(),
+    //                                                 entity->getPositionX(),
+    //                                                 entity->getPositionY(),
+    //                                                 entity->getHitPoints());  
+    //     entities[entity->getId()] = player;
+    //     i++;
+    //     return player;
+    // }
     return NULL;
 }
 

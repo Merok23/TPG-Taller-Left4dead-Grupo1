@@ -3,6 +3,7 @@
 
 #include "SdlWindow.h"
 #include "SdlTexture.h"
+#include "GraphicsEntityHolder.h"
 
 #define BACKGROUND_WIDTH 1920
 #define BACKGROUND_HEIGTH 1080
@@ -16,7 +17,7 @@ class Camera {
     Camera(SdlWindow &window);
 
 
-    void render(size_t &x, size_t &y);
+    void render(GraphicsEntityHolder &ge_holder);
 
     private:
     SdlWindow &window;
