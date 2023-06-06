@@ -63,6 +63,10 @@ void Player::update(float dt, Entity *entity) {
             current_animation = AN_RELOAD;
             break;
         
+        case ATTACKING:
+            current_animation = AN_ATTACK1;
+            break;
+        
         }
         x = entity->getPositionX();
         y = entity->getPositionY();

@@ -10,7 +10,8 @@ enum State {
     RUN,
     SHOOT,
     RELOAD, 
-    DIE
+    DIE,
+    ATTACKING
 };
 
 class Entity {
