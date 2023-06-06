@@ -71,8 +71,10 @@ void Player::update(float dt, Entity *entity) {
         x = entity->getPositionX();
         y = entity->getPositionY();
 
-        health_bar.update(entity->getHitPoints());
-        ammo.update(entity->getAmmoLeft());
+        if (is_player) {
+            health_bar.update(entity->getHitPoints());
+            ammo.update(entity->getAmmoLeft());
+        }
         
         facingLeft = entity->isFacingLeft();
         facingUp = entity->isMovingUp();
