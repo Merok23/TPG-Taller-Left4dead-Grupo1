@@ -8,19 +8,19 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <fstream>
-
+#include <unordered_map>
 #include <map>
 #include <utility>
 
 #include "client_protocol.h"
 #define MAX_TYPE_LENGHT 200
 
-#define CREATE 0x01
-#define JOIN 0x02
-#define ADD 0x03
-#define MOVE 0x04
-#define SHOOT_COMMAND 0x05
-#define RELOAD_COMMAND 0x06
+#define CREATE_ROOM_COMMAND 0x01
+#define JOIN_ROOM_COMMAND 0x02
+#define ADD_PLAYER_COMMAND 0x03
+#define MOVE_PLAYER_COMMAND 0x04
+#define SHOOT_PLAYER_COMMAND 0x05
+#define RELOAD_PLAYER_COMMAND 0x06
 
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -60,19 +60,20 @@ void ClientProtocol::sendCommand(command_t command) {
         sendReloading(command.reloading);
 }
 
-void ClientProtocol::sendCreateRoom(const std::string& room_name, const std::string& game_mode) {
-    uint8_t action = CREATE;
+void ClientProtocol::sendCreateRoom(const std::string& room_name, uint8_t game_mode) {
+    uint8_t action = CREATE_ROOM_COMMAND;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
 
     sendString(room_name);
     if (was_closed) return;
-    sendString(game_mode);
-    if (was_closed) return;
+
+    socket.sendall(&game_mode, sizeof(uint8_t), &was_closed);
+    if (was_closed) return; 
 }
 
 void ClientProtocol::sendJoinRoom(int room_id) {
-    uint8_t action = JOIN;
+    uint8_t action = JOIN_ROOM_COMMAND;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
 
@@ -81,7 +82,7 @@ void ClientProtocol::sendJoinRoom(int room_id) {
 }
 
 void ClientProtocol::sendAddPlayer(const std::string& weapon) {
-    uint8_t action = ADD;
+    uint8_t action = ADD_PLAYER_COMMAND;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
 
@@ -90,7 +91,7 @@ void ClientProtocol::sendAddPlayer(const std::string& weapon) {
 }
 
 void ClientProtocol::sendMoving(int8_t moving_x, int8_t moving_y) {
-    uint8_t action = MOVE;  
+    uint8_t action = MOVE_PLAYER_COMMAND;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
 
@@ -102,7 +103,7 @@ void ClientProtocol::sendMoving(int8_t moving_x, int8_t moving_y) {
 }
 
 void ClientProtocol::sendShooting(int shooting) {
-    uint8_t action = SHOOT_COMMAND;  
+    uint8_t action = SHOOT_PLAYER_COMMAND;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return;
 
@@ -112,7 +113,7 @@ void ClientProtocol::sendShooting(int shooting) {
 
 
 void ClientProtocol::sendReloading(int reloading) {
-    uint8_t action = RELOAD_COMMAND;  
+    uint8_t action = RELOAD_PLAYER_COMMAND;  
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) return; 
      
@@ -149,18 +150,7 @@ GameState* ClientProtocol::receiveGameState() {
 
         std::string type = receiveString();
         if (was_closed) return NULL;
-
-        std::string weapon_type = "none";
-        int32_t ammo_left = -1; 
-
-        if (type == "player") {
-            weapon_type = receiveString();
-            if (was_closed) return NULL;
-
-            ammo_left = receiveInteger();
-            if (was_closed) return NULL;
-        }
-
+        
         int32_t hit_point = receiveInteger();
         if (was_closed) return NULL;
 
@@ -172,27 +162,55 @@ GameState* ClientProtocol::receiveGameState() {
         if (was_closed) return NULL;
 
         bool is_moving_up = (bool)receiveUnsignedSmallInteger();
+        if (type == "player") {
+            WeaponType weapon_type = stringToWeapon(receiveString());
+            if (was_closed) return NULL;
 
-        Entity* entity  = new Entity(id, type, state_enum, weapon_type, ammo_left, hit_point,  
+            int32_t ammo_left = receiveInteger();
+            if (was_closed) return NULL;
+
+            uint8_t lives = receiveUnsignedSmallInteger();
+            if (was_closed) return NULL;
+
+            EntityType entity_type = SOLDIER;
+            Entity* entity  = new Entity(id, entity_type, state_enum, lives, weapon_type, ammo_left, hit_point,  
+                position_x, position_y, is_facing_left, is_moving_up);
+            entities[id] = entity;
+
+        } else if (type == "common_infected") {
+            EntityType entity_type = COMMON_INFECTED;
+            Entity* entity  = new Entity(id, entity_type, state_enum, hit_point,  
             position_x, position_y, is_facing_left, is_moving_up);
-        
-        entities[id] = entity;
+            entities[id] = entity;
+        }
         entities_len--; 
     }
     return (new GameState(entities));
 }
 
 State ClientProtocol::stringToState(const std::string& state) {
-    if (state == "moving") {
-        return RUN;
-    } else if (state == "shooting") {
-        return SHOOT;
-    } else if (state == "reloading") {
-        return RELOAD;
-    } else if (state == "dead") {
-        return DIE;
-    }
-    return IDLE;
+    static const std::unordered_map<std::string, State> stateMap = {
+        { "moving", RUN },
+        { "shooting", SHOOT },
+        { "reloading", RELOAD },
+        { "dead", DIE },
+        { "idle", IDLE}
+    };
+
+    auto it = stateMap.find(state);
+    return it->second;
+}
+
+WeaponType ClientProtocol::stringToWeapon(const std::string& weapon) {
+    static const std::unordered_map<std::string, WeaponType> weaponMap = {
+        { "idf", WeaponType::IDF },
+        { "p90", WeaponType::P90 },
+        { "scout", WeaponType::SCOUT },
+        { "none", WeaponType::NONE }
+    };
+
+    auto it = weaponMap.find(weapon);
+    return it->second;
 }
 //--------------------------------- FUNCIONES DE RECIBIR BYTES PRIVADAS ---------------------------------//
 
