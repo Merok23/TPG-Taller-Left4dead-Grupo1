@@ -29,7 +29,7 @@ void Client::run() {
             iss >> word2; 
             if (word2 == "room") {
                 iss >> word3 >> word4;
-                if (word4 != "survival") {
+                if (word4 != "Survival") {
                     std::cout << "No se ingreso el survival para el modo de juego. Empeza de nuevo" << std::endl;
                     continue;
                 }

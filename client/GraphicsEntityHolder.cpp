@@ -53,7 +53,7 @@ void GraphicsEntityHolder::get_new_coordenates_center(size_t *x, size_t *y) {
     *x = x_total / i;
     *y = y_total / i;
 }
-
+int i = 0;
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     if (entity->getType() == "player") {
             std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
@@ -72,7 +72,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
         entities[entity->getId()] = player;
         players.push_back(player);
         return player;
-    } else {
+    } else if (i <= 1) {
         std::cout << "Me piden agregar un infectado" << std::endl;
         std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(ZOMBIE);
         
@@ -84,8 +84,10 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
                                                     entity->getPositionY(),
                                                     entity->getHitPoints());  
         entities[entity->getId()] = player;
-    return player;
+        i++;
+        return player;
     }
+    return NULL;
 }
 
 void GraphicsEntityHolder::update(float& dt, GameState *gs) {
@@ -108,9 +110,9 @@ void GraphicsEntityHolder::update(float& dt, GameState *gs) {
 
     if (gs != NULL) {
         for (const auto &pair : gs->entities) {
-            std::cout << "Me piden agregar un nuevo entity" << std::endl;
             std::shared_ptr<Player> player = add_player(pair.second);
-            player->update(dt, NULL);
+            if (player)
+                player->update(dt, NULL);
         }
     }
 }
