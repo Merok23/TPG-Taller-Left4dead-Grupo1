@@ -135,7 +135,7 @@ bool ClientProtocol::receiveJoinResponse() {
     return (bool)response;
 }
 
-GameState* ClientProtocol::receiveGameState() {
+std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     std::map<uint32_t, Entity*> entities;
     uint32_t bytes, entities_len;
     bytes = socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
@@ -196,7 +196,8 @@ GameState* ClientProtocol::receiveGameState() {
         }
         entities_len--; 
     }
-    return (new GameState(entities));
+    std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities);
+    return game_state;
 }
 
 State ClientProtocol::stringToState(const std::string& state) {

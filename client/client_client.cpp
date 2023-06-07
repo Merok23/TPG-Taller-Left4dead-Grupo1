@@ -71,7 +71,7 @@ void Client::run() {
                 continue;
             }
             queue_comandos.push(command.addPlayer(word2));
-            GameState* gs = NULL;
+            std::shared_ptr<GameState> gs = NULL;
             bool leave = false;
             while (!leave) {
                 game_states.try_pop(gs);
@@ -90,14 +90,6 @@ void Client::run() {
  
 Client::~Client() {
     protocol.closeSocket();
-    while (true) { //Abril liberaria la memoria
-        GameState* state = NULL; 
-        if (game_states.try_pop(state)) {
-            delete state; 
-        } else {
-            break; 
-        }
-    }
     queue_comandos.close();
     game_states.close();
     send_thread->stop();
