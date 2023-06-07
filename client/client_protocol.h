@@ -6,19 +6,8 @@
 #include "../common/socket.h"
 #include "game_state.h"
 
-enum COMMANDS_TYPE {
-    DEFAULT,
-    CREATE_ROOM,
-    JOIN_ROOM,
-    MOVE_PLAYER,
-    SHOOT_PLAYER,
-    RELOAD_PLAYER,
-    ADD_PLAYER
-};
-
-
 typedef struct command_t {
-    COMMANDS_TYPE type;
+    Commands type;
     std::string room_name;
     GameMode game_mode;
     std::string weapon;

@@ -3,12 +3,14 @@ enum State {
     RUN,
     SHOOT,
     RELOAD, 
-    DIE
+    DIE,
+    ATTACKING
 };
 
 enum EntityType {
     SOLDIER,
     COMMON_INFECTED,
+    SPEAR
 };
 
 enum WeaponType {
@@ -22,3 +24,14 @@ enum GameMode {
     SURVIVAL,
     CLEAR_THE_ZONE
 };
+
+enum Commands {
+    DEFAULT,
+    CREATE_ROOM,
+    JOIN_ROOM,
+    MOVE_PLAYER,
+    SHOOT_PLAYER,
+    RELOAD_PLAYER,
+    ADD_PLAYER
+};
+
