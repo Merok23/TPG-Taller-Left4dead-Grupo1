@@ -28,19 +28,26 @@ void ReceiveThread::run() {
 
 void ReceiveThread::receiveCommand() {
     while (!finished && !this->start_playing) {
-        command_t command = protocol.receiveCommand();
-        if (protocol.isFinished() || command.type == COMMANDS_TYPE::DEFAULT) {
+        try {
+            command_t command = protocol.receiveCommand();
+            if (finished) break;
+            if (protocol.isFinished() && command.type == COMMANDS_TYPE::DEFAULT) {
+                std::cout << "Client " << client_id << " was disconnected" << std::endl;
+                finished = true;
+                break;
+            } 
+            if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
+                room_id = game_handler.createRoom(command.room_name, client_queue, client_id, command.game_mode);
+                protocol.sendRoomId(room_id);
+                start_playing = true;
+            } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {
+                start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id);
+                protocol.sendJoinResponse(start_playing);
+                if (start_playing) room_id = command.room_id;  
+            }
+        } catch(const LibError &e) {
+            std::cerr << "Error: " << e.what() << std::endl;
             finished = true;
-            break;
-        }
-        if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
-            room_id = game_handler.createRoom(command.room_name, client_queue, client_id, command.game_mode);
-            protocol.sendRoomId(room_id);
-            start_playing = true;
-        } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {
-            start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id);
-            protocol.sendJoinResponse(start_playing);
-            if (start_playing) room_id = command.room_id;  
         }
     } 
 }
@@ -51,7 +58,9 @@ void ReceiveThread::receiveGameActions() {
     while (!finished) {
         try {
             Action* action = protocol.receiveAction();
+            if (finished) break;
             if (protocol.isFinished()) {
+                std::cout << "Client id: " << client_id << " was disconnected" << std::endl;
                 finished = true;
                 break;
             } 
@@ -63,7 +72,10 @@ void ReceiveThread::receiveGameActions() {
             if (finished) return; 
             std::cerr << "Error: " << e.what() << std::endl;
             finished = true;
-        } 
+        } catch(const LibError &e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            finished = true;
+        }
     }
 }
 

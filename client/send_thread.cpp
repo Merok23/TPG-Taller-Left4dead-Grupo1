@@ -12,13 +12,16 @@ void SendThread::run() {
     while (!finished) {
         try {
             command = queue_comandos.pop();
+            protocol.sendCommand(command);
             if (protocol.isFinished()) {
                 stop(); 
                 break; 
             }
-            protocol.sendCommand(command);
         } catch(const ClosedQueue &e) {
             if (finished) return; 
+            std::cerr << "Error: " << e.what() << std::endl;
+            finished = true;
+        } catch (const LibError &e) {
             std::cerr << "Error: " << e.what() << std::endl;
             finished = true;
         }
