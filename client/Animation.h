@@ -18,7 +18,7 @@ class Area;
 
 class Animation {
    public:
-    Animation(const std::shared_ptr<SdlTexture>texture);
+    explicit Animation(const std::shared_ptr<SdlTexture>texture);
     ~Animation();
     void update(float dt, int speed);
     void render(const Area& dst, const SDL_RendererFlip &flipType);

@@ -5,7 +5,7 @@
 
 class SdlException : public Exception {
 public:
-    SdlException(const char* description);
+    explicit SdlException(const char* description);
 };
 
 #endif

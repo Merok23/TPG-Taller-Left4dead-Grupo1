@@ -18,6 +18,7 @@
 #include "entity_infected.h"
 #include "entity_player.h"
 #include "entity_infected_common.h"
+#include "entity_infected_spear.h"
 #include "server_enum.h"
 
 
@@ -39,6 +40,7 @@ class Game {
         bool survival_mode;
         int survival_mode_counter;
         int max_common_infected_per_spawn;
+        int max_spear_infected_per_spawn;
         double survival_mode_multiplier;
         uint32_t current_id;
         
@@ -68,6 +70,7 @@ class Game {
         void survivalUpdate();
         void spawnInfected();
         void spawnCommonInfected(int ammount);
+        void spawnSpearInfected(int ammount);
         bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
 };

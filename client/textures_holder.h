@@ -23,18 +23,18 @@ enum EntityType {
 
 class TexturesHolder {
     public:
-    TexturesHolder(SdlWindow &window);
+    explicit TexturesHolder(SdlWindow &window);
     std::map<AnimationName, std::shared_ptr<SdlTexture>> find_textures(EntityType entity_type);
 
     private:
-    void create_soldier(EntityType entity_type, std::string path);
-    void create_infected(EntityType entity_type, std::string path);
+    void create_soldier(EntityType entity_type, const std::string &path);
+    void create_infected(EntityType entity_type, const std::string &path);
 
-    void create_zombie(std::string path);
-    void create_venom(std::string path);
-    void create_jumper(std::string path);
-    void create_witch(std::string path);
-    void create_spear(std::string path);
+    void create_zombie(const std::string &path);
+    void create_venom(const std::string &path);
+    void create_jumper(const std::string &path);
+    void create_witch(const std::string &path);
+    void create_spear(const std::string &path);
 
     SdlWindow &window;
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;

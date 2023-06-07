@@ -49,6 +49,7 @@ struct config {
     double weapon_scout_damage_falloff;
     int survival_mode_timer;
     int survival_mode_max_common_infected;
+    int survival_mode_max_spear_infected;
     double survival_mode_accumulator; //rate of spawn + stat multiplier
 };
 

@@ -2,6 +2,7 @@
 #include "../server/game.h"
 #include "../server/entity_player.h"
 #include "../server/entity_infected_common.h"
+#include "../server/entity_infected_spear.h"
 #include "../server/weapon_idf.h"
 
 TEST_CASE("Survival mode test, entites don't collide with each other", "[survival]") {
@@ -64,4 +65,18 @@ TEST_CASE("Survival mode test, game's constructor with game mode works", "[survi
     int health = game.getEntities()[1]->getHitPoints();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
     REQUIRE(game.getEntities()[1]->getHitPoints() > health);
+}
+
+TEST_CASE("Survival mode test, game spawns more that one type of infected") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
+    for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    REQUIRE(game.getEntities().size() > 0);
+    int common = 0;
+    int spear = 0;
+    for (auto& entity : game.getEntities()) {
+        if (entity.second->getEntityType() == "common_infected") common++;
+        if (entity.second->getEntityType() == "spear") spear++;
+    }
+    REQUIRE(common > 0);
+    REQUIRE(spear > 0);
 }

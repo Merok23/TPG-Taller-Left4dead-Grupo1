@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-void TexturesHolder::create_soldier(EntityType entity_type, std::string path) {
+void TexturesHolder::create_soldier(EntityType entity_type, const std::string &path) {
     std::string img("Idle.png");
     textures_holder[entity_type][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -26,7 +26,7 @@ void TexturesHolder::create_soldier(EntityType entity_type, std::string path) {
     textures_holder[entity_type][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
-void TexturesHolder::create_infected(EntityType entity_type, std::string path) {
+void TexturesHolder::create_infected(EntityType entity_type, const std::string &path) {
     std::string img("Idle.png");
     textures_holder[entity_type][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -76,7 +76,7 @@ void TexturesHolder::create_infected(EntityType entity_type, std::string path) {
 
 }
 
-void TexturesHolder::create_zombie(std::string path) {
+void TexturesHolder::create_zombie(const std::string &path) {
     std::string img("Bite.png");
     textures_holder[ZOMBIE][AN_BITE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -87,12 +87,12 @@ void TexturesHolder::create_zombie(std::string path) {
     textures_holder[ZOMBIE][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
-void TexturesHolder::create_venom(std::string path) {
+void TexturesHolder::create_venom(const std::string &path) {
     std::string img("Jump.png");
     textures_holder[VENOM][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
-void TexturesHolder::create_jumper(std::string path) {
+void TexturesHolder::create_jumper(const std::string &path) {
     std::string img("Eating.png");
     textures_holder[JUMPER][AN_EATING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -103,7 +103,7 @@ void TexturesHolder::create_jumper(std::string path) {
     textures_holder[JUMPER][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
-void TexturesHolder::create_spear(std::string path) {
+void TexturesHolder::create_spear(const std::string &path) {
     std::string img("Fall.png");
     textures_holder[SPEAR][AN_FALL] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -114,7 +114,7 @@ void TexturesHolder::create_spear(std::string path) {
     textures_holder[SPEAR][AN_RUN_ATTACK] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
-void TexturesHolder::create_witch(std::string path) {
+void TexturesHolder::create_witch(const std::string &path) {
     std::string img("Attack3.png");
     textures_holder[WITCH][AN_ATTACK3] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
@@ -139,10 +139,10 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     
     path.replace(0, path.length(), "../../assets/Zombie/");
     create_infected(ZOMBIE, path);
-    /*
+    
     path.replace(0, path.length(), "../../assets/Spear/");
     create_infected(SPEAR, path);
-
+    /*
     path.replace(0, path.length(), "../../assets/Venom/");
     create_infected(VENOM, path);
 

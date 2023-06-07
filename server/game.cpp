@@ -9,6 +9,7 @@ Game::Game(int32_t width, int32_t height) :
     survival_mode(false),
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
+    max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
     survival_mode_multiplier(1),
     current_id(0) {}
 
@@ -21,6 +22,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     survival_mode(gameMode == GameMode::SURVIVAL),
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
+    max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
     survival_mode_multiplier(1),
     current_id(0) {}
 
@@ -155,10 +157,11 @@ void Game::survivalUpdate() {
     this->makeInfectedStronger();
     survival_mode_multiplier *= CONFIG.survival_mode_accumulator;
     max_common_infected_per_spawn *= CONFIG.survival_mode_accumulator;
+    max_spear_infected_per_spawn *= CONFIG.survival_mode_accumulator;
 }
 
 void Game::spawnCommonInfected(int ammount) {
-    for (int i = 0; i < ammount; i ++) {
+    for (int i = 0; i < ammount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
         if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
@@ -167,6 +170,19 @@ void Game::spawnCommonInfected(int ammount) {
             Entity* infected = new CommonInfected(current_id, x, y);
             this->addEntity(infected);
         }
+    }
+}
+
+void Game::spawnSpearInfected(int ammount) {
+    for (int i = 0; i < ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.spear_infected_radius, x, y)) {
+            //id is not a problem (race condition) since there is no 
+            //other thread calling for addEntity in the game update
+            Entity* infected = new SpearInfected(current_id, x, y);
+            this->addEntity(infected);
+        }   
     }
 }
 
@@ -181,7 +197,9 @@ bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
 }
 
 void Game::spawnInfected() {
+    //this could be done with a factory pattern
     this->spawnCommonInfected(rand() % this->max_common_infected_per_spawn + 1);
+    this->spawnSpearInfected(rand() % this->max_spear_infected_per_spawn + 1);
 }
 
 void Game::makeInfectedStronger() {
