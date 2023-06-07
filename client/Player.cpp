@@ -82,10 +82,16 @@ void Player::update(float dt, Entity *entity) {
 
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end()) {
-        if (current_animation == AN_DIE && it_current->second->amountPlayed() == 1)
-            it_current->second->update(0);
+        if (current_animation == AN_DIE)
+            if (it_current->second->amountPlayed() == 0)
+                it_current->second->update(dt, 3);
+            else
+                it_current->second->update(0, 0);
+        
+        else if (current_animation == AN_IDLE)
+            it_current->second->update(dt, 5);
         else
-            it_current->second->update(dt);
+            it_current->second->update(dt, 1);
     }
 }
 

@@ -19,7 +19,8 @@
 Animation::Animation(const std::shared_ptr<SdlTexture> texture) : texture(texture), currentFrame(0),
                                                   numFrames(this->texture->getWidth() / this->texture->getHeight()),
                                                   size(this->texture->getHeight()), elapsed(0.0f),
-                                                  amountAnimationsMade(0) {
+                                                  amountAnimationsMade(0),
+                                                  x(0) {
     assert(this->numFrames > 0);
     assert(this->size > 0);
 }
@@ -31,11 +32,15 @@ bool Animation::amountPlayed() {
 }
 
 
-void Animation::update(float dt) {
+void Animation::update(float dt, int speed) { //if you want dramatic death --> speed is high
+//la animacion mas rapida es con speed = 1
     this->elapsed += dt;
     /* checks if the frame should be updated based on the time elapsed since the last update */
     while (this->elapsed > FRAME_RATE) {
-        this->advanceFrame();
+        if (x % speed == 0) {
+            this->advanceFrame();
+        }
+        x++;
         this->elapsed -= FRAME_RATE;
     }
     if (currentFrame+1 == numFrames)

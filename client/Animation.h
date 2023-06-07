@@ -11,7 +11,7 @@
 #include <memory>
 #include "SdlException.h"
 
-#define FRAME_RATE 1000000.0f/25.0f
+#define FRAME_RATE 60//1000000.0f/25.0f
 
 class SdlTexture;
 class Area;
@@ -20,7 +20,7 @@ class Animation {
    public:
     Animation(const std::shared_ptr<SdlTexture>texture);
     ~Animation();
-    void update(float dt);
+    void update(float dt, int speed);
     void render(const Area& dst, const SDL_RendererFlip &flipType);
     bool amountPlayed();
 
@@ -39,6 +39,7 @@ class Animation {
     float elapsed;
     /** The number of times the animation was showed*/
     int amountAnimationsMade;
+    int x;
 };
 
 #endif  //__ANIMATION_H__

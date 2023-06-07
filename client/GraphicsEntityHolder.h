@@ -16,7 +16,7 @@ public:
 
     std::shared_ptr<Player> getMainPlayer();
     void get_new_coordenates_center(int32_t *x, int32_t *y);
-    void update_x(int32_t delta_x); 
+    void update_x(int32_t x); 
 
     void update(float& dt, GameState *gs);
     void render();

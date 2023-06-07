@@ -26,8 +26,8 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
         
     //else 
     //
-    int delta_x = x_camera - x_old_camera; // y el signo que onda
-    ge_holder.update_x(delta_x);  
+        int delta_x = x_old_camera - x_camera; // y el signo que onda
+        ge_holder.update_x(delta_x);  
 
     //std::cout << "x of camera is " << x << std::endl;
 

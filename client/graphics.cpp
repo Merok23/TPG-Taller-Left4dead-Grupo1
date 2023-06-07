@@ -1,12 +1,16 @@
 #include "graphics.h"
+#include <cmath>
 
-bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Queue<GameState*> &game_states, SdlWindow &window) {
-    // bool running = handleEvents(gr_entity_holder, queue_comandos);
-    // update(gr_entity_holder, FRAME_RATE, game_states);
-    // render(window, gr_entity_holder, camera);
-    // return running;
+bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states, SdlWindow &window) {
+    int delta_its = it - this->last_it;
 
-    return false; //por ahora
+    bool running = handleEvents(gr_entity_holder, queue_comandos);
+    usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
+    update(gr_entity_holder, FRAME_RATE * delta_its, game_states);
+    render(window, gr_entity_holder, camera);
+
+    last_it = it;
+    return running;
 }
 
 void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
@@ -18,40 +22,41 @@ void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameSt
         GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
 
         //Gameloop - handle event, update game, render new screen
-        bool running = true;
-        while (running) {
-            running = handleEvents(gr_entity_holder, queue_comandos);
-            update(gr_entity_holder, FRAME_RATE, game_states);
-            render(window, gr_entity_holder, camera);
 
-            usleep(FRAME_RATE);
-        }
+        //bool running = true;
+        // while (running) {
+        //     running = handleEvents(gr_entity_holder, queue_comandos);
+        //     update(gr_entity_holder, FRAME_RATE, game_states);
+        //     render(window, gr_entity_holder, camera);
 
-        /* Reemplazaria el game loop
-        // current date/time based on current system
+        //     usleep(FRAME_RATE);
+        // }
+
         time_t t1 = time(0);
         int it = 0;
         int rest = 0;
+        this->last_it = 0;
 
         bool running = true;
         while (running) {
-            running = game_loop(it, gr_entity_holder, game_states, window);
+            running = game_loop(it, gr_entity_holder, camera, queue_comandos, game_states, window);
             
             time_t t2 = time(0);
             rest = FRAME_RATE - (t2-t1);
             if (rest < 0) {
                 int behind = -rest; //always positive
-                rest = rate - behind % rate;
+                rest = FRAME_RATE - behind % FRAME_RATE;
                 int lost = behind + rest;
                 t1 += lost;
-                it += int(lost // rate); //floor division
+                it += floor(lost/FRAME_RATE); //int(lost // FRAME_RATE); //floor division
             }
-        }
 
-        usleep(rest);
-        t1 += FRAME_RATE;
-        it += 1;
-        */
+            usleep(rest);
+            t1 += FRAME_RATE;
+            it += 1;
+        }
+        
+
 
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;

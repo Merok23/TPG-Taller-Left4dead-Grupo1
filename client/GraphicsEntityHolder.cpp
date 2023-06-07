@@ -127,7 +127,14 @@ void GraphicsEntityHolder::update(float& dt, GameState *gs) {
 }
 
 void GraphicsEntityHolder::render() {
-    for (const auto& pair : entities) {
+    //ordenar entities por y --> los que esten mas arriba (aka atras) son los dibujo primero
+    //ordenamiento cresciente
+
+    //creo una lista ordenada por y ascendientemente
+    //aprovecho y filtro objetos que no dibujo y objetos que si --> segun la pos de la camara
+    //y costados
+    //METO EN LA LISTA SOLAMENTE LOS ELEMENTOS QUE ESTAN EN MI WINDOW_WIDTH + POQUITO MAS
+    for (const auto& pair : entities) { //GraphicsEntity
         if (!pair.second->is_dead())
             pair.second->render();
         
