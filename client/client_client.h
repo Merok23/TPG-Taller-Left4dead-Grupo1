@@ -29,7 +29,7 @@ class Client {
     ClientProtocol protocol;
     Graphics graphics;
     Queue<command_t> queue_comandos; 
-    Queue<GameState*> game_states;
+    Queue<std::shared_ptr<GameState>> game_states;
     SendThread* send_thread;
     ReceiveThread* receive_thread;
 
