@@ -23,18 +23,13 @@ void Client::run() {
     while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        std::string word1, word2, word3, word4;
+        std::string word1, word2, word3;
         iss >> word1;
         if (word1 == "create") {
             iss >> word2; 
             if (word2 == "room") {
-                iss >> word3 >> word4;
-                // if (word4 != "Survival") {
-                //     std::cout << "No se ingreso el survival para el modo de juego. Empeza de nuevo" << std::endl;
-                //     continue;
-                // }
-                    
-                protocol.sendCommand(command.createRoom(word3, word4));
+                iss >> word3;
+                protocol.sendCommand(command.createRoom(word3, GameMode::SURVIVAL));
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;

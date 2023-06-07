@@ -5,12 +5,13 @@
 
 #include "server_protocol.h"
 
-#define CREATE 0x01
-#define JOIN 0x02
-#define ADD_PLAYER 0x03
-#define MOVE 0x04
-#define SHOOT_COMMAND 0x05
-#define RELOAD_COMMAND 0x06
+
+#define CREATE_ROOM_COMMAND 0x01
+#define JOIN_ROOM_COMMAND 0x02
+#define ADD_PLAYER_COMMAND 0x03
+#define MOVE_PLAYER_COMMAND 0x04
+#define SHOOT_PLAYER_COMMAND 0x05
+#define RELOAD_PLAYER_COMMAND 0x06
 
 ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -65,13 +66,13 @@ Action* ServerProtocol::receiveAction() {
     socket.recvall(&command, sizeof(uint8_t), &was_closed);
     if (was_closed) return NULL; 
     Action* action = NULL;
-    if (command == MOVE) {
+    if (command == MOVE_PLAYER_COMMAND) {
         action = receiveMoving();
-    } else if (command == ADD_PLAYER) {
+    } else if (command == ADD_PLAYER_COMMAND) {
         action = receiveAddPlayer();
-    } else if (command == SHOOT_COMMAND) {
+    } else if (command == SHOOT_PLAYER_COMMAND) {
         action = receiveShooting();
-    } else if (command == RELOAD_COMMAND) {
+    } else if (command == RELOAD_PLAYER_COMMAND) {
         action = receiveReloading();
     }
     return action;
@@ -112,15 +113,22 @@ command_t ServerProtocol::receiveCommand() {
     uint8_t command;
     socket.recvall(&command, sizeof(uint8_t), &was_closed);
     command_t return_command = command_t(); 
-    if (command == CREATE) {
+    if (command == CREATE_ROOM_COMMAND) {
         return_command.type = CREATE_ROOM;
         return_command.room_name = receiveString();
-        return_command.game_mode = receiveString();
-    } else if (command == JOIN) {
+        uint8_t game_mode;
+        socket.recvall(&game_mode, sizeof(uint8_t), &was_closed);
+        return_command.game_mode = intToGameMode(game_mode);
+    } else if (command == JOIN_ROOM_COMMAND) {
         return_command.type = JOIN_ROOM;
         return_command.room_id = receieveUnsignedInteger();
     }
     return return_command;
+}
+
+GameMode ServerProtocol::intToGameMode(uint8_t game_mode) {
+    if (game_mode == 1) return GameMode::SURVIVAL;
+    return GameMode::CLEAR_THE_ZONE;
 }
 
 // --------------------------------- FUNCIONES DE ENVIAR ACCIONES ---------------------------------//
@@ -137,13 +145,6 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         if (was_closed) return;
 
         sendString(entity.second->getEntityType());
-        if (was_closed) return;
-
-        if (entity.second->getEntityType() == "player") {
-            Player* player = dynamic_cast<Player*>(entity.second);
-            sendString(player->getWeaponType());
-            sendInteger(player->getAmmoLeft());
-        }
         if (was_closed) return;
 
         sendInteger(entity.second->getHitPoints());
@@ -164,6 +165,15 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         uint8_t isFacingUp = (entity.second->getDirectionOfMovement()->isMovingUp());
         socket.sendall(&isFacingUp, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
+        
+        if (entity.second->getEntityType() == "player") {
+            Player* player = dynamic_cast<Player*>(entity.second);
+            sendString(player->getWeaponType());
+            sendInteger(player->getAmmoLeft());
+            uint8_t lives = player->getLives();
+            socket.sendall(&lives, sizeof(uint8_t), &was_closed);
+        }
+        
     }
 }
 

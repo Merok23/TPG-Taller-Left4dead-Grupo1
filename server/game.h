@@ -18,12 +18,8 @@
 #include "entity_infected.h"
 #include "entity_player.h"
 #include "entity_infected_common.h"
+#include "server_enum.h"
 
-
-enum GameMode {
-    SURVIVAL,
-    CLEAR_THE_ZONE 
-};
 
 class Game {
     private: 

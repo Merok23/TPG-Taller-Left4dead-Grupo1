@@ -3,22 +3,14 @@
 #include <cstdint>
 #include <functional>
 #include <string>
-
-
-enum State {
-    IDLE,
-    RUN,
-    SHOOT,
-    RELOAD, 
-    DIE,
-    ATTACKING
-};
+#include "client_enum.h"
 
 class Entity {
     private:
         uint32_t id;
-        std::string type;
-        std::string weapon_type; //para la textura
+        EntityType type;
+        uint8_t lives;
+        WeaponType weapon_type; //para la textura
         int32_t ammo_left; //para la cantidad de balas
         int32_t hit_points;
         int32_t x_position;
@@ -33,14 +25,20 @@ class Entity {
         State state;
 
 
-        Entity(uint32_t id, const std::string& type, State state, const std::string& weapon_type, int32_t ammo_left,  int32_t hit_points, 
+        Entity(uint32_t id, EntityType type, State state, uint8_t lives, WeaponType weapon_type, int32_t ammo_left,  int32_t hit_points, 
+            uint32_t x, uint32_t y, bool facing_left, bool moving_up);
+        Entity(uint32_t id, EntityType type, State state,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         uint32_t getId();
         int32_t getHitPoints();
         std::string getType(); 
-        std::string getWeaponType();
+        EntityType getEntityType();
+        WeaponType getWeaponType();
+        std::string getWeapon();
         int32_t getAmmoLeft();
-        std::string getState();
+        std::string getStateEnum();
+        State getState();
+        uint8_t getLives();
         int32_t getPositionX();
         int32_t getPositionY();
         bool isFacingLeft();

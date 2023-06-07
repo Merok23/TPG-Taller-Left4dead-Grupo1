@@ -23,9 +23,9 @@ typedef struct COMMANDS {
     COMMANDS_TYPE type;
     std::string room_name;
     uint32_t room_id;
-    std::string game_mode;
+    GameMode game_mode;
     COMMANDS() : 
-        type(DEFAULT), room_name(""), room_id(0), game_mode("Survival") {}
+        type(DEFAULT), room_name(""), room_id(0), game_mode(GameMode::SURVIVAL) {}
 } command_t;
 
 
@@ -44,6 +44,7 @@ class ServerProtocol {
     Action* receiveShooting();
     Action* receiveReloading();
     Action* receiveAddPlayer();
+    GameMode intToGameMode(uint8_t game_mode);
 
 
     public:
