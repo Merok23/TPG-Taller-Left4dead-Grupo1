@@ -40,16 +40,16 @@ class ServerProtocol {
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
     std::string receiveString();
-    Action* receiveMoving();
-    Action* receiveShooting();
-    Action* receiveReloading();
-    Action* receiveAddPlayer();
+    std::shared_ptr<Action> receiveMoving();
+    std::shared_ptr<Action> receiveShooting();
+    std::shared_ptr<Action> receiveReloading();
+    std::shared_ptr<Action> receiveAddPlayer();
     GameMode intToGameMode(uint8_t game_mode);
 
 
     public:
     explicit ServerProtocol(Socket socket);
-    Action* receiveAction();
+    std::shared_ptr<Action> receiveAction();
     command_t receiveCommand();
     void sendRoomId(uint32_t room_id);
     void sendJoinResponse(bool accepted);

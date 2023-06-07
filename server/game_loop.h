@@ -14,7 +14,7 @@
 
 class GameLoop : public Thread {
     private:
-    Queue<Action*> game_queue;
+    Queue<std::shared_ptr<Action>> game_queue;
     Game game;
     IdHandler id_handler; 
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
@@ -24,7 +24,7 @@ class GameLoop : public Thread {
 
     public:
     explicit GameLoop(GameMode gameMode);
-    Queue<Action*>& getQueue();
+    Queue<std::shared_ptr<Action>>& getQueue();
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     virtual void run() override;

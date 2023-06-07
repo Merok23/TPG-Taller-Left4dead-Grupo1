@@ -14,7 +14,7 @@ GameLoop::GameLoop(GameMode gameMode) :
     client_id(0), 
     mutex() {}
 
-Queue<Action*>& GameLoop::getQueue() {
+Queue<std::shared_ptr<Action>>& GameLoop::getQueue() {
     return game_queue;
 }
 
@@ -36,11 +36,10 @@ void GameLoop::deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& que
 
 void GameLoop::run() {
     const int iterationsPerSecond = 20;
-    Action* action = nullptr;
+    std::shared_ptr<Action> action = nullptr;
     while (!finished) {
         while (game_queue.try_pop(action)) {
             action->execute(id_handler);
-            delete action;
         /*std::shared_ptr<GameStateForClient> game_state = game.update();
             for (auto& player_queue : player_queues) {
                 player_queue.second->push(game_state);

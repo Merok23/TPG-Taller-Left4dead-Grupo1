@@ -61,12 +61,12 @@ void ServerProtocol::sendInteger(int32_t number) {
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
 // --------------------------------- FUNCIONES DE RECIBIR ACCIONES ---------------------------------//
-Action* ServerProtocol::receiveAction() {
+std::shared_ptr<Action> ServerProtocol::receiveAction() {
     uint8_t command;
     int recv_bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
     if (was_closed && recv_bytes == 0) return NULL; 
     if (was_closed && recv_bytes != 0) throw LibError(errno, "Socket was closed while receiving action. Errno:");
-    Action* action = NULL;
+    std::shared_ptr<Action> action = NULL;
     if (command == MOVE_PLAYER_COMMAND) {
         action = receiveMoving();
     } else if (command == ADD_PLAYER_COMMAND) {
@@ -78,7 +78,7 @@ Action* ServerProtocol::receiveAction() {
     }
     return action;
 }
-Action *ServerProtocol::receiveMoving() {
+ std::shared_ptr<Action> ServerProtocol::receiveMoving() {
     int8_t position_x, position_y;
     socket.recvall(&position_x, sizeof(uint8_t), &was_closed);
     if (was_closed) throw LibError(errno, "Socket was closed while receiving position. Errno: ");
@@ -86,29 +86,34 @@ Action *ServerProtocol::receiveMoving() {
     if (was_closed) throw LibError(errno, "Socket was closed while receiving position. Errno: ");;
 
     std::array<int8_t, 2> positionArray = {position_x, position_y};
-    return new Moving(positionArray); 
+    std::shared_ptr<Action> action = std::make_shared<Moving>(positionArray);
+    return action;
 }
 
-Action* ServerProtocol::receiveAddPlayer() {
+std::shared_ptr<Action>  ServerProtocol::receiveAddPlayer() {
     std::string weapon = receiveString();
+    std::shared_ptr<Action> action = nullptr; 
     if (was_closed) throw LibError(errno, "Socket was closed while receiving weapon. Errno: ");
-    if (weapon == "idf") return new CreateSoldierIdf();
-    else if (weapon == "p90") return new CreateSoldierP90();
-    return new CreateSoldierScout();
+    if (weapon == "idf") action = std::make_shared<CreateSoldierIdf>();
+    else if (weapon == "scout") action = std::make_shared<CreateSoldierScout>();
+    else if (weapon == "p90") action = std::make_shared<CreateSoldierP90>();
+    return action;
 }
 
-Action *ServerProtocol::receiveShooting() {
+std::shared_ptr<Action> ServerProtocol::receiveShooting() {
     uint8_t shooting;
     socket.recvall(&shooting, sizeof(uint8_t), &was_closed);
     if (was_closed) throw LibError(errno, "Socket was closed while receiving shooting. Errno: ");
-    return new Shooting((bool)shooting);
+    std::shared_ptr<Action> action = std::make_shared<Shooting>((bool)shooting);
+    return action;
 }
 
-Action *ServerProtocol::receiveReloading() {
+std::shared_ptr<Action> ServerProtocol::receiveReloading() {
     uint8_t reloading;
     socket.recvall(&reloading, sizeof(uint8_t), &was_closed);
     if (was_closed) throw LibError(errno, "Socket was closed while receiving reloading. Errno: ");
-    return new Reloading((bool)reloading);
+    std::shared_ptr<Action> action = std::make_shared<Reloading>((bool)reloading);
+    return action; 
 }
 command_t ServerProtocol::receiveCommand() {
     uint8_t command;
