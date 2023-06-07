@@ -21,6 +21,12 @@
 #include "entity_infected_spear.h"
 #include "server_enum.h"
 
+enum Cheat {
+    INFINITE_HITPOINTS,
+    SPAWN_COMMON_INFECTED,
+    SPAWN_SPEAR_INFECTED
+};
+
 
 class Game {
     private: 
