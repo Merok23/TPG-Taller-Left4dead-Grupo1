@@ -26,8 +26,8 @@ add_library(common_objects OBJECT ${COMMON_SRCS})
 
 add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS})
 target_link_libraries(client_executable PRIVATE Threads::Threads)
-target_link_libraries(client_executable PRIVATE SDL2)
 target_link_libraries(client_executable PRIVATE SDL2_image)
+target_link_libraries(client_executable PRIVATE SDL2)
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
 target_link_libraries(server_executable PRIVATE Threads::Threads)

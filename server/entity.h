@@ -30,6 +30,7 @@ class Entity {
         void setDamageForTheRound(int32_t damage);
         void resetDamageForTheRound();
         Movement* getDirectionOfMovement();
+        void resolveDamage();
         virtual std::string getEntityType() = 0; 
         //seguramente no sea necesario que sea virtual e = 0
         //pero lo dejo por ahora para aprender un poco de herencia.

@@ -7,13 +7,13 @@
 TEST_CASE("Player test, player moves 10 units", "[player]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun(); 
-    Entity* player = new Player(1, 5, 5, weapon);
+    Entity* player = new Player(1, 0, CONFIG.soldier_radius, weapon);
     game.addEntity(player);
     game.setMoving(1, 1, 1);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[1]->getDirectionOfMovement()->getX() == 5 + (1 * CONFIG.soldier_speed));
-    REQUIRE(entities[1]->getDirectionOfMovement()->getY() == 5 + (1 * CONFIG.soldier_speed));
+    REQUIRE(entities[1]->getDirectionOfMovement()->getX() == (1 * CONFIG.soldier_speed));
+    REQUIRE(entities[1]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius + (1 * CONFIG.soldier_speed));
 }
 
 TEST_CASE("Player test, tries to move through other player and can't", "[player]") {
