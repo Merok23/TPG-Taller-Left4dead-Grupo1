@@ -28,6 +28,7 @@ class Infected : public Entity {
         virtual std::string getState() override;
         bool isInRange(Entity* entity, const int32_t &range);
         virtual ~Infected() override;
+        std::map<uint32_t, Entity*> filterDeadSoldiers(const std::map<uint32_t, Entity*> &soldiers);
     private:
         bool checkForBorderCaseRange(const int32_t &soldier_x,const int32_t &infected_x,const int32_t &range);
 };

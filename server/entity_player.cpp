@@ -9,15 +9,14 @@
 // la vida debe leerse de un config.
 // el radio deberia leerse de un cofig.
 Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weapon) : 
-    Entity(id, CONFIG.soldier_health, positionX, positionY, CONFIG.soldier_radius), 
+    Entity(id, CONFIG.soldier_health, positionX, positionY, CONFIG.soldier_radius),
+    state(IDLE_SOLDIER), 
     my_weapon(weapon),
     incapacitated(0),
-    reload_cooldown(CONFIG.soldier_reload_cooldown) {
-    this->state = IDLE_SOLDIER;
-    this->lives = 4;
-    this->revival_countdown = 0;
-    this->time_until_dead = 0;
-}
+    reload_cooldown(CONFIG.soldier_reload_cooldown),
+    revival_countdown(0),
+    time_until_dead(0),
+    lives(CONFIG.soldier_lives) {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {

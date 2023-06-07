@@ -9,6 +9,7 @@ struct config {
     int soldier_time_to_revive;
     int soldier_max_time_until_dead;
     int soldier_max_distance_to_revive;
+    int soldier_lives;
     int infected_health;
     int infected_speed;
     int infected_radius;

@@ -6,8 +6,9 @@ const struct config CONFIG {
     25, // soldier_radius
     20, // soldier_reload_cooldown
     15, // soldier time_to_revive
-    9, // soldier max_time_to_revive
+    1000, // soldier_max_time_until_dead
     3, // soldier distance_to_revive
+    4, // soldier_lives
     80, // infected_health
     10, // infected_speed
     25, // infected_radius
