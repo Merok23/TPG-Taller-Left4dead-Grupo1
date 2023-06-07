@@ -22,7 +22,7 @@ class GameHandler {
         Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id, GameMode game_mode);
     bool joinRoom(uint32_t room_id, 
         Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
-    Queue<Action*>& getQueue(uint32_t room_id);
+    Queue<std::shared_ptr<Action>>& getQueue(uint32_t room_id);
     uint32_t getClientId();
     void leaveRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>&);
     ~GameHandler();

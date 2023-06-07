@@ -18,7 +18,7 @@ uint32_t GameHandler::createRoom(const std::string& room_name,
     return room_id;
 }
 
-Queue<Action*>& GameHandler::getQueue(uint32_t room_id) {
+Queue<std::shared_ptr<Action>>& GameHandler::getQueue(uint32_t room_id) {
     std::lock_guard<std::mutex> lock(mutex);
     auto it = rooms.find(room_id);
     return it->second->getQueue();

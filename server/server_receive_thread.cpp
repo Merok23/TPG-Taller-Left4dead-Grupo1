@@ -54,10 +54,10 @@ void ReceiveThread::receiveCommand() {
 
 void ReceiveThread::receiveGameActions() {
     if (!start_playing) return;
-    Queue<Action*>& game_queue = game_handler.getQueue(room_id);
+    Queue<std::shared_ptr<Action>>& game_queue = game_handler.getQueue(room_id);
     while (!finished) {
         try {
-            Action* action = protocol.receiveAction();
+            std::shared_ptr<Action> action = protocol.receiveAction();
             if (finished) break;
             if (protocol.isFinished()) {
                 std::cout << "Client id: " << client_id << " was disconnected" << std::endl;
