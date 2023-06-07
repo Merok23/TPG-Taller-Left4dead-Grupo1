@@ -188,6 +188,11 @@ GameState* ClientProtocol::receiveGameState() {
             Entity* entity  = new Entity(id, entity_type, state_enum, hit_point,  
             position_x, position_y, is_facing_left, is_moving_up);
             entities[id] = entity;
+        } else if (type == "spear") {
+            EntityType entity_type = SPEAR;
+            Entity* entity  = new Entity(id, entity_type, state_enum, hit_point,  
+            position_x, position_y, is_facing_left, is_moving_up);
+            entities[id] = entity;
         }
         entities_len--; 
     }
