@@ -78,10 +78,7 @@ void Player::update(Map& map) {
 }
 
 void Player::resolveDamage() {
-    int32_t hit_points = this->getHitPoints();
-    hit_points -= this->getDamageForTheRound();
-    this->setHitPoints(hit_points);
-    this->resetDamageForTheRound();
+    Entity::resolveDamage();
 }
 
 bool Player::isDead() {

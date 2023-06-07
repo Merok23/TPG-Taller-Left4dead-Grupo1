@@ -1,24 +1,23 @@
-#ifndef SERVER_ENTITY_INFECTED_COMMON_H
-#define SERVER_ENTITY_INFECTED_COMMON_H
+#ifndef SERVER_ENTITY_INFECTED_SPEAR_H
+#define SERVER_ENTITY_INFECTED_SPEAR_H
+
+#include "entity_infected.h"
+#include "config.h"
 
 #include <algorithm>
 #include <map>
 #include <utility>
 
-#include "entity_infected.h"
-#include "config.h"
-
-enum CommonInfectedState {
-    IDLE_INFECTED,
-    MOVING_INFECTED,
-    DEAD_INFECTED,
-    ATTACKING_INFECTED
+enum SpearInfectedState {
+    IDLE_SPEAR_INFECTED,
+    MOVING_SPEAR_INFECTED,
+    DEAD_SPEAR_INFECTED,
+    ATTACKING_SPEAR_INFECTED
 };
 
-
-class CommonInfected : public Infected {
+class SpearInfected : public Infected {
     private:
-        CommonInfectedState state;
+        SpearInfectedState state;
         int32_t look_range;
         int32_t attack_range;
         int32_t attack_cooldown;
@@ -26,7 +25,7 @@ class CommonInfected : public Infected {
         int32_t incapacitated;
         int32_t speed;
     public:
-        CommonInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
+        SpearInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
         virtual void move(int32_t x_movement, int32_t y_movement) override;
         virtual void update(Map& map) override;
         virtual void checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, 
@@ -35,7 +34,7 @@ class CommonInfected : public Infected {
         virtual void makeStronger(double factor) override;
         virtual bool isDead() override;
         virtual std::string getState() override; 
-        virtual std::string getEntityType() override;   
+        virtual std::string getEntityType() override;
     private:
         void setChase(Entity* entity);
 };

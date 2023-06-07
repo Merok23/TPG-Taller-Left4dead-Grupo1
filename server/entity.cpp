@@ -20,6 +20,11 @@ void Entity::resetDamageForTheRound() {
     this->damage_for_the_round = 0;
 }
 
+void Entity::resolveDamage() {
+    this->hit_points -= this->damage_for_the_round;
+    this->damage_for_the_round = 0;
+}
+
 int32_t Entity::getHitPoints() {
     return this->hit_points;
 }

@@ -82,12 +82,14 @@ TEST_CASE("Shooting test, soldier doesn't shoot friendlies", "[shooting]") {
 }
 
 TEST_CASE("Shooting test, soldier shoots infected and doesn't damage friendly unit", "[shooting]") {
-    Game game(100, 100);
+    Game game(CONFIG.scenario_height, CONFIG.scenario_width);
     Weapon* weapon = new MachineGun(); 
     Weapon* weapon2 = new MachineGun(); 
-    Entity* player = new Player(1, 5, 5, weapon);
-    Entity* player2 = new Player(2, 20, 5, weapon2);
-    Entity* infected = new CommonInfected(3, 30, 5);
+    //they were so closed that the infected attacked the soldier with id 1
+    Entity* player = new Player(1, 0, CONFIG.soldier_radius, weapon);
+    Entity* player2 = new Player(2, CONFIG.soldier_radius * 2, CONFIG.soldier_radius, weapon2);
+    int radius_summ = CONFIG.soldier_radius + CONFIG.common_infected_radius;
+    Entity* infected = new CommonInfected(3, radius_summ * 2, CONFIG.soldier_radius);
     game.addEntity(player);
     game.addEntity(player2);
     game.addEntity(infected);

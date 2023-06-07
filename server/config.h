@@ -18,6 +18,13 @@ struct config {
     int common_infected_damage;
     int common_infected_attack_cooldown;
     int common_infected_radius;
+    int spear_infected_health;
+    int spear_infected_speed;
+    int spear_infected_radius;
+    int spear_infected_look_range;
+    int spear_infected_attack_range;
+    int spear_infected_attack_cooldown;
+    int spear_infected_damage;
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.
     int scenario_width;

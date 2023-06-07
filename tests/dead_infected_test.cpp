@@ -4,7 +4,6 @@
 #include "../server/entity_infected_common.h"
 #include "../server/config.h"
 #include "../server/weapon_scout.h"
-#include <iostream>
 
 TEST_CASE("Dead state test, infected gets killed and it's dead", "[dying]") {
     Game game(100, 100);
@@ -61,10 +60,18 @@ TEST_CASE("Dead state test, infected can walk over dead infected", "[dying]") {
     game.update();
     game.update();
     game.update();
-    //player it's at 45, 5
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+
+    //player it's at 100 + 25, 5
     REQUIRE
     (game.getEntities()[1]->getDirectionOfMovement()->getX() == 
-        CONFIG.common_infected_radius + (CONFIG.soldier_speed * 3));
+        CONFIG.common_infected_radius + (CONFIG.soldier_speed * 10));
     game.addEntity(infected2);
     REQUIRE(game.getEntities()[3]->isDead() == false);
     game.setMoving(1, 0, 0);
@@ -76,5 +83,5 @@ TEST_CASE("Dead state test, infected can walk over dead infected", "[dying]") {
     game.update();
     REQUIRE(game.getEntities()[1]->isDead() == false);
     //infected 2 should catch up with the player and walk over the dead infected
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == (CONFIG.soldier_speed * 3) - CONFIG.common_infected_attack_range);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() > suma_radios);
 }

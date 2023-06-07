@@ -24,4 +24,28 @@ std::string Infected::getState() {
     return "";
 }
 
+bool Infected::isInRange(Entity* entity, const int32_t &range) {
+    bool in_range = false;
+    int32_t soldier_x = entity->getDirectionOfMovement()->getX();
+    int32_t infected_x = this->getDirectionOfMovement()->getX();
+    //careful, this can return false, so if you have to add 
+    //other condition before this, check for if (!is_in_range)
+    in_range = checkForBorderCaseRange(soldier_x, infected_x, range);
+    int32_t distance = 
+        this->getDirectionOfMovement()->calculateDistance(*entity->getDirectionOfMovement());
+    if (distance <= range) in_range = true;
+    return (in_range);
+}
+
+bool Infected::checkForBorderCaseRange(const int32_t &soldier_x,const int32_t &infected_x,const int32_t &range) {
+    //soldier is on the end of the map and infected on the start
+    if (soldier_x + range > CONFIG.scenario_width) {
+        return ((soldier_x - infected_x - CONFIG.scenario_width) 
+            < range);
+    }
+    //infected is on the end of the map and soldier on the start
+    return (((soldier_x + CONFIG.scenario_width - infected_x) < range) 
+        && (infected_x + range > CONFIG.scenario_width));
+}
+
 Infected::~Infected() {}
