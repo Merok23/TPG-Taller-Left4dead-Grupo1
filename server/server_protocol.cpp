@@ -38,6 +38,7 @@ std::string ServerProtocol::receiveString() {
     socket.recvall(string.data(), len, &was_closed);
     return std::string(string.begin(), string.end());
 }
+
 // --------------------------------- FUNCIONES DE ENVIAR BYTES ---------------------------------//
 
 void ServerProtocol::sendUnsignedInteger(uint32_t number) {
@@ -56,7 +57,13 @@ void ServerProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
+
+void ServerProtocol::sendBool(const bool &boolean) {
+    socket.sendall(&boolean, sizeof(uint8_t), &was_closed);
+}
+
 // --------------------------------- FUNCIONES DE RECIBIR ACCIONES ---------------------------------//
+
 std::shared_ptr<Action> ServerProtocol::receiveAction() {
     uint8_t command;
     int recv_bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
@@ -169,6 +176,7 @@ GameMode ServerProtocol::intToGameMode(uint8_t game_mode) {
 // --------------------------------- FUNCIONES DE ENVIAR ACCIONES ---------------------------------//
 
 void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
+    this->sendFinishConditions(game_state->isGameOver(), game_state->didPlayersWin());
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     sendUnsignedInteger(entities.size());
     if (was_closed) throw LibError(errno, "Socket was closed while sending entities size. Errno: ");
@@ -191,12 +199,10 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendInteger(entity.second->getDirectionOfMovement()->getY());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement y. Errno: ");
 
-        uint8_t isFacingLeft = (entity.second->getDirectionOfMovement()->isFacingLeft());
-        socket.sendall(&isFacingLeft, sizeof(uint8_t), &was_closed);
+        this->sendBool(entity.second->getDirectionOfMovement()->isFacingLeft());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement facing left. Errno: ");
 
-        uint8_t isFacingUp = (entity.second->getDirectionOfMovement()->isMovingUp());
-        socket.sendall(&isFacingUp, sizeof(uint8_t), &was_closed);
+        this->sendBool(entity.second->getDirectionOfMovement()->isMovingUp());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement facing up. Errno: ");
         
         if (entity.second->getEntityType() == "player") {
@@ -214,6 +220,12 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
     }
 }
 
+void ServerProtocol::sendFinishConditions(const bool &game_over, const bool &players_won) {
+    this->sendBool(game_over);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending game over condition. Errno: ");
+    this->sendBool(players_won);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending players won condition. Errno: ");
+}
 
 void ServerProtocol::sendRoomId(uint32_t room_id) {
     sendUnsignedInteger(room_id);

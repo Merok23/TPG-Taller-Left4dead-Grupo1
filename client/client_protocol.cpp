@@ -185,6 +185,7 @@ bool ClientProtocol::receiveJoinResponse() {
 }
 
 std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
+    // RECEIVE FINISH CONDITIONS FOR THE GAME (two booleans)
     std::map<uint32_t, std::shared_ptr<Entity>> entities;
     uint32_t bytes, entities_len;
     bytes = socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);

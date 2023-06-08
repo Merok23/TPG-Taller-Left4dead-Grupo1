@@ -31,10 +31,10 @@ uint32_t GameStateForClient::getHeight() {
     return this->height;
 }
 
-bool GameStateForClient::isGameOver() {
+bool& GameStateForClient::isGameOver() {
     return this->game_over;
 }
 
-bool GameStateForClient::didPlayersWin() {
+bool& GameStateForClient::didPlayersWin() {
     return this->players_won;
 }

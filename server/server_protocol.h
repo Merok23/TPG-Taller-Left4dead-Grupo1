@@ -16,6 +16,7 @@
 #include "action_cheat_spawn_common_infected.h"
 #include "action_cheat_kill_all_infected.h"
 
+
 enum COMMANDS_TYPE {
     DEFAULT,
     CREATE_ROOM,
@@ -41,6 +42,8 @@ class ServerProtocol {
     void sendString(const std::string& string);
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
+    void sendBool(const bool& boolean);
+    void sendFinishConditions(const bool &game_finished, const bool &game_won);
     std::string receiveString();
     std::shared_ptr<Action> receiveMoving();
     std::shared_ptr<Action> receiveShooting();

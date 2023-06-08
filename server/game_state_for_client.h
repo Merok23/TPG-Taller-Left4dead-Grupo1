@@ -20,6 +20,6 @@ class GameStateForClient {
         std::map<uint32_t, Entity*>& getEntities();
         uint32_t getWidth();
         uint32_t getHeight();
-        bool isGameOver();
-        bool didPlayersWin();
+        bool& isGameOver();
+        bool& didPlayersWin();
 };
