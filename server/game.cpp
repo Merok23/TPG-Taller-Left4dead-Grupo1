@@ -6,6 +6,8 @@ Game::Game(int32_t width, int32_t height) :
     infected(),
     soldiers(),
     shooting_soldiers(),
+    clear_the_zone(false),
+    clear_the_zone_max_infected(CONFIG.clear_the_zone_infected_total),
     survival_mode(false),
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
@@ -19,6 +21,8 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     infected(),
     soldiers(),
     shooting_soldiers(),
+    clear_the_zone(gameMode == GameMode::CLEAR_THE_ZONE),
+    clear_the_zone_max_infected(CONFIG.clear_the_zone_infected_total),
     survival_mode(gameMode == GameMode::SURVIVAL),
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
@@ -70,13 +74,33 @@ void Game::setReloading(const uint32_t &id) {
     player->setReload();
 }
 
+void Game::setCheat(const uint32_t &id, const Cheat &cheat) {
+    switch (cheat) {
+        case Cheat::INFINITE_HITPOINTS:
+            this->entities[id]->setHitPoints(CONFIG.cheat_infinite_hitpoints);
+            break;
+        case Cheat::SPAWN_COMMON_INFECTED:
+            this->spawnInfectedCheat(id);
+            break;
+    }
+}
+
+void Game::spawnInfectedCheat(const uint32_t &id) {
+    Movement* soldier_mov = this->entities[id]->getDirectionOfMovement();
+    uint32_t x = soldier_mov->getX();
+    x += CONFIG.soldier_radius + CONFIG.common_infected_radius + 1;
+    uint32_t y = soldier_mov->getY();
+    uint32_t radius = CONFIG.common_infected_radius;
+    if (gameMap.checkForCollisionInPosition(x, y, radius)) return;
+    Entity* infected = new CommonInfected(this->current_id, x, y);
+    this->addEntity(infected);
+}
 
 void Game::stopShooting(const uint32_t &id) {
     Player *player = dynamic_cast<Player*>(this->entities[id]);
     player->stopShooting();
     this->shooting_soldiers.remove(id);
 }
-
 
 std::vector<HitEntity> Game::setUpHitEntities(const std::vector<VectorWrapper>& entities_hit) {
     std::vector<HitEntity> entities_hit_for_entity;
@@ -95,6 +119,7 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 
 std::shared_ptr<GameStateForClient> Game::update() {
     if (this->survival_mode) survivalUpdate();
+    if (this->clear_the_zone) setTheZone();
     this->checkForRevivingSoldiers();
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
@@ -147,6 +172,15 @@ void Game::infectedCheckForSoldiersInRange() {
             infected->checkForSoldiersInRangeAndSetChase(this->soldiers);
         }
     }
+}
+
+void Game::setTheZone() {
+    this->clear_the_zone = false;
+    this->spawnCommonInfected(CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpearInfected(CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
+    //this->spawnWitchInfected(CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
+    //this->spawnJumperInfected(CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
+    //this->spawnVenomInfected(CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
 }
 
 void Game::survivalUpdate() {

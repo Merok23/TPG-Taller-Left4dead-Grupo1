@@ -46,8 +46,15 @@ const struct config CONFIG {
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
     0.1, // weapon_scout_damage_falloff
+    2147483647, // cheat_infinite_hitpoints
     500, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
-    1.1 //survival_mode_accumulator
+    1.1, //survival_mode_accumulator
+    10, //clear_the_zone_infected_total
+    0.7, //common_infected_zone_percentage
+    0.3, //spear_infected_zone_percentage
+    0, //witch_infected_zone_percentage
+    0, //jumper_infected_zone_percentage
+    0 //venom_infected_zone_percentage
 };

@@ -23,8 +23,7 @@
 
 enum Cheat {
     INFINITE_HITPOINTS,
-    SPAWN_COMMON_INFECTED,
-    SPAWN_SPEAR_INFECTED
+    SPAWN_COMMON_INFECTED
 };
 
 
@@ -43,6 +42,8 @@ class Game {
          * the solution is changing it to a map.
         */
         std::list<uint32_t> shooting_soldiers;
+        bool clear_the_zone;
+        int clear_the_zone_max_infected;
         bool survival_mode;
         int survival_mode_counter;
         int max_common_infected_per_spawn;
@@ -59,6 +60,7 @@ class Game {
         void setShooting(const uint32_t& id);
         void stopShooting(const uint32_t& id);
         void setReloading(const uint32_t& id);
+        void setCheat(const uint32_t& id, const Cheat& cheat);
         std::map<uint32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
         void infectedCheckForSoldiersInRange();
@@ -77,7 +79,9 @@ class Game {
         void spawnInfected();
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
+        void spawnInfectedCheat(const uint32_t& id);
         bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
+        void setTheZone();
 };
 #endif 
