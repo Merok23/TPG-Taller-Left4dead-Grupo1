@@ -15,6 +15,7 @@
 #define RELOAD_PLAYER_COMMAND 0x06
 #define CHEAT_INFINITE_HITPOINTS_COMMAND 0x07
 #define CHEAT_SPAWN_COMMON_INFECTED_COMMAND 0x08
+#define CHEAT_KILL_ALL_INFECTED_COMMAND 0x09
 
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -69,6 +70,10 @@ void ClientProtocol::sendCommand(command_t command) {
             sendCheatSpawnCommonInfected();
             break;
         }
+        case (Commands::CHEAT_KILL_ALL_INFECTED): {
+            sendCheatKillAllInfected();
+            break;
+        }
     }
     /*
     if (command.type == Commands::CREATE_ROOM) 
@@ -96,6 +101,12 @@ void ClientProtocol::sendCheatSpawnCommonInfected() {
     uint8_t action = CHEAT_SPAWN_COMMON_INFECTED_COMMAND;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if (was_closed) throw LibError(errno, "Socket was closed while sending cheat spawn common infected. Errno: ");
+}
+
+void ClientProtocol::sendCheatKillAllInfected() {
+    uint8_t action = CHEAT_KILL_ALL_INFECTED_COMMAND;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat kill all infected. Errno: ");
 }
 
 void ClientProtocol::sendCreateRoom(const std::string& room_name, uint8_t game_mode) {

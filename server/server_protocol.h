@@ -14,6 +14,7 @@
 #include "action_create_soldier_scout.h"
 #include "action_cheat_infinite_hp.h"
 #include "action_cheat_spawn_common_infected.h"
+#include "action_cheat_kill_all_infected.h"
 
 enum COMMANDS_TYPE {
     DEFAULT,

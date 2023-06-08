@@ -14,6 +14,7 @@
 #define RELOAD_PLAYER_COMMAND 0x06
 #define CHEAT_INFINITE_HITPOINTS_COMMAND 0x07
 #define CHEAT_SPAWN_COMMON_INFECTED_COMMAND 0x08
+#define CHEAT_KILL_ALL_INFECTED_COMMAND 0x09
 
 ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
@@ -80,6 +81,9 @@ std::shared_ptr<Action> ServerProtocol::receiveAction() {
             break;
         case CHEAT_SPAWN_COMMON_INFECTED_COMMAND:
             action = std::make_shared<SpawnCommonInfectedCheat>();
+            break;
+        case CHEAT_KILL_ALL_INFECTED_COMMAND:
+            action = std::make_shared<KillAllInfectedCheat>();
             break;
         default:
             break;

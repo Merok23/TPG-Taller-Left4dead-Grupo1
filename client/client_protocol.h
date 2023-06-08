@@ -95,6 +95,7 @@ class ClientProtocol {
     void sendReloading(int reloading);
     void sendCheatInfiniteHitpoints();
     void sendCheatSpawnCommonInfected();
+    void sendCheatKillAllInfected();
     State stringToState(const std::string& state);
     WeaponType stringToWeapon(const std::string& weapon);
     
