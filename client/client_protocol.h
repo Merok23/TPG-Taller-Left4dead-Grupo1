@@ -62,6 +62,18 @@ struct COMMANDS {
         command.reloading = reload;
         return command;
     }
+
+    command_t cheatInfiniteHitpoints() {
+        command_t command;
+        command.type = CHEAT_INFINITE_HITPOINTS;
+        return command;
+    }
+
+    command_t cheatSpawnCommonInfected() {
+        command_t command;
+        command.type = CHEAT_SPAWN_COMMON_INFECTED;
+        return command;
+    }
 };
 
 class ClientProtocol {
@@ -72,7 +84,6 @@ class ClientProtocol {
     uint32_t receieveUnsignedInteger();
     std::string receiveString();
     int32_t receiveInteger();
-    void sendInteger(int32_t number);
     void sendUnsignedInteger(uint32_t number);
     uint8_t receiveUnsignedSmallInteger();
     void sendString(const std::string& string);
@@ -82,6 +93,8 @@ class ClientProtocol {
     void sendAddPlayer(const std::string& weapon);
     void sendShooting(int shooting);
     void sendReloading(int reloading);
+    void sendCheatInfiniteHitpoints();
+    void sendCheatSpawnCommonInfected();
     State stringToState(const std::string& state);
     WeaponType stringToWeapon(const std::string& weapon);
     

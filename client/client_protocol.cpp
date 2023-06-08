@@ -13,15 +13,13 @@
 #define MOVE_PLAYER_COMMAND 0x04
 #define SHOOT_PLAYER_COMMAND 0x05
 #define RELOAD_PLAYER_COMMAND 0x06
+#define CHEAT_INFINITE_HITPOINTS_COMMAND 0x07
+#define CHEAT_SPAWN_COMMON_INFECTED_COMMAND 0x08
 
 ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }   
 //--------------------------------- FUNCIONES DE ENVIAR BYTES ---------------------------------//
-void ClientProtocol::sendInteger(int32_t number) {
-    int32_t number_to_send = htonl(number);
-    socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
-}
 
 void ClientProtocol::sendString(const std::string& string) {
     uint32_t len = string.length();
@@ -38,6 +36,41 @@ void ClientProtocol::sendUnsignedInteger(uint32_t number) {
 
 //--------------------------------- FUNCIONES DE ENVIAR COMMANDOS PRIVADAS ---------------------------------//
 void ClientProtocol::sendCommand(command_t command) {
+    switch (command.type) {
+        case (Commands::CREATE_ROOM): {
+            sendCreateRoom(command.room_name, command.game_mode);
+            break;
+        }
+        case (Commands::JOIN_ROOM): {
+            sendJoinRoom(command.room_id);
+            break;
+        }
+        case (Commands::ADD_PLAYER): {
+            sendAddPlayer(command.weapon);
+            break;
+        }
+        case (Commands::MOVE_PLAYER): {
+            sendMoving(command.moving_x, command.moving_y);
+            break;
+        }
+        case (Commands::SHOOT_PLAYER): {
+            sendShooting(command.shooting);
+            break;
+        }
+        case (Commands::RELOAD_PLAYER): {
+            sendReloading(command.reloading);
+            break;
+        }
+        case (Commands::CHEAT_INFINITE_HITPOINTS): {
+            sendCheatInfiniteHitpoints();
+            break;
+        }
+        case (Commands::CHEAT_SPAWN_COMMON_INFECTED): {
+            sendCheatSpawnCommonInfected();
+            break;
+        }
+    }
+    /*
     if (command.type == Commands::CREATE_ROOM) 
         sendCreateRoom(command.room_name, command.game_mode); 
     else if (command.type == Commands::JOIN_ROOM) 
@@ -50,6 +83,19 @@ void ClientProtocol::sendCommand(command_t command) {
         sendShooting(command.shooting);
     else if (command.type == Commands::RELOAD_PLAYER)
         sendReloading(command.reloading);
+    */
+}
+
+void ClientProtocol::sendCheatInfiniteHitpoints() {
+    uint8_t action = CHEAT_INFINITE_HITPOINTS_COMMAND;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat infinite hitpoints. Errno: ");
+}
+
+void ClientProtocol::sendCheatSpawnCommonInfected() {
+    uint8_t action = CHEAT_SPAWN_COMMON_INFECTED_COMMAND;
+    socket.sendall(&action, sizeof(uint8_t), &was_closed);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat spawn common infected. Errno: ");
 }
 
 void ClientProtocol::sendCreateRoom(const std::string& room_name, uint8_t game_mode) {

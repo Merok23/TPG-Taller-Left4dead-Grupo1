@@ -75,7 +75,9 @@ class Game {
         void checkForShooting();
         void checkForInfectedAttack();
         //unique ptr so we don't copy the vector more than once
-        std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
+        //std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
+        //For some reason unique ptr version doesn't compile even we have the C++17 standard (preguntar)
+        std::vector<HitEntity> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
         void survivalUpdate();
         void spawnInfected();
         void spawnCommonInfected(int ammount);
