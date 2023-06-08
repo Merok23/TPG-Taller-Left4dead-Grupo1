@@ -74,5 +74,13 @@ add_custom_target(clean_target
 )
 
 add_custom_target(all_target
-  DEPENDS client_executable server_executable
+  DEPENDS client_executable server_executable tests_executable
+)
+
+add_custom_target(server_tests_target
+  DEPENDS server_executable tests_executable
+)
+
+add_custom_target(tests
+  DEPENDS tests_executable
 )

@@ -23,7 +23,8 @@
 
 enum Cheat {
     INFINITE_HITPOINTS,
-    SPAWN_COMMON_INFECTED
+    SPAWN_COMMON_INFECTED,
+    KILL_ALL_INFECTED
 };
 
 
@@ -43,6 +44,7 @@ class Game {
         */
         std::list<uint32_t> shooting_soldiers;
         bool clear_the_zone;
+        bool zone_is_set;
         int clear_the_zone_max_infected;
         bool survival_mode;
         int survival_mode_counter;
@@ -50,6 +52,9 @@ class Game {
         int max_spear_infected_per_spawn;
         double survival_mode_multiplier;
         uint32_t current_id;
+        bool game_started;
+        bool game_over;
+        bool players_won;
         
     public:
         explicit Game(int32_t width, int32_t height);
@@ -74,6 +79,8 @@ class Game {
         void updateAllEntities();
         void checkForShooting();
         void checkForInfectedAttack();
+        void checkForGameOver();
+        bool checkForPartyWipe();
         //unique ptr so we don't copy the vector more than once
         //std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
         //For some reason unique ptr version doesn't compile even we have the C++17 standard (preguntar)
@@ -83,6 +90,7 @@ class Game {
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
         void spawnInfectedCheat(const uint32_t& id);
+        void killAllInfectedCheat();
         bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
         void setTheZone();

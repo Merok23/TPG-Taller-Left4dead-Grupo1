@@ -65,3 +65,15 @@ TEST_CASE("Cheat test, player can't spawn an infected because there is something
     REQUIRE(game.getEntities().size() == 2);
     REQUIRE(game.getEntities()[1]->getHitPoints() == CONFIG.infected_health);
 }
+
+TEST_CASE("Cheat test, kill all infected kills all the infected", "[cheats]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::CLEAR_THE_ZONE);
+    //we wait for the game to add the zombies:
+    game.update();
+    game.setCheat(0, Cheat::KILL_ALL_INFECTED);
+    std::shared_ptr<GameStateForClient> game_state = game.update();
+    std::map<uint32_t, Entity*> entities = game_state->getEntities();
+    for (auto infected : entities) {
+        REQUIRE(infected.second->isDead() == true);
+    }
+}
