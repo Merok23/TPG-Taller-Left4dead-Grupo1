@@ -39,7 +39,7 @@ void Player::recharge() {
  * Notar que el manejo de eventos y la actualización de modelo ocurren en momentos distintos.
  * Esto les va a resultar muy util en un juego multiplaforma. 
  */
-void Player::update(float dt, Entity *entity) {
+void Player::update(float dt, std::shared_ptr<Entity> entity) {
     if (entity) {
         switch (entity->state)
         {

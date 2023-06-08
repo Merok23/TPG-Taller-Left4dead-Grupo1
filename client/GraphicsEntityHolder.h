@@ -11,19 +11,19 @@
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(GameState *gs, TexturesHolder textures_holder, SdlWindow &window);
+    GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder textures_holder, SdlWindow &window);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
     void get_new_coordenates_center(int32_t *x, int32_t *y);
     void update_x(int32_t x); 
 
-    void update(float& dt, GameState *gs);
+    void update(float& dt, std::shared_ptr<GameState> gs);
     void render();
     
 
 private:
-    std::shared_ptr<Player> add_player(Entity *entity);
+    std::shared_ptr<Player> add_player(std::shared_ptr<Entity> entity);
     
     SdlWindow &window;
     TexturesHolder textures_holder;
