@@ -12,19 +12,14 @@
 #define MOVE_PLAYER_COMMAND 0x04
 #define SHOOT_PLAYER_COMMAND 0x05
 #define RELOAD_PLAYER_COMMAND 0x06
+#define CHEAT_INFINITE_HITPOINTS_COMMAND 0x07
+#define CHEAT_SPAWN_COMMON_INFECTED_COMMAND 0x08
 
 ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }
 
 // --------------------------------- FUNCIONES DE RECIBIR BYTES ---------------------------------//
-int32_t ServerProtocol::receiveInteger() {
-    int32_t number;
-    socket.recvall(&number, sizeof(int32_t), &was_closed);
-    number = ntohl(number);
-    return number;
-}
-
 
 uint32_t ServerProtocol::receieveUnsignedInteger() {
     uint32_t number;
@@ -67,6 +62,29 @@ std::shared_ptr<Action> ServerProtocol::receiveAction() {
     if (was_closed && recv_bytes == 0) return NULL; 
     if (was_closed && recv_bytes != 0) throw LibError(errno, "Socket was closed while receiving action. Errno:");
     std::shared_ptr<Action> action = NULL;
+    switch (command) {
+        case ADD_PLAYER_COMMAND:
+            action = receiveAddPlayer();
+            break;
+        case MOVE_PLAYER_COMMAND:
+            action = receiveMoving();
+            break;
+        case SHOOT_PLAYER_COMMAND:
+            action = receiveShooting();
+            break;
+        case RELOAD_PLAYER_COMMAND:
+            action = receiveReloading();
+            break;
+        case CHEAT_INFINITE_HITPOINTS_COMMAND:
+            action = std::make_shared<SetInfiniteHitpointsCheat>();
+            break;
+        case CHEAT_SPAWN_COMMON_INFECTED_COMMAND:
+            action = std::make_shared<SpawnCommonInfectedCheat>();
+            break;
+        default:
+            break;
+    }
+/*
     if (command == MOVE_PLAYER_COMMAND) {
         action = receiveMoving();
     } else if (command == ADD_PLAYER_COMMAND) {
@@ -76,6 +94,7 @@ std::shared_ptr<Action> ServerProtocol::receiveAction() {
     } else if (command == RELOAD_PLAYER_COMMAND) {
         action = receiveReloading();
     }
+*/
     return action;
 }
  std::shared_ptr<Action> ServerProtocol::receiveMoving() {
@@ -115,6 +134,7 @@ std::shared_ptr<Action> ServerProtocol::receiveReloading() {
     std::shared_ptr<Action> action = std::make_shared<Reloading>((bool)reloading);
     return action; 
 }
+
 command_t ServerProtocol::receiveCommand() {
     uint8_t command;
     uint8_t bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
