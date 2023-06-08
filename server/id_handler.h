@@ -19,5 +19,6 @@ class IdHandler {
         //SHOOTING IS NOT FULLY IMPLEMENTED YET
         void shoot(uint32_t client_id, bool isShooting);
         void reload(uint32_t client_id, bool isReloading);
+        void setCheat(uint32_t client_id, Cheat cheatType);
 };
 #endif

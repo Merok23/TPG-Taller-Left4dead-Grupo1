@@ -24,3 +24,8 @@ void IdHandler::reload(uint32_t client_id, bool isReloading) {
     uint32_t id = my_ids[client_id];
     game.setReloading(id);
 }
+
+void IdHandler::setCheat(uint32_t client_id, Cheat cheatType) {
+    uint32_t id = my_ids[client_id];
+    game.setCheat(id, cheatType);
+}

@@ -10,7 +10,7 @@ struct config {
     int soldier_max_time_until_dead;
     int soldier_max_distance_to_revive;
     int soldier_lives;
-    int infected_health;
+    int infected_health; //this is health is only for the common infected!
     int infected_speed;
     int infected_radius;
     int common_infected_range; //this is the range for chasing
@@ -47,10 +47,18 @@ struct config {
     int weapon_scout_magazine_size; 
     double weapon_scout_distance_modifier; 
     double weapon_scout_damage_falloff;
+    int cheat_infinite_hitpoints;
     int survival_mode_timer;
     int survival_mode_max_common_infected;
     int survival_mode_max_spear_infected;
     double survival_mode_accumulator; //rate of spawn + stat multiplier
+    double survival_mode_starting_multiplier;
+    int clear_the_zone_infected_total;
+    double common_infected_zone_percentage; //these should always sum 1.0
+    double spear_infected_zone_percentage;
+    double witch_infected_zone_percentage;
+    double jumper_infected_zone_percentage;
+    double venom_infected_zone_percentage;
 };
 
 

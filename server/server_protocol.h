@@ -12,6 +12,10 @@
 #include "action_create_soldier_idf.h"
 #include "action_create_soldier_p90.h"
 #include "action_create_soldier_scout.h"
+#include "action_cheat_infinite_hp.h"
+#include "action_cheat_spawn_common_infected.h"
+#include "action_cheat_kill_all_infected.h"
+
 
 enum COMMANDS_TYPE {
     DEFAULT,
@@ -34,11 +38,12 @@ class ServerProtocol {
     Socket socket; 
     bool was_closed; 
 
-    int32_t receiveInteger();
     void sendInteger(int32_t number);
     void sendString(const std::string& string);
     uint32_t receieveUnsignedInteger();
     void sendUnsignedInteger(uint32_t number);
+    void sendBool(const bool& boolean);
+    void sendFinishConditions(const bool &game_finished, const bool &game_won);
     std::string receiveString();
     std::shared_ptr<Action> receiveMoving();
     std::shared_ptr<Action> receiveShooting();

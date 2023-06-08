@@ -12,19 +12,15 @@
 #define MOVE_PLAYER_COMMAND 0x04
 #define SHOOT_PLAYER_COMMAND 0x05
 #define RELOAD_PLAYER_COMMAND 0x06
+#define CHEAT_INFINITE_HITPOINTS_COMMAND 0x07
+#define CHEAT_SPAWN_COMMON_INFECTED_COMMAND 0x08
+#define CHEAT_KILL_ALL_INFECTED_COMMAND 0x09
 
 ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_closed(false) {
     return; 
 }
 
 // --------------------------------- FUNCIONES DE RECIBIR BYTES ---------------------------------//
-int32_t ServerProtocol::receiveInteger() {
-    int32_t number;
-    socket.recvall(&number, sizeof(int32_t), &was_closed);
-    number = ntohl(number);
-    return number;
-}
-
 
 uint32_t ServerProtocol::receieveUnsignedInteger() {
     uint32_t number;
@@ -42,6 +38,7 @@ std::string ServerProtocol::receiveString() {
     socket.recvall(string.data(), len, &was_closed);
     return std::string(string.begin(), string.end());
 }
+
 // --------------------------------- FUNCIONES DE ENVIAR BYTES ---------------------------------//
 
 void ServerProtocol::sendUnsignedInteger(uint32_t number) {
@@ -60,13 +57,45 @@ void ServerProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
 }
+
+void ServerProtocol::sendBool(const bool &boolean) {
+    socket.sendall(&boolean, sizeof(uint8_t), &was_closed);
+}
+
 // --------------------------------- FUNCIONES DE RECIBIR ACCIONES ---------------------------------//
+
 std::shared_ptr<Action> ServerProtocol::receiveAction() {
     uint8_t command;
     int recv_bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
     if (was_closed && recv_bytes == 0) return NULL; 
     if (was_closed && recv_bytes != 0) throw LibError(errno, "Socket was closed while receiving action. Errno:");
     std::shared_ptr<Action> action = NULL;
+    switch (command) {
+        case ADD_PLAYER_COMMAND:
+            action = receiveAddPlayer();
+            break;
+        case MOVE_PLAYER_COMMAND:
+            action = receiveMoving();
+            break;
+        case SHOOT_PLAYER_COMMAND:
+            action = receiveShooting();
+            break;
+        case RELOAD_PLAYER_COMMAND:
+            action = receiveReloading();
+            break;
+        case CHEAT_INFINITE_HITPOINTS_COMMAND:
+            action = std::make_shared<SetInfiniteHitpointsCheat>();
+            break;
+        case CHEAT_SPAWN_COMMON_INFECTED_COMMAND:
+            action = std::make_shared<SpawnCommonInfectedCheat>();
+            break;
+        case CHEAT_KILL_ALL_INFECTED_COMMAND:
+            action = std::make_shared<KillAllInfectedCheat>();
+            break;
+        default:
+            break;
+    }
+/*
     if (command == MOVE_PLAYER_COMMAND) {
         action = receiveMoving();
     } else if (command == ADD_PLAYER_COMMAND) {
@@ -76,6 +105,7 @@ std::shared_ptr<Action> ServerProtocol::receiveAction() {
     } else if (command == RELOAD_PLAYER_COMMAND) {
         action = receiveReloading();
     }
+*/
     return action;
 }
  std::shared_ptr<Action> ServerProtocol::receiveMoving() {
@@ -115,6 +145,7 @@ std::shared_ptr<Action> ServerProtocol::receiveReloading() {
     std::shared_ptr<Action> action = std::make_shared<Reloading>((bool)reloading);
     return action; 
 }
+
 command_t ServerProtocol::receiveCommand() {
     uint8_t command;
     uint8_t bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
@@ -145,6 +176,7 @@ GameMode ServerProtocol::intToGameMode(uint8_t game_mode) {
 // --------------------------------- FUNCIONES DE ENVIAR ACCIONES ---------------------------------//
 
 void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_state) {
+    this->sendFinishConditions(game_state->isGameOver(), game_state->didPlayersWin());
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     sendUnsignedInteger(entities.size());
     if (was_closed) throw LibError(errno, "Socket was closed while sending entities size. Errno: ");
@@ -167,12 +199,10 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendInteger(entity.second->getDirectionOfMovement()->getY());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement y. Errno: ");
 
-        uint8_t isFacingLeft = (entity.second->getDirectionOfMovement()->isFacingLeft());
-        socket.sendall(&isFacingLeft, sizeof(uint8_t), &was_closed);
+        this->sendBool(entity.second->getDirectionOfMovement()->isFacingLeft());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement facing left. Errno: ");
 
-        uint8_t isFacingUp = (entity.second->getDirectionOfMovement()->isMovingUp());
-        socket.sendall(&isFacingUp, sizeof(uint8_t), &was_closed);
+        this->sendBool(entity.second->getDirectionOfMovement()->isMovingUp());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement facing up. Errno: ");
         
         if (entity.second->getEntityType() == "player") {
@@ -190,6 +220,12 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
     }
 }
 
+void ServerProtocol::sendFinishConditions(const bool &game_over, const bool &players_won) {
+    this->sendBool(game_over);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending game over condition. Errno: ");
+    this->sendBool(players_won);
+    if (was_closed) throw LibError(errno, "Socket was closed while sending players won condition. Errno: ");
+}
 
 void ServerProtocol::sendRoomId(uint32_t room_id) {
     sendUnsignedInteger(room_id);

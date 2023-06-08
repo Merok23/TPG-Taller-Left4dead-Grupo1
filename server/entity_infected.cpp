@@ -57,4 +57,8 @@ bool Infected::checkForBorderCaseRange(const int32_t &soldier_x,const int32_t &i
         && (infected_x + range > CONFIG.scenario_width));
 }
 
+void Infected::killCheat() {
+    this->setDamageForTheRound(CONFIG.cheat_infinite_hitpoints);
+}
+
 Infected::~Infected() {}

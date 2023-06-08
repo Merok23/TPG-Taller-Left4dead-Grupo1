@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
 project(Left4Dead_Taller_TPG)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L")
 
 find_package(Threads REQUIRED)
@@ -72,5 +74,13 @@ add_custom_target(clean_target
 )
 
 add_custom_target(all_target
-  DEPENDS client_executable server_executable
+  DEPENDS client_executable server_executable tests_executable
+)
+
+add_custom_target(server_tests_target
+  DEPENDS server_executable tests_executable
+)
+
+add_custom_target(tests
+  DEPENDS tests_executable
 )
