@@ -47,7 +47,7 @@ TEST_CASE("Finish conditions test, Clear The Zone is won by the players", "[game
     REQUIRE(game_state->didPlayersWin() == true);
 }
 
-TEST_CASE("Player gets killed in survival and game is over", "[game_finish]") {
+TEST_CASE("Player gets killed in Survival and game is over", "[game_finish]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
     Weapon* weapon = new MachineGun();
     Entity* player = new Player(0, 0, CONFIG.soldier_radius, weapon);
@@ -61,6 +61,25 @@ TEST_CASE("Player gets killed in survival and game is over", "[game_finish]") {
 
     game.update();
     REQUIRE(game.getEntities()[0]->isDead() == true);
+    std::shared_ptr<GameStateForClient> game_state = game.update();
+    REQUIRE(game_state->isGameOver() == true);
+    REQUIRE(game_state->didPlayersWin() == false);
+}
+
+TEST_CASE("Player gets killed in Clear The Zone and game is over", "[game_finish]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::CLEAR_THE_ZONE);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(game.getCurrentId(), 0, CONFIG.soldier_radius, weapon);
+    game.addEntity(player);
+    Entity* infected = new CommonInfected(game.getCurrentId(), CONFIG.common_infected_attack_range, CONFIG.soldier_radius);
+    game.addEntity(infected);
+    //we wait for the soldier to be mauled to death, this time can vary depending
+    //on the infected that spawn.
+    int attacks_needed = ceil(CONFIG.soldier_health / CONFIG.common_infected_damage);
+    for (int i = 0; i < attacks_needed * CONFIG.common_infected_attack_cooldown + CONFIG.soldier_max_time_until_dead; i++) game.update();
+
+    game.update();
+    REQUIRE(game.getEntities()[player->getId()]->isDead() == true);
     std::shared_ptr<GameStateForClient> game_state = game.update();
     REQUIRE(game_state->isGameOver() == true);
     REQUIRE(game_state->didPlayersWin() == false);
