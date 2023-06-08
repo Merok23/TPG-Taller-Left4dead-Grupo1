@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include <cmath>
 
-bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states, SdlWindow &window) {
+bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
     int delta_its = it - this->last_it;
 
     bool running = handleEvents(gr_entity_holder, queue_comandos);
@@ -13,7 +13,7 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
     return running;
 }
 
-void Graphics::run(GameState *gs, Queue<command_t> &queue_comandos, Queue<GameState*> &game_states){
+void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
     try {
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
         Camera camera(window);
@@ -179,8 +179,8 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
-void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<GameState*> &game_states) {
-    GameState* gs = NULL;
+void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states) {
+    std::shared_ptr<GameState> gs = NULL;
     while (game_states.try_pop(gs));
     gr_entity_holder.update(dt, gs);
 }

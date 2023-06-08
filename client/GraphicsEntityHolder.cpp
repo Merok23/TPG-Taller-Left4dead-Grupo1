@@ -1,7 +1,7 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-GraphicsEntityHolder::GraphicsEntityHolder(GameState *gs,  TexturesHolder textures_holder, SdlWindow &window) :
+GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs,  TexturesHolder textures_holder, SdlWindow &window) :
     window(window), textures_holder(std::move(textures_holder))
 {
         for (auto& pair : gs->entities) {
@@ -63,7 +63,7 @@ void GraphicsEntityHolder::update_x(int32_t delta_x) {
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
+std::shared_ptr<Player> GraphicsEntityHolder::add_player(std::shared_ptr<Entity> entity) {
     if (entity->getType() == "player") {
             std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
         if (entity->getWeaponType() == "scout")
@@ -99,7 +99,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity *entity) {
     return NULL;
 }
 
-void GraphicsEntityHolder::update(float& dt, GameState *gs) {
+void GraphicsEntityHolder::update(float& dt, std::shared_ptr<GameState> gs) {
     for (const auto &pair : this->entities) {
         uint32_t this_id = pair.second->getId();
         
