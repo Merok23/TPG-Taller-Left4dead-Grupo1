@@ -1,8 +1,9 @@
 #include "game_state.h"
 #include <string>
 #include <iostream>
+#include <memory>
 
-GameState::GameState(const std::map<uint32_t, Entity*>& entities) : entities(entities) {}
+GameState::GameState(const std::map<uint32_t, std::shared_ptr<Entity>>& entities) : entities(entities) {}
 
 void GameState::print() {
     for (auto&& id_entity : this->entities) {
@@ -20,7 +21,4 @@ void GameState::print() {
 }
 
 GameState::~GameState() {
-    for (auto&& id_entity : this->entities) {
-        delete id_entity.second;
-    }
 }

@@ -94,6 +94,6 @@ class ClientProtocol {
     uint32_t receiveRoomId();
     bool receiveJoinResponse();
 
-    GameState* receiveGameState();
+    std::shared_ptr<GameState> receiveGameState();
 };
 #endif

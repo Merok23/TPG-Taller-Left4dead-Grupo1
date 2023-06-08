@@ -4,9 +4,9 @@
 #include <map>
 class GameState {
     public:
-    std::map<uint32_t, Entity*> entities;
+    std::map<uint32_t, std::shared_ptr<Entity>> entities;
 
-    explicit GameState(const std::map<u_int32_t, Entity*>& entities);
+    explicit GameState(const std::map<u_int32_t, std::shared_ptr<Entity>>& entities);
     void print();
     ~GameState();
 }; 

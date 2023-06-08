@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sstream>
-#include <sys/types.h>
-#include <netinet/in.h>
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
@@ -136,7 +128,7 @@ bool ClientProtocol::receiveJoinResponse() {
 }
 
 std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
-    std::map<uint32_t, Entity*> entities;
+    std::map<uint32_t, std::shared_ptr<Entity>> entities;
     uint32_t bytes, entities_len;
     bytes = socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
     entities_len = ntohl(entities_len);
@@ -168,6 +160,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         bool is_moving_up = (bool)receiveUnsignedSmallInteger();
         if (was_closed) throw LibError(errno, "Socket was closed while receiving entity moving up. Errno: ");
         
+        std::shared_ptr<Entity> entity = nullptr;
         if (type == "player") {
             WeaponType weapon_type = stringToWeapon(receiveString());
             if (was_closed) throw LibError(errno, "Socket was closed while receiving entity weapon type. Errno: ");
@@ -179,21 +172,19 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             if (was_closed) throw LibError(errno, "Socket was closed while receiving entity lives. Errno: ");
 
             EntityType entity_type = SOLDIER;
-            Entity* entity  = new Entity(id, entity_type, state_enum, lives, weapon_type, ammo_left, hit_point,  
-                position_x, position_y, is_facing_left, is_moving_up);
-            entities[id] = entity;
+            entity = std::make_shared<Entity>(id, entity_type, state_enum, lives, weapon_type, ammo_left, 
+                hit_point, position_x, position_y, is_facing_left, is_moving_up);
 
         } else if (type == "common_infected") {
             EntityType entity_type = COMMON_INFECTED;
-            Entity* entity  = new Entity(id, entity_type, state_enum, hit_point,  
-            position_x, position_y, is_facing_left, is_moving_up);
-            entities[id] = entity;
+            entity = std::make_shared<Entity>(id, entity_type, state_enum, hit_point, position_x, position_y, 
+                is_facing_left, is_moving_up);
         } else if (type == "spear") {
             EntityType entity_type = SPEAR;
-            Entity* entity  = new Entity(id, entity_type, state_enum, hit_point,  
-            position_x, position_y, is_facing_left, is_moving_up);
-            entities[id] = entity;
+            entity = std::make_shared<Entity>(id, entity_type, state_enum, hit_point, position_x, position_y, 
+                is_facing_left, is_moving_up);
         }
+        entities[id] = entity;
         entities_len--; 
     }
     std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities);
@@ -206,7 +197,8 @@ State ClientProtocol::stringToState(const std::string& state) {
         { "shooting", SHOOT },
         { "reloading", RELOAD },
         { "dead", DIE },
-        { "idle", IDLE}
+        { "idle", IDLE},
+        { "attacking", ATTACKING}
     };
 
     auto it = stateMap.find(state);
