@@ -185,7 +185,10 @@ bool ClientProtocol::receiveJoinResponse() {
 }
 
 std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
-    // RECEIVE FINISH CONDITIONS FOR THE GAME (two booleans)
+    bool game_over = (bool)receiveUnsignedSmallInteger();
+    if (was_closed) throw LibError(errno, "Socket was closed while receiving game over. Errno: ");
+    bool players_won = (bool)receiveUnsignedSmallInteger();
+    if (was_closed) throw LibError(errno, "Socket was closed while receiving game won. Errno: ");
     std::map<uint32_t, std::shared_ptr<Entity>> entities;
     uint32_t bytes, entities_len;
     bytes = socket.recvall(&entities_len, sizeof(uint32_t), &was_closed);
@@ -245,7 +248,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         entities[id] = entity;
         entities_len--; 
     }
-    std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities);
+    std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities, game_over, players_won);
     return game_state;
 }
 
