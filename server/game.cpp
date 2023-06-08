@@ -59,9 +59,9 @@ void Game::shootingEntitiesShoot(const uint32_t &id) {
         return this->infected.find(entity_hit.getId()) == this->infected.end();
     }), entities_hit.end());
 
-    std::vector<HitEntity> entities_hit_for_entity = 
+    std::unique_ptr<std::vector<HitEntity>> entities_hit_for_entity = 
         setUpHitEntities(entities_hit);//(entity, distance)
-    this->entities[id]->shoot(entities_hit_for_entity);
+    this->entities[id]->shoot(*entities_hit_for_entity);
 }
 
 void Game::setShooting(const uint32_t &id) {
@@ -102,13 +102,13 @@ void Game::stopShooting(const uint32_t &id) {
     this->shooting_soldiers.remove(id);
 }
 
-std::vector<HitEntity> Game::setUpHitEntities(const std::vector<VectorWrapper>& entities_hit) {
-    std::vector<HitEntity> entities_hit_for_entity;
-    for (auto entity_hit : entities_hit) {
+std::unique_ptr<std::vector<HitEntity>> Game::setUpHitEntities(std::vector<VectorWrapper>& entities_hit) {
+    auto entities_hit_for_entity = std::make_unique<std::vector<HitEntity>>();
+    for (auto& entity_hit : entities_hit) {
         Entity* entity = this->entities[entity_hit.getId()];
         int32_t distance = entity_hit.getDistance();
         HitEntity hit_entity(entity, distance);
-        entities_hit_for_entity.push_back(hit_entity);
+        entities_hit_for_entity->push_back(hit_entity);
     }
     return entities_hit_for_entity;
 }

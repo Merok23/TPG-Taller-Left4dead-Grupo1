@@ -74,7 +74,8 @@ class Game {
         void updateAllEntities();
         void checkForShooting();
         void checkForInfectedAttack();
-        std::vector<HitEntity> setUpHitEntities(const std::vector<VectorWrapper>& entities_hit);
+        //unique ptr so we don't copy the vector more than once
+        std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
         void survivalUpdate();
         void spawnInfected();
         void spawnCommonInfected(int ammount);
