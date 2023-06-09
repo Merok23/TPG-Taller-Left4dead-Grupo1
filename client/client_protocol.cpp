@@ -109,14 +109,12 @@ void ClientProtocol::sendCheatKillAllInfected() {
     if (was_closed) throw LibError(errno, "Socket was closed while sending cheat kill all infected. Errno: ");
 }
 
-void ClientProtocol::sendCreateRoom(const std::string& room_name, uint8_t game_mode) {
+void ClientProtocol::sendCreateRoom(const std::string& room_name, GameMode game_mode) {
     uint8_t action = CREATE_ROOM_COMMAND;
-    std::cout << "Sending create room" << std::endl;
     socket.sendall(&action, sizeof(uint8_t), &was_closed);
     if(was_closed) throw LibError(errno, "Socket was closed while sending create room. Errno: ");
     sendString(room_name);
     if (was_closed) throw LibError(errno, "Socket was closed while sending room name. Errno: ");
-
     socket.sendall(&game_mode, sizeof(uint8_t), &was_closed);
     if (was_closed) throw LibError(errno, "Socket was closed while sending game mode. Errno: "); 
 }

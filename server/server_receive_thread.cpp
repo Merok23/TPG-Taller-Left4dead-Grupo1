@@ -37,7 +37,6 @@ void ReceiveThread::receiveCommand() {
                 break;
             } 
             if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
-                std::cout << "game mode: " << command.game_mode << std::endl;
                 room_id = game_handler.createRoom(command.room_name, client_queue, client_id, command.game_mode);
                 protocol.sendRoomId(room_id);
                 start_playing = true;

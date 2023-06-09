@@ -87,7 +87,7 @@ class ClientProtocol {
     void sendUnsignedInteger(uint32_t number);
     uint8_t receiveUnsignedSmallInteger();
     void sendString(const std::string& string);
-    void sendCreateRoom(const std::string& room_name, uint8_t game_mode);
+    void sendCreateRoom(const std::string& room_name, GameMode game_mode);
     void sendJoinRoom(int room_id);
     void sendMoving(int8_t moving_x, int8_t moving_y);
     void sendAddPlayer(const std::string& weapon);
