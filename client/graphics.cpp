@@ -61,14 +61,30 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     bool static moving_up= false;
     bool static moving_down = false;
     bool static shooting = false;
-    //bool static reloading = false;
     
     COMMANDS command;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN: {
+                const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
+                if (keyboardState[SDL_SCANCODE_LSHIFT] || keyboardState[SDL_SCANCODE_RSHIFT]) {
+                    if (keyboardState[SDL_SCANCODE_H]) {
+                        std::cout << "Cheat: max health" << std::endl;
+                        queue_comandos.push(command.cheatInfiniteHitpoints());
+                    }
+                    if (keyboardState[SDL_SCANCODE_Z]){
+                        std::cout << "Cheat: spwan new zombie" << std::endl;
+                        queue_comandos.push(command.cheatSpawnCommonInfected());
+                    }
+                    if (keyboardState[SDL_SCANCODE_C]){
+                        std::cout << "Cheat: clear zone of infected" << std::endl;
+                        //queue_comandos.push(command.cheatSpawnCommonInfected());
+                    }
+                }
+                
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
+                    
                     case SDLK_LEFT: {
                         if (!moving_left){
                             queue_comandos.push(command.setDirectionOfMovement(-1, 0));
@@ -133,8 +149,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         break;
                     }
                     case SDLK_r: {
-                            queue_comandos.push(command.setReloading(false));
-                        //}
+                        queue_comandos.push(command.setReloading(false));
                         break;
                     }
                 }
