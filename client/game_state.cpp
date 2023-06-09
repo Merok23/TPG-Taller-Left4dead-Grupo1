@@ -26,4 +26,7 @@ void GameState::print() {
 }
 
 GameState::~GameState() {
+    for (auto&& id_entity : this->entities) {
+        delete id_entity.second;
+    }
 }
