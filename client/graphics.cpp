@@ -186,6 +186,6 @@ bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<st
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
     camera.render(gr_entity_holder);
-    gr_entity_holder.render();
+    gr_entity_holder.render(camera.get_x_left(), camera.get_x_right());
     window.render();
 }

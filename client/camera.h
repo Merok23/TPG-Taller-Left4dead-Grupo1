@@ -11,12 +11,15 @@
 #define WINDOW_WIDTH (1920-400)
 #define WINDOW_HEIGTH (1080-200)
 
+#define EXTRA_SCREEN 200
+
 class Camera {
     public:
     Camera(SdlWindow &window);
 
-
     void render(GraphicsEntityHolder &ge_holder);
+    int get_x_left();
+    int get_x_right();
 
     private:
     SdlWindow &window;
