@@ -76,6 +76,10 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         std::cout << "Cheat: spwan new zombie" << std::endl;
                         queue_comandos.push(command.cheatSpawnCommonInfected());
                     }
+                    if (keyboardState[SDL_SCANCODE_C]){
+                        std::cout << "Cheat: clear zone of infected" << std::endl;
+                        //queue_comandos.push(command.cheatSpawnCommonInfected());
+                    }
                 }
                 
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
