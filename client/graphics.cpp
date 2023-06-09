@@ -71,7 +71,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: {
                         if (!moving_left){
-                            //std::string command("move -1 0");
                             queue_comandos.push(command.setDirectionOfMovement(-1, 0));
                             moving_left = true;
                         }
@@ -79,7 +78,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }  
                     case SDLK_RIGHT: {
                         if (!moving_right){
-                            //std::string command("move 1 0");
                             queue_comandos.push(command.setDirectionOfMovement(1, 0));
                             moving_right = true;
                         }
@@ -87,7 +85,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }
                     case SDLK_UP: {
                         if (!moving_up){
-                            //std::string command("move 0 -1");
                             queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_up = true;
                         }
@@ -95,7 +92,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }
                     case SDLK_DOWN: {
                         if (!moving_down){
-                            //std::string command("move 0 1");
                             queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_down = true;
                         }
@@ -108,21 +104,11 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         }
                         break;
                     }
-                        //gr_entity_holder.getMainPlayer()->shoot();
                         
                     case SDLK_r: {
-                        //if (!reloading) {
-                        //    std::cout << "Recibi un reload" << std::endl;
                             queue_comandos.push(command.setReloading(true));
-                        //    reloading = true;
-                        //}
                         break;
                     }
-                        // gr_entity_holder.getMainPlayer()->recharge();
-                        // break;
-                    case SDLK_h: //le "pegaron"
-                        gr_entity_holder.getMainPlayer()->hurt();
-                        break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
                 }
@@ -133,8 +119,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
                         if (moving_right || moving_left || moving_up || moving_down) {
-                            //std::string command("move 0 0");
-                            //queue_comandos.push(command);
                             queue_comandos.push(command.setDirectionOfMovement(0, 0));
 
                             moving_down = moving_left = moving_right = moving_up = false;
@@ -149,14 +133,10 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         break;
                     }
                     case SDLK_r: {
-                        //if (reloading) {
                             queue_comandos.push(command.setReloading(false));
-                        //    reloading = false;
                         //}
                         break;
                     }
-                        // gr_entity_holder.getMainPlayer()->stopShooting();
-                        // break;
                 }
             }
                 break; //FIN KEY_UP

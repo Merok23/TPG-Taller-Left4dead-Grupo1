@@ -15,16 +15,6 @@ public:
     ~Player();
     void update(float dt, Entity* entity);
     void render();
-    void moveRigth();
-    void moveLeft();
-    void moveUp();
-    void moveDown();
-    void stopMovingX();
-    void stopMovingY();
-    void shoot();
-    void stopShooting();
-    void hurt();
-    void recharge();
 
     int32_t getX();
     int32_t getY();
@@ -39,11 +29,6 @@ public:
 
 private:
     bool facingLeft;
-    bool facingUp;
-    bool moving_x;
-    bool moving_y;
-    bool shooting;
-    bool recharging;
     bool dead;
     bool is_player; //cambiar a clases con herencia
     uint32_t id;
