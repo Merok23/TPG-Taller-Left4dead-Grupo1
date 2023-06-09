@@ -232,16 +232,16 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             uint8_t lives = receiveUnsignedSmallInteger();
             if (was_closed) throw LibError(errno, "Socket was closed while receiving entity lives. Errno: ");
 
-            EntityType entity_type = SOLDIER;
+            EntityTypeGS entity_type = SOLDIER;
             entity = std::make_shared<Entity>(id, entity_type, state_enum, lives, weapon_type, ammo_left, 
                 hit_point, position_x, position_y, is_facing_left, is_moving_up);
 
         } else if (type == "common_infected") {
-            EntityType entity_type = COMMON_INFECTED;
+            EntityTypeGS entity_type = COMMON_INFECTED;
             entity = std::make_shared<Entity>(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
         } else if (type == "spear") {
-            EntityType entity_type = SPEAR;
+            EntityTypeGS entity_type = SPEAR_INFECTED;
             entity = std::make_shared<Entity>(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
         }
@@ -271,7 +271,6 @@ WeaponType ClientProtocol::stringToWeapon(const std::string& weapon) {
         { "idf", WeaponType::IDF },
         { "p90", WeaponType::P90 },
         { "scout", WeaponType::SCOUT },
-        { "none", WeaponType::NONE }
     };
 
     auto it = weaponMap.find(weapon);

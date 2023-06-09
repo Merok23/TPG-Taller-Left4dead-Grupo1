@@ -1,7 +1,9 @@
 #ifndef CLIENT_GAME_STATE_H
 #define CLIENT_GAME_STATE_H
 #include "entity.h"
+#include <memory>
 #include <map>
+
 class GameState {
     public:
     //podria ser unique_ptr???

@@ -1,3 +1,6 @@
+#ifndef CLIENT_ENUM_H
+#define CLIENT_ENUM_H
+
 enum State {
     IDLE,
     RUN,
@@ -7,10 +10,10 @@ enum State {
     ATTACKING
 };
 
-enum EntityType {
+enum EntityTypeGS {
     SOLDIER,
     COMMON_INFECTED,
-    SPEAR
+    SPEAR_INFECTED
 };
 
 enum WeaponType {
@@ -26,7 +29,6 @@ enum GameMode {
 };
 
 enum Commands {
-    DEFAULT,
     CREATE_ROOM,
     JOIN_ROOM,
     MOVE_PLAYER,
@@ -37,4 +39,4 @@ enum Commands {
     CHEAT_SPAWN_COMMON_INFECTED,
     CHEAT_KILL_ALL_INFECTED
 };
-
+#endif

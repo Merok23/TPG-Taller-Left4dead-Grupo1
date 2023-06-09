@@ -62,7 +62,7 @@ void TexturesHolder::create_infected(EntityType entity_type, const std::string &
         create_jumper(path);
         break;
 
-    case SPEAR:
+    case SPEAR_INFECTED:
         create_spear(path);
         break;
 
@@ -78,7 +78,7 @@ void TexturesHolder::create_infected(EntityType entity_type, const std::string &
 
 void TexturesHolder::create_zombie(const std::string &path) {
     std::string img("Bite.png");
-    textures_holder[COMMON_INFECTED][AN_BITE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    textures_holder[ZOMBIE][AN_BITE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Attack_3.png");
     textures_holder[ZOMBIE][AN_ATTACK3] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));

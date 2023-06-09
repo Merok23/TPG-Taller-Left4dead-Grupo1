@@ -11,7 +11,7 @@
 
 class GraphicsEntityHolder {
 public:
-    GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder textures_holder, SdlWindow &window);
+    GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder &textures_holder, SdlWindow &window);
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
@@ -24,6 +24,10 @@ public:
 
 private:
     std::shared_ptr<Player> add_player(std::shared_ptr<Entity> entity);
+    std::shared_ptr<Player> createSoldier(std::shared_ptr<Entity> entity);
+    std::shared_ptr<Player> createInfected(std::shared_ptr<Entity> entity, EntityType type);
+
+    
     
     SdlWindow &window;
     TexturesHolder textures_holder;

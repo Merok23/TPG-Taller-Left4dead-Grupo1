@@ -3,13 +3,13 @@
 #include "receive_thread.h"
 
 ReceiveThread::ReceiveThread(ClientProtocol& protocol, 
-    Queue<GameState*>& queue) : 
+    Queue<std::shared_ptr<GameState>>& queue) : 
     protocol(protocol), game_states(queue), finished(false) {}  
 
 void ReceiveThread::run() {
     while (!finished) {
         try {
-            GameState* game_state = protocol.receiveGameState();
+            std::shared_ptr<GameState> game_state = protocol.receiveGameState();
             if (protocol.isFinished()) {
                 finished = true;
                 break;
