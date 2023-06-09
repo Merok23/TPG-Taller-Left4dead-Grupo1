@@ -27,6 +27,7 @@ void ClientProtocol::sendString(const std::string& string) {
     len = htonl(len);
     uint32_t bytes = socket.sendall(&len, sizeof(uint32_t), &was_closed);
     if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    
     bytes = socket.sendall((char*)string.c_str(), string.length(), &was_closed);
     if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
 }

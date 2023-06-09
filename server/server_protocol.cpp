@@ -25,7 +25,7 @@ ServerProtocol::ServerProtocol(Socket socket) : socket(std::move(socket)), was_c
 uint32_t ServerProtocol::receieveUnsignedInteger() {
     uint32_t number;
     uint32_t bytes = socket.recvall(&number, sizeof(uint32_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving unsigned integer. Errno: ");
     number = ntohl(number);
     return number;
 }
@@ -33,26 +33,26 @@ uint32_t ServerProtocol::receieveUnsignedInteger() {
 std::string ServerProtocol::receiveString() {
     uint32_t len; 
     uint32_t bytes = socket.recvall(&len, sizeof(uint32_t), &was_closed); 
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving string length. Errno: ");
     len = ntohl(len); 
 
     std::vector<char> string(len, 0x00);
     bytes = socket.recvall(string.data(), len, &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving string. Errno: ");
     return std::string(string.begin(), string.end());
 }
 
 uint8_t ServerProtocol::receiveSmallUnsignedInt() {
     uint8_t number;
     uint8_t bytes = socket.recvall(&number, sizeof(uint8_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving small unsigned int. Errno: ");
     return number;
 }
 
 int8_t ServerProtocol::receiveSmallInt() {
     int8_t number;
     uint8_t bytes = socket.recvall(&number, sizeof(int8_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving small int. Errno: ");
     return number;
 }
 
@@ -61,27 +61,27 @@ int8_t ServerProtocol::receiveSmallInt() {
 void ServerProtocol::sendUnsignedInteger(uint32_t number) {
     uint32_t number_to_send = htonl(number);
     uint32_t bytes = socket.sendall(&number_to_send, sizeof(uint32_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending unsigned int. Errno: ");
 }
 
 void ServerProtocol::sendString(const std::string& string) {
     uint32_t len = string.length();
     len = htonl(len);
     uint32_t bytes = socket.sendall(&len, sizeof(uint32_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending string length. Errno: ");
     bytes = socket.sendall((char*)string.c_str(), string.length(), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending string. Errno: ");
 }
 
 void ServerProtocol::sendInteger(int32_t number) {
     int32_t number_to_send = htonl(number);
     int32_t bytes = socket.sendall(&number_to_send, sizeof(int32_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending int. Errno: ");
 }
 
 void ServerProtocol::sendBool(const bool &boolean) {
     uint8_t bytes = socket.sendall(&boolean, sizeof(uint8_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending boolean. Errno: ");
 }
 
 // --------------------------------- FUNCIONES DE RECIBIR ACCIONES ---------------------------------//
@@ -246,8 +246,8 @@ void ServerProtocol::sendRoomId(uint32_t room_id) {
 
 void ServerProtocol::sendJoinResponse(bool accepted) {
     uint8_t response = accepted;
-    socket.sendall(&response, sizeof(uint8_t), &was_closed);
-    if (was_closed) return;
+    uint8_t bytes = socket.sendall(&response, sizeof(uint8_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending join response. Errno: ");
 }
 
 // --------------------------------- OTRAS FUNCIONES ---------------------------------//
