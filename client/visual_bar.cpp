@@ -21,10 +21,6 @@ void VisualBar::update(int32_t new_value) {
         this->current_value = new_value;
 }
 
-void VisualBar::max() {
-    current_value = max_value;
-}
-
 void VisualBar::render(int x_origin, int y_origin) {
     SDL_SetRenderDrawColor(renderer, r_back, g_back, b_back, 255);
     float total_amount =  max_value;
@@ -40,10 +36,5 @@ void VisualBar::render(int x_origin, int y_origin) {
 
     SDL_RenderPresent(renderer);
 }
-
-int32_t VisualBar::get_current_value() {
-    return this->current_value ;
-}
-
 
 VisualBar::~VisualBar() {}
