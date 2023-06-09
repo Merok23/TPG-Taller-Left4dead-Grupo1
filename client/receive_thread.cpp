@@ -10,8 +10,8 @@ void ReceiveThread::run() {
     while (!finished) {
         try {
             std::shared_ptr<GameState> game_state = protocol.receiveGameState();
-            if (protocol.isFinished() || !game_state) {
-                std::cout << "ERROR: Server was disconnected" << std::endl; //Como se lo paso a abril???????
+            if ((!game_state && !finished)) {
+                std::cout << "ERROR: Server was disconnected" << std::endl; //Como se lo paso a abril??????? 
                 finished = true;
                 break;
             }   
