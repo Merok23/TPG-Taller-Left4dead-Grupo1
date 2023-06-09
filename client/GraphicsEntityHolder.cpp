@@ -21,7 +21,8 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
                                     entity->getPositionX(),
                                     entity->getPositionY(),
                                     entity->getHitPoints(),
-                                    entity->getAmmoLeft());  
+                                    entity->getAmmoLeft(),
+                                    entity->getLives());  
         entities[entity->getId()] = player;
         players.push_back(player);
     return player;
