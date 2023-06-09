@@ -57,6 +57,7 @@ void Client::run() {
 
     while (!finished) { 
         std::getline(std::cin, line);
+        if (protocol.isFinished()) break;
         std::istringstream iss(line);
         std::string word1, word2; 
         iss >> word1;
@@ -73,7 +74,7 @@ void Client::run() {
             queue_comandos.push(command.addPlayer(word2));
             std::shared_ptr<GameState> gs = NULL;
             bool leave = false;
-            while (!leave) {
+            while (!leave && !protocol.isFinished()) {
                 game_states.try_pop(gs);
                 if (gs) {
                     if (!gs->entities.empty()) {
@@ -81,7 +82,7 @@ void Client::run() {
                     }
                 }
             }
-            graphics.run(gs, queue_comandos, game_states);
+            if (gs) graphics.run(gs, queue_comandos, game_states);
         } else {
             std::cout << "Commands are: create (weapon)" << std::endl;
         }

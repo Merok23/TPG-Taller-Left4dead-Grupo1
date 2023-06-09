@@ -49,6 +49,8 @@ class ServerProtocol {
     std::shared_ptr<Action> receiveShooting();
     std::shared_ptr<Action> receiveReloading();
     std::shared_ptr<Action> receiveAddPlayer();
+    uint8_t receiveSmallUnsignedInt();
+    int8_t receiveSmallInt();
     GameMode intToGameMode(uint8_t game_mode);
 
 

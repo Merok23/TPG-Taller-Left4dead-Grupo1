@@ -8,7 +8,8 @@ GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool players_won) : 
     entities(entities), 
     game_over(game_over),
-    players_won(players_won){}
+    players_won(players_won), 
+    lost_connection(false){}
 
 void GameState::print() {
     for (auto&& id_entity : this->entities) {
@@ -23,6 +24,10 @@ void GameState::print() {
         std::cout << "weapon type: " << id_entity.second->getWeaponType() << std::endl;
         std::cout << "ammo left: " << id_entity.second->getAmmoLeft() << std::endl;
     }
+}
+
+void GameState::setLostConnection() {
+    this->lost_connection = true;
 }
 
 GameState::~GameState() {

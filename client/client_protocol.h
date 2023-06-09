@@ -86,6 +86,8 @@ class ClientProtocol {
     int32_t receiveInteger();
     void sendUnsignedInteger(uint32_t number);
     uint8_t receiveUnsignedSmallInteger();
+    void sendUnsignedSmallInteger(uint8_t number);
+    void sendCheat(uint8_t cheat);
     void sendString(const std::string& string);
     void sendCreateRoom(const std::string& room_name, GameMode game_mode);
     void sendJoinRoom(int room_id);
@@ -93,9 +95,6 @@ class ClientProtocol {
     void sendAddPlayer(const std::string& weapon);
     void sendShooting(int shooting);
     void sendReloading(int reloading);
-    void sendCheatInfiniteHitpoints();
-    void sendCheatSpawnCommonInfected();
-    void sendCheatKillAllInfected();
     State stringToState(const std::string& state);
     WeaponType stringToWeapon(const std::string& weapon);
     

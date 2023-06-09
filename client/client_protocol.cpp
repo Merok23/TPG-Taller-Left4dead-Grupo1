@@ -25,13 +25,23 @@ ClientProtocol::ClientProtocol(Socket socket) : socket(std::move(socket)), was_c
 void ClientProtocol::sendString(const std::string& string) {
     uint32_t len = string.length();
     len = htonl(len);
-    socket.sendall(&len, sizeof(uint32_t), &was_closed);
-    socket.sendall((char*)string.c_str(), string.length(), &was_closed);
+    uint32_t bytes = socket.sendall(&len, sizeof(uint32_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    
+    bytes = socket.sendall((char*)string.c_str(), string.length(), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
 }
 
 void ClientProtocol::sendUnsignedInteger(uint32_t number) {
     uint32_t number_to_send = htonl(number);
-    socket.sendall(&number_to_send, sizeof(uint32_t), &was_closed);
+    uint32_t bytes = socket.sendall(&number_to_send, sizeof(uint32_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+}
+
+void ClientProtocol::sendUnsignedSmallInteger(uint8_t number) {
+    uint8_t number_to_send = number;
+    uint32_t bytes = socket.sendall(&number_to_send, sizeof(uint8_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
 }
 
 
@@ -63,174 +73,144 @@ void ClientProtocol::sendCommand(command_t command) {
             break;
         }
         case (Commands::CHEAT_INFINITE_HITPOINTS): {
-            sendCheatInfiniteHitpoints();
+            sendCheat(CHEAT_KILL_ALL_INFECTED_COMMAND);
             break;
         }
         case (Commands::CHEAT_SPAWN_COMMON_INFECTED): {
-            sendCheatSpawnCommonInfected();
+            sendCheat(CHEAT_SPAWN_COMMON_INFECTED_COMMAND);
             break;
         }
         case (Commands::CHEAT_KILL_ALL_INFECTED): {
-            sendCheatKillAllInfected();
+            sendCheat(CHEAT_KILL_ALL_INFECTED_COMMAND);
             break;
         }
     }
-    /*
-    if (command.type == Commands::CREATE_ROOM) 
-        sendCreateRoom(command.room_name, command.game_mode); 
-    else if (command.type == Commands::JOIN_ROOM) 
-        sendJoinRoom(command.room_id);
-    else if (command.type == Commands::ADD_PLAYER) 
-        sendAddPlayer(command.weapon);
-    else if (command.type == Commands::MOVE_PLAYER) 
-        sendMoving(command.moving_x, command.moving_y);
-    else if (command.type == Commands::SHOOT_PLAYER)
-        sendShooting(command.shooting);
-    else if (command.type == Commands::RELOAD_PLAYER)
-        sendReloading(command.reloading);
-    */
 }
-
-void ClientProtocol::sendCheatInfiniteHitpoints() {
-    uint8_t action = CHEAT_INFINITE_HITPOINTS_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat infinite hitpoints. Errno: ");
-}
-
-void ClientProtocol::sendCheatSpawnCommonInfected() {
-    uint8_t action = CHEAT_SPAWN_COMMON_INFECTED_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat spawn common infected. Errno: ");
-}
-
-void ClientProtocol::sendCheatKillAllInfected() {
-    uint8_t action = CHEAT_KILL_ALL_INFECTED_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending cheat kill all infected. Errno: ");
+void ClientProtocol::sendCheat(uint8_t cheat) {
+    sendUnsignedSmallInteger(cheat);
+    if (was_closed) return;
 }
 
 void ClientProtocol::sendCreateRoom(const std::string& room_name, GameMode game_mode) {
     uint8_t action = CREATE_ROOM_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if(was_closed) throw LibError(errno, "Socket was closed while sending create room. Errno: ");
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
     sendString(room_name);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending room name. Errno: ");
-    socket.sendall(&game_mode, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending game mode. Errno: "); 
+    if (was_closed) return;
+    sendUnsignedSmallInteger((uint8_t)game_mode);
+    if (was_closed) return;
 }
 
 void ClientProtocol::sendJoinRoom(int room_id) {
     uint8_t action = JOIN_ROOM_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending join room. Errno: "); 
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
 
     sendUnsignedInteger(room_id);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending room id. Errno: ");
+   if (was_closed) return;
 }
 
 void ClientProtocol::sendAddPlayer(const std::string& weapon) {
     uint8_t action = ADD_PLAYER_COMMAND;
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending add player. Errno: "); 
-
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
     sendString(weapon);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending weapon. Errno: ");
+    if (was_closed) return;
 }
 
 void ClientProtocol::sendMoving(int8_t moving_x, int8_t moving_y) {
     uint8_t action = MOVE_PLAYER_COMMAND;  
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending moving. Errno: "); 
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
 
-    socket.sendall(&moving_x, sizeof(int8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending moving x. Errno: ");
+    int bytes = socket.sendall(&moving_x, sizeof(int8_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed) return;
 
     socket.sendall(&moving_y, sizeof(int8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending moving y. Errno: ");
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending message. Errno: ");
+    if (was_closed) return;
 }
 
 void ClientProtocol::sendShooting(int shooting) {
     uint8_t action = SHOOT_PLAYER_COMMAND;  
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending shooting. Errno: ");
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
 
-    socket.sendall(&shooting, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending shooting. Errno: ");
+   sendUnsignedSmallInteger(shooting);
+    if (was_closed) return;
 }
 
 
 void ClientProtocol::sendReloading(int reloading) {
-    uint8_t action = RELOAD_PLAYER_COMMAND;  
-    socket.sendall(&action, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending reloading. Errno: "); 
-     
-    socket.sendall(&reloading, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while sending reloading state. Errno: ");
+    uint8_t action = SHOOT_PLAYER_COMMAND;  
+    sendUnsignedSmallInteger(action);
+    if (was_closed) return;
+
+   sendUnsignedSmallInteger(reloading);
+    if (was_closed) return;
 }
 
 //--------------------------------- FUNCIONES DE RECIBIR RESPUESTA A COMANDOS ---------------------------------//
 
 uint32_t ClientProtocol::receiveRoomId() {
     uint32_t room_id = receieveUnsignedInteger();
-    if (was_closed) throw LibError(errno, "Socket was closed while receiving room id. Errno: ");
     return room_id;
 }
 
 bool ClientProtocol::receiveJoinResponse() {
-    uint8_t response;
-    socket.recvall(&response, sizeof(uint8_t), &was_closed);
-    if (was_closed) throw LibError(errno, "Socket was closed while receiving join response. Errno: "); 
+    uint8_t response = receiveUnsignedSmallInteger();
     return (bool)response;
 }
 
 std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
-    uint8_t game_over, bytes;
-    bytes = socket.recvall(&game_over, sizeof(uint8_t), &was_closed);
-    if (was_closed && bytes == 0) return NULL;
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving game over. Errno: ");
+    uint8_t game_over;
+    game_over = receiveUnsignedSmallInteger();
+    if (was_closed) return NULL; 
 
     bool players_won = (bool)receiveUnsignedSmallInteger();
-    if (was_closed) throw LibError(errno, "Socket was closed while receiving game won. Errno: ");
+    if (was_closed) return NULL;    
 
     std::map<uint32_t, Entity*> entities;
     uint32_t entities_len = receieveUnsignedInteger();
-    if (was_closed) throw LibError(errno, "Socket was closed while receiving entities length. Errno: "); 
+    if (was_closed) return NULL; 
 
     while (entities_len > 0) {
         uint32_t id = receieveUnsignedInteger();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity id. Errno: ");
-
+        if (was_closed) return NULL; 
+    
         std::string state = receiveString();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity state. Errno: ");
+        if (was_closed) return NULL; 
+    
         State state_enum = stringToState(state);
 
         std::string type = receiveString();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity type. Errno: ");
-        
+        if (was_closed) return NULL; 
+            
         int32_t hit_point = receiveInteger();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity hit point. Errno: ");
-
+        if (was_closed) return NULL; 
+    
         int32_t position_x = receiveInteger(); 
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity position x. Errno: ");
-        int32_t position_y = receiveInteger(); 
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity position y. Errno: "); 
-
+        if (was_closed) return NULL; 
+            int32_t position_y = receiveInteger(); 
+        if (was_closed) return NULL; 
+    
         bool is_facing_left = (bool)receiveUnsignedSmallInteger();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity facing left. Errno: ");
-
+        if (was_closed) return NULL; 
+    
         bool is_moving_up = (bool)receiveUnsignedSmallInteger();
-        if (was_closed) throw LibError(errno, "Socket was closed while receiving entity moving up. Errno: ");
-        
+        if (was_closed) return NULL; 
+            
         Entity* entity = NULL;
         if (type == "player") {
             WeaponType weapon_type = stringToWeapon(receiveString());
-            if (was_closed) throw LibError(errno, "Socket was closed while receiving entity weapon type. Errno: ");
-
+            if (was_closed) return NULL; 
+    
             int32_t ammo_left = receiveInteger();
-            if (was_closed) throw LibError(errno, "Socket was closed while receiving entity ammo left. Errno: ");
+            if (was_closed) return NULL; 
 
             uint8_t lives = receiveUnsignedSmallInteger();
-            if (was_closed) throw LibError(errno, "Socket was closed while receiving entity lives. Errno: ");
+            if (was_closed) return NULL; 
 
             EntityType entity_type = SOLDIER_IDF;
             if (weapon_type == P90)
@@ -287,31 +267,36 @@ WeaponType ClientProtocol::stringToWeapon(const std::string& weapon) {
 
 uint32_t ClientProtocol::receieveUnsignedInteger() {
     uint32_t number;
-    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    uint32_t bytes = socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: "); 
     number = ntohl(number);
     return number;
 }
 
 std::string ClientProtocol::receiveString() {
     uint32_t len; 
-    socket.recvall(&len, sizeof(uint32_t), &was_closed); 
+    uint32_t  bytes = socket.recvall(&len, sizeof(uint32_t), &was_closed); 
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
     len = ntohl(len); 
 
     std::vector<char> string(len, 0x00);
-    socket.recvall(string.data(), len, &was_closed);
+    bytes = socket.recvall(string.data(), len, &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
     return std::string(string.begin(), string.end());
 }
 
 int32_t ClientProtocol::receiveInteger() {
     int32_t  number;
-    socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    int32_t bytes = socket.recvall(&number, sizeof(uint32_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
     number = ntohl(number);
     return number;
 }
 
 uint8_t ClientProtocol::receiveUnsignedSmallInteger() {
     uint8_t command;
-    socket.recvall(&command, sizeof(uint8_t), &was_closed);
+    uint8_t bytes = socket.recvall(&command, sizeof(uint8_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while receiving message. Errno: ");
     return command;
 }
 

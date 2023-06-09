@@ -10,10 +10,12 @@ class GameState {
     std::map<uint32_t, Entity*> entities;
     bool game_over;
     bool players_won;
+    bool lost_connection;
 
     explicit GameState(const std::map<u_int32_t, Entity*>& entities, 
         bool game_over, 
         bool players_won);
+    void setLostConnection();
     void print();
     ~GameState();
 }; 
