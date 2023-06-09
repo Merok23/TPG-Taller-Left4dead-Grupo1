@@ -61,7 +61,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     bool static moving_up= false;
     bool static moving_down = false;
     bool static shooting = false;
-    //bool static reloading = false;
     
     COMMANDS command;
     while(SDL_PollEvent(&event)) {
@@ -77,7 +76,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         std::cout << "Cheat: spwan new zombie" << std::endl;
                         queue_comandos.push(command.cheatSpawnCommonInfected());
                     }
-
                 }
                 
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
@@ -147,8 +145,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         break;
                     }
                     case SDLK_r: {
-                            queue_comandos.push(command.setReloading(false));
-                        //}
+                        queue_comandos.push(command.setReloading(false));
                         break;
                     }
                 }

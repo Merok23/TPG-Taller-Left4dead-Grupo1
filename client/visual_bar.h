@@ -15,10 +15,9 @@ class VisualBar {
    public:
     VisualBar(int32_t max_value, const SdlWindow& window, Uint8 r_back, Uint8 g_back, Uint8 b_back,
                 Uint8 r_front, Uint8 g_front, Uint8 b_front);
-    int32_t get_health();
-    void damage(int32_t damage);
+    int32_t get_current_value();
     void max();
-    void update(int32_t current_value);
+    void update(int32_t new_value);
     void render(int x_origin, int y_origin);
     ~VisualBar();
 
