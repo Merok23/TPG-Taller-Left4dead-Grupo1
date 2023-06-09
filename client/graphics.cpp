@@ -4,13 +4,13 @@
 bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
     int delta_its = it - this->last_it;
 
-    bool running = handleEvents(gr_entity_holder, queue_comandos);
+    bool player_doesnt_quit = handleEvents(gr_entity_holder, queue_comandos);
     //usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
-    update(gr_entity_holder, FRAME_RATE * delta_its, game_states);
+    bool conection_ok = update(gr_entity_holder, FRAME_RATE * delta_its, game_states);
     render(window, gr_entity_holder, camera);
 
     last_it = it;
-    return running;
+    return player_doesnt_quit && conection_ok;
 }
 
 void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
@@ -160,10 +160,28 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
-void Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states) {
+bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states) {
     std::shared_ptr<GameState> gs = NULL;
     while (game_states.try_pop(gs));
+    if (gs) {
+        if (gs->lost_connection) {
+            std::cout << "Se perdio la conexion con el server" << std::endl;
+            return false;
+        }
+            
+        if (gs->game_over) {
+            std::cout << "El juego termino, perdimos :(" << std::endl;
+            return false;
+        }
+
+        if (gs->players_won) {
+            std::cout << "El juego termino, ganamos! :D" << std::endl;
+            return false;
+        }
+    }  
+
     gr_entity_holder.update(dt, gs);
+    return true;
 }
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
