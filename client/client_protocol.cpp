@@ -232,15 +232,21 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             uint8_t lives = receiveUnsignedSmallInteger();
             if (was_closed) throw LibError(errno, "Socket was closed while receiving entity lives. Errno: ");
 
-            EntityTypeGS entity_type = SOLDIER;
+            EntityType entity_type = SOLDIER_IDF;
+            if (weapon_type == P90)
+                entity_type = SOLDIER_P90;
+            
+            if (weapon_type == SCOUT)
+                entity_type = SOLDIER_SCOUT;
+
             entity =   new Entity(id, entity_type, state_enum, lives, weapon_type, ammo_left,  hit_point, 
             position_x,  position_y, is_facing_left, is_moving_up);
         } else if (type == "common_infected") {
-            EntityTypeGS entity_type = COMMON_INFECTED;
+            EntityType entity_type = ZOMBIE;
             entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
         } else if (type == "spear") {
-            EntityTypeGS entity_type = SPEAR_INFECTED;
+            EntityType entity_type = SPEAR;
             entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
         }

@@ -5,7 +5,7 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
     int delta_its = it - this->last_it;
 
     bool running = handleEvents(gr_entity_holder, queue_comandos);
-    usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
+    //usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
     update(gr_entity_holder, FRAME_RATE * delta_its, game_states);
     render(window, gr_entity_holder, camera);
 
@@ -15,22 +15,11 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
     try {
-        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH); //tamanio de la ventana correcto
+        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
         Camera camera(window);
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
-
-        //Gameloop - handle event, update game, render new screen
-
-        //bool running = true;
-        // while (running) {
-        //     running = handleEvents(gr_entity_holder, queue_comandos);
-        //     update(gr_entity_holder, FRAME_RATE, game_states);
-        //     render(window, gr_entity_holder, camera);
-
-        //     usleep(FRAME_RATE);
-        // }
 
         time_t t1 = time(0);
         int it = 0;
@@ -48,16 +37,13 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
                 rest = FRAME_RATE - behind % FRAME_RATE;
                 int lost = behind + rest;
                 t1 += lost;
-                it += floor(lost/FRAME_RATE); //int(lost // FRAME_RATE); //floor division
+                it += floor(lost/FRAME_RATE);
             }
 
             usleep(rest);
             t1 += FRAME_RATE;
             it += 1;
         }
-        
-
-
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
@@ -85,7 +71,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: {
                         if (!moving_left){
-                            //std::string command("move -1 0");
                             queue_comandos.push(command.setDirectionOfMovement(-1, 0));
                             moving_left = true;
                         }
@@ -93,7 +78,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }  
                     case SDLK_RIGHT: {
                         if (!moving_right){
-                            //std::string command("move 1 0");
                             queue_comandos.push(command.setDirectionOfMovement(1, 0));
                             moving_right = true;
                         }
@@ -101,7 +85,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }
                     case SDLK_UP: {
                         if (!moving_up){
-                            //std::string command("move 0 -1");
                             queue_comandos.push(command.setDirectionOfMovement(0, 1));
                             moving_up = true;
                         }
@@ -109,7 +92,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }
                     case SDLK_DOWN: {
                         if (!moving_down){
-                            //std::string command("move 0 1");
                             queue_comandos.push(command.setDirectionOfMovement(0, -1));
                             moving_down = true;
                         }
@@ -122,21 +104,11 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         }
                         break;
                     }
-                        //gr_entity_holder.getMainPlayer()->shoot();
                         
                     case SDLK_r: {
-                        //if (!reloading) {
-                        //    std::cout << "Recibi un reload" << std::endl;
                             queue_comandos.push(command.setReloading(true));
-                        //    reloading = true;
-                        //}
                         break;
                     }
-                        // gr_entity_holder.getMainPlayer()->recharge();
-                        // break;
-                    case SDLK_h: //le "pegaron"
-                        gr_entity_holder.getMainPlayer()->hurt();
-                        break; 
                     case SDLK_ESCAPE: case SDLK_q:
                         return false; //tocaron tecla para salir, me voy
                 }
@@ -147,8 +119,6 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                 switch (keyEvent.keysym.sym) {
                     case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
                         if (moving_right || moving_left || moving_up || moving_down) {
-                            //std::string command("move 0 0");
-                            //queue_comandos.push(command);
                             queue_comandos.push(command.setDirectionOfMovement(0, 0));
 
                             moving_down = moving_left = moving_right = moving_up = false;
@@ -163,14 +133,10 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                         break;
                     }
                     case SDLK_r: {
-                        //if (reloading) {
                             queue_comandos.push(command.setReloading(false));
-                        //    reloading = false;
                         //}
                         break;
                     }
-                        // gr_entity_holder.getMainPlayer()->stopShooting();
-                        // break;
                 }
             }
                 break; //FIN KEY_UP

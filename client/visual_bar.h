@@ -13,17 +13,24 @@ class SDL_Renderer;
 
 class VisualBar {
    public:
-    VisualBar(int32_t max_health, const SdlWindow& window);
+    VisualBar(int32_t max_value, const SdlWindow& window, Uint8 r_back, Uint8 g_back, Uint8 b_back,
+                Uint8 r_front, Uint8 g_front, Uint8 b_front);
     int32_t get_health();
     void damage(int32_t damage);
     void max();
-    void update(int32_t current_health);
+    void update(int32_t current_value);
     void render(int x_origin, int y_origin);
     ~VisualBar();
 
    private:
-    int32_t max_health;
-    int32_t current_health;
+    int32_t max_value;
+    int32_t current_value;
+    Uint8 r_back;
+    Uint8 g_back; 
+    Uint8 b_back; //for the bar behind your actual value
+    Uint8 r_front;
+    Uint8 g_front; 
+    Uint8 b_front; //for the bar with your actual value
     SDL_Renderer* renderer;
 };
 

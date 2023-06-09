@@ -2,7 +2,7 @@
 
 #include "entity.h"
 
-Entity::Entity(uint32_t id, EntityTypeGS type, State state, uint8_t lives, WeaponType weapon_type, 
+Entity::Entity(uint32_t id, EntityType type, State state, uint8_t lives, WeaponType weapon_type, 
     int32_t ammo_left, int32_t hit_points, uint32_t x, uint32_t y, 
         bool facing_left, bool moving_up) : 
             id(id),
@@ -17,7 +17,7 @@ Entity::Entity(uint32_t id, EntityTypeGS type, State state, uint8_t lives, Weapo
                                                 is_moving_up(moving_up), state(state) {}
 
 
-Entity::Entity(uint32_t id, EntityTypeGS type, State state, int32_t hit_points, uint32_t x, uint32_t y, 
+Entity::Entity(uint32_t id, EntityType type, State state, int32_t hit_points, uint32_t x, uint32_t y, 
     bool facing_left, bool moving_up) : 
         id(id),
             type(type),
@@ -37,16 +37,19 @@ int32_t Entity::getHitPoints() {
     return this->hit_points;
 }
 
-EntityTypeGS Entity::getEntityType() {
+EntityType Entity::getEntityType() {
     return this->type;
 }
 
 std::string Entity::getType() {
-    if (this->type == SOLDIER) {
+    if (this->type == SOLDIER_P90 || 
+        this->type == SOLDIER_IDF || 
+        this->type == SOLDIER_SCOUT ) {
         return "player";
-    } else if (this->type == COMMON_INFECTED) {
+    } else if (this->type == ZOMBIE) {
         return "common_infected";
-    }
+    } else if (this->type == SPEAR)
+        return "spear";
     return "none";
 }
 
