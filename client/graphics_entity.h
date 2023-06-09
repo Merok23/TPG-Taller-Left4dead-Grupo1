@@ -8,6 +8,7 @@
 #include "visual_bar.h"
 #include "client_enum.h"
 
+
 class GraphicsEntity {
    public:
     GraphicsEntity(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
@@ -30,6 +31,8 @@ protected:
     uint32_t id;
     int32_t x;
     int32_t y;
+    int width;
+    int height;
     AnimationName current_animation;
     std::map<AnimationName, std::unique_ptr<Animation>> animations;
 };

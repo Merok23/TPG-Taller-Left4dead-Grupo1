@@ -3,7 +3,7 @@
 GraphicsEntity::GraphicsEntity(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
                                 uint32_t id, int32_t x_position, int32_t y_position) :
     facingLeft(false), dead(false), id(id),
-    x(x_position), y(y_position)
+    x(x_position), y(y_position), width(200), height(200) //despues podemos hacer que el tamanio venga de un archivo
 {
     for (const auto &pair : textures)
         animations[pair.first] = std::unique_ptr<Animation>(new Animation(pair.second));
@@ -73,7 +73,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
 
 void GraphicsEntity::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Area destArea(x, y, 200, 200); //200 200 es que tan grande es el rect'angulo para el elemento
+    Area destArea(x, y, width, height); //200 200 es que tan grande es el rect'angulo para el elemento
     
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end())
