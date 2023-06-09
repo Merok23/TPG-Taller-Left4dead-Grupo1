@@ -61,7 +61,7 @@ void GraphicsEntityHolder::get_new_coordenates_center(int32_t *x, int32_t *y) {
 
 void GraphicsEntityHolder::update_x(int32_t delta_x) {
     for (size_t i = 0; i < players.size(); ++i) {
-        players[i]->update_x(players[i]->getX() + delta_x);
+        players[i]->update_x(players[i]->getX() - delta_x);
     }
 }
 

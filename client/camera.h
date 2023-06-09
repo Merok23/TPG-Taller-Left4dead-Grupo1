@@ -12,6 +12,7 @@
 #define WINDOW_HEIGTH (1080-200)
 
 #define EXTRA_SCREEN 200
+#define TRANSITION_MARGIN 5
 
 class Camera {
     public:
@@ -25,7 +26,7 @@ class Camera {
     SdlWindow &window;
     SdlTexture background;
     Area destArea;
-    int x_old_camera;
+    int x_camera_world;
 };
 
 #endif //__CAMERA_H__

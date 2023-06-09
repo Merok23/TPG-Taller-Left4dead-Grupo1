@@ -73,7 +73,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
 
 void GraphicsEntity::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Area destArea(x, y, width, height); //200 200 es que tan grande es el rect'angulo para el elemento
+    Area destArea(x, y, width, height);
     
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end())
