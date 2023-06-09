@@ -6,7 +6,8 @@
 GameState::GameState() : 
     game_over(false), 
     players_won(false), 
-    lost_connection(true) {}
+    lost_connection(true), 
+    entities() {}
 
 GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool game_over,
