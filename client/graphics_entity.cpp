@@ -49,8 +49,8 @@ void GraphicsEntity::update(float dt, Entity *entity) {
             current_animation = AN_IDLE;
             break;
         } 
-        x = entity->getPositionX();
-        y = entity->getPositionY();
+        x = entity->getPositionX() - width/2;
+        y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
     }

@@ -23,11 +23,9 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
         x_camera = 0;
         //locked_camera = true;
     }
-        
-    //else 
-    //
-        int delta_x = x_old_camera - x_camera; // y el signo que onda
-        ge_holder.update_x(delta_x);  
+    int delta_x = x_old_camera - x_camera; // y el signo que onda
+    ge_holder.update_x(delta_x);
+      
 
     //std::cout << "x of camera is " << x << std::endl;
 
