@@ -1,4 +1,5 @@
 #include "GraphicsEntityHolder.h"
+#include <algorithm>
 #include <iostream>
 
 GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder texture_holder, SdlWindow &window) :
@@ -100,21 +101,35 @@ void GraphicsEntityHolder::update(float& dt, std::shared_ptr<GameState> gs) {
     }
 }
 
-void GraphicsEntityHolder::render() {
-    //ordenar entities por y --> los que esten mas arriba (aka atras) son los dibujo primero
-    //ordenamiento cresciente
 
-    //creo una lista ordenada por y ascendientemente
-    //aprovecho y filtro objetos que no dibujo y objetos que si --> segun la pos de la camara
-    //y costados
+bool compare_players_by_y(const std::shared_ptr<GraphicsEntity> entity1, 
+                            const std::shared_ptr<GraphicsEntity> entity2) {
+    return entity1->getY() < entity2->getY();
+}
+
+
+void GraphicsEntityHolder::render() {
+
     //METO EN LA LISTA SOLAMENTE LOS ELEMENTOS QUE ESTAN EN MI WINDOW_WIDTH + POQUITO MAS
-    for (const auto& pair : entities) { //GraphicsEntity
-        if (!pair.second->is_dead())
-            pair.second->render();
-        
-        //pair.second->get_ammo().render(50, 300); //dependiendo de donde renderizo, titilan los demas que fueron renderizados en el mismo scope
-        //pair.second->get_health_bar().render(50, 200);
+
+    std::vector<std::shared_ptr<GraphicsEntity>> entities_in_screen;
+
+    for (const auto& pair : entities) {
+        entities_in_screen.push_back(pair.second);
     }
+    std::sort(entities_in_screen.begin(), entities_in_screen.end(), compare_players_by_y);
+
+    for (const auto& entity : entities_in_screen) {
+        entity->render();
+    }
+
+    // for (const auto& pair : entities) { //GraphicsEntity
+    //     if (!pair.second->is_dead())
+    //         pair.second->render();
+        
+    //     //pair.second->get_ammo().render(50, 300); //dependiendo de donde renderizo, titilan los demas que fueron renderizados en el mismo scope
+    //     //pair.second->get_health_bar().render(50, 200);
+    // }
 }
 
 GraphicsEntityHolder::~GraphicsEntityHolder() {}
