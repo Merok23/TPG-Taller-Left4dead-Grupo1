@@ -1,90 +1,28 @@
 #include "GraphicsEntityHolder.h"
 #include <iostream>
 
-GraphicsEntityHolder::GraphicsEntityHolder(
-    std::shared_ptr<GameState> gs, 
-    TexturesHolder texture_holder, 
-    SdlWindow &window) :
+GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder texture_holder, SdlWindow &window) :
     window(window), 
     textures_holder(texture_holder) {
     for (auto& pair : gs->entities) {
-        switch(pair.second->getEntityType()) {
-            case (EntityTypeGS::SOLDIER): {
-                this->MainPlayer = this->createSoldier(pair.second);
-                break;
-            }
-            case (EntityTypeGS::COMMON_INFECTED): {
-                this->createInfected(pair.second, EntityType::ZOMBIE);
-                break;
-            }
-            case (EntityTypeGS::SPEAR_INFECTED): {
-                this->createInfected(pair.second, EntityType::SPEAR);
-                break;
-            }
+        if (pair.second->getEntityType() == EntityType::SOLDIER_IDF
+        || pair.second->getEntityType() == EntityType::SOLDIER_SCOUT
+        || pair.second->getEntityType() == EntityType::SOLDIER_P90) {
+            this->MainPlayer = this->createSoldier(pair.second, pair.second->getEntityType());
+        } else {
+            this->createInfected(pair.second, pair.second->getEntityType());
         }
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity) {
-    std::shared_ptr<Player> player = nullptr;
-    switch (entity->getWeaponType()) {
-        case (WeaponType::IDF): {
-            std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
-            player = std::make_shared<Player>(
-                                        textures,
-                                        window,
-                                        true,
-                                        entity->getId(),
-                                        entity->getPositionX(),
-                                        entity->getPositionY(),
-                                        entity->getHitPoints());  
-            entities[entity->getId()] = player;
-            players.push_back(player);
-            break;
-        }
-        case (WeaponType::P90): {
-            std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_P90);
-            player = std::make_shared<Player>(
-                                        textures,
-                                        window,
-                                        true,
-                                        entity->getId(),
-                                        entity->getPositionX(),
-                                        entity->getPositionY(),
-                                        entity->getHitPoints());  
-            entities[entity->getId()] = player;
-            players.push_back(player);
-            break;
-        }
-        case (WeaponType::SCOUT): {
-            std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_SCOUT);
-            player = std::make_shared<Player>(
-                                        textures,
-                                        window,
-                                        true,
-                                        entity->getId(),
-                                        entity->getPositionX(),
-                                        entity->getPositionY(),
-                                        entity->getHitPoints());  
-            entities[entity->getId()] = player;
-            players.push_back(player);
-            break;
-        }//rari que llegue aca sin arma, per porlas creo con idf:
-        case (WeaponType::NONE): {
-            std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(SOLDIER_IDF);
-            player = std::make_shared<Player>(
-                                        textures,
-                                        window,
-                                        true,
-                                        entity->getId(),
-                                        entity->getPositionX(),
-                                        entity->getPositionY(),
-                                        entity->getHitPoints());  
-            entities[entity->getId()] = player;
-            players.push_back(player);
-            break;
-        }
-    }
+std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, EntityType entity_type) {
+    std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(entity_type);
+    std::shared_ptr<Player> player = std::make_shared<Player>(textures, window, true, entity->getId(),
+                                    entity->getPositionX(),
+                                    entity->getPositionY(),
+                                    entity->getHitPoints());  
+        entities[entity->getId()] = player;
+        players.push_back(player);
     return player;
 }
 
@@ -169,18 +107,13 @@ void GraphicsEntityHolder::update_x(int32_t delta_x) {
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity* entity) {
-    switch (entity->getEntityType()) {
-        case (EntityTypeGS::SOLDIER): {
-            return createSoldier(entity);
-        }
-        case (EntityTypeGS::COMMON_INFECTED): {
-            return this->createInfected(entity, EntityType::ZOMBIE);
-        }
-        case (EntityTypeGS::SPEAR_INFECTED): {
-            return this->createInfected(entity, EntityType::SPEAR);
-        }
+    if (entity->getEntityType() == EntityType::SOLDIER_IDF
+        || entity->getEntityType() == EntityType::SOLDIER_SCOUT
+        || entity->getEntityType() == EntityType::SOLDIER_P90) {
+            return this->createSoldier(entity, entity->getEntityType());
+    } else {
+        return this->createInfected(entity, entity->getEntityType());
     }
-    return NULL;
 }
 
 /*

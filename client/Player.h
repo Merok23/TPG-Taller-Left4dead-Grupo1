@@ -6,29 +6,7 @@
 #include <memory>
 #include <map>
 #include "visual_bar.h"
-
-enum AnimationName {
-    AN_IDLE,
-    AN_WALK,
-    AN_RUN,
-    AN_RUN_ATTACK,
-    AN_JUMP,
-
-    AN_ATTACK1,
-    AN_ATTACK2,
-    AN_ATTACK3,
-    AN_BITE,
-    AN_SCREAM,
-    AN_SHOOT,
-
-    AN_FALL,
-    AN_EATING,
-    AN_PROTECT,
-
-    AN_RELOAD,
-    AN_HURT,
-    AN_DIE,
-};
+#include "client_enum.h"
 
 class Player {
 public:

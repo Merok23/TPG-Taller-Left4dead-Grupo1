@@ -1,5 +1,6 @@
 #ifndef CLIENT_ENTITY_H
 #define CLIENT_ENTITY_H
+
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -8,7 +9,7 @@
 class Entity {
     private:
         uint32_t id;
-        EntityTypeGS type;
+        EntityType type;
         uint8_t lives;
         WeaponType weapon_type; //para la textura
         int32_t ammo_left; //para la cantidad de balas
@@ -25,14 +26,14 @@ class Entity {
         State state;
 
 
-        Entity(uint32_t id, EntityTypeGS type, State state, uint8_t lives, WeaponType weapon_type, int32_t ammo_left,  int32_t hit_points, 
+        Entity(uint32_t id, EntityType type, State state, uint8_t lives, WeaponType weapon_type, int32_t ammo_left,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
-        Entity(uint32_t id, EntityTypeGS type, State state,  int32_t hit_points, 
+        Entity(uint32_t id, EntityType type, State state,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         uint32_t getId();
         int32_t getHitPoints();
         std::string getType(); 
-        EntityTypeGS getEntityType();
+        EntityType getEntityType();
         WeaponType getWeaponType();
         std::string getWeapon();
         int32_t getAmmoLeft();

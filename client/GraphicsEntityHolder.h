@@ -24,7 +24,7 @@ public:
 
 private:
     std::shared_ptr<Player> add_player(Entity* entity);
-    std::shared_ptr<Player> createSoldier(Entity* entity);
+    std::shared_ptr<Player> createSoldier(Entity* entity, EntityType type);
     std::shared_ptr<Player> createInfected(Entity* entity, EntityType type);
 
     

@@ -62,7 +62,7 @@ void TexturesHolder::create_infected(EntityType entity_type, const std::string &
         create_jumper(path);
         break;
 
-    case SPEAR_INFECTED:
+    case SPEAR:
         create_spear(path);
         break;
 

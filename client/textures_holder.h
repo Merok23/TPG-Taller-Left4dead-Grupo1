@@ -9,18 +9,6 @@
 #include "SdlTexture.h"
 #include "SdlWindow.h"
 
-enum EntityType {
-    SOLDIER_IDF,
-    SOLDIER_P90,
-    SOLDIER_SCOUT,
-
-    JUMPER,
-    VENOM,
-    SPEAR,
-    WITCH,
-    ZOMBIE
-};
-
 class TexturesHolder {
     public:
     explicit TexturesHolder(SdlWindow &window);
