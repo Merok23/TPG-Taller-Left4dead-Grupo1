@@ -4,29 +4,14 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, bool is_player, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points) :
-    facingLeft(false), dead(false), is_player(is_player), id(id),
-    x(x_position), y(y_position), health_bar(hit_points, window), ammo(200, window)
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points, int32_t ammo) :
+    GraphicsEntity(textures, id, x_position, y_position),
+    health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0)
 {
     for (const auto &pair : textures)
         animations[pair.first] = std::unique_ptr<Animation>(new Animation(pair.second));
 
     current_animation = AN_IDLE;
-}
-
-Player::~Player() {}
-
-int32_t Player::getX() {
-    return x;
-}
-
-int32_t Player::getY() {
-    return y;
-}
-
-
-uint32_t Player::getId() {
-    return id;
 }
 
 /*
@@ -72,10 +57,8 @@ void Player::update(float dt, Entity* entity) {
         x = entity->getPositionX();
         y = entity->getPositionY();
 
-        if (is_player) {
-            health_bar.update(entity->getHitPoints());
-            ammo.update(entity->getAmmoLeft());
-        }
+        health_bar.update(entity->getHitPoints());
+        ammo.update(entity->getAmmoLeft());
         
         facingLeft = entity->isFacingLeft();
     }
@@ -96,9 +79,6 @@ void Player::update(float dt, Entity* entity) {
     }
 }
 
-bool Player::is_dead() {
-    return dead;
-}
 
 void Player::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -108,15 +88,10 @@ void Player::render() {
     if (it_current != animations.end())
             it_current->second->render(destArea, flip);
     
-    if (is_player) {
-        ammo.render(50, 300);
-        health_bar.render(50, 200);
-    }
+    ammo.render(50, 300);
+    health_bar.render(50, 200);
 }
 
-void Player::update_x(int32_t x) {
-    this->x = x;
-}
 
 VisualBar& Player::get_ammo() {
     return this->ammo;
