@@ -183,7 +183,7 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
     for (auto entity : entities) {
         sendUnsignedInteger(entity.first); //id
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity id. Errno: ");
-
+        
         sendString(entity.second->getState());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity state. Errno: ");
 
@@ -193,10 +193,12 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendInteger(entity.second->getHitPoints());
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity hit points. Errno: ");
 
-        sendInteger(entity.second->getDirectionOfMovement()->getX());
+        int32_t interface_x = entity.second->getDirectionOfMovement()->getX() - 100;
+        sendInteger(interface_x);
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement x. Errno: ");
 
-        sendInteger(entity.second->getDirectionOfMovement()->getY());
+        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 450;
+        sendInteger(interface_y);
         if (was_closed) throw LibError(errno, "Socket was closed while sending entity direction of movement y. Errno: ");
 
         this->sendBool(entity.second->getDirectionOfMovement()->isFacingLeft());

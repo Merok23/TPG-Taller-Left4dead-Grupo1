@@ -3,10 +3,10 @@
 
 GraphicsEntityHolder::GraphicsEntityHolder(
     std::shared_ptr<GameState> gs, 
-    TexturesHolder &texture_holder, 
+    TexturesHolder texture_holder, 
     SdlWindow &window) :
     window(window), 
-    textures_holder(std::move(textures_holder)) {
+    textures_holder(texture_holder) {
     for (auto& pair : gs->entities) {
         switch(pair.second->getEntityType()) {
             case (EntityTypeGS::SOLDIER): {
@@ -25,7 +25,7 @@ GraphicsEntityHolder::GraphicsEntityHolder(
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(std::shared_ptr<Entity> entity) {
+std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity) {
     std::shared_ptr<Player> player = nullptr;
     switch (entity->getWeaponType()) {
         case (WeaponType::IDF): {
@@ -88,7 +88,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(std::shared_ptr<Enti
     return player;
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::createInfected(std::shared_ptr<Entity> entity, EntityType type) {
+std::shared_ptr<Player> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
         
     std::shared_ptr<Player> player = std::make_shared<Player>(
@@ -168,7 +168,7 @@ void GraphicsEntityHolder::update_x(int32_t delta_x) {
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::add_player(std::shared_ptr<Entity> entity) {
+std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity* entity) {
     switch (entity->getEntityType()) {
         case (EntityTypeGS::SOLDIER): {
             return createSoldier(entity);

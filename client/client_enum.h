@@ -7,7 +7,9 @@ enum State {
     SHOOT,
     RELOAD, 
     DIE,
-    ATTACKING
+    ATTACKING,
+    DOWN, 
+    REVIVING
 };
 
 enum EntityTypeGS {

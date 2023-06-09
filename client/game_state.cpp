@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 
-GameState::GameState(const std::map<uint32_t, std::shared_ptr<Entity>>& entities,
+GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool game_over,
     bool players_won) : 
     entities(entities), 

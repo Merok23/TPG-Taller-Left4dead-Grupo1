@@ -7,11 +7,11 @@
 class GameState {
     public:
     //podria ser unique_ptr???
-    std::map<uint32_t, std::shared_ptr<Entity>> entities;
+    std::map<uint32_t, Entity*> entities;
     bool game_over;
     bool players_won;
 
-    explicit GameState(const std::map<u_int32_t, std::shared_ptr<Entity>>& entities, 
+    explicit GameState(const std::map<u_int32_t, Entity*>& entities, 
         bool game_over, 
         bool players_won);
     void print();

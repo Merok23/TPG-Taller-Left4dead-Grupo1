@@ -19,6 +19,9 @@
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
@@ -52,15 +55,6 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "map": "cpp",
-        "bitset": "cpp",
-        "set": "cpp",
-        "regex": "cpp",
-        "future": "cpp",
-        "iomanip": "cpp",
-        "shared_mutex": "cpp",
-        "variant": "cpp",
-        "list": "cpp",
-        "valarray": "cpp"
+        "variant": "cpp"
     }
 }

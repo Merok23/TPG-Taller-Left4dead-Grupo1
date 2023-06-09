@@ -150,15 +150,15 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 
 std::shared_ptr<GameStateForClient> Game::update() {
     //--------------------GAME OVER--------------------//
-    if (this->game_over) return std::make_shared<GameStateForClient>(this->entities, 
+    /* if (this->game_over) return std::make_shared<GameStateForClient>(this->entities, 
         this->gameMap.getWidth(), 
         this->gameMap.getHeight(),
         this->game_over,
-        this->players_won);
+        this->players_won); */
     //-------------------------------------------------//
 
     if (this->survival_mode) survivalUpdate();
-    if (this->clear_the_zone && !this->zone_is_set) setTheZone();
+   // if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
