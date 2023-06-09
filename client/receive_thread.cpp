@@ -12,7 +12,9 @@ void ReceiveThread::run() {
             std::shared_ptr<GameState> game_state = protocol.receiveGameState();
             if (!game_state && !finished) {
                 std::cout << "ERROR: Server was disconnected" << std::endl; //Como se lo paso a abril??????? 
+                std::shared_ptr<GameState> game_state = std::make_shared<GameState>();
                 game_state->setLostConnection();
+                game_states.push(std::move(game_state)); 
                 finished = true;
                 break;
             }   

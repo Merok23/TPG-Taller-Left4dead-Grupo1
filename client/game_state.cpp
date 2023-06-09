@@ -3,6 +3,11 @@
 #include <iostream>
 #include <memory>
 
+GameState::GameState() : 
+    game_over(false), 
+    players_won(false), 
+    lost_connection(true) {}
+
 GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool game_over,
     bool players_won) : 
