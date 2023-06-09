@@ -23,6 +23,7 @@ void Player::update(float dt, Entity* entity) {
     if (entity) {
         health_bar.update(entity->getHitPoints());
         ammo.update(entity->getAmmoLeft());
+        lives = entity->getLives();
     }
 }
 
