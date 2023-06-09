@@ -17,6 +17,8 @@ VisualBar::VisualBar(int32_t max_value, const SdlWindow& window, Uint8 r_back, U
 void VisualBar::update(int32_t new_value) {
     if (new_value < 0)
         this->current_value = 0;
+    else if(new_value > max_value)
+        this->current_value = max_value;
     else
         this->current_value = new_value;
 }
