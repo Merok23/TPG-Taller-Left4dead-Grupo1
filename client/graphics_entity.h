@@ -13,8 +13,8 @@ class GraphicsEntity {
     GraphicsEntity(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
                    uint32_t id, int32_t x_position, int32_t y_position);
     ~GraphicsEntity();
-    virtual void update(float dt, Entity* entity) = 0;
-    virtual void render() = 0;
+    virtual void update(float dt, Entity* entity);
+    virtual void render();
 
     int32_t getX();
     int32_t getY();

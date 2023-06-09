@@ -27,19 +27,16 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
     return player;
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type) {
+std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
         
-    std::shared_ptr<Player> player = std::make_shared<Player>(
+    std::shared_ptr<GraphicsEntity> infected = std::make_shared<GraphicsEntity>(
                                                 textures,
-                                                window,
                                                 entity->getId(),
                                                 entity->getPositionX(),
-                                                entity->getPositionY(),
-                                                entity->getHitPoints(),
-                                                entity->getAmmoLeft());  
-    entities[entity->getId()] = player;
-    return player;
+                                                entity->getPositionY());  
+    entities[entity->getId()] = infected;
+    return infected;
 }
 
 
@@ -67,13 +64,13 @@ void GraphicsEntityHolder::update_x(int32_t delta_x) {
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::add_player(Entity* entity) {
+void  GraphicsEntityHolder::add_player(Entity* entity) {
     if (entity->getEntityType() == EntityType::SOLDIER_IDF
         || entity->getEntityType() == EntityType::SOLDIER_SCOUT
         || entity->getEntityType() == EntityType::SOLDIER_P90) {
-            return this->createSoldier(entity, entity->getEntityType());
+            this->createSoldier(entity, entity->getEntityType());
     } else {
-        return this->createInfected(entity, entity->getEntityType());
+        this->createInfected(entity, entity->getEntityType());
     }
 }
 
@@ -97,9 +94,7 @@ void GraphicsEntityHolder::update(float& dt, std::shared_ptr<GameState> gs) {
 
     if (gs != NULL) {
         for (const auto &pair : gs->entities) {
-            std::shared_ptr<Player> player = add_player(pair.second);
-            if (player)
-                player->update(dt, NULL);
+            add_player(pair.second);
         }
     }
 }

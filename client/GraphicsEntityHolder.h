@@ -23,15 +23,15 @@ public:
     
 
 private:
-    std::shared_ptr<Player> add_player(Entity* entity);
+    void add_player(Entity* entity);
     std::shared_ptr<Player> createSoldier(Entity* entity, EntityType type);
-    std::shared_ptr<Player> createInfected(Entity* entity, EntityType type);
+    std::shared_ptr<GraphicsEntity> createInfected(Entity* entity, EntityType type);
 
     
     
     SdlWindow &window;
     TexturesHolder textures_holder;
-    std::map<uint32_t, std::shared_ptr<Player>> entities;
+    std::map<uint32_t, std::shared_ptr<GraphicsEntity>> entities;
     std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Player> MainPlayer;
 };
