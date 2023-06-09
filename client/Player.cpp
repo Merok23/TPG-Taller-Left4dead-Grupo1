@@ -68,7 +68,7 @@ void Player::update(float dt, Entity* entity) {
             break;
         
         case DOWN:
-            current_animation = AN_IDLE;
+            current_animation = AN_HURT;
             break;
         
         case REVIVING:
@@ -89,14 +89,21 @@ void Player::update(float dt, Entity* entity) {
 
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end()) {
-        if (current_animation == AN_DIE)
+        if (current_animation == AN_DIE) {
             if (it_current->second->amountPlayed() == 0)
                 it_current->second->update(dt, 3);
             else
                 it_current->second->update(0, 0);
+        }
         
         else if (current_animation == AN_IDLE)
             it_current->second->update(dt, 5);
+        // else if (current_animation == AN_HURT) {
+        //     if (it_current->second->amountPlayed() == 0)
+        //         it_current->second->update(dt, 4);
+        //     else
+        //         it_current->second->update(0, 0);
+       // } 
         else
             it_current->second->update(dt, 1);
     }
