@@ -26,6 +26,16 @@ struct config {
     int spear_infected_attack_range;
     int spear_infected_attack_cooldown;
     int spear_infected_damage;
+    int witch_infected_health;
+    int witch_infected_speed;
+    int witch_infected_radius;
+    int witch_infected_look_range;
+    int witch_infected_attack_range;
+    int witch_infected_attack_cooldown;
+    int witch_infected_attack_damage;
+    int witch_infected_shout_cooldown;
+    double witch_infected_shout_probability;
+    int witch_infected_scream_spawn_ammount; //ammount spawned per scream
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.
     int scenario_width;

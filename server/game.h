@@ -19,6 +19,7 @@
 #include "entity_player.h"
 #include "entity_infected_common.h"
 #include "entity_infected_spear.h"
+#include "entity_infected_witch.h"
 #include "server_enum.h"
 
 enum Cheat {
@@ -34,6 +35,7 @@ class Game {
         Map gameMap;
         std::map<uint32_t, Entity*> infected;
         std::map<uint32_t, Entity*> soldiers;
+        std::map<uint32_t, WitchInfected*> witches;
         /*
          * Shooting soldiers as a list has a funny bug
          * if you shoot twice with one soldier for example 
@@ -80,6 +82,7 @@ class Game {
         void checkForShooting();
         void checkForInfectedAttack();
         void checkForGameOver();
+        void checkForScreamingWitches();
         bool checkForPartyWipe();
         //unique ptr so we don't copy the vector more than once
         //std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
@@ -90,6 +93,7 @@ class Game {
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
         void spawnInfectedCheat(const uint32_t& id);
+        void spawnWitchInfectedFromScream(const uint32_t& id);
         void killAllInfectedCheat();
         bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();

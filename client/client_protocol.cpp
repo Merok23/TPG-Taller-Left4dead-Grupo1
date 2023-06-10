@@ -143,7 +143,7 @@ void ClientProtocol::sendShooting(int shooting) {
 
 
 void ClientProtocol::sendReloading(int reloading) {
-    uint8_t action = SHOOT_PLAYER_COMMAND;  
+    uint8_t action = RELOAD_PLAYER_COMMAND;  
     sendUnsignedSmallInteger(action);
     if (was_closed) return;
 

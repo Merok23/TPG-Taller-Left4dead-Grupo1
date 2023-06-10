@@ -5,6 +5,7 @@ Game::Game(int32_t width, int32_t height) :
     gameMap(width,height),
     infected(),
     soldiers(),
+    witches(),
     shooting_soldiers(),
     clear_the_zone(false),
     zone_is_set(false),
@@ -24,6 +25,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     gameMap(width,height),
     infected(),
     soldiers(),
+    witches(),
     shooting_soldiers(),
     clear_the_zone(gameMode == GameMode::CLEAR_THE_ZONE),
     zone_is_set(false),
@@ -43,6 +45,9 @@ void Game::addEntity(Entity* entity) {
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
     if (entity->isInfected()) {
         this->infected[entity->getId()] = entity;
+        if (entity->getEntityType() == "witch") {
+            this->witches[entity->getId()] = dynamic_cast<WitchInfected*>(entity);
+        }
     } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
         this->game_started = true;
@@ -163,6 +168,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
     this->checkForInfectedAttack();
+    this->checkForScreamingWitches();
     this->updateAllEntities();
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
@@ -208,6 +214,28 @@ void Game::checkForInfectedAttack() {
     for (auto&& id_entity : this->infected) {
         Infected* infected = dynamic_cast<Infected*>(id_entity.second);
         infected->checkForSoldiersInRangeAndSetAttack(this->soldiers);
+    }
+}
+
+void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
+    this->witches[id]->setSpawnedInfected();
+    for (int i = 0; i < CONFIG.witch_infected_scream_spawn_ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
+            Entity* infected = new CommonInfected(current_id, x, y);
+            this->addEntity(infected);
+            CommonInfected* common = dynamic_cast<CommonInfected*>(infected);
+            common->setFollowWitch(this->entities[id]);
+        }
+    }
+    
+
+}
+
+void Game::checkForScreamingWitches() {
+    for (auto&& witch : this->witches) {
+        if (witch.second->isShouting() && !witch.second->hasSpawnedInfected()) this->spawnWitchInfectedFromScream(witch.first);
     }
 }
 
@@ -290,7 +318,7 @@ bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
         while(!found) {
             x = rand() % this->gameMap.getWidth() + radius;
             y = rand() % this->gameMap.getHeight() + radius;
-            if (!this->gameMap.checkForCollisionInPosition(x, y, CONFIG.common_infected_radius)) found = true;
+            if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
         }
         return found;
 }
