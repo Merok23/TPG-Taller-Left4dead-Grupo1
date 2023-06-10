@@ -5,10 +5,10 @@
 #include "SdlTexture.h"
 #include "GraphicsEntityHolder.h"
 
-#define BACKGROUND_WIDTH 1920
+#define BACKGROUND_WIDTH 5760
 #define BACKGROUND_HEIGTH 1080
 
-#define WINDOW_WIDTH (1920-400)
+#define WINDOW_WIDTH (1520)
 #define WINDOW_HEIGTH (1080-200)
 
 #define EXTRA_SCREEN 200

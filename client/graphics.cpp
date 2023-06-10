@@ -78,7 +78,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                     }
                     if (keyboardState[SDL_SCANCODE_C]){
                         std::cout << "Cheat: clear zone of infected" << std::endl;
-                        //queue_comandos.push(command.cheatSpawnCommonInfected());
+                        queue_comandos.push(command.cheatKillAllInfected());
                     }
                 }
                 

@@ -35,7 +35,6 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
 
     ge_holder.update_x(delta_x);
 
-    x_camera_world+=5;
 
     Area srcArea(x_camera_world, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     background.render(srcArea, destArea, SDL_FLIP_NONE);

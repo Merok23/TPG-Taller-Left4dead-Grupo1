@@ -27,7 +27,7 @@ const struct config CONFIG {
     20, // spear_infected_damage
     40, // crater_radius
     100, // crater_hit_points
-    1920-400, //1920, // scenario_width
+    5760,//-400, //1920, // scenario_width
     250,//1080, // scenario_height
     5, // default_radius
     8589934591, // invalid_id
