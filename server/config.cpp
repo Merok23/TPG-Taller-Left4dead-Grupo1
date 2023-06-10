@@ -3,7 +3,7 @@
 const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
-    25, // soldier_radius
+    23, // soldier_radius
     20, // soldier_reload_cooldown
     15, // soldier time_to_revive
     1000, // soldier_max_time_until_dead
@@ -27,7 +27,7 @@ const struct config CONFIG {
     20, // spear_infected_damage
     40, // crater_radius
     100, // crater_hit_points
-    1920-400, //1920, // scenario_width
+    5760,//-400, //1920, // scenario_width
     250,//1080, // scenario_height
     5, // default_radius
     8589934591, // invalid_id

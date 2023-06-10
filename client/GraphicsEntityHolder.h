@@ -19,7 +19,7 @@ public:
     void update_x(int32_t x); 
 
     void update(float& dt, std::shared_ptr<GameState> gs);
-    void render();
+    void render(int x_left, int x_right);
     
 
 private:

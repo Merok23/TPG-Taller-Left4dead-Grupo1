@@ -48,9 +48,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case REVIVING:
             current_animation = AN_IDLE;
             break;
-        } 
-        x = entity->getPositionX();
-        y = entity->getPositionY();
+        }
+        
+        x = entity->getPositionX() - width/2;
+        y = entity->getPositionY() - height*2;
         
         facingLeft = entity->isFacingLeft();
     }
@@ -66,6 +67,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         
         else if (current_animation == AN_IDLE)
             it_current->second->update(dt, 5);
+
+        else if (current_animation == AN_RUN)
+            it_current->second->update(dt, 2);
+
         else
             it_current->second->update(dt, 1);
     }
@@ -73,7 +78,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
 
 void GraphicsEntity::render() {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Area destArea(x, y, width, height); //200 200 es que tan grande es el rect'angulo para el elemento
+    Area destArea(x, y, width, height);
     
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end())
