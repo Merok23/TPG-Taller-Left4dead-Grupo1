@@ -8,8 +8,8 @@
 TEST_CASE("Infected test, infected follows a soldier on the X axis", "[common_infected]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun(); 
-    Entity* player = new Player(1, CONFIG.common_infected_range, CONFIG.soldier_radius, weapon);
-    Entity* infected = new CommonInfected(2, 0, CONFIG.soldier_radius);
+    Entity* player = new Player(1, CONFIG.common_infected_range, CONFIG.common_infected_radius, weapon);
+    Entity* infected = new CommonInfected(2, 0, CONFIG.common_infected_radius);
     game.addEntity(player);
     game.addEntity(infected);
     game.update();
@@ -98,7 +98,7 @@ TEST_CASE
     Entity* player = new Player(1, 0, CONFIG.soldier_radius, weapon);
     int suma_radios = CONFIG.soldier_radius + CONFIG.common_infected_radius;
     Entity* infected1 = new CommonInfected(2, suma_radios, CONFIG.soldier_radius);
-    Entity* infected2 = new CommonInfected(3, suma_radios + CONFIG.common_infected_radius, CONFIG.soldier_radius);
+    Entity* infected2 = new CommonInfected(3, suma_radios + CONFIG.common_infected_radius, CONFIG.common_infected_radius);
     game.addEntity(player);
     game.addEntity(infected1);
     game.addEntity(infected2);
@@ -109,7 +109,7 @@ TEST_CASE
     REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
     //infected 2 moved to player but got stuck behind infected 1
     REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == suma_radios + CONFIG.common_infected_radius);
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.common_infected_radius);
     game.update();
     //everyone stays the same
     REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == 0);
@@ -117,5 +117,5 @@ TEST_CASE
     REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getX() == suma_radios);
     REQUIRE(game.getEntities()[2]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
     REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getX() == suma_radios + CONFIG.common_infected_radius);
-    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.soldier_radius);
+    REQUIRE(game.getEntities()[3]->getDirectionOfMovement()->getY() == CONFIG.common_infected_radius);
 }
