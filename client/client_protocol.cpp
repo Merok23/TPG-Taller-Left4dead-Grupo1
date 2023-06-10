@@ -73,7 +73,7 @@ void ClientProtocol::sendCommand(command_t command) {
             break;
         }
         case (Commands::CHEAT_INFINITE_HITPOINTS): {
-            sendCheat(CHEAT_KILL_ALL_INFECTED_COMMAND);
+            sendCheat(CHEAT_INFINITE_HITPOINTS_COMMAND);
             break;
         }
         case (Commands::CHEAT_SPAWN_COMMON_INFECTED): {
