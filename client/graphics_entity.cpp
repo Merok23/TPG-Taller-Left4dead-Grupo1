@@ -48,9 +48,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case REVIVING:
             current_animation = AN_IDLE;
             break;
-        } 
+        }
+        
         x = entity->getPositionX() - width/2;
-        y = entity->getPositionY() - height/2;
+        y = entity->getPositionY() - height*2;
         
         facingLeft = entity->isFacingLeft();
     }

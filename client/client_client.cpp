@@ -23,13 +23,17 @@ void Client::run() {
     while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        std::string word1, word2, word3;
+        std::string word1, word2, word3, word4;
         iss >> word1;
         if (word1 == "create") {
             iss >> word2; 
             if (word2 == "room") {
                 iss >> word3;
-                protocol.sendCommand(command.createRoom(word3, GameMode::SURVIVAL));
+                iss >> word4;
+                if (word4 == "survival")
+                    protocol.sendCommand(command.createRoom(word3, GameMode::SURVIVAL));
+                else
+                    protocol.sendCommand(command.createRoom(word3, GameMode::TESTING));
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;

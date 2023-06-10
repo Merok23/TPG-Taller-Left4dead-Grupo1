@@ -179,6 +179,7 @@ command_t ServerProtocol::receiveCommand() {
 
 GameMode ServerProtocol::intToGameMode(uint8_t game_mode) {
     if (game_mode == 0) return GameMode::SURVIVAL;
+    if (game_mode == 2) return GameMode::TESTING;
     return GameMode::CLEAR_THE_ZONE;
 }
 
@@ -208,7 +209,7 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendInteger(interface_x);
         if (was_closed) return;
 
-        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 550;
+        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 650;
         sendInteger(interface_y);
         if (was_closed) return;
 

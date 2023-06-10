@@ -3,7 +3,7 @@
 const struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
-    25, // soldier_radius
+    23, // soldier_radius
     20, // soldier_reload_cooldown
     15, // soldier time_to_revive
     1000, // soldier_max_time_until_dead

@@ -1,4 +1,5 @@
 enum GameMode {
     SURVIVAL,
-    CLEAR_THE_ZONE
+    CLEAR_THE_ZONE,
+    TESTING
 };
