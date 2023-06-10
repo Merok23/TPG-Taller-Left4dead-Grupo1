@@ -20,6 +20,9 @@ class GraphicsEntity {
     int32_t getX();
     int32_t getY();
     uint32_t getId();
+    bool is_moving() {
+        return (current_animation == AN_RUN || current_animation == AN_WALK);
+    }
 
     bool is_dead();
 

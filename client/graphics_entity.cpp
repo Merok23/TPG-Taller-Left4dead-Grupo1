@@ -66,6 +66,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         
         else if (current_animation == AN_IDLE)
             it_current->second->update(dt, 5);
+
+        else if (current_animation == AN_RUN)
+            it_current->second->update(dt, 2);
+
         else
             it_current->second->update(dt, 1);
     }
