@@ -229,6 +229,10 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             EntityType entity_type = SPEAR;
             entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
+        } else if (type == "witch") {
+            EntityType entity_type = WITCH;
+            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
+                is_facing_left, is_moving_up);
         }
         entities[id] = entity;
         entities_len--; 
@@ -246,7 +250,8 @@ State ClientProtocol::stringToState(const std::string& state) {
         { "idle", IDLE},
         { "attacking", ATTACKING},
         { "down", DOWN },
-        { "reviving", REVIVING}
+        { "reviving", REVIVING},
+        { "screaming", SCREAMING}
     };
 
     auto it = stateMap.find(state);

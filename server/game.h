@@ -52,6 +52,7 @@ class Game {
         int survival_mode_counter;
         int max_common_infected_per_spawn;
         int max_spear_infected_per_spawn;
+        int max_witch_infected_per_spawn;
         double survival_mode_multiplier;
         uint32_t current_id;
         bool game_started;
@@ -92,6 +93,7 @@ class Game {
         void spawnInfected();
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
+        void spawnWitchInfected(int ammount);
         void spawnInfectedCheat(const uint32_t& id);
         void spawnWitchInfectedFromScream(const uint32_t& id);
         void killAllInfectedCheat();

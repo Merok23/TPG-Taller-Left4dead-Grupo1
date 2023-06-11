@@ -39,7 +39,7 @@ std::string WitchInfected::getState() {
         case ATTACKING_WITCH_INFECTED:
             return "attacking";
         case SHOUTING_WITCH_INFECTED:
-            return "shouting";
+            return "screaming";
     }
     return "idle";
 }
@@ -47,6 +47,7 @@ std::string WitchInfected::getState() {
 void WitchInfected::setChase(Entity* entity) {
     this->getDirectionOfMovement()
         ->setChase(*entity->getDirectionOfMovement(), this->speed);
+    this->state = MOVING_WITCH_INFECTED;
 }
 
 void WitchInfected::checkForSoldiersInRangeAndSetAttack(std::map<uint32_t, Entity*> &soldiers) {

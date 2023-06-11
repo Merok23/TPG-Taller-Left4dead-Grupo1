@@ -1,6 +1,8 @@
 #include "graphics.h"
 #include <cmath>
 
+Graphics::Graphics() : last_it(0) {}
+
 bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
     int delta_its = it - this->last_it;
 
@@ -23,7 +25,6 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
 
         time_t t1 = time(0);
         int it = 0;
-        int rest = 0;
         this->last_it = 0;
 
         bool running = true;
@@ -31,7 +32,7 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
             running = game_loop(it, gr_entity_holder, camera, queue_comandos, game_states, window);
             
             time_t t2 = time(0);
-            rest = FRAME_RATE - (t2-t1);
+            int rest = FRAME_RATE - (t2-t1);
             if (rest < 0) {
                 int behind = -rest; //always positive
                 rest = FRAME_RATE - behind % FRAME_RATE;

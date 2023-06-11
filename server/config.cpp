@@ -60,12 +60,13 @@ const struct config CONFIG {
     500, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
+    1, //survival_mode_max_witch_infected
     1.1, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
     10, //clear_the_zone_infected_total
     0.7, //common_infected_zone_percentage
-    0.3, //spear_infected_zone_percentage
-    0, //witch_infected_zone_percentage
+    0.2, //spear_infected_zone_percentage
+    0.1, //witch_infected_zone_percentage
     0, //jumper_infected_zone_percentage
     0 //venom_infected_zone_percentage
 };
