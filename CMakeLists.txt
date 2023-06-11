@@ -10,7 +10,7 @@ find_package(Threads REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(Catch2 3 REQUIRED)
-
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 set(COMMON_DIR common)
 set(CLIENT_DIR client)
@@ -30,6 +30,7 @@ add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS})
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2_image)
 target_link_libraries(client_executable PRIVATE SDL2)
+target_link_libraries(client_executable PRIVATE Qt5::Widgets)  # Link Qt5 libraries
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
 target_link_libraries(server_executable PRIVATE Threads::Threads)
