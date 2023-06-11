@@ -15,6 +15,7 @@
 
 #include "../client/client_protocol.h"
 #include "../common/socket.h"
+#include "graphics_qt.h"
 
 #include "graphics.h"
 
@@ -28,6 +29,7 @@ class Client {
     private: 
     ClientProtocol protocol;
     Graphics graphics;
+    GraphicsQt graphics_qt;
     Queue<command_t> queue_comandos; 
     Queue<std::shared_ptr<GameState>> game_states;
     SendThread* send_thread;

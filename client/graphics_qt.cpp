@@ -1,8 +1,8 @@
-#include <QApplication>
-#include <QDebug>
-#include "mainwindow.h"
+#include "graphics_qt.h"
 
-int main(int argc, char *argv[]) {
+void run() {
+    int argc = 0;
+    char* argv[1];
     QApplication app(argc, argv);
 
     int i = 1;
@@ -48,5 +48,5 @@ int main(int argc, char *argv[]) {
         // Process the match code in main.cpp
     });
 
-    return app.exec();;
+    app.exec();;
 }

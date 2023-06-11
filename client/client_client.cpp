@@ -59,6 +59,7 @@ void Client::run() {
     send_thread->start();
     receive_thread->start();
 
+
     while (!finished) { 
         std::getline(std::cin, line);
         if (protocol.isFinished()) break;
