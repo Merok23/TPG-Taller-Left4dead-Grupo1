@@ -16,9 +16,25 @@ typedef struct command_t {
 	bool shooting;
 	bool reloading;
 	uint32_t room_id;
+
+
+	command_t operator=(const command_t& other) {
+        type = other.type;
+        room_name = other.room_name;
+        game_mode = other.game_mode;
+        weapon = other.weapon;
+        moving_x = other.moving_x;
+        moving_y = other.moving_y;
+        shooting = other.shooting;
+        reloading = other.reloading;
+        room_id = other.room_id;
+        return *this;
+    }
+
 } command_t;
 
 struct COMMANDS {
+
 	command_t createRoom(const std::string &name, GameMode game_mode)
 	{
 		command_t command;

@@ -10,7 +10,7 @@ find_package(Threads REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(Catch2 3 REQUIRED)
-
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 set(COMMON_DIR common)
 set(CLIENT_DIR client)
@@ -23,13 +23,26 @@ file(GLOB CLIENT_SRCS ${CLIENT_DIR}/*.cpp ${CLIENT_DIR}/main/main.cpp)
 file(GLOB SERVER_SRCS_FOR_TESTS ${SERVER_DIR}/*.cpp EXCLUDE ${SERVER_DIR}/main)
 file(GLOB SERVER_SRCS ${SERVER_DIR}/*.cpp ${SERVER_DIR}/main/main.cpp)
 file(GLOB TESTS_SRCS ${TESTS_DIR}/*.cpp)
+file(GLOB UI_FILES ${CLIENT_DIR}/*.ui)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+qt5_wrap_ui(UI_HEADERS ${UI_FILES})
+qt5_add_resources(QRC_FILES ${CLIENT_DIR}/assets.qrc) 
 
 add_library(common_objects OBJECT ${COMMON_SRCS})
 
-add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS})
+add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS} ${QRC_FILES})
+
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2_image)
 target_link_libraries(client_executable PRIVATE SDL2)
+target_link_libraries(client_executable PRIVATE Qt5::Widgets)
+target_link_libraries(client_executable PRIVATE Qt5::Core)
+target_link_libraries(client_executable PRIVATE Qt5::Gui)
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
 target_link_libraries(server_executable PRIVATE Threads::Threads)
@@ -43,15 +56,16 @@ set_target_properties(client_executable server_executable PROPERTIES
 )
 
 set_target_properties(client_executable PROPERTIES
-OUTPUT_NAME client
+  OUTPUT_NAME client
 )
 
 set_target_properties(server_executable PROPERTIES
-OUTPUT_NAME server
+  OUTPUT_NAME server
 )
 
 set_target_properties(tests_executable PROPERTIES
-  RUNTIME_OUTPUT_DIRECTORY ${TARGET_DIR})
+  RUNTIME_OUTPUT_DIRECTORY ${TARGET_DIR}
+)
 
 set_target_properties(common_objects PROPERTIES
   POSITION_INDEPENDENT_CODE ON
@@ -62,11 +76,6 @@ set_target_properties(client_executable server_executable common_objects tests_e
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
 )
-
-set(COMMON_OBJ $<TARGET_OBJECTS:common_objects>)
-set(CLIENT_OBJ $<TARGET_OBJECTS:common_objects> ${CLIENT_SRCS})
-set(SERVER_OBJ $<TARGET_OBJECTS:common_objects> ${SERVER_SRCS})
-set(TESTS_OBJ $<TARGET_OBJECTS:common_objects> ${TESTS_SRCS})
 
 add_custom_target(clean_target
   COMMAND ${CMAKE_COMMAND} -E remove_directory ${TARGET_DIR}
@@ -82,5 +91,5 @@ add_custom_target(server_tests_target
 )
 
 add_custom_target(tests
-  DEPENDS tests_executable
+  DEPENDS
 )

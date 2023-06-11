@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++11 -rdynamic "CMakeFiles/sdl-events-prueba.dir/src/mainPruebaAbril.cpp.o" "CMakeFiles/sdl-events-prueba.dir/src/Player.cpp.o" "CMakeFiles/sdl-events-prueba.dir/src/GraphicsEntityHolder.cpp.o" -o sdl-events-prueba  libs/libsdldemo.a -lSDL2 -lSDL2_image 
