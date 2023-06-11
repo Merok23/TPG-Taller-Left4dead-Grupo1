@@ -61,17 +61,35 @@ void Client::run() {
     create_or_join_command = commands.cheatInfiniteHitpoints();
     player_command = commands.cheatInfiniteHitpoints();
 
-    this->graphics_qt.run(&commands, &create_or_join_command, &player_command);
+    bool join_failed = true;
+    while (join_failed) {
+        join_failed = false;
+        this->graphics_qt.run(&commands, &create_or_join_command, &player_command);
 
-
-    if ((create_or_join_command.type != CREATE_ROOM && create_or_join_command.type != JOIN_ROOM) || 
-        player_command.type != ADD_PLAYER) {
-        finished = true;
-        return;
+        if ((create_or_join_command.type != CREATE_ROOM && create_or_join_command.type != JOIN_ROOM) || 
+            player_command.type != ADD_PLAYER) {
+            finished = true;
+            send_thread->start();
+            receive_thread->start();
+            return;
+        }
+    
+        protocol.sendCommand(create_or_join_command);
+        if (create_or_join_command.type == CREATE_ROOM)
+            std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
+        else {
+            int response = protocol.receiveJoinResponse();
+            if (response == 1) {
+                std::cout << "Joined room successfully"<< std::endl;
+            }    
+            if (response == 0) {
+                std::cout << "Join room failed" << std::endl;
+                join_failed = true;
+            }
+        } 
     }
     
-    protocol.sendCommand(create_or_join_command);
-    std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
+
     started_playing = true;
 
     while (!started_playing) { 
