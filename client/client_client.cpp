@@ -8,10 +8,11 @@
 #define MAX_ELEMENTS 10000
 
 Client::Client(const char* hostname, const char* servname) : 
-    protocol(std::move(Socket(hostname, servname))), 
-        queue_comandos(MAX_ELEMENTS), 
-            game_states(MAX_ELEMENTS),
-                finished(false) {
+    protocol(std::move(Socket(hostname, servname))),
+        graphics(), 
+            queue_comandos(MAX_ELEMENTS), 
+                game_states(MAX_ELEMENTS),
+                    finished(false) {
     send_thread = new SendThread(protocol, queue_comandos);
     receive_thread = new ReceiveThread(protocol, game_states);
 }
@@ -30,10 +31,13 @@ void Client::run() {
             if (word2 == "room") {
                 iss >> word3;
                 iss >> word4;
-                if (word4 == "survival")
+                if (word4 == "survival") {
                     protocol.sendCommand(command.createRoom(word3, GameMode::SURVIVAL));
-                else
+                } else if (word4 == "clear") {
+                    protocol.sendCommand(command.createRoom(word3, GameMode::CLEAR_THE_ZONE));
+                } else {
                     protocol.sendCommand(command.createRoom(word3, GameMode::TESTING));
+                }
                 std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
             }
             started_playing = true;

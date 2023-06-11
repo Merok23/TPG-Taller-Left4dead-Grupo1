@@ -5,6 +5,7 @@ Game::Game(int32_t width, int32_t height) :
     gameMap(width,height),
     infected(),
     soldiers(),
+    witches(),
     shooting_soldiers(),
     clear_the_zone(false),
     zone_is_set(false),
@@ -13,6 +14,7 @@ Game::Game(int32_t width, int32_t height) :
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
+    max_witch_infected_per_spawn(CONFIG.survival_mode_max_witch_infected),
     survival_mode_multiplier(CONFIG.survival_mode_starting_multiplier),
     current_id(0),
     game_started(false),
@@ -24,6 +26,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     gameMap(width,height),
     infected(),
     soldiers(),
+    witches(),
     shooting_soldiers(),
     clear_the_zone(gameMode == GameMode::CLEAR_THE_ZONE),
     zone_is_set(false),
@@ -32,6 +35,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     survival_mode_counter(CONFIG.survival_mode_timer),
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
+    max_witch_infected_per_spawn(CONFIG.survival_mode_max_witch_infected),
     survival_mode_multiplier(CONFIG.survival_mode_starting_multiplier),
     current_id(0),
     game_started(false),
@@ -43,6 +47,9 @@ void Game::addEntity(Entity* entity) {
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
     if (entity->isInfected()) {
         this->infected[entity->getId()] = entity;
+        if (entity->getEntityType() == "witch") {
+            this->witches[entity->getId()] = dynamic_cast<WitchInfected*>(entity);
+        }
     } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
         this->game_started = true;
@@ -163,6 +170,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
     this->checkForInfectedAttack();
+    this->checkForScreamingWitches();
     this->updateAllEntities();
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
@@ -211,6 +219,28 @@ void Game::checkForInfectedAttack() {
     }
 }
 
+void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
+    this->witches[id]->setSpawnedInfected();
+    for (int i = 0; i < CONFIG.witch_infected_scream_spawn_ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
+            Entity* infected = new CommonInfected(current_id, x, y);
+            this->addEntity(infected);
+            CommonInfected* common = dynamic_cast<CommonInfected*>(infected);
+            common->setFollowWitch(this->entities[id]);
+        }
+    }
+    
+
+}
+
+void Game::checkForScreamingWitches() {
+    for (auto&& witch : this->witches) {
+        if (witch.second->isShouting() && !witch.second->hasSpawnedInfected()) this->spawnWitchInfectedFromScream(witch.first);
+    }
+}
+
 void Game::updateAllEntities() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
@@ -243,7 +273,7 @@ void Game::setTheZone() {
     this->zone_is_set = true;
     this->spawnCommonInfected(CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
     this->spawnSpearInfected(CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
-    //this->spawnWitchInfected(CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnWitchInfected(CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
     //this->spawnJumperInfected(CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
     //this->spawnVenomInfected(CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
 }
@@ -285,12 +315,25 @@ void Game::spawnSpearInfected(int ammount) {
     }
 }
 
+void Game::spawnWitchInfected(int ammount) {
+        for (int i = 0; i < ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.witch_infected_radius, x, y)) {
+            //id is not a problem (race condition) since there is no 
+            //other thread calling for addEntity in the game update
+            Entity* infected = new WitchInfected(current_id, x, y);
+            this->addEntity(infected);
+        }   
+    }
+}
+
 bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
         bool found = false;
         while(!found) {
             x = rand() % this->gameMap.getWidth() + radius;
             y = rand() % this->gameMap.getHeight() + radius;
-            if (!this->gameMap.checkForCollisionInPosition(x, y, CONFIG.common_infected_radius)) found = true;
+            if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
         }
         return found;
 }
@@ -299,6 +342,7 @@ void Game::spawnInfected() {
     //this could be done with a factory pattern
     this->spawnCommonInfected(rand() % this->max_common_infected_per_spawn + 1);
     this->spawnSpearInfected(rand() % this->max_spear_infected_per_spawn + 1);
+    this->spawnWitchInfected(rand() % this->max_witch_infected_per_spawn + 1);
 }
 
 void Game::makeInfectedStronger() {

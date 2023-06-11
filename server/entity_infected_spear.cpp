@@ -45,7 +45,7 @@ void SpearInfected::setChase(Entity* entity) {
 
 void SpearInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) {
     //this shouldn't happen since when it's dead its removed from the game
-    //but it's here for a border case where it was killed before chasing
+    //but it's here for a border case where it was killed before attacking
     if (this->state == DEAD_SPEAR_INFECTED) return;
     if (this->incapacitated > 0) return;
     std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);

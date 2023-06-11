@@ -100,3 +100,9 @@ void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Enti
         this->setChase(iterator->second);
     }
 }
+
+void CommonInfected::setFollowWitch(Entity* witch) {
+    this->getDirectionOfMovement()->setChase(*witch->getDirectionOfMovement(), 
+        this->speed);
+    this->state = MOVING_INFECTED;
+}

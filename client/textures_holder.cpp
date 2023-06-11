@@ -115,14 +115,14 @@ void TexturesHolder::create_spear(const std::string &path) {
 }
 
 void TexturesHolder::create_witch(const std::string &path) {
-    std::string img("Attack3.png");
+    std::string img("Attack_3.png");
     textures_holder[WITCH][AN_ATTACK3] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Scream.png");
     textures_holder[WITCH][AN_SCREAM] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Jump.png");
-    textures_holder[JUMPER][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    img.replace(0, img.length(), "Run.png");
+    textures_holder[WITCH][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
 
@@ -148,11 +148,11 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
 
     path.replace(0, path.length(), "../../assets/Jumper/");
     create_infected(JUMPER, path);
-
+    */
 
     path.replace(0, path.length(), "../../assets/Witch/");
     create_infected(WITCH, path);
-    */
+    
 }
 
 std::map<AnimationName, std::shared_ptr<SdlTexture>> TexturesHolder::find_textures(EntityType entity_type) {

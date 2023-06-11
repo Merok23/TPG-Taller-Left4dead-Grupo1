@@ -16,7 +16,7 @@
 
 class Camera {
     public:
-    Camera(SdlWindow &window);
+    explicit Camera(SdlWindow &window);
 
     void render(GraphicsEntityHolder &ge_holder);
     int get_x_left();
