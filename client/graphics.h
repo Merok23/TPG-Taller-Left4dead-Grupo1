@@ -2,6 +2,7 @@
 #define __GRAPHICS_H__
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 #include <exception>
 #include <unistd.h>

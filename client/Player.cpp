@@ -30,20 +30,13 @@ void Player::update(float dt, Entity* entity) {
 
 void Player::render() {
     GraphicsEntity::render();
-    ammo.render(50, 300); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
     health_bar.render(50, 200); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
+    ammo.render(50, 300); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
     
     for (int i = 0; i < lives; i++) {
         Area destArea(50 + i * 35, 100, 30, 30);
         life_an->render(destArea, SDL_FLIP_NONE);
     }
-    
-
-    // Area destArea2(85, 100, 30, 30);
-    // life->render(destArea2, SDL_FLIP_NONE);
-
-    // Area destArea3(120, 100, 30, 30);
-    // life->render(destArea3, SDL_FLIP_NONE);
 }
 
 VisualBar& Player::get_ammo() {

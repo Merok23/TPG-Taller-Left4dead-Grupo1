@@ -15,6 +15,15 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
     try {
+        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+            throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
+        }
+
+        int imgFlags = IMG_INIT_PNG;  // Adjust flags based on the image formats you're using
+        if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
+            throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
+        }
+
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
         Camera camera(window);
 
@@ -44,6 +53,12 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
             t1 += FRAME_RATE;
             it += 1;
         }
+    
+        // Clean up SDL_image
+        IMG_Quit();
+
+        // Clean up SDL
+        SDL_Quit();
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
@@ -185,7 +200,11 @@ bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<st
 }
 
 void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera) {
+    SDL_Renderer* renderer = window.getRenderer();
+
     camera.render(gr_entity_holder);
     gr_entity_holder.render(camera.get_x_left(), camera.get_x_right());
     window.render();
+    
+    SDL_RenderPresent(renderer);
 }
