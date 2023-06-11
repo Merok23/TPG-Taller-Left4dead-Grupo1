@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
+#include "client_protocol.h"
 
 namespace Ui {
 class ChooseSoldier;
@@ -13,11 +14,12 @@ class ChooseSoldier : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChooseSoldier(QWidget *parent = nullptr);
+    explicit ChooseSoldier(QWidget *parent = nullptr, COMMANDS* commands = nullptr, 
+                            command_t* final_command = nullptr);
     ~ChooseSoldier();
 
 signals:
-    void soldierChosen(QString soldier_name);
+    void soldierChosen(QString soldier_name, COMMANDS* command, command_t* final_command);
     void closeWindows();
 
 private slots:
@@ -32,6 +34,9 @@ private:
     QString match_name;
     int mode_code;
     int match_code;
+
+    COMMANDS* commands;
+    command_t* final_command;
 };
 
 #endif // CHOOSESOLDIER_H

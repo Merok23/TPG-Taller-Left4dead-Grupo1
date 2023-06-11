@@ -1,7 +1,8 @@
 #include "creatematch.h"
 #include "ui_creatematch.h"
 
-CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier, int* i) :
+CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier, 
+                        COMMANDS* commands, command_t* final_command) :
     QDialog(parent),
     ui(new Ui::CreateMatch),
     choose_soldier(choose_soldier)
@@ -13,7 +14,8 @@ CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier, int* i)
     initial_match_name = ui->match_name_input->toPlainText();
     initial_dial_value = 0;
 
-    this->i = i;
+    this->commands = commands;
+    this->final_command = final_command;
 }
 
 CreateMatch::~CreateMatch()
@@ -26,7 +28,7 @@ void CreateMatch::on_dial_valueChanged(int value)
     QString message;
     switch (value) {
     case 0:
-        message = "Select the mode to play in.";
+        message = "Please select game mode.";
         break;
     case 1:
         message = "0 - Peaceful mode. \n\nNo enemies will be spawned. Just enjoy a stroll in an apocalyptic setting.";
@@ -49,7 +51,7 @@ void CreateMatch::on_cancel_clicked()
     reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to cancel?", QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         //tengo que mandar la senial de borrar el comando actual
-        emit resetCommand(i);
+        emit resetCommand(this->commands, this->final_command);
         close();
     }
 }
@@ -65,9 +67,9 @@ void CreateMatch::on_choose_skin_clicked()
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to move on to create new player?", QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value()-1);
-            choose_soldier->setModal(true);
-            choose_soldier->exec();
+            emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value(), this->commands, this->final_command);
+            // choose_soldier->setModal(true);
+            // choose_soldier->exec();
         }
     }
 }

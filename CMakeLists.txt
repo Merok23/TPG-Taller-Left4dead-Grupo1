@@ -39,7 +39,6 @@ target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2_image)
 target_link_libraries(client_executable PRIVATE SDL2)
 target_link_libraries(client_executable PRIVATE Qt5::Widgets)
-target_sources(client_executable PRIVATE ${CLIENT_DIR}/graphics_qt.cpp)  # Update the path to graphics_qt.cpp
 target_link_libraries(client_executable PRIVATE Qt5::Core)
 target_link_libraries(client_executable PRIVATE Qt5::Gui)
 

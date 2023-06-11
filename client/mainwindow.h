@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QDialog>
+#include "client_protocol.h"
 #include "creatematch.h"
 #include "joinmatch.h"
 #include "choosesoldier.h"
@@ -15,7 +16,7 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, int* i = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, COMMANDS* commands = nullptr, command_t* final_command = nullptr);
     ~MainWindow();
 
     ChooseSoldier* getChooseSoldier();

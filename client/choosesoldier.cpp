@@ -1,20 +1,20 @@
 #include "choosesoldier.h"
 #include "ui_choosesoldier.h"
 
-ChooseSoldier::ChooseSoldier(QWidget *parent) :
+ChooseSoldier::ChooseSoldier(QWidget *parent, COMMANDS* commands, command_t* final_command) :
     QDialog(parent),
     ui(new Ui::ChooseSoldier)
 {
     ui->setupUi(this);
     radio_buttons_checked = false;
+    this->final_command = final_command;
+    this->commands = commands;
 }
 
 ChooseSoldier::~ChooseSoldier()
 {
     delete ui;
 }
-
-//QMessageBox::information(this, "Creating new match", "Creation of match successful. You can close this window now.");
 
 void ChooseSoldier::on_start_game_clicked()
 {
@@ -35,7 +35,7 @@ void ChooseSoldier::on_start_game_clicked()
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Choosing Soldier", "Are you sure you want to start the game?", QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            emit soldierChosen(soldier_name);
+            emit soldierChosen(soldier_name, this->commands, this->final_command);
             emit closeWindows();
         }
     }

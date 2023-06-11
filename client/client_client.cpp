@@ -19,7 +19,21 @@ Client::Client(const char* hostname, const char* servname) :
 void Client::run() {
     std::string line;
     bool started_playing = false;
+    COMMANDS commands;
+    command_t final_command;
+    
+    std::cout << "\n\n&final_command is " << &final_command << std::endl;
+    this->graphics_qt.run(&commands, &final_command);
+
     COMMANDS command;
+     std::cout << " final_command.type vale = " << final_command.type << " -- sabiendo que 0 es CREATE y es 1 JOIN " << std::endl;
+
+     std::cout << " final_command.room_name vale = " << final_command.room_name << std::endl;
+    
+    protocol.sendCommand(final_command);
+    std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
+    started_playing = true;
+
     while (!started_playing) { 
         std::getline(std::cin, line);
         std::istringstream iss(line);
