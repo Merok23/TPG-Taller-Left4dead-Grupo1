@@ -37,7 +37,7 @@ class Client {
 
     Client(const Client&) = delete;
     Client& operator=(const Client&) = delete;
-    bool finished;
+    bool match_started;
 
 
     public: 

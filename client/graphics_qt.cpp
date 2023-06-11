@@ -37,7 +37,7 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
                 case 2: //surviving
                 *create_or_join_command = commands->createRoom(match_name.toStdString(), GameMode::SURVIVAL);
                 break;
-                case 3: //surviving
+                case 3: //clear the zone
                 *create_or_join_command = commands->createRoom(match_name.toStdString(), GameMode::CLEAR_THE_ZONE);
                 break;
             }
