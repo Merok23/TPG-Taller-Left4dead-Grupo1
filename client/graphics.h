@@ -22,6 +22,7 @@
 
 class Graphics {
     public:
+    Graphics();
     void run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
 
     private:

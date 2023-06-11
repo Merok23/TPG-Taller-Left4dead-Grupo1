@@ -9,7 +9,8 @@ enum State {
     DIE,
     ATTACKING,
     DOWN, 
-    REVIVING
+    REVIVING,
+    SCREAMING
 };
 
 enum AnimationName {

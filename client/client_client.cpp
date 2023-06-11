@@ -18,6 +18,7 @@ Client::Client(const char* hostname, const char* servname) :
 
 void Client::run() {
     std::string line;
+
     COMMANDS commands;
     command_t create_or_join_command;
     command_t player_command;
