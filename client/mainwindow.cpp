@@ -4,18 +4,16 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent, COMMANDS* commands, command_t* final_command) :
+MainWindow::MainWindow(QWidget *parent, COMMANDS* commands, command_t* create_or_join_command, command_t* player_command) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
-    qDebug() << "MainWindow::MainWindow -- final_command is " << final_command;
-    choose_soldier = new ChooseSoldier(this, commands, final_command);
+    choose_soldier = new ChooseSoldier(this, commands, player_command);
     connect(choose_soldier, &ChooseSoldier::closeWindows, this, &MainWindow::handleClosingWindows);
 
     ui->setupUi(this);
-    join_match = new JoinMatch(this, choose_soldier, commands, final_command);
-    qDebug() << "MainWindow::MainWindow -- final_command is " << final_command;
-    create_match = new CreateMatch(this, choose_soldier, commands, final_command);
+    join_match = new JoinMatch(this, choose_soldier, commands, create_or_join_command);
+    create_match = new CreateMatch(this, choose_soldier, commands, create_or_join_command);
 }
 
 MainWindow::~MainWindow()

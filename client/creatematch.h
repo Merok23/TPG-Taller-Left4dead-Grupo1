@@ -18,12 +18,12 @@ class CreateMatch : public QDialog
 
 public:
     explicit CreateMatch(QWidget *parent = nullptr, ChooseSoldier* choose_soldier = nullptr, 
-                        COMMANDS* commands = nullptr, command_t* final_command = nullptr);
+                        COMMANDS* commands = nullptr, command_t* create_or_join_command = nullptr);
     ~CreateMatch();
 
 signals:
-    void matchInfoEntered(QString match_name, int mode_code, COMMANDS* commands, command_t* final_command);
-    void resetCommand(COMMANDS* commands, command_t* final_command);
+    void matchInfoEntered(QString match_name, int mode_code, COMMANDS* commands, command_t* create_or_join_command);
+    void resetCommand(COMMANDS* commands, command_t* create_or_join_command);
 
 private slots:
     void on_dial_valueChanged(int value);
@@ -40,7 +40,7 @@ private:
     ChooseSoldier* choose_soldier;
 
     COMMANDS* commands;
-    command_t* final_command;
+    command_t* create_or_join_command;
 };
 
 #endif // CREATEMATCH_H

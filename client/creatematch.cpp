@@ -2,7 +2,7 @@
 #include "ui_creatematch.h"
 
 CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier, 
-                        COMMANDS* commands, command_t* final_command) :
+                        COMMANDS* commands, command_t* create_or_join_command) :
     QDialog(parent),
     ui(new Ui::CreateMatch),
     choose_soldier(choose_soldier)
@@ -15,7 +15,7 @@ CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier,
     initial_dial_value = 0;
 
     this->commands = commands;
-    this->final_command = final_command;
+    this->create_or_join_command = create_or_join_command;
 }
 
 CreateMatch::~CreateMatch()
@@ -51,7 +51,7 @@ void CreateMatch::on_cancel_clicked()
     reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to cancel?", QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         //tengo que mandar la senial de borrar el comando actual
-        emit resetCommand(this->commands, this->final_command);
+        emit resetCommand(this->commands, this->create_or_join_command);
         close();
     }
 }
@@ -67,9 +67,9 @@ void CreateMatch::on_choose_skin_clicked()
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to move on to create new player?", QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value(), this->commands, this->final_command);
-            // choose_soldier->setModal(true);
-            // choose_soldier->exec();
+            emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value(), this->commands, this->create_or_join_command);
+            choose_soldier->setModal(true);
+            choose_soldier->exec();
         }
     }
 }

@@ -3,12 +3,10 @@
 
 #include <QDebug>
 
-JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* commands, command_t* final_command) :
+JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* commands, command_t* create_or_join_command) :
     QDialog(parent)
 {
-    qDebug() << "JoinMatch::JoinMatch 1 -- final_command is " << final_command;
     ui = new Ui::JoinMatch;
-    qDebug() << "JoinMatch::JoinMatch 2 -- final_command is " << final_command;
     ui->setupUi(this);
 
     //only allow numbers in the match code
@@ -18,7 +16,7 @@ JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* c
     QString text = ui->match_code_input->text();
     this->initial_match_code = text.toInt();
     this->commands = commands;
-    this->final_command = final_command;
+    this->create_or_join_command = create_or_join_command;
     this->choose_soldier = choose_soldier;
 }
 
@@ -32,7 +30,7 @@ void JoinMatch::on_cancel_clicked()
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to cancel?", QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
-        emit resetCommand(this->commands, this->final_command);
+        emit resetCommand(this->commands, this->create_or_join_command);
         close();
     }
 }
@@ -51,7 +49,7 @@ void JoinMatch::on_choose_skin_clicked()
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to move on to create new player?", QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            emit matchCodeEntered(match_code_input, this->commands, this->final_command);
+            emit matchCodeEntered(match_code_input, this->commands, this->create_or_join_command);
             choose_soldier->setModal(true);
             choose_soldier->exec();
         }

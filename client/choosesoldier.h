@@ -15,11 +15,11 @@ class ChooseSoldier : public QDialog
 
 public:
     explicit ChooseSoldier(QWidget *parent = nullptr, COMMANDS* commands = nullptr, 
-                            command_t* final_command = nullptr);
+                            command_t* player_command = nullptr);
     ~ChooseSoldier();
 
 signals:
-    void soldierChosen(QString soldier_name, COMMANDS* command, command_t* final_command);
+    void soldierChosen(QString soldier_name, COMMANDS* command, command_t* player_command);
     void closeWindows();
 
 private slots:
@@ -36,7 +36,7 @@ private:
     int match_code;
 
     COMMANDS* commands;
-    command_t* final_command;
+    command_t* player_command;
 };
 
 #endif // CHOOSESOLDIER_H

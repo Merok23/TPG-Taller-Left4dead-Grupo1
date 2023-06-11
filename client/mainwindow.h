@@ -16,7 +16,8 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, COMMANDS* commands = nullptr, command_t* final_command = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, COMMANDS* commands = nullptr, 
+                        command_t* create_or_join_command = nullptr, command_t* player_command = nullptr);
     ~MainWindow();
 
     ChooseSoldier* getChooseSoldier();

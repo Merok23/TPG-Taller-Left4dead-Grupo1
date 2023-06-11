@@ -9,7 +9,7 @@
 
 class GraphicsQt {
 public:
-    void run(COMMANDS* commands, command_t* final_command);
+    void run(COMMANDS* commands, command_t* create_or_join_command, command_t* player_command);
     
 private:
 };

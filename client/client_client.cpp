@@ -19,18 +19,14 @@ Client::Client(const char* hostname, const char* servname) :
 void Client::run() {
     std::string line;
     bool started_playing = false;
+    COMMANDS command; //no se usa, ds hay que borrarlo
     COMMANDS commands;
-    command_t final_command;
+    command_t create_or_join_command;
+    command_t player_command;
     
-    std::cout << "\n\n&final_command is " << &final_command << std::endl;
-    this->graphics_qt.run(&commands, &final_command);
+    this->graphics_qt.run(&commands, &create_or_join_command, &player_command);
 
-    COMMANDS command;
-     std::cout << " final_command.type vale = " << final_command.type << " -- sabiendo que 0 es CREATE y es 1 JOIN " << std::endl;
-
-     std::cout << " final_command.room_name vale = " << final_command.room_name << std::endl;
-    
-    protocol.sendCommand(final_command);
+    protocol.sendCommand(create_or_join_command);
     std::cout << "Room id created: " << protocol.receiveRoomId() << std::endl;
     started_playing = true;
 
@@ -73,6 +69,21 @@ void Client::run() {
     send_thread->start();
     receive_thread->start();
 
+    queue_comandos.push(player_command);
+    std::shared_ptr<GameState> gs = NULL;
+    bool leave = false;
+    while (!leave && !protocol.isFinished()) {
+        game_states.try_pop(gs);
+        if (gs) {
+            if (!gs->entities.empty()) {
+                leave = true;
+            }
+        }
+    }
+    if (gs) graphics.run(gs, queue_comandos, game_states);
+
+    finished = true;
+
 
     while (!finished) { 
         std::getline(std::cin, line);
@@ -90,18 +101,7 @@ void Client::run() {
                 std::cout << "Invalid weapon" << std::endl;
                 continue;
             }
-            queue_comandos.push(command.addPlayer(word2));
-            std::shared_ptr<GameState> gs = NULL;
-            bool leave = false;
-            while (!leave && !protocol.isFinished()) {
-                game_states.try_pop(gs);
-                if (gs) {
-                    if (!gs->entities.empty()) {
-                        leave = true;
-                    }
-                }
-            }
-            if (gs) graphics.run(gs, queue_comandos, game_states);
+            
         } else {
             std::cout << "Commands are: create (weapon)" << std::endl;
         }

@@ -101,7 +101,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>IDF</string>
+     <string>idf</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="p90">
@@ -114,7 +114,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>P90</string>
+     <string>p90</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="scout">
@@ -127,7 +127,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Scout</string>
+     <string>scout</string>
     </property>
    </widget>
   </widget>

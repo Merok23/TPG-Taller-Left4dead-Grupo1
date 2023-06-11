@@ -31,10 +31,12 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 qt5_wrap_ui(UI_HEADERS ${UI_FILES})
+qt5_add_resources(QRC_FILES ${CLIENT_DIR}/assets.qrc) 
 
 add_library(common_objects OBJECT ${COMMON_SRCS})
 
-add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS})
+add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS} ${QRC_FILES})
+
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2_image)
 target_link_libraries(client_executable PRIVATE SDL2)
