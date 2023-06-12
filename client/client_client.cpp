@@ -30,10 +30,9 @@ void Client::run() {
     while (join_failed) {
         join_failed = false;
         this->graphics_qt.run(&commands, &create_or_join_command, &player_command);
-
         if ((create_or_join_command.type != CREATE_ROOM && create_or_join_command.type != JOIN_ROOM) || 
             player_command.type != ADD_PLAYER) {
-                std::cout << "No mando mensaje al server" << std::endl;
+                std::cout << "The client doesnt want to start the game. Exiting..." << std::endl;
             return;
         }
     
@@ -46,7 +45,7 @@ void Client::run() {
                 std::cout << "Joined room successfully"<< std::endl;
             }    
             if (response == 0) {
-                std::cout << "Join room failed" << std::endl;
+                std::cout << "Join room failed. Try again." << std::endl;
                 create_or_join_command = commands.cheatInfiniteHitpoints();
                 player_command = commands.cheatInfiniteHitpoints();
                 join_failed = true;

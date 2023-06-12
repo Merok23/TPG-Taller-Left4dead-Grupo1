@@ -32,7 +32,9 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
-        Camera camera(window, gr_entity_holder.getMainPlayer()->getX());
+        if (gr_entity_holder.getMainPlayer() == nullptr)
+            std::cout << "No hay mainPlayer en gr_entity_holder" << std::endl;
+        Camera camera(window, 1700);
 
         time_t t1 = time(0);
         int it = 0;
@@ -188,13 +190,14 @@ bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<st
         }
             
         if (gs->game_over) {
-            std::cout << "El juego termino, perdimos :(" << std::endl;
-            return false;
-        }
-
-        if (gs->players_won) {
-            std::cout << "El juego termino, ganamos! :D" << std::endl;
-            return false;
+            if (gs->players_won) {
+                std::cout << "El juego termino, ganamos! :D" << std::endl;
+                return false;
+            }
+            else {
+                std::cout << "El juego termino, perdimos D:" << std::endl;
+                return false;
+            }
         }
         gr_entity_holder.update(dt, gs);
         *continue_render = true;
