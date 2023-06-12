@@ -144,7 +144,7 @@ cd TPG-Taller-Left4dead-Grupo1/build/target
 ----------------
 ### Como crear o unirse a una partida
 Se abrirá la pantalla principal del juego donde puedes seleccionar crear una partida o unirte a una partida existente.
-   + Para crear una partida, haz clic en el botón "New Match", luego ingresa el nombre de la partida, el modo de juego y elige el tipo de soldado con el que jugar. 
+   + Para crear una partida, haz clic en el botón "New Match", luego ingresa el nombre de la partida, el modo de juego y elige el tipo de soldado con el que jugar. Al crearse la partida, se imprimirá por terminal el id de la misma.
    + Para unirse a una partida, haz clic en el botón "Join Match", luego ingresa el id de la partida a la que deseas unirte y elige el tipo de soldado con el que jugar.
 
 ### Objetivo del juego
