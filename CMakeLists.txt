@@ -72,7 +72,7 @@ set_target_properties(common_objects PROPERTIES
 )
 
 set_target_properties(client_executable server_executable common_objects tests_executable PROPERTIES
-  CXX_STANDARD 11
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
 )
