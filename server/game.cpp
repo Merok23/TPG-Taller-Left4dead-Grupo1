@@ -68,6 +68,7 @@ void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
 }
 
 void Game::shootingEntitiesShoot(const uint32_t &id) {
+    if (this->entities[id]->isDead()) return; //optimization
     std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
     //remueve los que no son infectados
@@ -258,7 +259,7 @@ void Game::setSurvivalMode() {
 
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
-    this->soldiers.erase(id);
+    //this->soldiers.erase(id);
 }
 
 void Game::infectedCheckForSoldiersInRange() {
