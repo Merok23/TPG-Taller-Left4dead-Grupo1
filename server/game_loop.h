@@ -28,7 +28,9 @@ class GameLoop : public Thread {
     Queue<std::shared_ptr<Action>>& getQueue();
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
+    bool isRoomEmpty();
     virtual void run() override;
+    bool isFinished();
     void stop();
 }; 
 #endif

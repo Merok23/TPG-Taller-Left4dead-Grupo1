@@ -15,6 +15,7 @@ class GameHandler {
     std::mutex mutex;
 
     uint32_t createRoomId();
+    void closeRoom();
 
     public: 
     GameHandler();
@@ -23,7 +24,6 @@ class GameHandler {
     bool joinRoom(uint32_t room_id, 
         Queue<std::shared_ptr<GameStateForClient>>& client_queue, uint32_t& client_id);
     Queue<std::shared_ptr<Action>>& getQueue(uint32_t room_id);
-    uint32_t getClientId();
     void leaveRoom(uint32_t room_id, Queue<std::shared_ptr<GameStateForClient>>&);
     ~GameHandler();
 };
