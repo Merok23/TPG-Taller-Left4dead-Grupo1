@@ -48,6 +48,7 @@ sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libf
 4.  En cada carpeta, crea un directorio llamado "build" y accede a él. Por ejemplo:
 ```
 cd libsdl2-image-2.6.3
+git checkout SDL2
 mkdir build
 cd build
 ```
@@ -68,6 +69,7 @@ sudo make install
 9.  Crea un directorio llamado "build" y accede a él. Por ejemplo:
 ```
 cd libSDL2pp-0.18.1
+git checkout SDL2
 mkdir build
 cd build
 ```
@@ -148,8 +150,8 @@ Se abrirá la pantalla principal del juego donde puedes seleccionar crear una pa
 ### Objetivo del juego
 El objetivo del juego depende del modo elegido: 
    + Survival:  a medida que pasa el tiempo aparecen más y más infectados y estos se van haciendo progresivamente más fuertes, resistentes y veloces. No hay condición de victoria: la muerte es inevitable y solo se compite por ver quién resiste más tiempo.
-   + En “clear the zone” la cantidad de infectados en un escenario es fija y los jugadores ganan cuando eliminan a todos ellos.
-   + No se generarán enemigos. Simplemente disfruta de un paseo en un entorno apocalíptico.
+   + Clear the zone: la cantidad de infectados en un escenario es fija y los jugadores ganan cuando eliminan a todos ellos.
+   + Peaceful: No se generarán enemigos. Simplemente disfruta de un paseo en un entorno apocalíptico.
 
 ### Puntos de vida, derribo y muerte
 + Cuando un jugador recibe demasiado daño y sus puntos de vida llegan a 0 este es derribado. Otro jugador puede asistirlo y levantarlo, esto se logra acercandose al jugador caído y esperando a que se levante.
@@ -172,7 +174,7 @@ Los infectados son los enemigos del juego. Existen 3 tipos de infectados:
 
 ### Controles
 + Para moverte, utiliza las teclas de dirección. 
-+ Para disparar, utiliza la barra espaciadora. 
++ Para disparar, utiliza la barra espaciadora o la tecla "D". 
 + Para recargar, utiliza la tecla "R". 
 + Para salir del juego, presiona la tecla "Q".
 
