@@ -55,7 +55,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         }
         
         x = entity->getPositionX() - width/2;
-        y = entity->getPositionY() - height*2;
+        y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
     }

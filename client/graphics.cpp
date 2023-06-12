@@ -8,8 +8,10 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
     bool player_doesnt_quit = handleEvents(gr_entity_holder, queue_comandos);
     //usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
-    bool conection_ok = update(gr_entity_holder, FRAME_RATE * delta_its, game_states);
-    render(window, gr_entity_holder, camera);
+    bool continue_render = false;
+    bool conection_ok = update(gr_entity_holder, FRAME_RATE * delta_its, game_states, &continue_render);
+    if (continue_render)
+        render(window, gr_entity_holder, camera);
 
     last_it = it;
     return player_doesnt_quit && conection_ok;
@@ -27,10 +29,10 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
         }
 
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
-        Camera camera(window);
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
+        Camera camera(window, gr_entity_holder.getMainPlayer()->getX());
 
         time_t t1 = time(0);
         int it = 0;
@@ -176,7 +178,7 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
-bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states) {
+bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render) {
     std::shared_ptr<GameState> gs = NULL;
     while (game_states.try_pop(gs));
     if (gs) {
@@ -194,9 +196,9 @@ bool Graphics::update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<st
             std::cout << "El juego termino, ganamos! :D" << std::endl;
             return false;
         }
-    }  
-
-    gr_entity_holder.update(dt, gs);
+        gr_entity_holder.update(dt, gs);
+        *continue_render = true;
+    } 
     return true;
 }
 

@@ -2,41 +2,40 @@
 #include <iostream>
 #include <cmath>
 
-Camera::Camera(SdlWindow &window) : window(window), 
+Camera::Camera(SdlWindow &window, int main_player_x) : window(window), 
     background("../../assets/backgrounds/War1/Bright/War.png", window),
     destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH),
-    x_camera_world(0) {}
+    x_camera_world(main_player_x- WINDOW_WIDTH/2) {
+        if (x_camera_world < 0) {
+            x_camera_world = 0;
+        } else if (x_camera_world > BACKGROUND_WIDTH - WINDOW_WIDTH) {
+            x_camera_world = BACKGROUND_WIDTH - WINDOW_WIDTH;
+        }
+    }
 
 
 void Camera::render(GraphicsEntityHolder &ge_holder) {
-    window.fill(); //lleno con el background gris
-    int32_t x_solders, y;
-    ge_holder.get_new_coordenates_center(&x_solders, &y);
+    int x_solders = ge_holder.getMainPlayer()->getX();
 
-    int32_t target_x_camera_world = x_solders - WINDOW_WIDTH / 2;
-    int delta_x = 0;
+    x_camera_world = x_solders - WINDOW_WIDTH / 2;
+    //std::cout << "x_soldiers es " << x_solders << std::endl;
+    std::cout << "x_camera_world es " << x_camera_world << std::endl;
 
-    if (abs(target_x_camera_world - x_camera_world) <= TRANSITION_MARGIN) {
-        x_camera_world = target_x_camera_world;
-        delta_x = target_x_camera_world - x_camera_world;
-    }
-    else {
-        int32_t direction = (target_x_camera_world < x_camera_world) ? -1 : 1;
-        x_camera_world += direction * TRANSITION_MARGIN;
-        delta_x = direction * TRANSITION_MARGIN;
-    }
-
-    if (x_camera_world >= BACKGROUND_WIDTH - WINDOW_WIDTH) {
+    if (x_camera_world < 0) {
+        x_camera_world = 0;
+    } else if (x_camera_world > BACKGROUND_WIDTH - WINDOW_WIDTH) {
         x_camera_world = BACKGROUND_WIDTH - WINDOW_WIDTH;
     }
-    if (x_camera_world <= 0) {
-        x_camera_world = 0;
-    }
 
-    ge_holder.update_x(delta_x);
+    std::cout << "x_camera_world es " << x_camera_world<<std::endl;
 
+    
+    ge_holder.update_x(x_camera_world);
+
+   // std::cout << "Ahora x_solders supuestamente refleja la camara. Es " << ge_holder.getMainPlayer()->getX() << " y deberia ser x_soldiers original - x_camera" << std::endl;
 
     Area srcArea(x_camera_world, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
+    window.fill();
     background.render(srcArea, destArea, SDL_FLIP_NONE);
 }
 

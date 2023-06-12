@@ -8,7 +8,7 @@
 #define BACKGROUND_WIDTH 5760
 #define BACKGROUND_HEIGTH 1080
 
-#define WINDOW_WIDTH (1520)
+#define WINDOW_WIDTH (1590)
 #define WINDOW_HEIGTH (1080-200)
 
 #define EXTRA_SCREEN 200
@@ -16,7 +16,7 @@
 
 class Camera {
     public:
-    explicit Camera(SdlWindow &window);
+    explicit Camera(SdlWindow &window, int main_player_x);
 
     void render(GraphicsEntityHolder &ge_holder);
     int get_x_left();
