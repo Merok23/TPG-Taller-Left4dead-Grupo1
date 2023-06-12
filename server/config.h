@@ -10,6 +10,7 @@ struct config {
     int soldier_max_time_until_dead;
     int soldier_max_distance_to_revive;
     int soldier_lives;
+    double soldier_max_distance_from_mass_centre; //distance from centre of mass(average position of all players)
     int infected_health; //this is health is only for the common infected!
     int infected_speed;
     int infected_radius;

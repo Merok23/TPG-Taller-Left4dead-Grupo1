@@ -52,6 +52,7 @@ void Game::addEntity(Entity* entity) {
         }
     } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
+        this->gameMap.addSoldier(entity->getId(), entity->getDirectionOfMovement());
         this->game_started = true;
     }
     this->current_id++;
@@ -67,6 +68,7 @@ void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
 }
 
 void Game::shootingEntitiesShoot(const uint32_t &id) {
+    if (this->entities[id]->isDead()) return; //optimization
     std::vector<VectorWrapper> entities_hit; //(id, distance)
     entities_hit = this->gameMap.shoot(id);
     //remueve los que no son infectados
@@ -244,7 +246,7 @@ void Game::checkForScreamingWitches() {
 void Game::updateAllEntities() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
-        if (id_entity.second->isDead() && id_entity.second->isInfected()) {
+        if (id_entity.second->isDead()) {
             this->gameMap.removeEntity(id_entity.first);
             this->removeEntity(id_entity.first);
         }

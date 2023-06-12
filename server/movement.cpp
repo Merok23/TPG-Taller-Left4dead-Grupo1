@@ -149,3 +149,11 @@ double Movement::distance(std::tuple<double, double> direction1,
     double y2 = std::get<1>(direction2);
     return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 }
+
+bool Movement::movementExceedsDistanceFromX(const int32_t &positionX,const double &distance) {
+    Movement copy = *this;
+    copy.move();
+    int32_t x = copy.getX();
+    int32_t difference = std::abs(x - positionX);
+    return difference > distance;
+}

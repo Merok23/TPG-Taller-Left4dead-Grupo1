@@ -189,3 +189,21 @@ TEST_CASE("Shooting test, soldier stops shooting when it reloads", "[shooting]")
     int ammo_left = weapon->getAmmoLeft();
     REQUIRE(ammo_left == CONFIG.weapon_idf_magazine_size);
 }
+
+TEST_CASE("Shooting test, soldiers tries to shoot while dead and it can't", "[shooting]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    Weapon* weapon = new MachineGun();
+    Entity* player = new Player(0, 0, CONFIG.soldier_radius, weapon);
+    game.addEntity(player);
+    game.update();
+    game.getEntities()[0]->setDamageForTheRound(CONFIG.soldier_health);
+    game.update();
+    for (int i = 0; i < CONFIG.soldier_max_time_until_dead; i++) game.update();
+    game.update();
+    REQUIRE(game.getEntities()[0]->isDead() == true);
+    game.setShooting(0);
+    game.update();
+    REQUIRE(game.getEntities()[0]->isDead() == true);
+    int ammo_left = weapon->getAmmoLeft();
+    REQUIRE(ammo_left == CONFIG.weapon_idf_magazine_size);
+}
