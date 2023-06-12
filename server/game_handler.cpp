@@ -44,7 +44,7 @@ bool GameHandler::joinRoom(uint32_t room_id,
 
 void GameHandler::closeRoom() {
     for (auto it = rooms.begin(); it != rooms.end();) {
-        if (it->second->isFinished()) {
+        if (it->second->isFinished() || it->second->isRoomEmpty()) {
             it->second->stop(); 
             it->second->join();
             delete it->second;
