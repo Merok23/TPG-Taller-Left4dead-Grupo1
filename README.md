@@ -1,4 +1,6 @@
 # TPG-Taller-Left4dead-Grupo1
+
+## Manual de instalación
 Este manual proporciona instrucciones paso a paso para instalar los recursos necesarios para utilizar el juego Left 4 dead. Asegúrate de seguir cada paso cuidadosamente para una instalación exitosa.
 
 ### GCC (con soporte para el estándar C++17):
@@ -163,14 +165,24 @@ El jugador puede elegir un soldado con el arma de preferencia. Las armas disponi
 + Scout: A diferencia del IDF y P90, el Scout es un rifle que dispara de a 1 bala. No obstante cada bala daña a todo infectado que se encuentre en su trayectoria  Se recarga cada 20 balas.
   
 ### Infectados
-Los infectados son los enemigos del juego. Estos se mueven en dirección a los jugadores y los atacan cuando se encuentran a una distancia corta.
+Los infectados son los enemigos del juego. Existen 3 tipos de infectados:
++ Común: Los infectados caminan o permanecen quietos en las calles si no son molestados pero la mayoría empezará a caminar hacia los jugadores en cuanto estén a la vista para matarlos. 
++ Spear: A pesar de que la mayoría de los infectados muestran un nivel cognitivo básico, algunos han llegado a evolucionar a tal punto de ser capaces de usar armas como lanzas.
++ Witch: Esta infectada ocasionalmente se pone a gritar atrayendo a más infectados que llegaran corriendo a la zona desde todas las direcciones. Los jugadores deberían eliminarla lo antes posible.
 
-### Como jugar
-+ Para moverte, utiliza las teclas de dirección. Para disparar, utiliza la barra espaciadora. Para recargar, utiliza la tecla "R". 
-+ El soldado tiene 4 vidas, un infectado puede derribarlo máximo 3 veces antes de morir, en este caso cuando revive tiene la mitad de sus puntos de vida. 
-+ Para revivir a un compañero, acércate a él y espera a que se levante de nuevo. 
-+ Existen 3 tipos de infectados: 
-   + El infectado común, que es el más débil y el más lento. 
-   + El infectado rápido, que es el más rápido y el más débil. 
-   + El infectado fuerte, que es el más lento y el más fuerte.
+### Controles
++ Para moverte, utiliza las teclas de dirección. 
++ Para disparar, utiliza la barra espaciadora. 
++ Para recargar, utiliza la tecla "R". 
++ Para salir del juego, presiona la tecla "Q".
 
+### Cheats 
+Los cheats disponibles son:
++ Vida infinita: Para activar la vida infinita, presiona las teclas "Shift + H".
++ Aparecer un infectado común: Para aparecer un infectado común, presiona las teclas "Shift + Z".
++ Matar a todos los infectados: Para matar a todos los infectados, presiona las teclas "Shift + C".
+
+## Configuración
+------------    
+Todos los atributos del juego pueden ser cambiados vía un archivo de
+configuración, llamado "config", podes encontrar el .h y .cpp. Por ejemplo se debe poder cambiar el daño por bala por arma, la cantidad de balas en cada rafaga, la cantidad de rafagas antes de cada recarga, la velocidad de cada infectado; etc.
