@@ -30,7 +30,7 @@ void GameHandler::leaveRoom(uint32_t room_id,
     auto it = rooms.find(room_id);
     if (it == rooms.end()) return; 
     it->second->deleteClientQueue(queue);
-    if (it->second->isRoomEmpty()) closeRoom();
+    if (it->second->isRoomEmpty()) closeRoom(room_id);
 }
 
 bool GameHandler::joinRoom(uint32_t room_id, 
@@ -42,17 +42,13 @@ bool GameHandler::joinRoom(uint32_t room_id,
     return true;
 }
 
-void GameHandler::closeRoom() {
-    for (auto it = rooms.begin(); it != rooms.end();) {
-        if (it->second->isFinished() || it->second->isRoomEmpty()) {
-            it->second->stop(); 
-            it->second->join();
-            delete it->second;
-            it = rooms.erase(it);
-        } else {
-            ++it;
-        }
-    }
+void GameHandler::closeRoom(uint32_t room_id) {
+   auto it = rooms.find(room_id);
+    if (it == rooms.end()) return;
+    it->second->stop();
+    it->second->join();
+    delete it->second;
+    rooms.erase(it);
 }
 
 GameHandler::~GameHandler() {
