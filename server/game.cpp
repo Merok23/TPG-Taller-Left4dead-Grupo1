@@ -258,7 +258,7 @@ void Game::setSurvivalMode() {
 
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
-    //this->soldiers.erase(id);
+    this->soldiers.erase(id);
 }
 
 void Game::infectedCheckForSoldiersInRange() {
