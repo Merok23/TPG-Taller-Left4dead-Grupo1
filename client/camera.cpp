@@ -19,7 +19,6 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
     ge_holder.get_new_coordenates_center(&x_soldiers_world, &y_soldiers_world);
 
     x_camera_world = x_soldiers_world - WINDOW_WIDTH / 2;
-    //std::cout << "x_soldiers es " << x_solders << std::endl;
     std::cout << "x_camera_world es " << x_camera_world << std::endl;
 
     if (x_camera_world < 0) {
@@ -27,13 +26,8 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
     } else if (x_camera_world > BACKGROUND_WIDTH - WINDOW_WIDTH) {
         x_camera_world = BACKGROUND_WIDTH - WINDOW_WIDTH;
     }
-
-    std::cout << "x_camera_world es " << x_camera_world<<std::endl;
-
     
     ge_holder.update_x(x_camera_world);
-
-   // std::cout << "Ahora x_solders supuestamente refleja la camara. Es " << ge_holder.getMainPlayer()->getX() << " y deberia ser x_soldiers original - x_camera" << std::endl;
 
     Area srcArea(x_camera_world, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     window.fill();

@@ -27,6 +27,11 @@ void Player::update(float dt, Entity* entity) {
     }
 }
 
+bool Player::is_dead() {
+    std::cout << "is dead? " << (lives == 0) << std::endl;
+    std::cout << "amount of lives? " << lives << std::endl;
+    return (lives == 0);
+}
 
 void Player::render() {
     GraphicsEntity::render();
@@ -34,7 +39,7 @@ void Player::render() {
     ammo.render(50, 300); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
     
     for (int i = 0; i < lives; i++) {
-        Area destArea(50 + i * 35, 100, 30, 30);
+        Area destArea(55 + i * 35, 100, 35, 35);
         life_an->render(destArea, SDL_FLIP_NONE);
     }
 }

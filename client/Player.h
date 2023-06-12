@@ -14,6 +14,8 @@ public:
     void update(float dt, Entity* entity) override;
     void render() override;
 
+    bool is_dead();
+
 private:
     VisualBar health_bar;
     VisualBar ammo;
