@@ -37,6 +37,7 @@ private:
     ChooseSoldier* choose_soldier;
     COMMANDS* commands;
     command_t* create_or_join_command;
+    QRegExpValidator* validator;
 };
 
 #endif // JOINMATCH_H

@@ -28,8 +28,6 @@ void Player::update(float dt, Entity* entity) {
 }
 
 bool Player::is_dead() {
-    std::cout << "is dead? " << (lives == 0) << std::endl;
-    std::cout << "amount of lives? " << lives << std::endl;
     return (lives == 0);
 }
 

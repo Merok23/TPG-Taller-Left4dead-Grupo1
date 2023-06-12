@@ -10,7 +10,7 @@ JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* c
     ui->setupUi(this);
 
     //only allow numbers in the match code
-    QRegExpValidator* validator = new QRegExpValidator(QRegExp("[0-9]*"), this);
+    validator = new QRegExpValidator(QRegExp("[0-9]*"), this);
     ui->match_code_input->setValidator(validator);
 
     QString text = ui->match_code_input->text();
@@ -23,6 +23,7 @@ JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* c
 JoinMatch::~JoinMatch()
 {
     delete ui;
+    delete validator;
 }
 
 void JoinMatch::on_cancel_clicked()
