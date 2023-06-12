@@ -52,6 +52,7 @@ void Game::addEntity(Entity* entity) {
         }
     } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
+        this->gameMap.addSoldier(entity->getId(), entity->getDirectionOfMovement());
         this->game_started = true;
     }
     this->current_id++;
@@ -244,7 +245,7 @@ void Game::checkForScreamingWitches() {
 void Game::updateAllEntities() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
-        if (id_entity.second->isDead() && id_entity.second->isInfected()) {
+        if (id_entity.second->isDead()) {
             this->gameMap.removeEntity(id_entity.first);
             this->removeEntity(id_entity.first);
         }

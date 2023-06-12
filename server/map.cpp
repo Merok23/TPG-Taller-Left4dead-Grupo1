@@ -5,7 +5,10 @@
 Map::Map(uint32_t width, uint32_t height) : 
     width(width),
     height(height),
-    entities() {}
+    entities(),
+    soldiers(),
+    centre_of_mass(0),
+    max_distance_from_centre(CONFIG.soldier_max_distance_from_mass_centre) {}
 
 uint32_t Map::getWidth() {
     return this->width;
@@ -23,6 +26,10 @@ void Map::addEntity(const uint32_t &id, Movement *entity) {
     this->entities[id] = entity;
 }
 
+void Map::addSoldier(const uint32_t &id, Movement *soldier) {
+    this->soldiers[id] = soldier;
+}
+
 bool Map::move(const uint32_t& id) {
     bool moved = true;
     Movement *entity = this->entities[id];
@@ -35,6 +42,7 @@ bool Map::move(const uint32_t& id) {
             }
         }
     }
+    moved = checkForCentreOfMassDistanceCollision(id) && moved;
     if (moved) {
         entity->move();
     }
@@ -91,6 +99,7 @@ bool Map::checkForBorderCollision(Movement entity) {
 
 void Map::removeEntity(const uint32_t &id) {
     this->entities.erase(id);
+    this->soldiers.erase(id);
 }
 
 bool Map::checkForCollisionInPosition(const uint32_t &x, const uint32_t &y, const uint32_t &radius) {
@@ -108,6 +117,20 @@ bool Map::checkForReviving(const uint32_t &id_down, const uint32_t &id_soldier, 
     Movement *soldier = this->entities[id_soldier];
     if (down->calculateDistance(*soldier) <= radius) return true;
     return false;
+}
+
+int32_t Map::calculateCentreOfMass() {
+    int32_t sum = 0;
+    for (auto soldier : this->soldiers) {
+        sum += soldier.second->getX();
+    }
+    return sum / this->soldiers.size();
+}
+
+bool Map::checkForCentreOfMassDistanceCollision(const uint32_t &id) {
+    if (soldiers.find(id) == soldiers.end()) return true;
+    centre_of_mass = this->calculateCentreOfMass();
+    return !soldiers[id]->movementExceedsDistanceFromX(centre_of_mass, max_distance_from_centre);
 }
 
 Map::~Map() {}

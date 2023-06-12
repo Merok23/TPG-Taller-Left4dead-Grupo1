@@ -30,6 +30,7 @@ class Movement {
         void lookLeft();
         void move();
         bool checkForCollision(const Movement &other);
+        bool movementExceedsDistanceFromX(const int32_t &positionX,const double &distance);
         bool isFacingLeft();
         bool isMovingUp(); 
         bool isAligned(Movement &other, const uint32_t &border);
