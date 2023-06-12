@@ -46,17 +46,17 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
-void GraphicsEntityHolder::get_new_coordenates_center(float *x, float *y) {
-    float x_total = 0.0f;
-    float y_total = 0.0f;
+void GraphicsEntityHolder::get_new_coordenates_center(int *x, int *y) {
+    int x_total = 0.0f;
+    int y_total = 0.0f;
     size_t i;
     for (i = 0; i < players.size(); ++i) {
         x_total += players[i]->getX();
         y_total += players[i]->getY();
     }
 
-    *x = x_total / static_cast<float>(i);
-    *y = y_total / static_cast<float>(i);
+    *x = x_total / i;
+    *y = y_total / i;
 }
 
 void GraphicsEntityHolder::update_x(int32_t delta_x) {

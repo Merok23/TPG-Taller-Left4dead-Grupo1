@@ -15,9 +15,10 @@ Camera::Camera(SdlWindow &window, int main_player_x) : window(window),
 
 
 void Camera::render(GraphicsEntityHolder &ge_holder) {
-    int x_solders = ge_holder.getMainPlayer()->getX();
+    int x_soldiers_world, y_soldiers_world;
+    ge_holder.get_new_coordenates_center(&x_soldiers_world, &y_soldiers_world);
 
-    x_camera_world = x_solders - WINDOW_WIDTH / 2;
+    x_camera_world = x_soldiers_world - WINDOW_WIDTH / 2;
     //std::cout << "x_soldiers es " << x_solders << std::endl;
     std::cout << "x_camera_world es " << x_camera_world << std::endl;
 
