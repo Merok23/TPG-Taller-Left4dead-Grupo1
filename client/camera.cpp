@@ -19,7 +19,6 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
     ge_holder.get_new_coordenates_center(&x_soldiers_world, &y_soldiers_world);
 
     x_camera_world = x_soldiers_world - WINDOW_WIDTH / 2;
-    std::cout << "x_camera_world es " << x_camera_world << std::endl;
 
     if (x_camera_world < 0) {
         x_camera_world = 0;

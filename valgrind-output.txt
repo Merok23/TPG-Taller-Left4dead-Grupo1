@@ -1,0 +1,2419 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext8GetStateIiEEbjPT_
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_InitExtensions
+   fun:X11_GL_LoadLibrary
+   fun:SDL_GL_LoadLibrary_REAL
+   fun:SDL_CreateWindow_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11MakeCurrentEP10PrlDisplayl
+   fun:glXMakeCurrent
+   fun:X11_GL_MakeCurrent
+   fun:X11_GL_CreateContext
+   fun:SDL_GL_CreateContext_REAL
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext8GetStateIiEEbjPT_
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIjE3SetEjRKj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShader
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z20StateGetGLSLTypeSizejb
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:strlen
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData7SetDataEiRK11CDataParams
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext11FindProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_Z15QuickSortArrPtrI11CDataParamsEvPPT_ii
+   fun:_ZN10CGLContext11LinkProgramEj
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:bcmp
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN12CProgramData15GetDataLocationEPKc
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLIdArrayIP14CProgramObjectE3SetEjRKS1_
+   fun:_ZN10CGLContext13CreateProgramEj
+   obj:/usr/lib/x86_64-linux-gnu/libPrlDRI.so.1
+   fun:CompileShaderProgram
+   fun:GL_CreateShaderContext
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:GL_CreateRenderer
+   fun:SDL_CreateRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer_REAL
+   fun:SDL_CreateWindowAndRenderer
+   fun:_ZN9SdlWindowC1Eii
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Addr8
+   fun:_ZN20GraphicsEntityHolder6updateERfSt10shared_ptrI9GameStateE
+   fun:_ZN8Graphics6updateER20GraphicsEntityHolderfR5QueueISt10shared_ptrI9GameStateESt5dequeIS5_SaIS5_EEEPb
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:SetCopyState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext10UseProgramEj
+   fun:GL_SelectShader
+   fun:SetDrawState
+   fun:GL_RunCommandQueue
+   fun:FlushRenderCommands
+   fun:SDL_RenderPresent_REAL
+   fun:SDL_RenderPresent
+   fun:_ZN9SdlWindow6renderEv
+   fun:_ZN8Graphics6renderER9SdlWindowR20GraphicsEntityHolderR6Camera
+   fun:_ZN8Graphics9game_loopERKiR20GraphicsEntityHolderR6CameraR5QueueI9command_tSt5dequeIS7_SaIS7_EEERS6_ISt10shared_ptrI9GameStateES8_ISF_SaISF_EEER9SdlWindow
+   fun:_ZN8Graphics3runESt10shared_ptrI9GameStateER5QueueI9command_tSt5dequeIS4_SaIS4_EEERS3_IS2_S5_IS2_SaIS2_EEE
+   fun:_ZN6Client3runEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN10CGLContext16CSharedResourcesD1Ev
+   fun:_ZN10CGLContextD1Ev
+   fun:_ZN10CGLContext15DestroyUnlockedEv
+   fun:_ZN10CGLContext7CleanupE13PRLGL_DISPLAY
+   obj:/usr/lib/x86_64-linux-gnu/libGL.so.1.7.0.18.2.0.53488
+   fun:__cxa_finalize
+   obj:/usr/lib/x86_64-linux-gnu/libGL.so.1.7.0.18.2.0.53488
+   fun:_dl_fini
+   fun:__run_exit_handlers
+   fun:exit
+   fun:(below main)
+}
