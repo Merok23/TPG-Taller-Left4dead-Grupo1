@@ -15,7 +15,7 @@ class GameHandler {
     std::mutex mutex;
 
     uint32_t createRoomId();
-    void closeRoom();
+    void closeRoom(uint32_t room_id);
 
     public: 
     GameHandler();
