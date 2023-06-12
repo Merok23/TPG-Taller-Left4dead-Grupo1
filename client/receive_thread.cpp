@@ -25,6 +25,10 @@ void ReceiveThread::run() {
         } catch(const LibError &e) {
             std::cerr << "Error: " << e.what() << std::endl;
             finished = true;
+        } catch(const ClosedQueue &e) {
+            if (finished) return; 
+            std::cerr << "Error: " << e.what() << std::endl;
+            finished = true;
         } 
     }
 }

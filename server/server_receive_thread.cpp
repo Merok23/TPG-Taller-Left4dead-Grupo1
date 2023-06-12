@@ -32,7 +32,7 @@ void ReceiveThread::receiveCommand() {
             command_t command = protocol.receiveCommand();
             if (finished) break;
             if (protocol.isFinished() && command.type == COMMANDS_TYPE::DEFAULT) {
-                std::cout << "Client " << client_id << " was disconnected" << std::endl;
+                std::cout << "Client was disconnected before the game started" << std::endl;
                 finished = true;
                 break;
             } 
@@ -60,8 +60,8 @@ void ReceiveThread::receiveGameActions() {
             std::shared_ptr<Action> action = protocol.receiveAction();
             if (finished) break;
             if (protocol.isFinished()) {
-                std::cout << "Client id: " << client_id << " was disconnected" << std::endl;
-                finished = true;
+                std::cout << "Client id: " << client_id << " was disconnected from room: " << room_id  << std::endl;
+                stop();
                 break;
             } 
             if (action) {
