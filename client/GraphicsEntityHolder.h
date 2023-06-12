@@ -15,7 +15,7 @@ public:
     ~GraphicsEntityHolder();
 
     std::shared_ptr<Player> getMainPlayer();
-    void get_new_coordenates_center(int32_t *x, int32_t *y);
+    void get_new_coordenates_center(int *x, int *y);
     void update_x(int32_t x); 
 
     void update(float& dt, std::shared_ptr<GameState> gs);

@@ -46,9 +46,9 @@ std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }
 
-void GraphicsEntityHolder::get_new_coordenates_center(int32_t *x, int32_t *y) {
-    size_t x_total = 0;
-    size_t y_total = 0;
+void GraphicsEntityHolder::get_new_coordenates_center(int *x, int *y) {
+    int x_total = 0.0f;
+    int y_total = 0.0f;
     size_t i;
     for (i = 0; i < players.size(); ++i) {
         x_total += players[i]->getX();
@@ -61,7 +61,7 @@ void GraphicsEntityHolder::get_new_coordenates_center(int32_t *x, int32_t *y) {
 
 void GraphicsEntityHolder::update_x(int32_t delta_x) {
     for (const auto& pair : entities) {
-        pair.second->update_x(pair.second->getX() + delta_x);
+        pair.second->update_x(pair.second->getX() - delta_x);
     }
 }
 
