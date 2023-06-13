@@ -19,14 +19,22 @@ bool Graphics::game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, 
 
 void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
     try {
-        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
             throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
+        }
+
+        if (Mix_Init(MIX_INIT_OGG) != MIX_INIT_OGG) {
+            SDL_Quit();
+            throw std::runtime_error("Failed to initialize SDL_mixer: " + std::string(Mix_GetError()));
         }
 
         int imgFlags = IMG_INIT_PNG;  // Adjust flags based on the image formats you're using
         if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
+            Mix_Quit();
+            SDL_Quit();
             throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
         }
+
 
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
 
@@ -58,12 +66,11 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
             t1 += FRAME_RATE;
             it += 1;
         }
-    
-        // Clean up SDL_image
-        IMG_Quit();
 
-        // Clean up SDL
+        Mix_Quit();
+        IMG_Quit();
         SDL_Quit();
+
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
