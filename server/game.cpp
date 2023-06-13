@@ -167,7 +167,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->game_over,
         this->players_won); 
     //-------------------------------------------------//
-    if (!this->craters_have_spawned) spawnCraters(CONFIG.crater_ammount);//replace with something at constructor like the rest?
+   // if (!this->craters_have_spawned) spawnCraters(CONFIG.crater_ammount);//replace with something at constructor like the rest?
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
@@ -347,9 +347,13 @@ void Game::spawnWitchInfected(int ammount) {
 
 bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
         bool found = false;
+        int mod_x = this->gameMap.getWidth() - 2 * radius;
+        int mod_y = this->gameMap.getHeight() - 2 * radius;
         while(!found) {
-            x = rand() % this->gameMap.getWidth() + radius;
-            y = rand() % this->gameMap.getHeight() + radius;
+            x = rand() % mod_x;
+            y = rand() % mod_y;
+            x += radius;
+            y += radius;
             if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
         }
         return found;
