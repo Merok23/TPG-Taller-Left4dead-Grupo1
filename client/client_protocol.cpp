@@ -185,7 +185,6 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         State state_enum = stringToState(state);
 
         std::string type = receiveString();
-        std::cout << "type: " << type << std::endl;
         if (was_closed) return NULL; 
         EntityType entity_type = stringToEntityType(type);
             

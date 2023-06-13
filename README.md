@@ -140,6 +140,16 @@ cd TPG-Taller-Left4dead-Grupo1/build/target
 ./client localhost 8082
 ```
 
+6. En caso de querer ejecutar con valgrind: 
+   + El servidor 
+  ```
+  valgrind ./server 8082
+  ```
+   + El cliente, se agrega un suppression file para evitar errores de sdlpp
+  ```
+  valgrind --suppressions=../../valgrind-output.txt ./client localhost 8082
+  ```
+
 ## Jugar
 ----------------
 ### Como crear o unirse a una partida
