@@ -4,8 +4,9 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, int32_t hit_points, int32_t ammo, uint8_t lives) :
-    GraphicsEntity(textures, id, x_position, y_position),
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, int32_t x_position, int32_t y_position, 
+                int width, int height, int32_t hit_points, int32_t ammo, uint8_t lives) :
+    GraphicsEntity(textures, id, x_position, y_position, width, height),
     health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives)
 {
     Color color_key = {0xFF, 0xFF, 0xFF};

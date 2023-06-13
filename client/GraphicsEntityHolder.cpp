@@ -21,6 +21,7 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
     std::shared_ptr<Player> player = std::make_shared<Player>(textures, window, entity->getId(),
                                     entity->getPositionX(),
                                     entity->getPositionY(),
+                                    200, 200,
                                     entity->getHitPoints(),
                                     entity->getAmmoLeft(),
                                     entity->getLives());  
@@ -31,12 +32,22 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
 
 std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
-        
-    std::shared_ptr<GraphicsEntity> infected = std::make_shared<GraphicsEntity>(
-                                                textures,
-                                                entity->getId(),
-                                                entity->getPositionX(),
-                                                entity->getPositionY());  
+    
+    std::shared_ptr<GraphicsEntity> infected = nullptr;
+    if (type == EntityType::CRATER)
+        infected = std::make_shared<GraphicsEntity>(
+                                                    textures,
+                                                    entity->getId(),
+                                                    entity->getPositionX(),
+                                                    entity->getPositionY(),
+                                                    300, 300);//564, 564);
+    else 
+        infected = std::make_shared<GraphicsEntity>(
+                                                    textures,
+                                                    entity->getId(),
+                                                    entity->getPositionX(),
+                                                    entity->getPositionY(),
+                                                    200, 200); 
     entities[entity->getId()] = infected;
     return infected;
 }

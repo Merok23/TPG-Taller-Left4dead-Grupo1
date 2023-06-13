@@ -1,9 +1,9 @@
 #include "graphics_entity.h"
 
 GraphicsEntity::GraphicsEntity(const std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
-                                uint32_t id, int32_t x_position, int32_t y_position) :
+                                uint32_t id, int32_t x_position, int32_t y_position, int width, int height) :
     facingLeft(false), dead(false), id(id),
-    x(x_position), y(y_position), width(200), height(200) //despues podemos hacer que el tamanio venga de un archivo
+    x(x_position), y(y_position), width(width), height(height) //despues podemos hacer que el tamanio venga de un archivo
 {
     for (const auto &pair : textures)
         animations[pair.first] = std::unique_ptr<Animation>(new Animation(pair.second));
@@ -58,7 +58,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         }
         
         x = entity->getPositionX() - width/2;
-        y = entity->getPositionY() - height/2;
+        if (entity->getEntityType() == EntityType::CRATER)
+            y = entity->getPositionY() - height/2;
+        else
+            y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
     }

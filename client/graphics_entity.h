@@ -12,7 +12,7 @@
 class GraphicsEntity {
    public:
     GraphicsEntity(const std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
-                   uint32_t id, int32_t x_position, int32_t y_position);
+                   uint32_t id, int32_t x_position, int32_t y_position, int width, int height);
     ~GraphicsEntity();
     virtual void update(float dt, Entity* entity);
     virtual void render();
@@ -34,7 +34,7 @@ protected:
     uint32_t id;
     int32_t x;
     int32_t y;
-    int width;
+    int width; //puedo controlar esto de afuera para que el crater tenga un tamanio mayor
     int height;
     AnimationName current_animation;
     std::map<AnimationName, std::unique_ptr<Animation>> animations;

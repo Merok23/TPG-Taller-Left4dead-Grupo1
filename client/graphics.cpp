@@ -32,8 +32,6 @@ void Graphics::run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comand
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
-        if (gr_entity_holder.getMainPlayer() == nullptr)
-            std::cout << "No hay mainPlayer en gr_entity_holder" << std::endl;
         Camera camera(window, 1700);
 
         time_t t1 = time(0);
