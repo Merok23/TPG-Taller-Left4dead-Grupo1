@@ -17,6 +17,7 @@ class TexturesHolder {
     private:
     void create_soldier(EntityType entity_type, const std::string &path);
     void create_infected(EntityType entity_type, const std::string &path);
+    void create_obstacle(const std::string &path);
 
     void create_zombie(const std::string &path);
     void create_venom(const std::string &path);

@@ -17,7 +17,6 @@ class GameState {
         bool game_over, 
         bool players_won);
     void setLostConnection();
-    void print();
     ~GameState();
 }; 
 #endif

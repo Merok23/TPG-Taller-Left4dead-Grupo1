@@ -38,6 +38,7 @@ const struct config CONFIG {
     10, // witch_infected_scream_spawn_ammount
     40, // crater_radius
     100, // crater_hit_points
+    6, //crater_ammount
     5760,//-400, //1920, // scenario_width
     250,//1080, // scenario_height
     5, // default_radius

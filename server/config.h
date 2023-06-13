@@ -39,6 +39,7 @@ struct config {
     int witch_infected_scream_spawn_ammount; //ammount spawned per scream
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.
+    int crater_ammount;
     int scenario_width;
     int scenario_height;
     int default_radius;

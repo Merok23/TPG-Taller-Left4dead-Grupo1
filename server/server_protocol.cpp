@@ -219,11 +219,8 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         this->sendBool(entity.second->getDirectionOfMovement()->isMovingUp());
         if (was_closed) return;
         
-        if (entity.second->getEntityType() == "player") {
-            Player* player = dynamic_cast<Player*>(entity.second);
-            sendString(player->getWeaponType());
-            if (was_closed) return;
-            
+        if (entity.second->getEntityType() == "player_idf" || entity.second->getEntityType() == "player_scout" || entity.second->getEntityType() == "player_p90") {
+            Player* player = dynamic_cast<Player*>(entity.second);            
             sendInteger(player->getAmmoLeft());
             if (was_closed) return;
 

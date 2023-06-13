@@ -162,12 +162,9 @@ int32_t Player::getAmmoLeft() {
 }
 
 std::string Player::getEntityType() {
-    return "player"; 
+    return "player_" + this->my_weapon->getWeaponType(); 
 }
 
-std::string Player::getWeaponType() {
-    return this->my_weapon->getWeaponType();
-}
 
 std::string Player::getState() {
      std::unordered_map<int, std::string> stateMap = { //creo que puede ser un atributo? 

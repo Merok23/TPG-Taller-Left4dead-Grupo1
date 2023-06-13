@@ -11,6 +11,7 @@ GraphicsEntity::GraphicsEntity(const std::map<AnimationName, std::shared_ptr<Sdl
     current_animation = AN_IDLE;
 }
 
+#include <iostream>
 
 void GraphicsEntity::update(float dt, Entity *entity) {
         
@@ -18,6 +19,8 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         switch (entity->state)
         {
         case IDLE:
+            if (entity->getEntityType() == EntityType::CRATER)
+                std::cout << "Soy un crater idle!!" << std::endl;
             current_animation = AN_IDLE;
             break;
         

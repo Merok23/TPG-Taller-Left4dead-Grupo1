@@ -19,7 +19,8 @@ Game::Game(int32_t width, int32_t height) :
     current_id(0),
     game_started(false),
     game_over(false),
-    players_won(false) {}
+    players_won(false),
+    craters_have_spawned(false) {}
 
 Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
     entities(),
@@ -40,7 +41,8 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     current_id(0),
     game_started(false),
     game_over(false),
-    players_won(false) {}
+    players_won(false),
+    craters_have_spawned(false) {}
 
 void Game::addEntity(Entity* entity) {
     this->entities[entity->getId()] = entity;
@@ -165,7 +167,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->game_over,
         this->players_won); 
     //-------------------------------------------------//
-
+   // if (!this->craters_have_spawned) spawnCraters(CONFIG.crater_ammount);//replace with something at constructor like the rest?
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
@@ -291,6 +293,19 @@ void Game::survivalUpdate() {
     max_spear_infected_per_spawn *= CONFIG.survival_mode_accumulator;
 }
 
+//Replace for factory design for uniting all of these.
+void Game::spawnCraters(int ammount) {
+    this->craters_have_spawned = true;
+    for (int i = 0; i < ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(CONFIG.crater_radius, x, y)) {
+            Entity* crater = new Crater(current_id, x, y);
+            this->addEntity(crater);
+        }
+    }
+}
+
 void Game::spawnCommonInfected(int ammount) {
     for (int i = 0; i < ammount; i++) {
         uint32_t x = 0;
@@ -332,9 +347,13 @@ void Game::spawnWitchInfected(int ammount) {
 
 bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
         bool found = false;
+        int mod_x = this->gameMap.getWidth() - 2 * radius;
+        int mod_y = this->gameMap.getHeight() - 2 * radius;
         while(!found) {
-            x = rand() % this->gameMap.getWidth() + radius;
-            y = rand() % this->gameMap.getHeight() + radius;
+            x = rand() % mod_x;
+            y = rand() % mod_y;
+            x += radius;
+            y += radius;
             if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
         }
         return found;

@@ -45,14 +45,9 @@ enum EntityType {
     VENOM,
     SPEAR,
     WITCH,
-    ZOMBIE
-};
-
-enum WeaponType {
-    IDF,
-    P90,
-    SCOUT,
-    NONE
+    ZOMBIE,
+    
+    CRATER
 };
 
 enum GameMode {

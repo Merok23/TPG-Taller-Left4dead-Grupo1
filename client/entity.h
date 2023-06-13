@@ -11,7 +11,6 @@ class Entity {
         uint32_t id;
         EntityType type;
         uint8_t lives;
-        WeaponType weapon_type; //para la textura
         int32_t ammo_left; //para la cantidad de balas
         int32_t hit_points;
         int32_t x_position;
@@ -26,16 +25,13 @@ class Entity {
         State state;
 
 
-        Entity(uint32_t id, EntityType type, State state, uint8_t lives, WeaponType weapon_type, int32_t ammo_left,  int32_t hit_points, 
+        Entity(uint32_t id, EntityType type, State state, uint8_t lives, int32_t ammo_left,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         Entity(uint32_t id, EntityType type, State state,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         uint32_t getId();
         int32_t getHitPoints();
-        std::string getType(); 
         EntityType getEntityType();
-        WeaponType getWeaponType();
-        std::string getWeapon();
         int32_t getAmmoLeft();
         std::string getStateEnum();
         State getState();
