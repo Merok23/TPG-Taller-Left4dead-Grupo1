@@ -141,11 +141,11 @@ cd TPG-Taller-Left4dead-Grupo1/build/target
 ```
 
 6. En caso de querer ejecutar con valgrind: 
-   + El servidor 
++  El servidor 
   ```
   valgrind ./server 8082
   ```
-   + El cliente, se agrega un suppression file para evitar errores de sdlpp
++  El cliente, se agrega un suppression file para evitar errores de sdlpp
   ```
   valgrind --suppressions=../../valgrind-output.txt ./client localhost 8082
   ```
