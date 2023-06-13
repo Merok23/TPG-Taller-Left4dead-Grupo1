@@ -50,13 +50,6 @@ enum EntityType {
     CRATER
 };
 
-enum WeaponType {
-    IDF,
-    P90,
-    SCOUT,
-    NONE
-};
-
 enum GameMode {
     SURVIVAL,
     CLEAR_THE_ZONE,

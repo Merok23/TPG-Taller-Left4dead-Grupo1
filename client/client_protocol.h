@@ -127,7 +127,6 @@ class ClientProtocol {
 	void sendShooting(int shooting);
 	void sendReloading(int reloading);
 	State stringToState(const std::string &state);
-	WeaponType stringToWeapon(const std::string &weapon);
 	EntityType stringToEntityType(const std::string &entity_type);
 
     public:

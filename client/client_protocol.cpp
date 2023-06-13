@@ -185,7 +185,9 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         State state_enum = stringToState(state);
 
         std::string type = receiveString();
+        std::cout << "type: " << type << std::endl;
         if (was_closed) return NULL; 
+        EntityType entity_type = stringToEntityType(type);
             
         int32_t hit_point = receiveInteger();
         if (was_closed) return NULL; 
@@ -203,41 +205,25 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             
         Entity* entity = NULL;
         
-        if (type == "player") {
-            WeaponType weapon_type = stringToWeapon(receiveString());
-            if (was_closed) return NULL; 
-    
+        if (entity_type == EntityType::SOLDIER_IDF ||
+            entity_type == EntityType::SOLDIER_P90 ||
+            entity_type == EntityType::SOLDIER_SCOUT) {
             int32_t ammo_left = receiveInteger();
-            if (was_closed) return NULL; 
+            if (was_closed) return NULL;
 
             uint8_t lives = receiveUnsignedSmallInteger();
-            if (was_closed) return NULL; 
+            if (was_closed) return NULL;
 
-            EntityType entity_type = SOLDIER_IDF;
-            if (weapon_type == P90)
-                entity_type = SOLDIER_P90;
-            
-            if (weapon_type == SCOUT)
-                entity_type = SOLDIER_SCOUT;
-
-            entity =   new Entity(id, entity_type, state_enum, lives, weapon_type, ammo_left,  hit_point, 
-            position_x,  position_y, is_facing_left, is_moving_up);
-        } else if (type == "common_infected") {
-            EntityType entity_type = ZOMBIE;
-            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
-                is_facing_left, is_moving_up);
-        } else if (type == "spear") {
-            EntityType entity_type = SPEAR;
-            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
-                is_facing_left, is_moving_up);
-        } else if (type == "witch") {
-            EntityType entity_type = WITCH;
-            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
-                is_facing_left, is_moving_up);
-        } else if (type == "crater") {
-            EntityType entity_type = CRATER;
-            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
-                is_facing_left, is_moving_up);
+            entity = new Entity(id, entity_type, state_enum, lives, ammo_left, hit_point,
+                                position_x, position_y, is_facing_left, is_moving_up);
+        } else if (entity_type == EntityType::ZOMBIE ||
+                entity_type == EntityType::SPEAR ||
+                entity_type == EntityType::WITCH ||
+                entity_type == EntityType::JUMPER ||
+                entity_type == EntityType::VENOM ||
+                entity_type == EntityType::CRATER) {
+            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y,
+                                is_facing_left, is_moving_up);
         }
         entities[id] = entity;
         entities_len--; 
@@ -248,14 +234,14 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
 
 EntityType ClientProtocol::stringToEntityType(const std::string& entity_type) {
     static const std::unordered_map<std::string, EntityType> entityTypeMap = {
-        { "soldier_idf", SOLDIER_IDF },
-        { "soldier_p90", SOLDIER_P90 },
-        { "soldier_scout", SOLDIER_SCOUT },
+        { "player_idf", SOLDIER_IDF },
+        { "player_p90", SOLDIER_P90 },
+        { "player_scout", SOLDIER_SCOUT },
         { "jumper", JUMPER },
         { "venom", VENOM },
         { "spear", SPEAR },
         { "witch", WITCH },
-        { "zombie", ZOMBIE },
+        { "common_infected", ZOMBIE },
         { "crater", CRATER }
     };
 
@@ -280,16 +266,6 @@ State ClientProtocol::stringToState(const std::string& state) {
     return it->second;
 }
 
-WeaponType ClientProtocol::stringToWeapon(const std::string& weapon) {
-    static const std::unordered_map<std::string, WeaponType> weaponMap = {
-        { "idf", WeaponType::IDF },
-        { "p90", WeaponType::P90 },
-        { "scout", WeaponType::SCOUT },
-    };
-
-    auto it = weaponMap.find(weapon);
-    return it->second;
-}
 //--------------------------------- FUNCIONES DE RECIBIR BYTES PRIVADAS ---------------------------------//
 
 uint32_t ClientProtocol::receieveUnsignedInteger() {
