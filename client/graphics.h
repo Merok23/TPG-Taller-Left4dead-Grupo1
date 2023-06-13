@@ -3,6 +3,9 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+
+
 #include <iostream>
 #include <exception>
 #include <unistd.h>
@@ -23,7 +26,8 @@
 class Graphics {
     public:
     Graphics();
-    void run(std::shared_ptr<GameState> gs, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
+    void run(std::shared_ptr<GameState> gs, GameMode game_mode,
+            Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
 
     private:
     bool game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
