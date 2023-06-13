@@ -9,13 +9,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors
 find_package(Threads REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_mixer 2.6.3 REQUIRED)  # Specify the exact version here
+find_package(SDL2pp REQUIRED)
 find_package(Catch2 3 REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+
+# include_directories(${SDL2_INCLUDE_DIRS})
+# include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+# include_directories(${SDL2_MIXER_INCLUDE_DIRS})  # Update to SDL2_MIXER_INCLUDE_DIRS
+# include_directories(${SDL2PP_INCLUDE_DIRS})
 
 set(COMMON_DIR common)
 set(CLIENT_DIR client)
@@ -42,10 +45,16 @@ add_library(common_objects OBJECT ${COMMON_SRCS})
 
 add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS} ${QRC_FILES})
 
+target_include_directories(client_executable PRIVATE ${SDL2_INCLUDE_DIRS})
+target_include_directories(client_executable PRIVATE ${SDL2_IMAGE_INCLUDE_DIRS})
+target_include_directories(client_executable PRIVATE ${SDL2_MIXER_INCLUDE_DIRS})
+
+
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2)
 target_link_libraries(client_executable PRIVATE SDL2_image)
-target_link_libraries(client_executable PRIVATE SDL2_mixer)
+target_link_libraries(client_executable PRIVATE SDL2_mixer)  # Update to SDL2_mixer
+target_link_libraries(client_executable PRIVATE ${SDL2PP_LIBRARIES})
 target_link_libraries(client_executable PRIVATE Qt5::Widgets)
 target_link_libraries(client_executable PRIVATE Qt5::Core)
 target_link_libraries(client_executable PRIVATE Qt5::Gui)
