@@ -16,6 +16,7 @@
 #include "map.h"
 #include "hit_entity.h"
 #include "entity_infected.h"
+#include "entity_crater.h"
 #include "entity_player.h"
 #include "entity_infected_common.h"
 #include "entity_infected_spear.h"
@@ -58,6 +59,7 @@ class Game {
         bool game_started;
         bool game_over;
         bool players_won;
+        bool craters_have_spawned;
         
     public:
         explicit Game(int32_t width, int32_t height);
@@ -91,6 +93,7 @@ class Game {
         std::vector<HitEntity> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
         void survivalUpdate();
         void spawnInfected();
+        void spawnCraters(int ammount);
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
         void spawnWitchInfected(int ammount);

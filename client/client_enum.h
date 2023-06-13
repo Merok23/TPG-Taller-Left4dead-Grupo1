@@ -45,7 +45,9 @@ enum EntityType {
     VENOM,
     SPEAR,
     WITCH,
-    ZOMBIE
+    ZOMBIE,
+    
+    CRATER
 };
 
 enum WeaponType {

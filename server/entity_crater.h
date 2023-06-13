@@ -1,4 +1,11 @@
+#ifndef ENTITY_CRATER_H
+#define ENTITY_CRATER_H
+#include <vector>
+#include <string>
+
 #include "entity.h"
+#include "map.h"
+#include "hit_entity.h"
 
 class Crater : public Entity {
     public:
@@ -12,3 +19,5 @@ class Crater : public Entity {
         virtual bool isDead() override;
         virtual std::string getState() override;
 };
+
+#endif

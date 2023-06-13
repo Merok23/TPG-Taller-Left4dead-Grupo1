@@ -202,6 +202,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         if (was_closed) return NULL; 
             
         Entity* entity = NULL;
+        
         if (type == "player") {
             WeaponType weapon_type = stringToWeapon(receiveString());
             if (was_closed) return NULL; 
@@ -233,12 +234,33 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             EntityType entity_type = WITCH;
             entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
                 is_facing_left, is_moving_up);
+        } else if (type == "crater") {
+            EntityType entity_type = CRATER;
+            entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y, 
+                is_facing_left, is_moving_up);
         }
         entities[id] = entity;
         entities_len--; 
     }
     std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities, game_over, players_won);
     return game_state;
+}
+
+EntityType ClientProtocol::stringToEntityType(const std::string& entity_type) {
+    static const std::unordered_map<std::string, EntityType> entityTypeMap = {
+        { "soldier_idf", SOLDIER_IDF },
+        { "soldier_p90", SOLDIER_P90 },
+        { "soldier_scout", SOLDIER_SCOUT },
+        { "jumper", JUMPER },
+        { "venom", VENOM },
+        { "spear", SPEAR },
+        { "witch", WITCH },
+        { "zombie", ZOMBIE },
+        { "crater", CRATER }
+    };
+
+    auto it = entityTypeMap.find(entity_type);
+    return it->second;
 }
 
 State ClientProtocol::stringToState(const std::string& state) {

@@ -41,7 +41,6 @@ std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* ent
     return infected;
 }
 
-
 std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
     return MainPlayer;
 }

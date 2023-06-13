@@ -71,6 +71,8 @@ void Client::run() {
     }
     if (gs) 
         graphics.run(gs, queue_comandos, game_states);
+    receive_thread->stop();
+    send_thread->stop();
 }
  
 Client::~Client() {

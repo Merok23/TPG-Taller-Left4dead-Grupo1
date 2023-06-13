@@ -125,6 +125,10 @@ void TexturesHolder::create_witch(const std::string &path) {
     textures_holder[WITCH][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
+void TexturesHolder::create_obstacle(const std::string &path) {
+    std::string img("crater1.png");
+    textures_holder[CRATER][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+}
 
 TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     std::string path("../../assets/Soldier_IDF/");
@@ -152,6 +156,9 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
 
     path.replace(0, path.length(), "../../assets/Witch/");
     create_infected(WITCH, path);
+
+    path.replace(0, path.length(), "../../assets/backgrounds/War1/Bright/");
+    create_obstacle(path);
     
 }
 

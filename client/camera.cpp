@@ -18,7 +18,7 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
     int x_soldiers_world, y_soldiers_world;
     ge_holder.get_new_coordenates_center(&x_soldiers_world, &y_soldiers_world);
 
-    x_camera_world = x_soldiers_world - WINDOW_WIDTH / 2;
+    x_camera_world = x_soldiers_world - WINDOW_WIDTH / 2 + 150; //offset para que se vea mas centrado
 
     if (x_camera_world < 0) {
         x_camera_world = 0;
