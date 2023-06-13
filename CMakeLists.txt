@@ -14,7 +14,6 @@ find_package(SDL2pp REQUIRED)
 find_package(Catch2 3 REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-
 # include_directories(${SDL2_INCLUDE_DIRS})
 # include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 # include_directories(${SDL2_MIXER_INCLUDE_DIRS})  # Update to SDL2_MIXER_INCLUDE_DIRS
