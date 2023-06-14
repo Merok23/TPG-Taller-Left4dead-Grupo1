@@ -1,5 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <cstdint>
-#pragma once
+
+#include <yaml-cpp/yaml.h>
 
 struct config {
     int soldier_health;
@@ -42,6 +46,8 @@ struct config {
     int crater_ammount;
     int scenario_width;
     int scenario_height;
+    int spawn_point_start_x_infected;
+    int spawn_point_end_x_infected;
     int default_radius;
     long int invalid_id;
     int weapon_idf_base_damage;
@@ -60,6 +66,7 @@ struct config {
     double weapon_scout_distance_modifier; 
     double weapon_scout_damage_falloff;
     int cheat_infinite_hitpoints;
+    int aligned_slack_grace;
     int survival_mode_timer;
     int survival_mode_max_common_infected;
     int survival_mode_max_spear_infected;
@@ -74,5 +81,19 @@ struct config {
     double venom_infected_zone_percentage;
 };
 
+extern struct config CONFIG;
 
-extern const struct config CONFIG;
+class Config {    
+    private:
+        YAML::Node config_node;
+        
+        void loadConfig();
+    public: 
+        Config(const char* configFile);
+        ~Config();
+};
+
+#endif
+
+
+

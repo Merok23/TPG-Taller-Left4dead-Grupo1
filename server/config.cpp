@@ -1,6 +1,6 @@
 #include "config.h"
 
-const struct config CONFIG {
+struct config CONFIG {
     100, // soldier_health
     10, // soldier_speed
     23, // soldier_radius
@@ -41,6 +41,8 @@ const struct config CONFIG {
     6, //crater_ammount
     5760,//-400, //1920, // scenario_width
     250,//1080, // scenario_height
+    200, // spawn_point_start_x_infected
+    5560, // spawn_point_end_x_infected    
     5, // default_radius
     8589934591, // invalid_id
     200, // weapon_idf_base_damage
@@ -59,6 +61,7 @@ const struct config CONFIG {
     0, // weapon_scout_distance_modifier
     0.1, // weapon_scout_damage_falloff
     2147483647, // cheat_infinite_hitpoints
+    10, //aligned_slack_grace
     500, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
@@ -72,3 +75,83 @@ const struct config CONFIG {
     0, //jumper_infected_zone_percentage
     0 //venom_infected_zone_percentage
 };
+
+Config::Config(const char* config_file) {
+    this->config_node = YAML::LoadFile(config_file);
+    this->loadConfig();
+}
+#include <iostream>
+void Config::loadConfig() {
+    CONFIG.soldier_health = config_node["soldier"]["health"].as<int>();
+    CONFIG.soldier_speed = config_node["soldier"]["speed"].as<int>();
+    CONFIG.soldier_radius = config_node["soldier"]["radius"].as<int>();
+    CONFIG.soldier_reload_cooldown = config_node["soldier"]["reload_cooldown"].as<int>();
+    CONFIG.soldier_time_to_revive = config_node["soldier"]["time_to_revive"].as<int>();
+    CONFIG.soldier_max_time_until_dead = config_node["soldier"]["max_time_until_dead"].as<int>();
+    CONFIG.soldier_max_distance_to_revive = config_node["soldier"]["max_distance_to_revive"].as<int>();
+    CONFIG.soldier_lives = config_node["soldier"]["lives"].as<int>();
+    CONFIG.soldier_max_distance_from_mass_centre = config_node["soldier"]["max_distance_from_mass_centre"].as<double>();
+    CONFIG.infected_health = config_node["infected"]["health"].as<int>();
+    CONFIG.infected_speed = config_node["infected"]["speed"].as<int>();
+    CONFIG.infected_radius = config_node["infected"]["radius"].as<int>();
+    CONFIG.common_infected_range = config_node["infected"]["common"]["range"].as<int>();
+    CONFIG.common_infected_speed = config_node["infected"]["common"]["speed"].as<int>();
+    CONFIG.common_infected_attack_range = config_node["infected"]["common"]["attack_range"].as<int>();
+    CONFIG.common_infected_damage = config_node["infected"]["common"]["damage"].as<int>();
+    CONFIG.common_infected_attack_cooldown = config_node["infected"]["common"]["attack_cooldown"].as<int>();
+    CONFIG.common_infected_radius = config_node["infected"]["common"]["radius"].as<int>();
+    CONFIG.spear_infected_health = config_node["infected"]["spear"]["health"].as<int>();
+    CONFIG.spear_infected_speed = config_node["infected"]["spear"]["speed"].as<int>();
+    CONFIG.spear_infected_radius = config_node["infected"]["spear"]["radius"].as<int>();
+    CONFIG.spear_infected_look_range = config_node["infected"]["spear"]["look_range"].as<int>();
+    CONFIG.spear_infected_attack_range = config_node["infected"]["spear"]["attack_range"].as<int>();
+    CONFIG.spear_infected_attack_cooldown = config_node["infected"]["spear"]["attack_cooldown"].as<int>();
+    CONFIG.spear_infected_damage = config_node["infected"]["spear"]["damage"].as<int>();
+    CONFIG.witch_infected_health = config_node["infected"]["witch"]["health"].as<int>();
+    CONFIG.witch_infected_speed = config_node["infected"]["witch"]["speed"].as<int>();
+    CONFIG.witch_infected_radius = config_node["infected"]["witch"]["radius"].as<int>();
+    CONFIG.witch_infected_look_range = config_node["infected"]["witch"]["look_range"].as<int>();
+    CONFIG.witch_infected_attack_range = config_node["infected"]["witch"]["attack_range"].as<int>();
+    CONFIG.witch_infected_attack_cooldown = config_node["infected"]["witch"]["attack_cooldown"].as<int>();
+    CONFIG.witch_infected_attack_damage = config_node["infected"]["witch"]["attack_damage"].as<int>();
+    CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
+    CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
+    CONFIG.witch_infected_scream_spawn_ammount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
+    CONFIG.crater_radius = config_node["crater"]["radius"].as<int>();
+    CONFIG.crater_hit_points = config_node["crater"]["hit_points"].as<int>();
+    CONFIG.crater_ammount = config_node["crater"]["ammount"].as<int>();
+    CONFIG.scenario_width = config_node["scenario"]["width"].as<int>();
+    CONFIG.scenario_height = config_node["scenario"]["height"].as<int>();
+    CONFIG.default_radius = config_node["general"]["default_radius"].as<int>();
+    CONFIG.invalid_id = config_node["general"]["invalid_id"].as<long int>();
+    CONFIG.weapon_idf_base_damage = config_node["weapon"]["idf"]["base_damage"].as<int>();
+    CONFIG.weapon_idf_range = config_node["weapon"]["idf"]["range"].as<int>();
+    CONFIG.weapon_idf_magazine_size = config_node["weapon"]["idf"]["magazine_size"].as<int>();
+    CONFIG.weapon_idf_burst_size = config_node["weapon"]["idf"]["burst_size"].as<int>();
+    CONFIG.weapon_idf_distance_modifier = config_node["weapon"]["idf"]["distance_modifier"].as<double>();
+    CONFIG.weapon_p90_base_damage = config_node["weapon"]["p90"]["base_damage"].as<int>();
+    CONFIG.weapon_p90_range = config_node["weapon"]["p90"]["range"].as<int>();
+    CONFIG.weapon_p90_magazine_size = config_node["weapon"]["p90"]["magazine_size"].as<int>();
+    CONFIG.weapon_p90_burst_size = config_node["weapon"]["p90"]["burst_size"].as<int>();
+    CONFIG.weapon_p90_distance_modifier = config_node["weapon"]["p90"]["distance_modifier"].as<double>();
+    CONFIG.weapon_scout_base_damage = config_node["weapon"]["scout"]["base_damage"].as<int>();
+    CONFIG.weapon_scout_range = config_node["weapon"]["scout"]["range"].as<int>();
+    CONFIG.weapon_scout_magazine_size = config_node["weapon"]["scout"]["magazine_size"].as<int>();
+    CONFIG.weapon_scout_distance_modifier = config_node["weapon"]["scout"]["distance_modifier"].as<double>();
+    CONFIG.weapon_scout_damage_falloff = config_node["weapon"]["scout"]["damage_falloff"].as<double>();
+    CONFIG.cheat_infinite_hitpoints = config_node["cheats"]["infinite_hitpoints"].as<int>();
+    CONFIG.survival_mode_timer = config_node["modes"]["survival"]["timer"].as<int>();
+    CONFIG.survival_mode_max_common_infected = config_node["modes"]["survival"]["max_common_infected"].as<int>();
+    CONFIG.survival_mode_max_spear_infected = config_node["modes"]["survival"]["max_spear_infected"].as<int>();
+    CONFIG.survival_mode_max_witch_infected = config_node["modes"]["survival"]["max_witch_infected"].as<int>();
+    CONFIG.survival_mode_accumulator = config_node["modes"]["survival"]["accumulator"].as<double>();
+    CONFIG.survival_mode_starting_multiplier = config_node["modes"]["survival"]["starting_multiplier"].as<double>();
+    CONFIG.clear_the_zone_infected_total = config_node["modes"]["clear_the_zone"]["infected_total"].as<int>();
+    CONFIG.common_infected_zone_percentage = config_node["zone_percentages"]["common_infected"].as<double>();
+    CONFIG.spear_infected_zone_percentage = config_node["zone_percentages"]["spear_infected"].as<double>();
+    CONFIG.witch_infected_zone_percentage = config_node["zone_percentages"]["witch_infected"].as<double>();
+    CONFIG.jumper_infected_zone_percentage = config_node["zone_percentages"]["jumper_infected"].as<double>();
+    CONFIG.venom_infected_zone_percentage = config_node["zone_percentages"]["venom_infected"].as<double>();
+}
+
+Config::~Config() {}

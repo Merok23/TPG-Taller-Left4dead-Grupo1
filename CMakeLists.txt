@@ -13,6 +13,7 @@ find_package(SDL2_mixer 2.6.3 REQUIRED)  # Specify the exact version here
 find_package(SDL2pp REQUIRED)
 find_package(Catch2 3 REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 # include_directories(${SDL2_INCLUDE_DIRS})
 # include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
@@ -47,23 +48,28 @@ add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS} ${Q
 target_include_directories(client_executable PRIVATE ${SDL2_INCLUDE_DIRS})
 target_include_directories(client_executable PRIVATE ${SDL2_IMAGE_INCLUDE_DIRS})
 target_include_directories(client_executable PRIVATE ${SDL2_MIXER_INCLUDE_DIRS})
-
+target_include_directories(client_executable PRIVATE ${YAML_CPP_INCLUDE_DIR})
 
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2)
 target_link_libraries(client_executable PRIVATE SDL2_image)
-target_link_libraries(client_executable PRIVATE SDL2_mixer)  # Update to SDL2_mixer
+target_link_libraries(client_executable PRIVATE SDL2_mixer)
 target_link_libraries(client_executable PRIVATE ${SDL2PP_LIBRARIES})
 target_link_libraries(client_executable PRIVATE Qt5::Widgets)
 target_link_libraries(client_executable PRIVATE Qt5::Core)
 target_link_libraries(client_executable PRIVATE Qt5::Gui)
+target_link_libraries(client_executable PRIVATE ${YAML_CPP_LIBRARIES})
 
 add_executable(server_executable ${COMMON_SRCS} ${SERVER_SRCS})
-target_link_libraries(server_executable PRIVATE Threads::Threads)
+target_include_directories(server_executable PRIVATE ${YAML_CPP_INCLUDE_DIR})
+target_link_libraries(server_executable PRIVATE Threads::Threads ${YAML_CPP_LIBRARIES})
 
 add_executable(tests_executable ${COMMON_SRCS} ${SERVER_SRCS_FOR_TESTS} ${TESTS_SRCS})
 target_link_libraries(tests_executable PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(tests_executable PRIVATE Threads::Threads)
+target_include_directories(tests_executable PRIVATE ${YAML_CPP_INCLUDE_DIR})
+target_link_libraries(tests_executable PRIVATE Threads::Threads ${YAML_CPP_LIBRARIES})
+
 
 set_target_properties(client_executable server_executable PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY ${TARGET_DIR}
@@ -107,3 +113,4 @@ add_custom_target(server_tests_target
 add_custom_target(tests
   DEPENDS
 )
+
