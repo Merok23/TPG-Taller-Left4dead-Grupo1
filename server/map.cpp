@@ -18,6 +18,20 @@ uint32_t Map::getHeight() {
     return this->height;
 }
 
+std::tuple<int, int> Map::getSurvivalModeSpawnPoint(const int &radius) {
+    int middle = this->width / 2;
+    return this->searchForSpawnPoint(middle, this->max_distance_from_centre, radius);
+}
+
+std::tuple<int, int> Map::getClearTheZoneSpawnPoint(const int &radius) {
+    return this->searchForSpawnPoint(this->max_distance_from_centre, this->max_distance_from_centre, radius);
+}
+
+std::tuple<int, int> Map::getCentreOfMassSpawnPoint(const int &radius) {
+    int middle = this->calculateCentreOfMass();
+    return this->searchForSpawnPoint(middle, this->max_distance_from_centre, radius);
+}
+
 std::map<uint32_t, Movement*> Map::getEntities() {
     return this->entities;
 }
@@ -125,6 +139,27 @@ int32_t Map::calculateCentreOfMass() {
         sum += soldier.second->getX();
     }
     return sum / this->soldiers.size();
+}
+
+std::tuple<int, int> Map::searchForSpawnPoint(
+    const int &middle, 
+    const int &allowed_distance_from_middle, 
+    const int &radius) {
+    std::tuple<int, int> final_position;
+    bool found = false;
+    int start = middle - allowed_distance_from_middle;
+    while (!found) {
+        int x = rand() % (start);
+        x += (start);
+        int y = rand() % (this->height - 2 * radius);
+        y += radius;
+        if (!this->checkForCollisionInPosition(x, y, radius)) {
+            final_position = std::make_tuple(x, y);
+            found = true;
+        }
+    }
+    return final_position;
+
 }
 
 bool Map::checkForCentreOfMassDistanceCollision(const uint32_t &id) {

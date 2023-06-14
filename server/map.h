@@ -22,6 +22,9 @@ class Map {
         Map(uint32_t width, uint32_t height);
         uint32_t getWidth();
         uint32_t getHeight();
+        std::tuple<int, int> getSurvivalModeSpawnPoint(const int &radius);
+        std::tuple<int, int> getClearTheZoneSpawnPoint(const int &radius);
+        std::tuple<int, int> getCentreOfMassSpawnPoint(const int &radius);
         std::map<uint32_t, Movement*> getEntities();
         bool move(const uint32_t &id);
         std::vector<VectorWrapper> shoot(uint32_t id);
@@ -32,6 +35,9 @@ class Map {
         void removeEntity(const uint32_t &id);
         ~Map();
     private:
+        std::tuple<int, int> searchForSpawnPoint(const int &middle, 
+                                                const int &allowed_distance_from_middle, 
+                                                const int &radius);
         //intentionally recieves a copy
         bool checkForCentreOfMassDistanceCollision(const uint32_t &id);
         bool checkForBorderCollision(Movement entity);

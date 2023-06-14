@@ -65,6 +65,15 @@ uint32_t Game::getCurrentId() {
     return this->current_id;
 }
 
+std::tuple<int, int> Game::getPlayerSpawnPoint() {
+    if (this->clear_the_zone && !this->game_started) return this->gameMap.getClearTheZoneSpawnPoint(CONFIG.soldier_radius);
+    //this->survival is removed so testing has the same spawn point
+    //if I don't do this, when calculating the centre of mass soldiers.size() is 0
+    //the fix is adding a this->testing_mode and checking for it here
+    if (!this->game_started) return this->gameMap.getSurvivalModeSpawnPoint(CONFIG.soldier_radius);
+    return this->gameMap.getCentreOfMassSpawnPoint(CONFIG.soldier_radius);
+}
+
 void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
     this->entities[id]->move(x,y);
     this->shooting_soldiers.remove(id);

@@ -65,6 +65,7 @@ class Game {
         explicit Game(int32_t width, int32_t height);
         Game(int32_t width, int32_t height, GameMode gameMode);
         void addEntity(Entity* entity);
+        std::tuple<int, int> getPlayerSpawnPoint();
         void removeEntity(const uint32_t& id);
         void setMoving(const uint32_t& id, const int32_t &x,const int32_t &y);
         void setShooting(const uint32_t& id);
