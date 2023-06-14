@@ -337,7 +337,6 @@ Entity* Game::createInfected(
         */
         default:
             throw std::runtime_error("Invalid infected type");
-            return nullptr; //for compiler
     }
 }
 
@@ -357,7 +356,6 @@ int32_t Game::typeToRadius(const InfectedType &type) {
         */
         default:
             throw std::runtime_error("Invalid infected type");
-            return 0; //for compiler
     }
 }
 
