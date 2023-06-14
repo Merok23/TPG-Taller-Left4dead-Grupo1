@@ -67,7 +67,7 @@ bool Movement::isAligned(Movement &other, const uint32_t &border) {
     int64_t bigger_radius = this->getRadius();
     if (other.getRadius() > bigger_radius) bigger_radius = other.getRadius();
     if (difference < 0) difference *= -1;
-    if (difference <= bigger_radius) {
+    if (difference <= bigger_radius + CONFIG.aligned_slack_grace) {
         return true;
     } else {
         return false;

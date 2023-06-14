@@ -62,6 +62,7 @@ struct config {
     double weapon_scout_distance_modifier; 
     double weapon_scout_damage_falloff;
     int cheat_infinite_hitpoints;
+    int aligned_slack_grace;
     int survival_mode_timer;
     int survival_mode_max_common_infected;
     int survival_mode_max_spear_infected;

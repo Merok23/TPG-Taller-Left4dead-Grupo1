@@ -61,6 +61,7 @@ const struct config CONFIG {
     0, // weapon_scout_distance_modifier
     0.1, // weapon_scout_damage_falloff
     2147483647, // cheat_infinite_hitpoints
+    10, //aligned_slack_grace
     500, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
