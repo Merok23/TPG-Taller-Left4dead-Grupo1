@@ -61,6 +61,14 @@ void Game::addEntity(Entity* entity) {
     this->current_id++;
 }
 
+uint32_t Game::addPlayer(Weapon* weapon) {
+    std::tuple<int, int> spawn = this->getPlayerSpawnPoint();
+    uint32_t player_id = this->getCurrentId();
+    Player* player = new Player(player_id, std::get<0>(spawn), std::get<1>(spawn), weapon);
+    this->addEntity(player);
+    return player_id;
+}
+
 uint32_t Game::getCurrentId() {
     return this->current_id;
 }
@@ -385,13 +393,20 @@ bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
         y = rand() % mod_y;
         y += radius;
         //50% chance of spawning in the left or right side of the map
-        if (rand() % 2) {
+        if (rand() % 2 || !this->clear_the_zone) {
             if (!this->gameMap.checkForCollisionInPosition(start, y, radius)) {
                 found = true;
                 x = start;
             }
             start += radius;
         } else {
+            if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
+                found = true;
+                x = end;
+            }
+            end-= radius;
+        }
+        if (this->clear_the_zone) {
             if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
                 found = true;
                 x = end;

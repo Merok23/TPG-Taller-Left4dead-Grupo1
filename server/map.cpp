@@ -24,7 +24,7 @@ std::tuple<int, int> Map::getSurvivalModeSpawnPoint(const int &radius) {
 }
 
 std::tuple<int, int> Map::getClearTheZoneSpawnPoint(const int &radius) {
-    return this->searchForSpawnPoint(this->max_distance_from_centre, this->max_distance_from_centre, radius);
+    return this->searchForSpawnPoint(this->max_distance_from_centre * 2, this->max_distance_from_centre, radius);
 }
 
 std::tuple<int, int> Map::getCentreOfMassSpawnPoint(const int &radius) {
