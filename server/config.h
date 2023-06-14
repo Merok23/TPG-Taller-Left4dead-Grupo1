@@ -89,7 +89,7 @@ class Config {
         
         void loadConfig();
     public: 
-        Config(const char* configFile);
+        explicit Config(const char* configFile);
         ~Config();
 };
 

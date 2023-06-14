@@ -1,6 +1,8 @@
 scenario:
   width: 5760
   height: 250
+  spawn_point_start_x_infected: 200
+  spawn_point_end_x_infected: 5560
 soldier:
   health: 100
   speed: 10
@@ -48,6 +50,7 @@ crater:
 general:
   default_radius: 5
   invalid_id: 8589934591
+  aligned_slack_grace: 10
 weapon:
   idf:
     base_damage: 200

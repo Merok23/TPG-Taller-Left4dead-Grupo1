@@ -121,6 +121,8 @@ void Config::loadConfig() {
     CONFIG.crater_ammount = config_node["crater"]["ammount"].as<int>();
     CONFIG.scenario_width = config_node["scenario"]["width"].as<int>();
     CONFIG.scenario_height = config_node["scenario"]["height"].as<int>();
+    CONFIG.spawn_point_start_x_infected = config_node["scenario"]["spawn_point_start_x_infected"].as<int>();
+    CONFIG.spawn_point_end_x_infected = config_node["scenario"]["spawn_point_end_x_infected"].as<int>();
     CONFIG.default_radius = config_node["general"]["default_radius"].as<int>();
     CONFIG.invalid_id = config_node["general"]["invalid_id"].as<long int>();
     CONFIG.weapon_idf_base_damage = config_node["weapon"]["idf"]["base_damage"].as<int>();
@@ -139,6 +141,7 @@ void Config::loadConfig() {
     CONFIG.weapon_scout_distance_modifier = config_node["weapon"]["scout"]["distance_modifier"].as<double>();
     CONFIG.weapon_scout_damage_falloff = config_node["weapon"]["scout"]["damage_falloff"].as<double>();
     CONFIG.cheat_infinite_hitpoints = config_node["cheats"]["infinite_hitpoints"].as<int>();
+    CONFIG.aligned_slack_grace = config_node["aligned_slack_grace"].as<int>();
     CONFIG.survival_mode_timer = config_node["modes"]["survival"]["timer"].as<int>();
     CONFIG.survival_mode_max_common_infected = config_node["modes"]["survival"]["max_common_infected"].as<int>();
     CONFIG.survival_mode_max_spear_infected = config_node["modes"]["survival"]["max_spear_infected"].as<int>();
