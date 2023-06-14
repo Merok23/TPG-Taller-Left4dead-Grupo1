@@ -161,18 +161,6 @@ std::vector<HitEntity> Game::setUpHitEntities(std::vector<VectorWrapper>& entiti
     return entities_hit_for_entity;
 }
 
-/*
-std::unique_ptr<std::vector<HitEntity>> Game::setUpHitEntities(std::vector<VectorWrapper>& entities_hit) {
-    auto entities_hit_for_entity = std::make_unique<std::vector<HitEntity>>();
-    for (auto& entity_hit : entities_hit) {
-        Entity* entity = this->entities[entity_hit.getId()];
-        int32_t distance = entity_hit.getDistance();
-        HitEntity hit_entity(entity, distance);
-        entities_hit_for_entity->push_back(hit_entity);
-    }
-    return entities_hit_for_entity;
-}
-*/
 std::map<uint32_t, Entity*>& Game::getEntities() {
     return this->entities;
 }
@@ -254,8 +242,6 @@ void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
             common->setFollowWitch(this->entities[id]);
         }
     }
-    
-
 }
 
 void Game::checkForScreamingWitches() {
