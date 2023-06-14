@@ -80,7 +80,6 @@ Config::Config(const char* config_file) {
     this->config_node = YAML::LoadFile(config_file);
     this->loadConfig();
 }
-#include <iostream>
 void Config::loadConfig() {
     CONFIG.soldier_health = config_node["soldier"]["health"].as<int>();
     CONFIG.soldier_speed = config_node["soldier"]["speed"].as<int>();
