@@ -1,0 +1,87 @@
+scenario:
+  width: 5760
+  height: 250
+soldier:
+  health: 100
+  speed: 10
+  radius: 23
+  reload_cooldown: 20
+  time_to_revive: 15
+  max_time_until_dead: 600
+  max_distance_to_revive: 3
+  lives: 4
+  max_distance_from_mass_centre: 700
+infected:
+  health: 80
+  speed: 10
+  radius: 25
+  common:
+    range: 350
+    speed: 5
+    attack_range: 60
+    damage: 10
+    attack_cooldown: 40
+    radius: 25
+  spear:
+    health: 100
+    speed: 10
+    radius: 25
+    look_range: 350
+    attack_range: 120
+    attack_cooldown: 80
+    damage: 20
+  witch:
+    health: 50
+    speed: 3
+    radius: 25
+    look_range: 350
+    attack_range: 60
+    attack_cooldown: 80
+    attack_damage: 20
+    shout_cooldown: 80
+    shout_probability: 0.005
+    scream_spawn_ammount: 10
+crater:
+  radius: 40
+  hit_points: 100
+  ammount: 6
+general:
+  default_radius: 5
+  invalid_id: 8589934591
+weapon:
+  idf:
+    base_damage: 200
+    range: 500
+    magazine_size: 1000
+    burst_size: 20
+    distance_modifier: 0.2
+  p90:
+    base_damage: 100
+    range: 700
+    magazine_size: 300
+    burst_size: 10
+    distance_modifier: 0.1
+  scout:
+    base_damage: 200
+    range: 1000
+    magazine_size: 20
+    distance_modifier: 0
+    damage_falloff: 0.1
+cheats:
+  infinite_hitpoints: 2147483647
+modes:
+  survival:
+    timer: 500
+    max_common_infected: 3
+    max_spear_infected: 2
+    max_witch_infected: 1
+    accumulator: 1.1
+    starting_multiplier: 1.0
+  clear_the_zone:
+    infected_total: 10
+zone_percentages:
+  common_infected: 0.7
+  spear_infected: 0.2
+  witch_infected: 0.1
+  jumper_infected: 0.0
+  venom_infected: 0.0

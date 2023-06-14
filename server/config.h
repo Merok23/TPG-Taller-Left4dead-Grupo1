@@ -1,5 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <cstdint>
-#pragma once
+
+#include <yaml-cpp/yaml.h>
 
 struct config {
     int soldier_health;
@@ -77,5 +81,19 @@ struct config {
     double venom_infected_zone_percentage;
 };
 
+extern struct config CONFIG;
 
-extern const struct config CONFIG;
+class Config {    
+    private:
+        YAML::Node config_node;
+        
+        void loadConfig();
+    public: 
+        Config(const char* configFile);
+        ~Config();
+};
+
+#endif
+
+
+
