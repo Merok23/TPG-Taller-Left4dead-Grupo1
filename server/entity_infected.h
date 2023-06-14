@@ -26,6 +26,7 @@ class Infected : public Entity {
         virtual void makeStronger(double factor) = 0;
         virtual std::string getState() override;
         bool isInRange(Entity* entity, const int32_t &range);
+        void moveToMiddle();
         virtual ~Infected() override;
         std::map<uint32_t, Entity*> filterDeadSoldiers(const std::map<uint32_t, Entity*> &soldiers);
         void killCheat();

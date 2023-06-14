@@ -41,6 +41,8 @@ const struct config CONFIG {
     6, //crater_ammount
     5760,//-400, //1920, // scenario_width
     250,//1080, // scenario_height
+    200, // spawn_point_start_x_infected
+    5560, // spawn_point_end_x_infected    
     5, // default_radius
     8589934591, // invalid_id
     200, // weapon_idf_base_damage

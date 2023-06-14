@@ -327,8 +327,10 @@ void Game::spawnCommonInfected(int ammount) {
         if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new CommonInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* common = new CommonInfected(current_id, x, y);
+            this->addEntity(common);
+            Infected* infected = dynamic_cast<Infected*>(common);
+            infected->moveToMiddle();
         }
     }
 }
@@ -340,8 +342,10 @@ void Game::spawnSpearInfected(int ammount) {
         if (searchForPosition(CONFIG.spear_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new SpearInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* spear = new SpearInfected(current_id, x, y);
+            this->addEntity(spear);
+            Infected* infected = dynamic_cast<Infected*>(spear);
+            infected->moveToMiddle();
         }   
     }
 }
@@ -353,25 +357,42 @@ void Game::spawnWitchInfected(int ammount) {
         if (searchForPosition(CONFIG.witch_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new WitchInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* witch = new WitchInfected(current_id, x, y);
+            this->addEntity(witch);
+            Infected* infected = dynamic_cast<Infected*>(witch);
+            infected->moveToMiddle();            
         }   
     }
 }
 
-bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
-        bool found = false;
-        int mod_x = this->gameMap.getWidth() - 2 * radius;
-        int mod_y = this->gameMap.getHeight() - 2 * radius;
-        while(!found) {
-            x = rand() % mod_x;
-            y = rand() % mod_y;
-            x += radius;
-            y += radius;
-            if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
+bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    bool found = false;
+    int mod_y = this->gameMap.getHeight() - 2 * radius;
+    //start and end it's for when the spawn point is full
+    //so it doesn't loop infinitely when the border is full
+    int start = CONFIG.spawn_point_start_x_infected;
+    int end = CONFIG.spawn_point_end_x_infected;
+    while (!found) {
+        y = rand() % mod_y;
+        y += radius;
+        //50% chance of spawning in the left or right side of the map
+        if (rand() % 2) {
+            if (!this->gameMap.checkForCollisionInPosition(start, y, radius)) {
+                found = true;
+                x = start;
+            }
+            start += radius;
+        } else {
+            if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
+                found = true;
+                x = end;
+            }
+            end-= radius;
         }
-        return found;
+    }
+    return found;
 }
+
 
 void Game::spawnInfected() {
     //this could be done with a factory pattern
