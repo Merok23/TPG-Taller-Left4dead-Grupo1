@@ -45,6 +45,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     craters_have_spawned(false) {}
 
 void Game::addEntity(Entity* entity) {
+    //TODO: if ID already exists, throw exception
     this->entities[entity->getId()] = entity;
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
     if (entity->isInfected()) {
@@ -60,8 +61,25 @@ void Game::addEntity(Entity* entity) {
     this->current_id++;
 }
 
+uint32_t Game::addPlayer(Weapon* weapon) {
+    std::tuple<int, int> spawn = this->getPlayerSpawnPoint();
+    uint32_t player_id = this->getCurrentId();
+    Player* player = new Player(player_id, std::get<0>(spawn), std::get<1>(spawn), weapon);
+    this->addEntity(player);
+    return player_id;
+}
+
 uint32_t Game::getCurrentId() {
     return this->current_id;
+}
+
+std::tuple<int, int> Game::getPlayerSpawnPoint() {
+    if (this->clear_the_zone && !this->game_started) return this->gameMap.getClearTheZoneSpawnPoint(CONFIG.soldier_radius);
+    //this->survival is removed so testing has the same spawn point
+    //if I don't do this, when calculating the centre of mass soldiers.size() is 0
+    //the fix is adding a this->testing_mode and checking for it here
+    if (!this->game_started) return this->gameMap.getSurvivalModeSpawnPoint(CONFIG.soldier_radius);
+    return this->gameMap.getCentreOfMassSpawnPoint(CONFIG.soldier_radius);
 }
 
 void Game::setMoving(const uint32_t &id, const int32_t &x, const int32_t &y) {
@@ -167,7 +185,8 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->game_over,
         this->players_won); 
     //-------------------------------------------------//
-   // if (!this->craters_have_spawned) spawnCraters(CONFIG.crater_ammount);//replace with something at constructor like the rest?
+    
+    if (!this->craters_have_spawned && (this->survival_mode || this->clear_the_zone)) spawnCraters(CONFIG.crater_ammount);
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
@@ -304,6 +323,18 @@ void Game::spawnCraters(int ammount) {
             this->addEntity(crater);
         }
     }
+    this->spawnCratersAtTheBorder();
+}
+
+void Game::spawnCratersAtTheBorder() {
+    uint32_t y = CONFIG.crater_radius;
+    while (y <= this->gameMap.getHeight()) {
+        Entity* crater = new Crater(current_id, 2 * CONFIG.crater_radius, y);
+        this->addEntity(crater);
+        crater = new Crater(current_id, this->gameMap.getWidth() - 2 * CONFIG.crater_radius, y);
+        this->addEntity(crater);
+        y += CONFIG.crater_radius;
+    }
 }
 
 void Game::spawnCommonInfected(int ammount) {
@@ -313,8 +344,10 @@ void Game::spawnCommonInfected(int ammount) {
         if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new CommonInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* common = new CommonInfected(current_id, x, y);
+            this->addEntity(common);
+            Infected* infected = dynamic_cast<Infected*>(common);
+            infected->moveToMiddle();
         }
     }
 }
@@ -326,8 +359,10 @@ void Game::spawnSpearInfected(int ammount) {
         if (searchForPosition(CONFIG.spear_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new SpearInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* spear = new SpearInfected(current_id, x, y);
+            this->addEntity(spear);
+            Infected* infected = dynamic_cast<Infected*>(spear);
+            infected->moveToMiddle();
         }   
     }
 }
@@ -339,25 +374,49 @@ void Game::spawnWitchInfected(int ammount) {
         if (searchForPosition(CONFIG.witch_infected_radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
-            Entity* infected = new WitchInfected(current_id, x, y);
-            this->addEntity(infected);
+            Entity* witch = new WitchInfected(current_id, x, y);
+            this->addEntity(witch);
+            Infected* infected = dynamic_cast<Infected*>(witch);
+            infected->moveToMiddle();            
         }   
     }
 }
 
-bool Game::searchForPosition(const uint32_t &radius, uint32_t &x, uint32_t &y) {
-        bool found = false;
-        int mod_x = this->gameMap.getWidth() - 2 * radius;
-        int mod_y = this->gameMap.getHeight() - 2 * radius;
-        while(!found) {
-            x = rand() % mod_x;
-            y = rand() % mod_y;
-            x += radius;
-            y += radius;
-            if (!this->gameMap.checkForCollisionInPosition(x, y, radius)) found = true;
+bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    bool found = false;
+    int mod_y = this->gameMap.getHeight() - 2 * radius;
+    //start and end it's for when the spawn point is full
+    //so it doesn't loop infinitely when the border is full
+    int start = CONFIG.spawn_point_start_x_infected;
+    int end = CONFIG.spawn_point_end_x_infected;
+    while (!found) {
+        y = rand() % mod_y;
+        y += radius;
+        //50% chance of spawning in the left or right side of the map
+        if (rand() % 2 || !this->clear_the_zone) {
+            if (!this->gameMap.checkForCollisionInPosition(start, y, radius)) {
+                found = true;
+                x = start;
+            }
+            start += radius;
+        } else {
+            if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
+                found = true;
+                x = end;
+            }
+            end-= radius;
         }
-        return found;
+        if (this->clear_the_zone) {
+            if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
+                found = true;
+                x = end;
+            }
+            end-= radius;
+        }
+    }
+    return found;
 }
+
 
 void Game::spawnInfected() {
     //this could be done with a factory pattern

@@ -61,4 +61,13 @@ void Infected::killCheat() {
     this->setDamageForTheRound(CONFIG.cheat_infinite_hitpoints);
 }
 
+void Infected::moveToMiddle() {
+    int32_t x = this->getDirectionOfMovement()->getX();
+    if (x < CONFIG.scenario_width / 2) {
+        this->move(1, 0);
+    } else {
+        this->move(-1, 0);
+    }
+}
+
 Infected::~Infected() {}

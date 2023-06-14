@@ -42,6 +42,8 @@ struct config {
     int crater_ammount;
     int scenario_width;
     int scenario_height;
+    int spawn_point_start_x_infected;
+    int spawn_point_end_x_infected;
     int default_radius;
     long int invalid_id;
     int weapon_idf_base_damage;

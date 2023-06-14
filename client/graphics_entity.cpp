@@ -19,8 +19,6 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         switch (entity->state)
         {
         case IDLE:
-            if (entity->getEntityType() == EntityType::CRATER)
-                std::cout << "Soy un crater idle!!" << std::endl;
             current_animation = AN_IDLE;
             break;
         

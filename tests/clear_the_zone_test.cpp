@@ -9,5 +9,11 @@ TEST_CASE("Clear the zone test, game gets created with a fixed ammount of infect
     Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::CLEAR_THE_ZONE);
     long unsigned int total = CONFIG.clear_the_zone_infected_total;
     game.update();
-    REQUIRE(game.getEntities().size() == total);
+    long unsigned int infected = 0;
+    for (auto& entity : game.getEntities()) {
+        if (entity.second->isInfected()) {
+            infected++;
+        }
+    }
+    REQUIRE(infected == total);
 }
