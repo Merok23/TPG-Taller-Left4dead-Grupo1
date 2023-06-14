@@ -74,6 +74,8 @@ TEST_CASE("Cheat test, kill all infected kills all the infected", "[cheats]") {
     std::shared_ptr<GameStateForClient> game_state = game.update();
     std::map<uint32_t, Entity*> entities = game_state->getEntities();
     for (auto infected : entities) {
-        REQUIRE(infected.second->isDead() == true);
+        if (infected.second->isInfected()){
+            REQUIRE(infected.second->isDead() == true);
+        }
     }
 }

@@ -45,6 +45,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     craters_have_spawned(false) {}
 
 void Game::addEntity(Entity* entity) {
+    //TODO: if ID already exists, throw exception
     this->entities[entity->getId()] = entity;
     this->gameMap.addEntity(entity->getId(), entity->getDirectionOfMovement());
     if (entity->isInfected()) {
@@ -167,7 +168,8 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->game_over,
         this->players_won); 
     //-------------------------------------------------//
-   // if (!this->craters_have_spawned) spawnCraters(CONFIG.crater_ammount);//replace with something at constructor like the rest?
+    
+    if (!this->craters_have_spawned && (this->survival_mode || this->clear_the_zone)) spawnCraters(CONFIG.crater_ammount);
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();

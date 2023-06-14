@@ -30,17 +30,17 @@ TEST_CASE("Survival mode test, common infected become stronger as time passes", 
     game.setSurvivalMode();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
     REQUIRE(game.getEntities().size() > 0);
-    int health = game.getEntities()[1]->getHitPoints();
+    int health = game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
-    REQUIRE(game.getEntities()[1]->getHitPoints() > health);
+    REQUIRE(game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints() > health);
 }
 
 TEST_CASE("Survival mode test, Common infected stay normal before the timer completes", "[surival]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     game.setSurvivalMode();
-    game.addEntity(new CommonInfected(1, 5, 5));
+    game.addEntity(new CommonInfected(0, 5, 5));
     for (int i = 0; i < CONFIG.survival_mode_timer - 1; i++) game.update();
-    REQUIRE(game.getEntities()[1]->getHitPoints() == CONFIG.infected_health);
+    REQUIRE(game.getEntities()[0]->getHitPoints() == CONFIG.infected_health);
 }
 
 TEST_CASE("Survival mode test, it spawns more and more zombies", "[survival]") {
@@ -66,9 +66,9 @@ TEST_CASE("Survival mode test, game's constructor with game mode works", "[survi
     Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
     REQUIRE(game.getEntities().size() > 0);
-    int health = game.getEntities()[1]->getHitPoints();
+    int health = game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
-    REQUIRE(game.getEntities()[1]->getHitPoints() > health);
+    REQUIRE(game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints() > health);
 }
 
 TEST_CASE("Survival mode test, game spawns more that one type of infected") {
