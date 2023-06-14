@@ -294,11 +294,71 @@ void Game::infectedCheckForSoldiersInRange() {
 
 void Game::setTheZone() {
     this->zone_is_set = true;
-    this->spawnCommonInfected(CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
-    this->spawnSpearInfected(CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
-    this->spawnWitchInfected(CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
-    //this->spawnJumperInfected(CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
-    //this->spawnVenomInfected(CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfected(InfectedType::COMMON, CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfected(InfectedType::SPEAR, CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfected(InfectedType::WITCH, CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
+    //this->spawnSpecificInfected(InfectedType::JUMPER, CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
+    //this->spawnSpecificInfected(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
+}
+
+void Game::spawnSpecificInfected(const InfectedType &type,const int &ammount) {
+    int32_t radius = typeToRadius(type);
+    for (int i = 0; i < ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPosition(radius, x, y)) {
+            //id is not a problem (race condition) since there is no 
+            //other thread calling for addEntity in the game update
+            Entity* entity = createInfected(type, this->current_id, x, y);
+            this->addEntity(entity);
+            Infected* infected = dynamic_cast<Infected*>(entity);
+            infected->moveToMiddle();
+        }
+    }
+}
+
+Entity* Game::createInfected(
+    const InfectedType &type, 
+    const uint32_t &id, 
+    const uint32_t &x, 
+    const uint32_t &y) {
+    switch(type) {
+        case COMMON:
+            return new CommonInfected(id, x, y);
+        case SPEAR:
+            return new SpearInfected(id, x, y);
+        case WITCH:
+            return new WitchInfected(id, x, y);
+        /*
+        case JUMPER:
+            return new JumperInfected(id, x, y);
+        case VENOM:
+            return new VenomInfected(id, x, y);
+        */
+        default:
+            throw std::runtime_error("Invalid infected type");
+            return nullptr; //for compiler
+    }
+}
+
+int32_t Game::typeToRadius(const InfectedType &type) {
+    switch(type) {
+        case COMMON:
+            return CONFIG.common_infected_radius;
+        case SPEAR:
+            return CONFIG.spear_infected_radius;
+        case WITCH:
+            return CONFIG.witch_infected_radius;
+        /*
+        case JUMPER:
+            return CONFIG.jumper_infected_radius;
+        case VENOM:
+            return CONFIG.venom_infected_radius;
+        */
+        default:
+            throw std::runtime_error("Invalid infected type");
+            return 0; //for compiler
+    }
 }
 
 void Game::survivalUpdate() {
@@ -337,50 +397,6 @@ void Game::spawnCratersAtTheBorder() {
     }
 }
 
-void Game::spawnCommonInfected(int ammount) {
-    for (int i = 0; i < ammount; i++) {
-        uint32_t x = 0;
-        uint32_t y = 0;
-        if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
-            //id is not a problem (race condition) since there is no 
-            //other thread calling for addEntity in the game update
-            Entity* common = new CommonInfected(current_id, x, y);
-            this->addEntity(common);
-            Infected* infected = dynamic_cast<Infected*>(common);
-            infected->moveToMiddle();
-        }
-    }
-}
-
-void Game::spawnSpearInfected(int ammount) {
-    for (int i = 0; i < ammount; i++) {
-        uint32_t x = 0;
-        uint32_t y = 0;
-        if (searchForPosition(CONFIG.spear_infected_radius, x, y)) {
-            //id is not a problem (race condition) since there is no 
-            //other thread calling for addEntity in the game update
-            Entity* spear = new SpearInfected(current_id, x, y);
-            this->addEntity(spear);
-            Infected* infected = dynamic_cast<Infected*>(spear);
-            infected->moveToMiddle();
-        }   
-    }
-}
-
-void Game::spawnWitchInfected(int ammount) {
-        for (int i = 0; i < ammount; i++) {
-        uint32_t x = 0;
-        uint32_t y = 0;
-        if (searchForPosition(CONFIG.witch_infected_radius, x, y)) {
-            //id is not a problem (race condition) since there is no 
-            //other thread calling for addEntity in the game update
-            Entity* witch = new WitchInfected(current_id, x, y);
-            this->addEntity(witch);
-            Infected* infected = dynamic_cast<Infected*>(witch);
-            infected->moveToMiddle();            
-        }   
-    }
-}
 
 bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
     bool found = false;
@@ -420,9 +436,12 @@ bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
 
 void Game::spawnInfected() {
     //this could be done with a factory pattern
-    this->spawnCommonInfected(rand() % this->max_common_infected_per_spawn + 1);
-    this->spawnSpearInfected(rand() % this->max_spear_infected_per_spawn + 1);
-    this->spawnWitchInfected(rand() % this->max_witch_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::COMMON, rand() % this->max_common_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::SPEAR, rand() % this->max_spear_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::WITCH, rand() % this->max_witch_infected_per_spawn + 1);
+    //this->spawnSpecificInfected(InfectedType::JUMPER, rand() % this->max_jumper_infected_per_spawn + 1);
+    //this->spawnSpecificInfected(InfectedType::VENOM, rand() % this->max_venom_infected_per_spawn + 1);
+    
 }
 
 void Game::makeInfectedStronger() {

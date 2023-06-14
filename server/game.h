@@ -23,13 +23,6 @@
 #include "entity_infected_witch.h"
 #include "server_enum.h"
 
-enum Cheat {
-    INFINITE_HITPOINTS,
-    SPAWN_COMMON_INFECTED,
-    KILL_ALL_INFECTED
-};
-
-
 class Game {
     private: 
         std::map<uint32_t, Entity*> entities;
@@ -95,11 +88,11 @@ class Game {
         std::vector<HitEntity> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);
         void survivalUpdate();
         void spawnInfected();
+        void spawnSpecificInfected(const InfectedType &type, const int &ammount);
+        Entity* createInfected(const InfectedType &type, const uint32_t &id, const uint32_t &x, const uint32_t &y);
+        int32_t typeToRadius(const InfectedType &type);
         void spawnCraters(int ammount);
         void spawnCratersAtTheBorder();
-        void spawnCommonInfected(int ammount);
-        void spawnSpearInfected(int ammount);
-        void spawnWitchInfected(int ammount);
         void spawnInfectedCheat(const uint32_t& id);
         void spawnWitchInfectedFromScream(const uint32_t& id);
         void killAllInfectedCheat();
