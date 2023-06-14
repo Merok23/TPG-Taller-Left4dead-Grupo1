@@ -94,6 +94,7 @@ class Game {
         void survivalUpdate();
         void spawnInfected();
         void spawnCraters(int ammount);
+        void spawnCratersAtTheBorder();
         void spawnCommonInfected(int ammount);
         void spawnSpearInfected(int ammount);
         void spawnWitchInfected(int ammount);

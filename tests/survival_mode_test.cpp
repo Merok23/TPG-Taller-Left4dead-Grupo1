@@ -29,10 +29,16 @@ TEST_CASE("Survival mode test, common infected become stronger as time passes", 
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     game.setSurvivalMode();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    int crater_total = 0;
+    for (auto& entity : game.getEntities()) {
+        if (!entity.second->isInfected()) {
+            crater_total++;
+        }
+    }
     REQUIRE(game.getEntities().size() > 0);
-    int health = game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints();
+    int health = game.getEntities()[crater_total + 1]->getHitPoints();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
-    REQUIRE(game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints() > health);
+    REQUIRE(game.getEntities()[crater_total + 1]->getHitPoints() > health);
 }
 
 TEST_CASE("Survival mode test, Common infected stay normal before the timer completes", "[surival]") {
@@ -63,12 +69,20 @@ TEST_CASE("Survival mode test, game is not set on survival so noone spawns and i
 }
 
 TEST_CASE("Survival mode test, game's constructor with game mode works", "[survival]") {
-    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);    
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    //we calculate the total ammount of craters
+    //so we can get the first non crater(an infected)
+    int crater_total = 0;
+    for (auto& entity : game.getEntities()) {
+        if (!entity.second->isInfected()) {
+            crater_total++;
+        }
+    }
     REQUIRE(game.getEntities().size() > 0);
-    int health = game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints();
+    int health = game.getEntities()[crater_total + 1]->getHitPoints();
     for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
-    REQUIRE(game.getEntities()[CONFIG.crater_ammount + 1]->getHitPoints() > health);
+    REQUIRE(game.getEntities()[crater_total + 1]->getHitPoints() > health);
 }
 
 TEST_CASE("Survival mode test, game spawns more that one type of infected") {

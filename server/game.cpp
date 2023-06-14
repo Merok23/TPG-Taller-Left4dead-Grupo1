@@ -306,6 +306,18 @@ void Game::spawnCraters(int ammount) {
             this->addEntity(crater);
         }
     }
+    this->spawnCratersAtTheBorder();
+}
+
+void Game::spawnCratersAtTheBorder() {
+    uint32_t y = CONFIG.crater_radius;
+    while (y <= this->gameMap.getHeight()) {
+        Entity* crater = new Crater(current_id, 2 * CONFIG.crater_radius, y);
+        this->addEntity(crater);
+        crater = new Crater(current_id, this->gameMap.getWidth() - 2 * CONFIG.crater_radius, y);
+        this->addEntity(crater);
+        y += CONFIG.crater_radius;
+    }
 }
 
 void Game::spawnCommonInfected(int ammount) {
