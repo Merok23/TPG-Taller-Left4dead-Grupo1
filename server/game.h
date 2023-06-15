@@ -78,6 +78,7 @@ class Game {
         void shootingEntitiesShoot(const uint32_t& id);
         void updateAllEntities();
         void checkForShooting();
+        //void infectedCheckForChaseAndAttack();
         void checkForInfectedAttack();
         void checkForGameOver();
         void checkForScreamingWitches();

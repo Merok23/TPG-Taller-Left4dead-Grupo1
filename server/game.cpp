@@ -178,9 +178,10 @@ std::shared_ptr<GameStateForClient> Game::update() {
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
-    this->infectedCheckForSoldiersInRange();
     this->checkForShooting();
-    this->checkForInfectedAttack();
+    //this->infectedCheckForChaseAndAttack(); // implementar este metodo y pasar los alive 
+    this->infectedCheckForSoldiersInRange();  // soldiers como referencia, asi que no se calculan
+    this->checkForInfectedAttack();           // por cada infected
     this->checkForScreamingWitches();
     this->updateAllEntities();
     this->checkForGameOver();

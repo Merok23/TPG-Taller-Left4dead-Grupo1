@@ -40,6 +40,16 @@ struct config {
     int witch_infected_attack_damage;
     int witch_infected_shout_cooldown;
     double witch_infected_shout_probability;
+    int venom_infected_health;
+    int venom_infected_speed;
+    int venom_infected_radius;
+    int venom_infected_look_range;
+    int venom_infected_blast_range;
+    int venom_infected_shoot_range;
+    int venom_infected_blast_incapacitated_time;
+    int venom_infected_shoot_incapacitated_time;
+    int venom_infected_blast_damage;
+    int venom_infected_shoot_damage;
     int witch_infected_scream_spawn_ammount; //ammount spawned per scream
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.

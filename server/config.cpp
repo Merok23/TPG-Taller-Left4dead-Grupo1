@@ -35,6 +35,16 @@ struct config CONFIG {
     20, // witch_infected_attack_damage
     80, // witch_infected_shout_cooldown
     0.005, // witch_infected_shout_probability
+    100, // venom_infected_health
+    10, // venom_infected_speed
+    25, // venom_infected_radius
+    600, // venom_infected_look_range
+    80, // venom_infected_blast_range
+    500, // venom_infected_shoot_range
+    14, //venom_infected_blast_incapacitated_time
+    8, // venom_infected_shoot_incapacitated_time
+    30, // venom_infected_blast_damage
+    50, // venom_infected_shoot_damage
     10, // witch_infected_scream_spawn_ammount
     40, // crater_radius
     100, // crater_hit_points
