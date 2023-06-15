@@ -51,7 +51,6 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
         //     // Error handling: Failed to load the music
         //     throw std::runtime_error("Failed to load music: " + std::string(Mix_GetError()));
         // }
-
         Mix_Music* music;
         if (game_mode == SURVIVAL) {
             std::cout << "El game mode que me pasaron es survival" << std::endl;
