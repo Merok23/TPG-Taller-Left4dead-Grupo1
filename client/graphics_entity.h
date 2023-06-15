@@ -12,7 +12,7 @@
 class GraphicsEntity {
    public:
     GraphicsEntity(const std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, 
-                   uint32_t id, int32_t x_position, int32_t y_position);
+                   uint32_t id, int32_t x_position, int32_t y_position, int width, int height);
     ~GraphicsEntity();
     virtual void update(float dt, Entity* entity);
     virtual void render();
