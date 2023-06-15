@@ -35,7 +35,7 @@ class SpearInfected : public Infected {
         virtual bool isDead() override;
         virtual std::string getState() override; 
         virtual std::string getEntityType() override;
-    private:
-        void setChase(Entity* entity);
+        void setChase(Entity* entity) override;
+        void setAttack(Entity* entity) override;
 };
 #endif
