@@ -25,9 +25,10 @@ void CommonInfected::update(Map& map) {
         return;
     }
     
-    if (this->state == MOVING_INFECTED) {
-        map.move(this->getId());
-    }
+    if (this->state == MOVING_INFECTED) map.move(this->getId());
+    //if player is far away, infected is still attacking the air, so:
+    //(really we should lower attack cooldown to match animation, and this would never happen)
+    if (this->state == ATTACKING_INFECTED && incapacitated == 0) this->state = IDLE_INFECTED;
 }
 
 bool CommonInfected::isDead() {
@@ -72,17 +73,14 @@ std::string CommonInfected::getEntityType() {
 void CommonInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) {
     if (this->state == DEAD_INFECTED) return;
     if (this->incapacitated > 0) return;
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
-    //TODO: make a random pick of the soldier, not always the first one
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->attack_range);
-    });
-    if (iterator != alive_soldiers.end()) {
-        this->state = ATTACKING_INFECTED;
-        iterator->second->setDamageForTheRound(this->attack_damage);
-        this->incapacitated = attack_cooldown;
-    }
+    
+    Infected::checkForSoldiersInRangeAndSetAttackWithRange(soldiers, this->attack_range);
+}
+
+void CommonInfected::setAttack(Entity* entity) {
+    this->state = ATTACKING_INFECTED;
+    entity->setDamageForTheRound(this->attack_damage);
+    this->incapacitated = attack_cooldown;
 }
 
 void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) {
@@ -90,15 +88,8 @@ void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Enti
     //but it's here for a border case where it was killed before chasing
     if (this->state == DEAD_INFECTED) return;
     if (this->incapacitated > 0) return;
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->look_range);
-    });
-    //aca falta agregar un factor random.
-    if (iterator != alive_soldiers.end()) {
-        this->setChase(iterator->second);
-    }
+    
+    Infected::checkForSoldiersInRangeAndSetChaseWithRange(soldiers, this->look_range);
 }
 
 void CommonInfected::setFollowWitch(Entity* witch) {

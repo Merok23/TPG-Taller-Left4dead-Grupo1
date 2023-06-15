@@ -46,7 +46,7 @@ class WitchInfected : public Infected {
         bool hasSpawnedInfected();
         void setSpawnedInfected();
         bool isShouting();
-    private:
-        void setChase(Entity* entity);
+        void setChase(Entity* entity) override;
+        void setAttack(Entity* entity) override;
 };
 #endif

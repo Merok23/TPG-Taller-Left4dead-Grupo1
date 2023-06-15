@@ -37,15 +37,6 @@ bool Infected::isInRange(Entity* entity, const int32_t &range) {
     return (in_range);
 }
 
-std::map<uint32_t, Entity*> Infected::filterDeadSoldiers(const std::map<uint32_t, Entity*> &soldiers) {
-    std::map<uint32_t, Entity*> alive_soldiers;
-    for (auto soldier : soldiers) {
-        if (!soldier.second->isDead()) 
-            alive_soldiers.insert(std::pair<uint32_t, Entity*>(soldier.first, soldier.second));
-    }
-    return alive_soldiers;
-}
-
 bool Infected::checkForBorderCaseRange(const int32_t &soldier_x,const int32_t &infected_x,const int32_t &range) {
     //soldier is on the end of the map and infected on the start
     if (soldier_x + range > CONFIG.scenario_width) {
@@ -55,6 +46,24 @@ bool Infected::checkForBorderCaseRange(const int32_t &soldier_x,const int32_t &i
     //infected is on the end of the map and soldier on the start
     return (((soldier_x + CONFIG.scenario_width - infected_x) < range) 
         && (infected_x + range > CONFIG.scenario_width));
+}
+
+void Infected::checkForSoldiersInRangeAndSetChaseWithRange(std::map<u_int32_t, Entity*> &soldiers, const int32_t &range) {
+    for (auto it = soldiers.begin(); it != soldiers.end(); ++it) {
+        if (this->isInRange(it->second, range)) {
+            this->setChase(it->second);
+            return;
+        }
+    }
+}
+
+void Infected::checkForSoldiersInRangeAndSetAttackWithRange(std::map<u_int32_t, Entity*> &soldiers, const int32_t &range) {
+    for (auto it = soldiers.begin(); it != soldiers.end(); ++it) {
+        if (this->isInRange(it->second, range)) {
+            this->setAttack(it->second);
+            return;
+        }
+    }
 }
 
 void Infected::killCheat() {
