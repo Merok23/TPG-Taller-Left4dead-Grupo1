@@ -38,7 +38,7 @@ class CommonInfected : public Infected {
         virtual std::string getEntityType() override;
         //used when infected is spawned by the witch:
         void setFollowWitch(Entity* witch);   
-    private:
-        void setChase(Entity* entity);
+        void setChase(Entity* entity) override;
+        void setAttack(Entity* entity) override;
 };
 #endif

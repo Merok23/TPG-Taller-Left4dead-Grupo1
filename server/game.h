@@ -68,19 +68,20 @@ class Game {
         void setCheat(const uint32_t& id, const Cheat& cheat);
         std::map<uint32_t, Entity*>& getEntities();
         std::shared_ptr<GameStateForClient> update();
-        void infectedCheckForSoldiersInRange();
         uint32_t getCurrentId();
         void setSurvivalMode();
-        void checkForRevivingSoldiers();
         ~Game();
         
     private:
+        void infectedCheckForAttackAndChase();
+        void infectedCheckForSoldiersInRange(std::map<uint32_t, Entity*> &alive_soldiers);
+        void checkForInfectedAttack(std::map<uint32_t, Entity*> &alive_soldiers);
         void shootingEntitiesShoot(const uint32_t& id);
         void updateAllEntities();
         void checkForShooting();
-        void checkForInfectedAttack();
         void checkForGameOver();
         void checkForScreamingWitches();
+        void checkForRevivingSoldiers();
         bool checkForPartyWipe();
         //unique ptr so we don't copy the vector more than once
         //std::unique_ptr<std::vector<HitEntity>> setUpHitEntities(std::vector<VectorWrapper>& entities_hit);

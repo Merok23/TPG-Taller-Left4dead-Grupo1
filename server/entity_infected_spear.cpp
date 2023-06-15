@@ -31,16 +31,13 @@ void SpearInfected::update(Map& map) {
     }
     
     if (this->state == MOVING_SPEAR_INFECTED) map.move(this->getId());
+
+    if (this->state == ATTACKING_SPEAR_INFECTED && incapacitated == 0) this->state = IDLE_SPEAR_INFECTED;
+
 }
 
 bool SpearInfected::isDead() {
     return this->state == DEAD_SPEAR_INFECTED;
-}
-
-void SpearInfected::setChase(Entity* entity) {
-    this->getDirectionOfMovement()->setChase(*entity->getDirectionOfMovement(), 
-        this->speed);
-    this->state = MOVING_SPEAR_INFECTED;
 }
 
 void SpearInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) {
@@ -48,31 +45,25 @@ void SpearInfected::checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Enti
     //but it's here for a border case where it was killed before attacking
     if (this->state == DEAD_SPEAR_INFECTED) return;
     if (this->incapacitated > 0) return;
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->attack_range);
-    });
-    //aca falta agregar un factor random.
-    if (iterator != alive_soldiers.end()) {
-        this->state = ATTACKING_SPEAR_INFECTED;
-        iterator->second->setDamageForTheRound(this->attack_damage);
-        this->incapacitated = attack_cooldown;
-    }
+    Infected::checkForSoldiersInRangeAndSetAttackWithRange(soldiers, this->attack_range);
+}
+
+void SpearInfected::setAttack(Entity* entity) {
+    this->state = ATTACKING_SPEAR_INFECTED;
+    entity->setDamageForTheRound(this->attack_damage);
+    this->incapacitated = attack_cooldown;
 }
 
 void SpearInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) {
     if (this->state == DEAD_SPEAR_INFECTED) return;
     if (this->incapacitated > 0) return;
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->look_range);
-    });
-    if (iterator != alive_soldiers.end()) {
-        this->state = ATTACKING_SPEAR_INFECTED;
-        this->setChase(iterator->second);
-    }
+    Infected::checkForSoldiersInRangeAndSetChaseWithRange(soldiers, this->look_range);
+}
+
+void SpearInfected::setChase(Entity* entity) {
+    this->getDirectionOfMovement()->setChase(*entity->getDirectionOfMovement(), 
+        this->speed);
+    this->state = MOVING_SPEAR_INFECTED;
 }
 
 void SpearInfected::makeStronger(double factor) {

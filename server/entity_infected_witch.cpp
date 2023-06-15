@@ -53,35 +53,19 @@ void WitchInfected::setChase(Entity* entity) {
 void WitchInfected::checkForSoldiersInRangeAndSetAttack(std::map<uint32_t, Entity*> &soldiers) {
     if (this->state == DEAD_WITCH_INFECTED) return;
     if (this->incapacitated > 0) return;
-    
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
+    Infected::checkForSoldiersInRangeAndSetAttackWithRange(soldiers, this->attack_range);
+}
 
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->attack_range);
-    });
-
-    if (iterator != alive_soldiers.end()) {
-        this->state = ATTACKING_WITCH_INFECTED;
-        iterator->second->setDamageForTheRound(this->attack_damage);
-        this->incapacitated = attack_cooldown;
-    }
+void WitchInfected::setAttack(Entity* entity) {
+    this->state = ATTACKING_WITCH_INFECTED;
+    entity->setDamageForTheRound(this->attack_damage);
+    this->incapacitated = attack_cooldown;
 }
 
 void WitchInfected::checkForSoldiersInRangeAndSetChase(std::map<uint32_t, Entity*> &soldiers) {
     if (this->state == DEAD_WITCH_INFECTED) return;
-    if (this->incapacitated > 0) return;
-    
-    std::map<uint32_t, Entity*> alive_soldiers = Infected::filterDeadSoldiers(soldiers);
-
-    auto iterator = std::find_if(alive_soldiers.begin(), 
-        alive_soldiers.end(), [this](std::pair<uint32_t, Entity*> alive_soldiers) {
-        return Infected::isInRange(alive_soldiers.second, this->look_range);
-    });
-
-    if (iterator != alive_soldiers.end()) {
-        this->setChase(iterator->second);
-    }
+    if (this->incapacitated > 0) return;    
+    Infected::checkForSoldiersInRangeAndSetChaseWithRange(soldiers, this->look_range);
 }
 
 void WitchInfected::makeStronger(double factor) {
@@ -111,6 +95,10 @@ void WitchInfected::update(Map &map) {
     if (rand() % 100 < this->shout_probability && !this->has_spawned_infected) {
         this->state = SHOUTING_WITCH_INFECTED;
         this->incapacitated = shout_cooldown;
+    }
+
+    if (this->state == ATTACKING_WITCH_INFECTED && incapacitated == 0) {
+        this->state = IDLE_WITCH_INFECTED;
     }
 }
 
