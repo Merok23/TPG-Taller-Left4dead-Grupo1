@@ -179,9 +179,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
     this->checkForShooting();
-    //this->infectedCheckForChaseAndAttack(); // implementar este metodo y pasar los alive 
-    this->infectedCheckForSoldiersInRange();  // soldiers como referencia, asi que no se calculan
-    this->checkForInfectedAttack();           // por cada infected
+    this->infectedCheckForAttackAndChase();
     this->checkForScreamingWitches();
     this->updateAllEntities();
     this->checkForGameOver();
@@ -192,6 +190,34 @@ std::shared_ptr<GameStateForClient> Game::update() {
             this->game_over,
             this->players_won);
     return game_state;
+}
+
+void Game::infectedCheckForAttackAndChase() {
+    std::map<uint32_t, Entity*> alive_soldiers;
+    for (auto soldier : this->soldiers) {
+        if (!soldier.second->isDead()) 
+            alive_soldiers.insert(std::pair<uint32_t, Entity*>(soldier.first, soldier.second));
+    }
+    
+    this->infectedCheckForSoldiersInRange(alive_soldiers);
+    this->checkForInfectedAttack(alive_soldiers);
+}
+
+void Game::checkForInfectedAttack(std::map<uint32_t, Entity*> &alive_soldiers) {
+    for (auto&& id_entity : this->infected) {
+        Infected* infected = dynamic_cast<Infected*>(id_entity.second);
+        infected->checkForSoldiersInRangeAndSetAttack(alive_soldiers);
+    }
+}
+
+
+void Game::infectedCheckForSoldiersInRange(std::map<uint32_t, Entity*> &alive_soldiers) {
+    for (auto& id_entity : this->infected) {
+        if (id_entity.second->isInfected()) {
+            Infected* infected = dynamic_cast<Infected*>(id_entity.second);
+            infected->checkForSoldiersInRangeAndSetChase(alive_soldiers);
+        }
+    }
 }
 
 void Game::checkForGameOver() {
@@ -221,13 +247,6 @@ void Game::checkForShooting() {
     if (this->shooting_soldiers.empty()) return;
     for (auto soldier : this->shooting_soldiers) {
         this->shootingEntitiesShoot(soldier);
-    }
-}
-
-void Game::checkForInfectedAttack() {
-    for (auto&& id_entity : this->infected) {
-        Infected* infected = dynamic_cast<Infected*>(id_entity.second);
-        infected->checkForSoldiersInRangeAndSetAttack(this->soldiers);
     }
 }
 
@@ -268,15 +287,6 @@ void Game::setSurvivalMode() {
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
     //this->soldiers.erase(id);
-}
-
-void Game::infectedCheckForSoldiersInRange() {
-    for (auto& id_entity : this->infected) {
-        if (id_entity.second->isInfected()) {
-            Infected* infected = dynamic_cast<Infected*>(id_entity.second);
-            infected->checkForSoldiersInRangeAndSetChase(this->soldiers);
-        }
-    }
 }
 
 void Game::setTheZone() {
