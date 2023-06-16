@@ -60,9 +60,6 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         
         facingLeft = entity->isFacingLeft();
 
-
-        if (entity->getEntityType() == EntityType::CRATER)
-            std::cout << "update a crater!" << std::endl;
     }
 
     auto it_current = animations.find(current_animation);

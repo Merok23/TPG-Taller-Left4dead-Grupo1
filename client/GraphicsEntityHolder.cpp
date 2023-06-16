@@ -35,8 +35,6 @@ std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* ent
         
  std::shared_ptr<GraphicsEntity> infected = nullptr;
     if (type == EntityType::CRATER)
-        std::cout << "Estoy por crear un crater" << std::endl;
-    if (type == EntityType::CRATER)
         infected = std::make_shared<GraphicsEntity>(
                                                     textures,
                                                     entity->getId(),
