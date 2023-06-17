@@ -18,7 +18,7 @@ typedef struct command_t {
 	uint32_t room_id;
 
 
-	command_t operator=(const command_t& other) {
+	command_t& operator=(const command_t& other) {
         type = other.type;
         room_name = other.room_name;
         game_mode = other.game_mode;

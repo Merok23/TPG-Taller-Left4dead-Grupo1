@@ -258,7 +258,8 @@ State ClientProtocol::stringToState(const std::string& state) {
         { "attacking", ATTACKING},
         { "down", DOWN },
         { "reviving", REVIVING},
-        { "screaming", SCREAMING}
+        { "screaming", SCREAMING},
+        { "blasting", BLASTING}
     };
 
     auto it = stateMap.find(state);

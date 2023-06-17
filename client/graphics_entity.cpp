@@ -53,6 +53,14 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case SCREAMING:
             current_animation = AN_SCREAM;
             break;
+
+        case BLASTING:
+            current_animation = AN_ATTACK2;
+            break;
+        //added for projectiles, it needs to be implemented.
+        default:
+            current_animation = AN_IDLE;
+            break;
         }
         
         x = entity->getPositionX() - width/2;
