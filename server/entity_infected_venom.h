@@ -29,6 +29,13 @@ class VenomInfected : public Infected {
         int32_t speed;
         int32_t blast_incapacitated_time; 
         int32_t shoot_incapacitated_time;
+        int32_t shoot_attack_counter;
+        int32_t shoot_attack_timing;
+        int32_t blast_attack_counter;
+        int32_t blast_attack_timing;
+        int32_t blast_radius;
+        int32_t projectile_radius;
+        
     public:
         VenomInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
         virtual void move(int32_t x_movement, int32_t y_movement) override;
@@ -37,12 +44,19 @@ class VenomInfected : public Infected {
             Entity*> &soldiers) override;
         virtual void checkForSoldiersInRangeAndSetAttack(std::map<u_int32_t, Entity*> &soldiers) override;
         virtual void makeStronger(double factor) override;
-        virtual bool isDead() override;
         virtual std::string getState() override; 
         virtual std::string getEntityType() override;
+        int32_t getShootingRange();
+        Movement getBlastPosition();
+        void setChase(Entity* entity) override;
+        void setAttack(Entity* entity) override;
+        void setBlastDamage(std::vector<Entity*> &entities);
+        void setShooting();
         bool isShootingAProjectile();
-    private:
-        void setChase(Entity* entity);
+        bool isTimeForBlasting();
+        bool isTimeForShooting();
+        std::tuple<uint32_t, uint32_t> getProjectilePosition();
+        virtual bool isDead() override;
 };
 
 

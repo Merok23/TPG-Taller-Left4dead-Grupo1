@@ -49,7 +49,13 @@ struct config {
     int venom_infected_blast_incapacitated_time;
     int venom_infected_shoot_incapacitated_time;
     int venom_infected_blast_damage;
+    int venom_infected_blast_damage_timing;
     int venom_infected_shoot_damage;
+    int venom_infected_shoot_timing; //time it takes from start of attack to projectile creation
+    int venom_infected_blast_radius;
+    int venom_infected_projectile_radius;
+    int venom_infected_projectile_speed;
+    int venom_infected_projectile_explosion_counter; //ammont of time from impact to dissapearing
     int witch_infected_scream_spawn_ammount; //ammount spawned per scream
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.
@@ -81,6 +87,8 @@ struct config {
     int survival_mode_max_common_infected;
     int survival_mode_max_spear_infected;
     int survival_mode_max_witch_infected;
+    int survival_mode_max_venom_infected;
+    int survival_mode_max_jumper_infected;
     double survival_mode_accumulator; //rate of spawn + stat multiplier
     double survival_mode_starting_multiplier;
     int clear_the_zone_infected_total;

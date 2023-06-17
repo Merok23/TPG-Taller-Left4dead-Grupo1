@@ -15,7 +15,7 @@ TEST_CASE("Venom test, he gets added and has all his correct stats", "[venom]") 
     REQUIRE(game.getEntities()[id]->isSoldier() == false);
     REQUIRE(game.getEntities()[id]->isDead() == false);
     REQUIRE(game.getEntities()[id]->getEntityType() == "venom");
-    REQUIRE(game.getEntities()[id]->getState == "idle");
+    REQUIRE(game.getEntities()[id]->getState() == "idle");
 }
 
 TEST_CASE("Venom test, when he is aligned with a player, he tries to shoot", "[venom]") {
@@ -65,7 +65,7 @@ TEST_CASE("Venom test, when player is not aligned, but he is in range, venom is 
     game.addEntity(infected);
     uint32_t id_soldier = game.getCurrentId();
     Weapon* weapon = new Scout();
-    Entity* player = new Player(id_soldier, CONFIG.venom_infected_shoot_range, CONFIG.venom_infected_radius * 2, weapon);
+    Entity* player = new Player(id_soldier, CONFIG.venom_infected_shoot_range, CONFIG.venom_infected_radius * 3, weapon);
     game.addEntity(player);
     game.update();
     REQUIRE(game.getEntities()[id_venom]->getState() == "moving"); 
@@ -84,7 +84,7 @@ TEST_CASE("Venom test, when player is in range for the blast move, venom blasts 
 
     game.update();
     REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
-    for (int i = 0; i < CONFIG.venom_infected_blast_cooldown; i++) {
+    for (int i = 0; i < CONFIG.venom_infected_blast_incapacitated_time; i++) {
         game.update();
         REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
     }
@@ -104,7 +104,7 @@ TEST_CASE("Venom test, when player is hit by the blast move, he recieves damage 
 
     game.update();
     REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
-    for (int i = 1; i < CONFIG.venom_infected_damage_delay - 1; i++) {
+    for (int i = 1; i < CONFIG.venom_infected_blast_damage_timing; i++) {
         game.update();
         REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
         REQUIRE(game.getEntities()[id_soldier]->getHitPoints() == CONFIG.soldier_health);
@@ -129,10 +129,36 @@ TEST_CASE("Venom test, after blast, if player moves away, venom uses projectile 
     game.update();
     REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
     game.setMoving(id_soldier, 1, 0); // carefu with the radius, if venom is lesser then it won't move
-    for (int i = 0; i < CONFIG.venom_infected_blast_cooldown; i++) {
+    for (int i = 1; i < CONFIG.venom_infected_blast_incapacitated_time; i++) {
         game.update();
         REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
     }
+    game.update();
     //this may be out of range, so it may fail depending on the config values.
     REQUIRE(game.getEntities()[id_venom]->getState() == "shooting");
+}
+
+TEST_CASE("Venom test blast hits multiple soldiers", "[venom]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    uint32_t id_venom = game.getCurrentId();
+    Entity* infected = new VenomInfected(id_venom, 0, CONFIG.venom_infected_radius);
+    game.addEntity(infected);
+    uint32_t id_soldier1 = game.getCurrentId();
+    Weapon* weapon = new Scout();
+    Entity* player1 = new Player(id_soldier1, CONFIG.venom_infected_blast_range, CONFIG.venom_infected_radius, weapon);
+    game.addEntity(player1);
+    uint32_t id_soldier2 = game.getCurrentId();
+    Weapon* weapon2 = new Scout();
+    Entity* player2 = new Player(id_soldier2, CONFIG.venom_infected_blast_range, CONFIG.venom_infected_radius, weapon2);
+    game.addEntity(player2);
+    //---------------------end setup---------------------//
+
+    game.update();
+    REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
+    for (int i = 1; i < CONFIG.venom_infected_blast_incapacitated_time; i++) {
+        game.update();
+        REQUIRE(game.getEntities()[id_venom]->getState() == "blasting");
+    }
+    REQUIRE(game.getEntities()[id_soldier1]->getHitPoints() == CONFIG.soldier_health - CONFIG.venom_infected_blast_damage);
+    REQUIRE(game.getEntities()[id_soldier2]->getHitPoints() == CONFIG.soldier_health - CONFIG.venom_infected_blast_damage);
 }
