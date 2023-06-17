@@ -34,6 +34,10 @@ enum AnimationName {
     AN_RELOAD,
     AN_HURT,
     AN_DIE,
+
+    AN_EXPLOSION,
+    AN_PROJECTILE_VENOM,
+    AN_SMOKE
 };
 
 enum EntityType {
@@ -47,7 +51,8 @@ enum EntityType {
     WITCH,
     ZOMBIE,
     
-    CRATER
+    CRATER,
+    PROJECTILE
 };
 
 enum GameMode {
