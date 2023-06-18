@@ -6,6 +6,8 @@ Game::Game(int32_t width, int32_t height) :
     infected(),
     soldiers(),
     witches(),
+    venoms(),
+    projectiles(),
     shooting_soldiers(),
     clear_the_zone(false),
     zone_is_set(false),
@@ -15,6 +17,8 @@ Game::Game(int32_t width, int32_t height) :
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
     max_witch_infected_per_spawn(CONFIG.survival_mode_max_witch_infected),
+    max_venom_infected_per_spawn(CONFIG.survival_mode_max_venom_infected),
+    max_jumper_infected_per_spawn(CONFIG.survival_mode_max_jumper_infected),
     survival_mode_multiplier(CONFIG.survival_mode_starting_multiplier),
     current_id(0),
     game_started(false),
@@ -28,6 +32,8 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     infected(),
     soldiers(),
     witches(),
+    venoms(),
+    projectiles(),
     shooting_soldiers(),
     clear_the_zone(gameMode == GameMode::CLEAR_THE_ZONE),
     zone_is_set(false),
@@ -37,6 +43,8 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     max_common_infected_per_spawn(CONFIG.survival_mode_max_common_infected),
     max_spear_infected_per_spawn(CONFIG.survival_mode_max_spear_infected),
     max_witch_infected_per_spawn(CONFIG.survival_mode_max_witch_infected),
+    max_venom_infected_per_spawn(CONFIG.survival_mode_max_venom_infected),
+    max_jumper_infected_per_spawn(CONFIG.survival_mode_max_jumper_infected),
     survival_mode_multiplier(CONFIG.survival_mode_starting_multiplier),
     current_id(0),
     game_started(false),
@@ -52,6 +60,9 @@ void Game::addEntity(Entity* entity) {
         this->infected[entity->getId()] = entity;
         if (entity->getEntityType() == "witch") {
             this->witches[entity->getId()] = dynamic_cast<WitchInfected*>(entity);
+        }
+        if (entity->getEntityType() == "venom" ) {
+            this->venoms[entity->getId()] = dynamic_cast<VenomInfected*>(entity);
         }
     } else if (entity->isSoldier()){
         this->soldiers[entity->getId()] = entity;
@@ -181,6 +192,9 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->checkForShooting();
     this->infectedCheckForAttackAndChase();
     this->checkForScreamingWitches();
+    this->checkForCollidingProjectiles(); //venom's projectiles
+    this->checkForBlastingVenoms();
+    this->checkForShootingVenoms();
     this->updateAllEntities();
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
@@ -193,14 +207,19 @@ std::shared_ptr<GameStateForClient> Game::update() {
 }
 
 void Game::infectedCheckForAttackAndChase() {
-    std::map<uint32_t, Entity*> alive_soldiers;
-    for (auto soldier : this->soldiers) {
-        if (!soldier.second->isDead()) 
-            alive_soldiers.insert(std::pair<uint32_t, Entity*>(soldier.first, soldier.second));
-    }
-    
+    std::map<uint32_t, Entity*> alive_soldiers = this->getAliveSoldiers();
     this->infectedCheckForSoldiersInRange(alive_soldiers);
     this->checkForInfectedAttack(alive_soldiers);
+}
+
+std::map<uint32_t, Entity*> Game::getAliveSoldiers() {
+    std::map<uint32_t, Entity*> alive_soldiers;
+    for (auto& id_entity : this->soldiers) {
+        if (!id_entity.second->isDead()) {
+            alive_soldiers[id_entity.first] = id_entity.second;
+        }
+    }
+    return alive_soldiers;
 }
 
 void Game::checkForInfectedAttack(std::map<uint32_t, Entity*> &alive_soldiers) {
@@ -270,6 +289,69 @@ void Game::checkForScreamingWitches() {
     }
 }
 
+void Game::checkForCollidingProjectiles() {
+    std::map<uint32_t, Entity*> alive_soldiers = this->getAliveSoldiers();
+    for (auto&& projectile : this->projectiles) {
+        for (auto&& soldier : alive_soldiers) {
+            if (projectile.second->getDirectionOfMovement()->checkForCollision(*soldier.second->getDirectionOfMovement())) {
+                projectile.second->setImpact(soldier.second);
+            }
+        }
+    }
+}
+
+void Game::checkForBlastingVenoms() {
+    for (auto&& venom : this->venoms) {
+        if (venom.second->isTimeForBlasting()) this->setBlastVenom(venom.first);
+    }
+}
+
+void Game::setBlastVenom(const uint32_t &id) {
+    std::vector<Entity*> hit_soldiers;
+    std::map<uint32_t, Entity*> alive_soldiers = this->getAliveSoldiers();
+
+    Movement blast_mov = this->venoms[id]->getBlastPosition();
+    for (auto&& soldier : alive_soldiers) {
+        if (soldier.second->getDirectionOfMovement()->checkForCollision(blast_mov)) {
+            hit_soldiers.push_back(soldier.second);
+        }
+    }
+
+    this->venoms[id]->setBlastDamage(hit_soldiers);
+}
+
+void Game::checkForShootingVenoms () {
+    for (auto&& venom : this->venoms) {
+        std::map<uint32_t, Entity*> alive_soldiers = this->getAliveSoldiers();
+        for (auto&& soldier : alive_soldiers) {
+            if (this->gameMap.isEntityLookingAtAllignedAndInRange(venom.first, soldier.first, venom.second->getShootingRange())) {
+                venom.second->setShooting();
+            }
+        }
+    }
+
+    for (auto&& venom : this->venoms) {
+        if (venom.second->isTimeForShooting()) this->createVenomProjectile(venom.second);
+    }
+}
+
+void Game::createVenomProjectile(VenomInfected* venom) {
+    std::tuple<uint32_t, uint32_t> pos = venom->getProjectilePosition();
+    Projectile* venom_projectile = new VenomProjectile(current_id, std::get<0>(pos), std::get<1>(pos));
+    if (venom->getDirectionOfMovement()->isFacingLeft()) {
+        venom_projectile->move(-1, 0);
+    } else {
+        venom_projectile->move(1, 0);
+    }
+    this->addProjectile(venom_projectile);
+}
+
+void Game::addProjectile(Projectile* entity) {
+    this->entities[current_id] = entity;
+    this->projectiles[current_id] = entity;
+    this->current_id++;
+}
+
 void Game::updateAllEntities() {
     for (auto&& id_entity : this->entities) {
         id_entity.second->update(std::ref(this->gameMap));
@@ -286,6 +368,13 @@ void Game::setSurvivalMode() {
 
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
+    if (this->projectiles.find(id) != this->projectiles.end()) {
+        //since the projectile dissapears, we need to remove it from the entities
+        //so the client doesn't receive it anymore.
+        this->projectiles.erase(id);
+        delete this->entities[id];
+        this->entities.erase(id);
+    }
     //this->soldiers.erase(id);
 }
 
@@ -295,7 +384,7 @@ void Game::setTheZone() {
     this->spawnSpecificInfected(InfectedType::SPEAR, CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
     this->spawnSpecificInfected(InfectedType::WITCH, CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
     //this->spawnSpecificInfected(InfectedType::JUMPER, CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
-    //this->spawnSpecificInfected(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfected(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
 }
 
 void Game::spawnSpecificInfected(const InfectedType &type,const int &ammount) {
@@ -329,9 +418,9 @@ Entity* Game::createInfected(
         /*
         case JUMPER:
             return new JumperInfected(id, x, y);
+        */
         case VENOM:
             return new VenomInfected(id, x, y);
-        */
         default:
             throw std::runtime_error("Invalid infected type");
     }
@@ -348,9 +437,9 @@ int32_t Game::typeToRadius(const InfectedType &type) {
         /*
         case JUMPER:
             return CONFIG.jumper_infected_radius;
+        */
         case VENOM:
             return CONFIG.venom_infected_radius;
-        */
         default:
             throw std::runtime_error("Invalid infected type");
     }
@@ -435,7 +524,7 @@ void Game::spawnInfected() {
     this->spawnSpecificInfected(InfectedType::SPEAR, rand() % this->max_spear_infected_per_spawn + 1);
     this->spawnSpecificInfected(InfectedType::WITCH, rand() % this->max_witch_infected_per_spawn + 1);
     //this->spawnSpecificInfected(InfectedType::JUMPER, rand() % this->max_jumper_infected_per_spawn + 1);
-    //this->spawnSpecificInfected(InfectedType::VENOM, rand() % this->max_venom_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::VENOM, rand() % this->max_venom_infected_per_spawn + 1);
     
 }
 

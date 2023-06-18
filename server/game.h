@@ -21,6 +21,8 @@
 #include "entity_infected_common.h"
 #include "entity_infected_spear.h"
 #include "entity_infected_witch.h"
+#include "entity_infected_venom.h"
+#include "entity_projectile_venom.h"
 #include "server_enum.h"
 
 class Game {
@@ -30,6 +32,8 @@ class Game {
         std::map<uint32_t, Entity*> infected;
         std::map<uint32_t, Entity*> soldiers;
         std::map<uint32_t, WitchInfected*> witches;
+        std::map<uint32_t, VenomInfected*> venoms;
+        std::map<uint32_t, Projectile*> projectiles;
         /*
          * Shooting soldiers as a list has a funny bug
          * if you shoot twice with one soldier for example 
@@ -47,6 +51,8 @@ class Game {
         int max_common_infected_per_spawn;
         int max_spear_infected_per_spawn;
         int max_witch_infected_per_spawn;
+        int max_venom_infected_per_spawn;
+        int max_jumper_infected_per_spawn;
         double survival_mode_multiplier;
         uint32_t current_id;
         bool game_started;
@@ -73,6 +79,7 @@ class Game {
         ~Game();
         
     private:
+        void addProjectile(Projectile* projectile);
         void infectedCheckForAttackAndChase();
         void infectedCheckForSoldiersInRange(std::map<uint32_t, Entity*> &alive_soldiers);
         void checkForInfectedAttack(std::map<uint32_t, Entity*> &alive_soldiers);
@@ -81,6 +88,9 @@ class Game {
         void checkForShooting();
         void checkForGameOver();
         void checkForScreamingWitches();
+        void checkForCollidingProjectiles();
+        void checkForBlastingVenoms();
+        void checkForShootingVenoms();
         void checkForRevivingSoldiers();
         bool checkForPartyWipe();
         //unique ptr so we don't copy the vector more than once
@@ -100,5 +110,8 @@ class Game {
         bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
         void setTheZone();
+        void setBlastVenom(const uint32_t& id);
+        void createVenomProjectile(VenomInfected* venom);
+        std::map<uint32_t, Entity*> getAliveSoldiers();
 };
 #endif 
