@@ -368,13 +368,16 @@ void Game::setSurvivalMode() {
 
 void Game::removeEntity(const uint32_t &id) {
     this->infected.erase(id);
+    this->venoms.erase(id);
+    this->witches.erase(id);
+
     if (this->projectiles.find(id) != this->projectiles.end()) {
         //since the projectile dissapears, we need to remove it from the entities
         //so the client doesn't receive it anymore.
         this->projectiles.erase(id);
         delete this->entities[id];
         this->entities.erase(id);
-    }
+    } 
     //this->soldiers.erase(id);
 }
 
