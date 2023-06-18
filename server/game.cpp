@@ -464,6 +464,16 @@ void Game::checkForRevivingSoldiers() {
     }
 }
 
+uint32_t Game::getAmmountOfAmmoUsedBySoldier(const uint32_t &id) {
+    Player* player = dynamic_cast<Player*>(this->entities[id]);
+    return player->getAmmountOfAmmoUsed();
+}
+
+uint32_t Game::getAmmountOfInfectedKilledBySoldier(const uint32_t &id) {
+    Player* player = dynamic_cast<Player*>(this->entities[id]);
+    return player->getAmmountOfInfectedKilled();
+}
+
 Game::~Game() {
     for (auto& id_entity : this->entities) {
         delete id_entity.second;

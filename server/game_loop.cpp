@@ -12,6 +12,8 @@ GameLoop::GameLoop(GameMode gameMode) :
     id_handler(game), 
     finished(false), 
     client_id(0), 
+    start_loop_time(std::chrono::high_resolution_clock::now()), 
+    total_loop_time(0),
     mutex() {}
 
 Queue<std::shared_ptr<Action>>& GameLoop::getQueue() {
@@ -20,7 +22,8 @@ Queue<std::shared_ptr<Action>>& GameLoop::getQueue() {
 
 int GameLoop::addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue) {
     std::unique_lock<std::mutex> lock(mutex);
-    player_queues[client_id++] = &queue;
+    client_id++;
+    player_queues[client_id] = &queue;
     return client_id;
 }
 
@@ -41,6 +44,16 @@ bool GameLoop::isRoomEmpty() {
     return player_queues.empty();
 }
 
+void GameLoop::endGameLoopTime() {
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto total_loop_time_aux = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_loop_time);
+    this->total_loop_time = total_loop_time_aux.count();
+}
+
+int GameLoop::getTotalTimeOfGameLoop() {
+    return total_loop_time;
+}
+
 void GameLoop::run() {
     const int iterationsPerSecond = 20;
     int rate = 1000 / iterationsPerSecond;
@@ -56,18 +69,20 @@ void GameLoop::run() {
             
             //we calculate how much time we spent in the loop
             auto t2 = std::chrono::high_resolution_clock::now();
-            auto dt = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();//count casts to int
-            int rest = rate - dt;
+            auto dt = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);//count casts to int
+            int rest = rate - dt.count();
             // rest is the ammount of time we have to wait
             // if rest is negative, we are behind schedule
             if (rest > 0) std::this_thread::sleep_for(std::chrono::milliseconds(rest)); 
             //if it's negative we don't sleep, we just continue trying to catch up.
 
+            if (game_state->isGameOver()) {
+                this->stop();
+                setGameStadistics(game_state);   
+                break;
+            }
             for (auto& player_queue : player_queues) {
                 player_queue.second->push(game_state);
-            }
-            if (game_state->isGameOver()) {
-                finished = true;
             }
             //we reset the clock
             t1 = std::chrono::high_resolution_clock::now();
@@ -79,9 +94,26 @@ void GameLoop::run() {
     }
 }
 
-
+void GameLoop::setGameStadistics(std::shared_ptr<GameStateForClient>& game_state) {
+    for (auto& player_queue : player_queues) {
+        game_state->setAmmoUsed(id_handler.getAmmountOfAmmoUsed(player_queue.first));
+        game_state->setInfectedKilled(id_handler.getAmmountOfInfectedKilled(player_queue.first));
+        game_state->setGameLoopTime(this->getTotalTimeOfGameLoop());
+        std::cout << "Game state: " << game_state->isGameOver() << std::endl;
+        std::cout << "Players won: " << game_state->didPlayersWin() << std::endl;
+        std::cout << "Infected killed: " << game_state->getInfectedKilled() << std::endl;
+        std::cout << "Ammo used: " << game_state->getAmmoUsed() << std::endl;
+        std::cout << "Game loop time: " << game_state->getGameLoopTime() << std::endl;
+        player_queue.second->push(game_state);
+    }
+}
 void GameLoop::stop() {
-    finished = true;
+    if (!finished) {
+        this->endGameLoopTime();
+        finished = true;
+    }
+}
+GameLoop::~GameLoop() {
     game_queue.close();
 }
 

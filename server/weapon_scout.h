@@ -14,6 +14,7 @@ class Scout : public Weapon {
         uint32_t magazine_size;
         int32_t rounds_left;
         double damage_falloff;
+        uint32_t ammo_used;
         
     public:
         Scout();
@@ -25,6 +26,7 @@ class Scout : public Weapon {
         virtual bool emptyMagazine() override;
         virtual void useAmmo() override;
         virtual std::string getWeaponType() override;
+        virtual uint32_t getAmountOfAmmoUsed() override;
         virtual ~Scout() {}
 };
 #endif

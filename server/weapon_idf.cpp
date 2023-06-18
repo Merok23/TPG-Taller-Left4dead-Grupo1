@@ -6,7 +6,8 @@ range(CONFIG.weapon_idf_range),
 magazine_size(CONFIG.weapon_idf_magazine_size),
 rounds_left(CONFIG.weapon_idf_magazine_size),
 burst_size(CONFIG.weapon_idf_burst_size),
-distance_modifier(CONFIG.weapon_idf_distance_modifier) {}
+distance_modifier(CONFIG.weapon_idf_distance_modifier),
+ammo_used(0) {}
 
 bool MachineGun::inRange(uint32_t distance) {
     return distance <= this->range;
@@ -39,4 +40,8 @@ std::string MachineGun::getWeaponType() {
 
 uint32_t MachineGun::getAmmoLeft() {
     return this->rounds_left;
+}
+
+uint32_t MachineGun::getAmountOfAmmoUsed() {
+    return this->ammo_used;
 }

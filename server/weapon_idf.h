@@ -15,6 +15,7 @@ class MachineGun : public Weapon {
         int32_t rounds_left;
         int32_t burst_size;
         double distance_modifier;
+        uint32_t ammo_used;
         
     public:
         MachineGun();
@@ -26,6 +27,7 @@ class MachineGun : public Weapon {
         virtual bool emptyMagazine() override;
         virtual void useAmmo() override;
         virtual std::string getWeaponType() override;
+        virtual uint32_t getAmountOfAmmoUsed() override;
         virtual ~MachineGun() {}
 };
 #endif

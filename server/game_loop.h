@@ -20,7 +20,9 @@ class GameLoop : public Thread {
     IdHandler id_handler; 
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
     std::atomic<bool> finished;
-    std::atomic<int> client_id; 
+    std::atomic<int> client_id;
+    std::chrono::high_resolution_clock::time_point start_loop_time;
+    uint32_t total_loop_time;   
     std::mutex mutex;
 
     public:
@@ -29,8 +31,12 @@ class GameLoop : public Thread {
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     bool isRoomEmpty();
+    void setGameStadistics(std::shared_ptr<GameStateForClient>& game_state);
+    int getTotalTimeOfGameLoop();
+    void endGameLoopTime();
     virtual void run() override;
     bool isFinished();
     void stop();
+    ~GameLoop();
 }; 
 #endif

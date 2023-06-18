@@ -16,7 +16,8 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
     reload_cooldown(CONFIG.soldier_reload_cooldown),
     revival_countdown(0),
     time_until_dead(0),
-    lives(CONFIG.soldier_lives) {}
+    lives(CONFIG.soldier_lives), 
+    infected_killed(0) {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
@@ -95,7 +96,7 @@ bool Player::isReviving() {
 uint8_t Player::getLives() {
     return this->lives;
 }
-
+#include <iostream>
 void Player::shoot(std::vector<HitEntity>& entities_hit) {
     if (this->state == DEAD_SOLDIER) return;
     if (this->incapacitated > 0) return;
@@ -117,8 +118,20 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
         Entity* entity = entity_hit.getEntity();
         int32_t damage = this->my_weapon->calculateDamage(entity_hit.getDistance(), hit_count);
         entity->setDamageForTheRound(damage);
+        if (entity->getHitPoints() - damage <= 0) {
+            this->infected_killed++;
+            std::cout << "infected killed: " << this->infected_killed << std::endl;
+        }
     }
     this->my_weapon->useAmmo();
+}
+uint32_t Player::getAmmountOfInfectedKilled() {
+    std::cout << "infected killed return: " << this->infected_killed << std::endl;
+    return this->infected_killed;
+}
+
+uint32_t Player::getAmmountOfAmmoUsed() {
+    return this->my_weapon->getAmountOfAmmoUsed();
 }
 
 void Player::stopShooting() {

@@ -5,7 +5,8 @@ base_damage(CONFIG.weapon_scout_base_damage),
 range(CONFIG.weapon_scout_range),
 magazine_size(CONFIG.weapon_scout_magazine_size),
 rounds_left(CONFIG.weapon_scout_magazine_size),
-damage_falloff(CONFIG.weapon_scout_damage_falloff) {}
+damage_falloff(CONFIG.weapon_scout_damage_falloff),
+ammo_used(0) {}
 
 bool Scout::inRange(uint32_t distance) {
     return distance <= this->range;
@@ -29,6 +30,7 @@ bool Scout::emptyMagazine() {
 
 void Scout::useAmmo() {
     this->rounds_left -= 1;
+    this->ammo_used += 1;
 }
 
 std::string Scout::getWeaponType() {
@@ -37,4 +39,8 @@ std::string Scout::getWeaponType() {
 
 uint32_t Scout::getAmmoLeft() {
     return this->rounds_left;
+}
+
+uint32_t Scout::getAmountOfAmmoUsed() {
+    return this->ammo_used;
 }

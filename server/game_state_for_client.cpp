@@ -10,7 +10,10 @@ GameStateForClient::GameStateForClient
     width(width),
     height(height),
     game_over(game_over),
-    players_won(players_won) {}
+    players_won(players_won), 
+    ammo_used(0),
+    infected_killed(0),
+    game_loop_time(0) {}
 
 GameStateForClient::GameStateForClient(GameStateForClient*& other) :
     entities(other->entities),
@@ -38,3 +41,29 @@ bool& GameStateForClient::isGameOver() {
 bool& GameStateForClient::didPlayersWin() {
     return this->players_won;
 }
+
+uint32_t GameStateForClient::getInfectedKilled() {
+    return this->infected_killed;
+}
+
+uint32_t GameStateForClient::getAmmoUsed() {
+    return this->ammo_used;
+}
+
+uint32_t GameStateForClient::getGameLoopTime() {
+    return this->game_loop_time;
+}
+
+void GameStateForClient::setGameLoopTime(uint32_t time) {
+    this->game_loop_time = time;
+}
+#include <iostream>
+void GameStateForClient::setInfectedKilled(uint32_t infected_killed) {
+    std::cout << " Set Infected killed: " << infected_killed << std::endl;
+    this->infected_killed = infected_killed;
+}
+
+void GameStateForClient::setAmmoUsed(uint32_t ammo_used) {
+    this->ammo_used = ammo_used;
+}
+
