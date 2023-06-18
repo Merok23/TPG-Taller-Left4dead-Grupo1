@@ -87,11 +87,11 @@ struct config CONFIG {
     1.1, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
     10, //clear_the_zone_infected_total
-    0.7, //common_infected_zone_percentage
+    0.6, //common_infected_zone_percentage
     0.2, //spear_infected_zone_percentage
     0.1, //witch_infected_zone_percentage
     0, //jumper_infected_zone_percentage
-    0 //venom_infected_zone_percentage
+    0.1 //venom_infected_zone_percentage
 };
 
 Config::Config(const char* config_file) {
@@ -198,6 +198,8 @@ void Config::loadConfig() {
     CONFIG.survival_mode_max_common_infected = config_node["modes"]["survival"]["max_common_infected"].as<int>();
     CONFIG.survival_mode_max_spear_infected = config_node["modes"]["survival"]["max_spear_infected"].as<int>();
     CONFIG.survival_mode_max_witch_infected = config_node["modes"]["survival"]["max_witch_infected"].as<int>();
+    CONFIG.survival_mode_max_jumper_infected = config_node["modes"]["survival"]["max_jumper_infected"].as<int>();
+    CONFIG.survival_mode_max_venom_infected = config_node["modes"]["survival"]["max_venom_infected"].as<int>();
     CONFIG.survival_mode_accumulator = config_node["modes"]["survival"]["accumulator"].as<double>();
     CONFIG.survival_mode_starting_multiplier = config_node["modes"]["survival"]["starting_multiplier"].as<double>();
     CONFIG.clear_the_zone_infected_total = config_node["modes"]["clear_the_zone"]["infected_total"].as<int>();
