@@ -18,6 +18,12 @@ void ReceiveThread::run() {
                 finished = true;
                 break;
             }   
+            if (game_state && game_state->game_over) {
+                std::cout << "GAME OVER" << std::endl;
+                std::cout << game_state->infected_killed << " infected killed" << std::endl;
+                std::cout << game_state->ammo_used << " ammo used" << std::endl;
+                std::cout << game_state->game_loop_time << " game loop time" << std::endl;
+            }
             if (game_state) {
                 //game_state->print();
                 game_states.push(std::move(game_state)); 

@@ -167,7 +167,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     uint8_t game_over;
     game_over = receiveUnsignedSmallInteger();
     if (was_closed) return NULL; 
-
+    std::cout << "game_over: " << (bool)game_over << std::endl;
     bool players_won = (bool)receiveUnsignedSmallInteger();
     if (was_closed) return NULL;    
 
@@ -180,6 +180,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         if (was_closed) return NULL; 
     
         std::string state = receiveString();
+        std::cout << "state: " << state << std::endl;
         if (was_closed) return NULL; 
     
         State state_enum = stringToState(state);
@@ -203,7 +204,6 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         if (was_closed) return NULL; 
             
         Entity* entity = NULL;
-        
         if (entity_type == EntityType::SOLDIER_IDF ||
             entity_type == EntityType::SOLDIER_P90 ||
             entity_type == EntityType::SOLDIER_SCOUT) {
@@ -227,7 +227,21 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         entities[id] = entity;
         entities_len--; 
     }
-    std::shared_ptr<GameState> game_state = std::make_shared<GameState>(entities, game_over, players_won);
+    std::shared_ptr<GameState> game_state = nullptr;
+    if ((bool) game_over) {
+        uint32_t game_time = receieveUnsignedInteger();
+        if (was_closed) return NULL;
+
+        uint32_t infected_killed = receieveUnsignedInteger();
+        if (was_closed) return NULL;
+
+        uint32_t ammo = receieveUnsignedInteger(); 
+        if (was_closed) return NULL;
+
+        game_state = std::make_shared<GameState>(entities, game_over, players_won, ammo, infected_killed, game_time);
+    } else {
+        game_state = std::make_shared<GameState>(entities, game_over, players_won);
+    }
     return game_state;
 }
 

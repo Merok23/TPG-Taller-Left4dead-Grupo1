@@ -230,6 +230,16 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         }
         
     }
+    if (game_state->isGameOver()) {
+        sendUnsignedInteger(game_state->getGameLoopTime());  
+        if (was_closed) return;
+            
+        sendUnsignedInteger(game_state->getInfectedKilled());
+        if (was_closed) return;
+
+        sendUnsignedInteger(game_state->getAmmoUsed()); 
+        if (was_closed) return;
+    }
 }
 
 void ServerProtocol::sendFinishConditions(const bool &game_over, const bool &players_won) {
