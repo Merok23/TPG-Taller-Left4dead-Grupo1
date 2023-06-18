@@ -12,8 +12,8 @@
 
 class Map {
     private:
-        uint32_t width;
-        uint32_t height;
+        int32_t width;
+        int32_t height;
         std::map<uint32_t, Movement*> entities;
         std::map<uint32_t, Movement*> soldiers;
         int32_t centre_of_mass;
@@ -33,6 +33,8 @@ class Map {
         bool checkForCollisionInPosition(const uint32_t &x, const uint32_t &y, const uint32_t &radius);
         bool checkForReviving(const uint32_t &id_down, const uint32_t &id_soldier, const int32_t &radius);
         void removeEntity(const uint32_t &id);
+        bool isEntityLookingAtAllignedAndInRange(const uint32_t &id, const uint32_t &id_target, const int32_t &range);
+        bool isOutOfBoundaries(Movement &movement);
         ~Map();
     private:
         std::tuple<int, int> searchForSpawnPoint(const int &middle, 

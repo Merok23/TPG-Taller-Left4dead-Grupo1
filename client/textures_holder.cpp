@@ -90,6 +90,14 @@ void TexturesHolder::create_zombie(const std::string &path) {
 void TexturesHolder::create_venom(const std::string &path) {
     std::string img("Jump.png");
     textures_holder[VENOM][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Attack_2.png");
+    textures_holder[VENOM][AN_ATTACK2] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Run.png");
+    textures_holder[VENOM][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    //attack 1 (shooting)
 }
 
 void TexturesHolder::create_jumper(const std::string &path) {
@@ -130,6 +138,23 @@ void TexturesHolder::create_obstacle(const std::string &path) {
     textures_holder[CRATER][AN_IDLE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
+void TexturesHolder::create_projectiles(const std::string &path) {
+    std::string img("Venom/ProjectileExploding.png");
+    textures_holder[PROJECTILE_VENOM][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Venom/ProjectileFlying.png");
+    textures_holder[PROJECTILE_VENOM][AN_PROJECTILE_FLYING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Soldier_IDF/ProjectileExplosion.png");
+    textures_holder[PROJECTILE_GRENADE][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Soldier_IDF/ProjectileFlying.png");
+    textures_holder[PROJECTILE_GRENADE][AN_PROJECTILE_FLYING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Soldier_Scout/Smoke.png");
+    textures_holder[PROJECTILE_SMOKE][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+}
+
 TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     std::string path("../../assets/Soldier_IDF/");
     create_soldier(SOLDIER_IDF, path);
@@ -146,10 +171,10 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     
     path.replace(0, path.length(), "../../assets/Spear/");
     create_infected(SPEAR, path);
-    /*
+    
     path.replace(0, path.length(), "../../assets/Venom/");
     create_infected(VENOM, path);
-
+    /*
     path.replace(0, path.length(), "../../assets/Jumper/");
     create_infected(JUMPER, path);
     */
@@ -159,6 +184,10 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
 
     path.replace(0, path.length(), "../../assets/backgrounds/War1/Bright/");
     create_obstacle(path);
+
+
+    path.replace(0, path.length(), "../../assets/");
+    create_projectiles(path);
     
 }
 

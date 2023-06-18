@@ -24,8 +24,14 @@ void VisualBar::update(int32_t new_value) {
 }
 
 void VisualBar::render(int x_origin, int y_origin) {
-    SDL_SetRenderDrawColor(renderer, r_back, g_back, b_back, 255);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 100);
     float total_amount =  max_value;
+    SDL_Rect outer_bar_background = {x_origin-5, y_origin-5, static_cast<int>(total_amount)+10, 10+10}; // position and size of the outer bar
+    SDL_RenderFillRect(renderer, &outer_bar_background);
+
+    SDL_SetRenderDrawColor(renderer, r_back, g_back, b_back, 255);
+    total_amount =  max_value;
     SDL_Rect outer_bar = {x_origin, y_origin, static_cast<int>(total_amount), 10}; // position and size of the outer bar
     SDL_RenderFillRect(renderer, &outer_bar);
 

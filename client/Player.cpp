@@ -6,15 +6,15 @@
 
 Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, 
                 int32_t x_position, int32_t y_position, int width, int height,
-                int32_t hit_points, int32_t ammo, uint8_t lives) :
+                int32_t hit_points, int32_t ammo, uint8_t lives,
+                std::map<AnimationName, Mix_Chunk*> sound_effects) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
-    health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives)
+    health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives),
+    sound_effects(std::move(sound_effects))
 {
     Color color_key = {0xFF, 0xFF, 0xFF};
     std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>("../../assets/Mis/heart.jpg", window, color_key);
     life_an = std::unique_ptr<Animation>(new Animation(tex_life));
-
-    shooting_sound_effect = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
     //if (shooting_sound_effect == nullptr) //aca que hago?
 }
 
@@ -46,7 +46,7 @@ void Player::render() {
         life_an->render(destArea, SDL_FLIP_NONE);
     }
     if (current_animation == AN_SHOOT) {
-        Mix_PlayChannel(0, shooting_sound_effect, -1);
+        Mix_PlayChannel(0, sound_effects[AN_SHOOT], -1);
     } else {
         Mix_HaltChannel(0);
     }
@@ -60,5 +60,4 @@ VisualBar& Player::get_health_bar() {
 }
 
 Player::~Player() {
-    Mix_FreeChunk(shooting_sound_effect);
 }

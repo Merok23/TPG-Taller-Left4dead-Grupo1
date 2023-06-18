@@ -65,13 +65,13 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case EXPLODING:
             current_animation = AN_PROJECTILE_EXPLODING;
             break;
+
         }
         
         x = entity->getPositionX() - width/2;
         y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
-
     }
 
     auto it_current = animations.find(current_animation);
