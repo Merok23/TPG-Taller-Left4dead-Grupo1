@@ -36,23 +36,23 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
 std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type, AudioHolder& audio_holder) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
         
- std::shared_ptr<GraphicsEntity> infected = nullptr;
+ std::shared_ptr<GraphicsEntity> new_entity = nullptr;
     if (type == EntityType::CRATER)
-        infected = std::make_shared<GraphicsEntity>(
+        new_entity = std::make_shared<GraphicsEntity>(
                                                     textures,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),
                                                     300, 300);
     else 
-        infected = std::make_shared<GraphicsEntity>(
+        new_entity = std::make_shared<GraphicsEntity>(
                                                     textures,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),
                                                     200, 200);  
-    entities[entity->getId()] = infected;
-    return infected;
+    entities[entity->getId()] = new_entity;
+    return new_entity;
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {

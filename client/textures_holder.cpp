@@ -131,14 +131,20 @@ void TexturesHolder::create_obstacle(const std::string &path) {
 }
 
 void TexturesHolder::create_projectiles(const std::string &path) {
-    std::string img("Venom/Attack1a.png");
-    textures_holder[PROJECTILE][AN_PROJECTILE_VENOM] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    std::string img("Venom/ProjectileExploding.png");
+    textures_holder[PROJECTILE_VENOM][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Soldier_IDF/Explosion.png");
-    textures_holder[PROJECTILE][AN_EXPLOSION] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    img.replace(0, img.length(), "Venom/ProjectileFlying.png");
+    textures_holder[PROJECTILE_VENOM][AN_PROJECTILE_FLYING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Soldier_IDF/ProjectileExplosion.png");
+    textures_holder[PROJECTILE_GRENADE][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Soldier_IDF/ProjectileFlying.png");
+    textures_holder[PROJECTILE_GRENADE][AN_PROJECTILE_FLYING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Soldier_Scout/Smoke.png");
-    textures_holder[PROJECTILE][AN_SMOKE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    textures_holder[PROJECTILE_SMOKE][AN_PROJECTILE_EXPLODING] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
 TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){

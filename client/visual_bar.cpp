@@ -40,9 +40,6 @@ void VisualBar::render(int x_origin, int y_origin) {
     float amount_filled = (current_value * total_amount) / max_value; 
     SDL_Rect inner_bar = {outer_bar.x, outer_bar.y, static_cast<int>(amount_filled), outer_bar.h};
     SDL_RenderFillRect(renderer, &inner_bar);
-
-
-
 }
 
 VisualBar::~VisualBar() {}

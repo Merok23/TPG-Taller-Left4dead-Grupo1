@@ -53,13 +53,26 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case SCREAMING:
             current_animation = AN_SCREAM;
             break;
+        
+        /*
+        case BLASTING:
+            current_animation = AN_ATTACK2;
+            break;
+        
+        case FLYING:
+            current_animation = AN_PROJECTILE_FLYING;
+            break;
+
+        case EXPLODING:
+            current_animation = AN_PROJECTILE_EXPLODING;
+            break;
+        */
         }
         
         x = entity->getPositionX() - width/2;
         y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
-
     }
 
     auto it_current = animations.find(current_animation);
