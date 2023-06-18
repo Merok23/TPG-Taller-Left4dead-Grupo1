@@ -3,12 +3,44 @@
 #include "entity.h"
 
 typedef struct Stadistics {
+    //if game mode == survival, then ranking = true, because is the only game mode where stadistics have ranking
     bool ranking;
-    uint32_t infected_killed;
-    uint8_t infected_killed_ranking;
-    uint32_t ammo_used;
-    uint8_t ammo_used_ranking;
-    uint32_t game_loop_time;
+    //save as <ranking, value> if game mode != survival, then ranking =  0
+    std::pair<uint8_t, uint32_t> infected_killed_info;
+    std::pair<uint8_t, uint32_t> ammo_used_info;
+    std::pair<uint8_t, uint32_t> game_time_info;
+    
+    Stadistics() {
+        this->ranking = false;
+        this->infected_killed_info = std::make_pair(0, 0);
+        this->ammo_used_info = std::make_pair(0, 0);
+        this->game_time_info = std::make_pair(0, 0);
+    }
+
+    void setStadistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+        std::pair<uint8_t, uint32_t> ammo_used_info, 
+        std::pair<uint8_t, uint32_t> game_time_info) {
+        this->ranking = ranking;
+        this->infected_killed_info = infected_killed_info;
+        this->ammo_used_info = ammo_used_info;
+        this->game_time_info = game_time_info;
+    }
+
+    std::pair<uint8_t, uint32_t> getInfectedKilledInfo() {
+        return this->infected_killed_info;
+    }
+
+    std::pair<uint8_t, uint32_t> getAmmoUsedInfo() {
+        return this->ammo_used_info;
+    }   
+
+    std::pair<uint8_t, uint32_t> getGameTimeInfo() {
+        return this->game_time_info;
+    }
+
+    bool getRanking() {
+        return this->ranking;
+    }    
 
 } Stadistics;
 
@@ -19,9 +51,8 @@ class GameStateForClient {
         uint32_t height;
         bool game_over;
         bool players_won;
-        uint32_t ammo_used;
-        uint32_t infected_killed;
-        uint32_t game_loop_time; 
+        Stadistics stadistics;
+
     public:
         GameStateForClient(const std::map<uint32_t, Entity*> &entities, 
             uint32_t width,
@@ -32,12 +63,12 @@ class GameStateForClient {
         std::map<uint32_t, Entity*>& getEntities();
         uint32_t getWidth();
         uint32_t getHeight();
-        uint32_t getInfectedKilled();
-        uint32_t getAmmoUsed();
-        uint32_t getGameLoopTime();
-        void setGameLoopTime(uint32_t time);
-        void setInfectedKilled(uint32_t infected_killed);
-        void setAmmoUsed(uint32_t ammo_used);
+        std::pair<uint8_t, uint32_t> getInfectedKilled();
+        std::pair<uint8_t, uint32_t> getAmmoUsed();
+        std::pair<uint8_t, uint32_t> getGameLoopTime();
+        void setStadistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+            std::pair<uint8_t, uint32_t> ammo_used_info, 
+            std::pair<uint8_t, uint32_t> game_time_info);
         bool& isGameOver();
         bool& didPlayersWin();
 };

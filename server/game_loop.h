@@ -16,6 +16,7 @@
 class GameLoop : public Thread {
     private:
     Queue<std::shared_ptr<Action>> game_queue;
+    GameMode game_mode;
     Game game;
     IdHandler id_handler; 
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;

@@ -225,7 +225,7 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         entities[id] = entity;
         entities_len--; 
     }
-    std::shared_ptr<GameState> game_state = nullptr;
+    /* std::shared_ptr<GameState> game_state = nullptr;
     if ((bool) game_over) {
         uint32_t game_time = receieveUnsignedInteger();
         if (was_closed) return NULL;
@@ -240,7 +240,8 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     } else {
         game_state = std::make_shared<GameState>(entities, game_over, players_won);
     }
-    return game_state;
+    return game_state; */
+    return std::make_shared<GameState>(entities, game_over, players_won);
 }
 
 EntityType ClientProtocol::stringToEntityType(const std::string& entity_type) {
