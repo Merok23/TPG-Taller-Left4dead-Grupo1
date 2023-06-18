@@ -10,7 +10,14 @@ enum State {
     ATTACKING,
     DOWN, 
     REVIVING,
-    SCREAMING
+    //witch:
+    SCREAMING,
+    //venom:
+    BLASTING,
+    //projectiles:
+    FLYING,
+    EXPLODING,
+    DESTROYED,
 };
 
 enum AnimationName {

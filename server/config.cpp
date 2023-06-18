@@ -35,6 +35,22 @@ struct config CONFIG {
     20, // witch_infected_attack_damage
     80, // witch_infected_shout_cooldown
     0.005, // witch_infected_shout_probability
+    100, // venom_infected_health
+    10, // venom_infected_speed
+    25, // venom_infected_radius
+    600, // venom_infected_look_range
+    80, // venom_infected_blast_range
+    500, // venom_infected_shoot_range
+    14, //venom_infected_blast_incapacitated_time
+    8, // venom_infected_shoot_incapacitated_time
+    30, // venom_infected_blast_damage
+    7, //venom_infected_blast_damage_timing
+    50, // venom_infected_shoot_damage
+    7, // venom_infected_shoot_damage_timing
+    50, // venom_infected_blast_radius
+    5, // venom_infected_projectile_radius
+    15, // venom_infected_projectile_speed
+    3, // venom_infected_projectile_explosion_counter
     10, // witch_infected_scream_spawn_ammount
     40, // crater_radius
     100, // crater_hit_points
@@ -66,6 +82,8 @@ struct config CONFIG {
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
     1, //survival_mode_max_witch_infected
+    1, //survival_mode_max_venom_infected
+    1, //survival_mode_max_jumper_infected
     1.1, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
     10, //clear_the_zone_infected_total
@@ -93,29 +111,63 @@ void Config::loadConfig() {
     CONFIG.infected_health = config_node["infected"]["health"].as<int>();
     CONFIG.infected_speed = config_node["infected"]["speed"].as<int>();
     CONFIG.infected_radius = config_node["infected"]["radius"].as<int>();
+
+    // Common Infected:
+    //  Stats:
     CONFIG.common_infected_range = config_node["infected"]["common"]["range"].as<int>();
     CONFIG.common_infected_speed = config_node["infected"]["common"]["speed"].as<int>();
+    CONFIG.common_infected_radius = config_node["infected"]["common"]["radius"].as<int>();
+    // Attack:
     CONFIG.common_infected_attack_range = config_node["infected"]["common"]["attack_range"].as<int>();
     CONFIG.common_infected_damage = config_node["infected"]["common"]["damage"].as<int>();
     CONFIG.common_infected_attack_cooldown = config_node["infected"]["common"]["attack_cooldown"].as<int>();
-    CONFIG.common_infected_radius = config_node["infected"]["common"]["radius"].as<int>();
+    
+    // Spear Infected:
+    //  Stats:
     CONFIG.spear_infected_health = config_node["infected"]["spear"]["health"].as<int>();
     CONFIG.spear_infected_speed = config_node["infected"]["spear"]["speed"].as<int>();
     CONFIG.spear_infected_radius = config_node["infected"]["spear"]["radius"].as<int>();
     CONFIG.spear_infected_look_range = config_node["infected"]["spear"]["look_range"].as<int>();
+    //  Attack:
     CONFIG.spear_infected_attack_range = config_node["infected"]["spear"]["attack_range"].as<int>();
     CONFIG.spear_infected_attack_cooldown = config_node["infected"]["spear"]["attack_cooldown"].as<int>();
     CONFIG.spear_infected_damage = config_node["infected"]["spear"]["damage"].as<int>();
+
+    // Witch Infected:
+    //  Stats:
     CONFIG.witch_infected_health = config_node["infected"]["witch"]["health"].as<int>();
     CONFIG.witch_infected_speed = config_node["infected"]["witch"]["speed"].as<int>();
     CONFIG.witch_infected_radius = config_node["infected"]["witch"]["radius"].as<int>();
     CONFIG.witch_infected_look_range = config_node["infected"]["witch"]["look_range"].as<int>();
+    // Attack:
     CONFIG.witch_infected_attack_range = config_node["infected"]["witch"]["attack_range"].as<int>();
     CONFIG.witch_infected_attack_cooldown = config_node["infected"]["witch"]["attack_cooldown"].as<int>();
     CONFIG.witch_infected_attack_damage = config_node["infected"]["witch"]["attack_damage"].as<int>();
+    // Shout:
     CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
     CONFIG.witch_infected_scream_spawn_ammount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
+    
+    // Venom Infected:
+    //  Stats:
+    CONFIG.venom_infected_health = config_node["infected"]["venom"]["health"].as<int>();
+    CONFIG.venom_infected_speed = config_node["infected"]["venom"]["speed"].as<int>();
+    CONFIG.venom_infected_radius = config_node["infected"]["venom"]["radius"].as<int>();
+    // Attacks:
+    CONFIG.venom_infected_look_range = config_node["infected"]["venom"]["look_range"].as<int>();
+    CONFIG.venom_infected_blast_range = config_node["infected"]["venom"]["blast_range"].as<int>();
+    CONFIG.venom_infected_shoot_range = config_node["infected"]["venom"]["shoot_range"].as<int>();
+    CONFIG.venom_infected_blast_incapacitated_time = config_node["infected"]["venom"]["blast_incapacitated_time"].as<int>();
+    CONFIG.venom_infected_shoot_incapacitated_time = config_node["infected"]["venom"]["shoot_incapacitated_time"].as<int>();
+    CONFIG.venom_infected_blast_damage = config_node["infected"]["venom"]["blast_damage"].as<int>();
+    CONFIG.venom_infected_blast_damage_timing = config_node["infected"]["venom"]["blast_damage_timing"].as<int>();
+    CONFIG.venom_infected_shoot_damage = config_node["infected"]["venom"]["shoot_damage"].as<int>();
+    CONFIG.venom_infected_shoot_timing = config_node["infected"]["venom"]["shoot_timing"].as<int>();
+    CONFIG.venom_infected_blast_radius = config_node["infected"]["venom"]["blast_radius"].as<int>();
+    CONFIG.venom_infected_projectile_radius = config_node["infected"]["venom"]["projectile_radius"].as<int>();
+    CONFIG.venom_infected_projectile_speed = config_node["infected"]["venom"]["projectile_speed"].as<int>();
+    CONFIG.venom_infected_projectile_explosion_counter = config_node["infected"]["venom"]["projectile_explosion_counter"].as<int>();
+
     CONFIG.crater_radius = config_node["crater"]["radius"].as<int>();
     CONFIG.crater_hit_points = config_node["crater"]["hit_points"].as<int>();
     CONFIG.crater_ammount = config_node["crater"]["ammount"].as<int>();

@@ -90,6 +90,14 @@ void TexturesHolder::create_zombie(const std::string &path) {
 void TexturesHolder::create_venom(const std::string &path) {
     std::string img("Jump.png");
     textures_holder[VENOM][AN_JUMP] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Attack_2.png");
+    textures_holder[VENOM][AN_ATTACK2] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    img.replace(0, img.length(), "Run.png");
+    textures_holder[VENOM][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+
+    //attack 1 (shooting)
 }
 
 void TexturesHolder::create_jumper(const std::string &path) {
@@ -163,10 +171,10 @@ TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
     
     path.replace(0, path.length(), "../../assets/Spear/");
     create_infected(SPEAR, path);
-    /*
+    
     path.replace(0, path.length(), "../../assets/Venom/");
     create_infected(VENOM, path);
-
+    /*
     path.replace(0, path.length(), "../../assets/Jumper/");
     create_infected(JUMPER, path);
     */

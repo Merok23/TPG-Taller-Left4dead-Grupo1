@@ -13,5 +13,6 @@ enum Cheat {
 enum InfectedType {
     COMMON,
     SPEAR,
-    WITCH
+    WITCH,
+    VENOM
 };

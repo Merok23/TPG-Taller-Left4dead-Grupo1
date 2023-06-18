@@ -162,6 +162,27 @@ std::tuple<int, int> Map::searchForSpawnPoint(
 
 }
 
+bool Map::isEntityLookingAtAllignedAndInRange(const uint32_t &id, const uint32_t &id_target, const int32_t &range) {
+    Movement *entity = this->entities[id];
+    Movement *target = this->entities[id_target];
+    //looking at
+    if (entity->isLookingAt(*target)) {
+        //alligned
+        if (entity->isAligned(*target, this->height)) {
+            //and in range
+            int32_t distance = entity->calculateDistance(*target);
+            return distance <= range;
+        }
+    }
+    return false;
+}
+
+bool Map::isOutOfBoundaries(Movement &movement) {
+    if (movement.getX() < 0 || movement.getX() > this->width) return true;
+    if (movement.getY() < 0 || movement.getY() > this->height) return true;
+    return false;
+}
+
 bool Map::checkForCentreOfMassDistanceCollision(const uint32_t &id) {
     if (soldiers.find(id) == soldiers.end()) return true;
     centre_of_mass = this->calculateCentreOfMass();
