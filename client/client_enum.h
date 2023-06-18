@@ -17,7 +17,6 @@ enum State {
     //projectiles:
     FLYING,
     EXPLODING,
-    DESTROYED,
 };
 
 enum AnimationName {
@@ -53,8 +52,11 @@ enum EntityType {
     SPEAR,
     WITCH,
     ZOMBIE,
-    
-    CRATER
+    CRATER, 
+
+    PROJECTILE_VENOM,
+    PROJECTILE_GRENADE,
+    PROJECTILE_SMOKE
 };
 
 enum GameMode {

@@ -75,7 +75,7 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
         }
         
 
-        Mix_VolumeMusic(MIX_MAX_VOLUME);  // Set the volume to 50% (half of the maximum)
+        Mix_VolumeMusic(MIX_MAX_VOLUME/12);  // Set the volume to 50% (half of the maximum)
         if (Mix_PlayMusic(music, -1) == -1) {
             // Error handling: Failed to play the music
             throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));

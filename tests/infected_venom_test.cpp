@@ -162,3 +162,26 @@ TEST_CASE("Venom test blast hits multiple soldiers", "[venom]") {
     REQUIRE(game.getEntities()[id_soldier1]->getHitPoints() == CONFIG.soldier_health - CONFIG.venom_infected_blast_damage);
     REQUIRE(game.getEntities()[id_soldier2]->getHitPoints() == CONFIG.soldier_health - CONFIG.venom_infected_blast_damage);
 }
+
+TEST_CASE("Venom test, venom is killed and it doesn't seg fault :(", "[venom]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    uint32_t id_venom = game.getCurrentId();
+    Entity* infected = new VenomInfected(id_venom, 0, CONFIG.venom_infected_radius);
+    game.addEntity(infected);
+    uint32_t id_soldier = game.getCurrentId();
+    Weapon* weapon = new Scout();
+    Entity* player = new Player(id_soldier, CONFIG.venom_infected_shoot_range, CONFIG.venom_infected_radius, weapon);
+    game.addEntity(player);
+    //---------------------end setup---------------------//
+
+    //we let venom shoot some projectiles
+    game.update();
+    game.update();
+
+    //we kill him
+    game.setShooting(id_soldier);
+    game.update();
+    game.update();
+    REQUIRE(game.getEntities()[id_venom]->isDead() == true);    
+    //hopefully game didn't crash :)
+}
