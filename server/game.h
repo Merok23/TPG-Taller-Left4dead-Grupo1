@@ -78,6 +78,7 @@ class Game {
         void setSurvivalMode();
         uint32_t getAmmountOfAmmoUsedBySoldier(const uint32_t& id);
         uint32_t getAmmountOfInfectedKilledBySoldier(const uint32_t& id);
+        uint32_t getTimeAliveOfSoldier(const uint32_t& id);
         ~Game();
         
     private:

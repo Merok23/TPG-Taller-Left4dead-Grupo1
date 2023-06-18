@@ -104,6 +104,8 @@ void GameLoop::setGameStadistics(std::shared_ptr<GameStateForClient>& game_state
         std::cout << "Infected killed: " << game_state->getInfectedKilled() << std::endl;
         std::cout << "Ammo used: " << game_state->getAmmoUsed() << std::endl;
         std::cout << "Game loop time: " << game_state->getGameLoopTime() << std::endl;
+        uint32_t player_time = id_handler.getTimeAlive(player_queue.first);
+        std::cout << "Player time: " << player_time << std::endl;
         player_queue.second->push(game_state);
     }
 }

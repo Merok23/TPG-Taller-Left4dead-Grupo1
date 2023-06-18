@@ -42,3 +42,8 @@ uint32_t IdHandler::getAmmountOfInfectedKilled(uint32_t client_id) {
     uint32_t id = my_ids[client_id];
     return game.getAmmountOfInfectedKilledBySoldier(id);
 }
+
+uint32_t IdHandler::getTimeAlive(uint32_t client_id) {
+    uint32_t id = my_ids[client_id];
+    return game.getTimeAliveOfSoldier(id);
+}

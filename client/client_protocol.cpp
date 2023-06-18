@@ -167,7 +167,6 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     uint8_t game_over;
     game_over = receiveUnsignedSmallInteger();
     if (was_closed) return NULL; 
-    std::cout << "game_over: " << (bool)game_over << std::endl;
     bool players_won = (bool)receiveUnsignedSmallInteger();
     if (was_closed) return NULL;    
 
@@ -180,7 +179,6 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         if (was_closed) return NULL; 
     
         std::string state = receiveString();
-        std::cout << "state: " << state << std::endl;
         if (was_closed) return NULL; 
     
         State state_enum = stringToState(state);

@@ -566,6 +566,11 @@ uint32_t Game::getAmmountOfInfectedKilledBySoldier(const uint32_t &id) {
     return player->getAmmountOfInfectedKilled();
 }
 
+uint32_t Game::getTimeAliveOfSoldier(const uint32_t &id) {
+    Player* player = dynamic_cast<Player*>(this->entities[id]);
+    return player->getTimeAlive();
+}
+
 Game::~Game() {
     for (auto& id_entity : this->entities) {
         delete id_entity.second;

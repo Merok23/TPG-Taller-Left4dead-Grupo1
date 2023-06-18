@@ -17,7 +17,9 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
     revival_countdown(0),
     time_until_dead(0),
     lives(CONFIG.soldier_lives), 
-    infected_killed(0) {}
+    infected_killed(0),
+    start_time_alive(std::chrono::high_resolution_clock::now()),
+    total_time_alive(0) {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
@@ -62,6 +64,9 @@ void Player::update(Map& map) {
             this->state = DEAD_SOLDIER;
             this->time_until_dead = 0;
             this->lives = 0;
+            auto t2 = std::chrono::high_resolution_clock::now();
+            auto time_dif = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_time_alive);
+            this->total_time_alive = time_dif.count();
             return;
         } else {
             time_until_dead++;
@@ -75,6 +80,10 @@ void Player::update(Map& map) {
     if (this->lives <= 0) {
         this->state = DEAD_SOLDIER;
     }
+}
+
+uint32_t Player::getTimeAlive() {
+    return total_time_alive;
 }
 
 void Player::resolveDamage() {

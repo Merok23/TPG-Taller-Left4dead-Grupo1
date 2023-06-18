@@ -2,6 +2,15 @@
 #include <map>
 #include "entity.h"
 
+typedef struct Stadistics {
+    bool ranking;
+    uint32_t infected_killed;
+    uint8_t infected_killed_ranking;
+    uint32_t ammo_used;
+    uint8_t ammo_used_ranking;
+    uint32_t game_loop_time;
+
+} Stadistics;
 
 class GameStateForClient {
     private:
