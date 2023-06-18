@@ -52,22 +52,25 @@ void GraphicsEntity::update(float dt, Entity *entity) {
 
         case SCREAMING:
             current_animation = AN_SCREAM;
-            break;
-
+            break;    
+        /*
         case BLASTING:
             current_animation = AN_ATTACK2;
             break;
-        //added for projectiles, it needs to be implemented.
-        default:
-            current_animation = AN_IDLE;
+        
+        case FLYING:
+            current_animation = AN_PROJECTILE_FLYING;
             break;
+
+        case EXPLODING:
+            current_animation = AN_PROJECTILE_EXPLODING;
+            break;*/
         }
         
         x = entity->getPositionX() - width/2;
         y = entity->getPositionY() - height/2;
         
         facingLeft = entity->isFacingLeft();
-
     }
 
     auto it_current = animations.find(current_animation);

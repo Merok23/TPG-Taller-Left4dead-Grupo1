@@ -22,6 +22,7 @@
 #include "camera.h"
 #include "client_protocol.h" //deberia estar aca la definicion de command?
 
+#include "audio_holder.h"
 
 class Graphics {
     public:
