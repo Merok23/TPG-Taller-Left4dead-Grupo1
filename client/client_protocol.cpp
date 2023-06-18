@@ -241,7 +241,10 @@ EntityType ClientProtocol::stringToEntityType(const std::string& entity_type) {
         { "spear", SPEAR },
         { "witch", WITCH },
         { "common_infected", ZOMBIE },
-        { "crater", CRATER }
+        { "crater", CRATER }, 
+        { "projectile_venom", PROJECTILE_VENOM },
+        { "projectile_grenade", PROJECTILE_GRENADE },
+        { "projectile_smoke", PROJECTILE_SMOKE }
     };
 
     auto it = entityTypeMap.find(entity_type);
@@ -259,7 +262,10 @@ State ClientProtocol::stringToState(const std::string& state) {
         { "down", DOWN },
         { "reviving", REVIVING},
         { "screaming", SCREAMING},
-        { "blasting", BLASTING}
+        { "blasting", BLASTING},
+        { "exploding", EXPLODING}, 
+        { "flying", FLYING},
+        { "destroyed", EXPLODING}
     };
 
     auto it = stateMap.find(state);
