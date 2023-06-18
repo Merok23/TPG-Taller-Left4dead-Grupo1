@@ -23,11 +23,6 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
             throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
         }
 
-        if (Mix_Init(MIX_INIT_OGG) != (MIX_INIT_OGG)) {
-            SDL_Quit();
-            throw std::runtime_error("Failed to initialize SDL_mixer: " + std::string(Mix_GetError()));
-        }
-
         int imgFlags = IMG_INIT_PNG;  // Adjust flags based on the image formats you're using
         if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
             Mix_Quit();
@@ -35,57 +30,18 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
             throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
         }
 
-        if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
-            // Error handling: Failed to initialize SDL_mixer
-            throw std::runtime_error("Failed to initialize SDL_mixer: " + std::string(Mix_GetError()));
-        }
-
-        /*
-            https://www.youtube.com/channel/UCxmng6_DMIayDwkiWGVzVRQ?view_as=subscriber 
-            Alexandr Zhelanov https://soundcloud.com/alexandr-zhelanov 
-
-            Para mi esta cancion pega mejor en la parte de qt
-        */
-        // Mix_Music* music = Mix_LoadMUS("../../assets/Audio/Music/Futuristic_ambient_1.ogg");
-        // if (!music) {
-        //     // Error handling: Failed to load the music
-        //     throw std::runtime_error("Failed to load music: " + std::string(Mix_GetError()));
-        // }
-        Mix_Music* music;
-        if (game_mode == SURVIVAL) {
-            std::cout << "El game mode que me pasaron es survival" << std::endl;
-            /*
-            https://www.youtube.com/channel/UCxmng6_DMIayDwkiWGVzVRQ?view_as=subscriber 
-            Alexandr Zhelanov https://soundcloud.com/alexandr-zhelanov 
-
-            Para mi esta cancion pega mejor con survival
-            */
-            music = Mix_LoadMUS("../../assets/Audio/Music/Battle_1.ogg");
-            if (!music) {
-                // Error handling: Failed to load the music
-                throw std::runtime_error("Failed to load music: " + std::string(Mix_GetError()));
-            }
-        } else {
-            std::cout << "El game mode que me pasaron NO es survival" << std::endl;
-            music = Mix_LoadMUS("../../assets/Audio/Music/Raiders.ogg");
-            if (!music) {
-                // Error handling: Failed to load the music
-                throw std::runtime_error("Failed to load music: " + std::string(Mix_GetError()));
-            }
-        }
-        
-
-        Mix_VolumeMusic(MIX_MAX_VOLUME/12);  // Set the volume to 50% (half of the maximum)
-        if (Mix_PlayMusic(music, -1) == -1) {
+        std::cout << "Game mode is " << game_mode << std::endl;
+        AudioHolder audio_holder;
+        Mix_Music* music = audio_holder.find_music(game_mode);
+        if (Mix_PlayMusic(music, -1) == -1) { //REVISAR
             // Error handling: Failed to play the music
             throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));
         }
 
-
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
 
         TexturesHolder textures_holder(window);
-        GraphicsEntityHolder gr_entity_holder =  GraphicsEntityHolder(gs, std::move(textures_holder), window);
+        GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), audio_holder, window);
         Camera camera(window, 1700);
 
         time_t t1 = time(0);
@@ -111,8 +67,6 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
             it += 1;
         }
 
-        Mix_FreeMusic(music);
-        Mix_Quit();
         IMG_Quit();
         SDL_Quit();
 

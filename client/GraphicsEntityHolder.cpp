@@ -2,21 +2,23 @@
 #include <algorithm>
 #include <iostream>
 
-GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder texture_holder, SdlWindow &window) :
+GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder texture_holder, 
+                                            AudioHolder& audio_holder, SdlWindow &window) :
     window(window), 
-    textures_holder(texture_holder) {
+    textures_holder(texture_holder),
+    audio_holder(audio_holder) {
     for (auto& pair : gs->entities) {
         if (pair.second->getEntityType() == EntityType::SOLDIER_IDF
         || pair.second->getEntityType() == EntityType::SOLDIER_SCOUT
         || pair.second->getEntityType() == EntityType::SOLDIER_P90) {
-            this->MainPlayer = this->createSoldier(pair.second, pair.second->getEntityType());
+            this->MainPlayer = this->createSoldier(pair.second, pair.second->getEntityType(), audio_holder);
         } else {
-            this->createInfected(pair.second, pair.second->getEntityType());
+            this->createInfected(pair.second, pair.second->getEntityType(), audio_holder);
         }
     }
 }
 
-std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, EntityType entity_type) {
+std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, EntityType entity_type, AudioHolder& audio_holder) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(entity_type);
     std::shared_ptr<Player> player = std::make_shared<Player>(textures, window, entity->getId(),
                                     entity->getPositionX(),
@@ -24,32 +26,33 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
                                     200, 200,
                                     entity->getHitPoints(),
                                     entity->getAmmoLeft(),
-                                    entity->getLives());  
+                                    entity->getLives(),
+                                    audio_holder.find_sound_effects(entity_type));  
         entities[entity->getId()] = player;
         players.push_back(player);
     return player;
 }
 
-std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type) {
+std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type, AudioHolder& audio_holder) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
         
- std::shared_ptr<GraphicsEntity> infected = nullptr;
+ std::shared_ptr<GraphicsEntity> new_entity = nullptr;
     if (type == EntityType::CRATER)
-        infected = std::make_shared<GraphicsEntity>(
+        new_entity = std::make_shared<GraphicsEntity>(
                                                     textures,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),
                                                     300, 300);
     else 
-        infected = std::make_shared<GraphicsEntity>(
+        new_entity = std::make_shared<GraphicsEntity>(
                                                     textures,
                                                     entity->getId(),
                                                     entity->getPositionX(),
                                                     entity->getPositionY(),
                                                     200, 200);  
-    entities[entity->getId()] = infected;
-    return infected;
+    entities[entity->getId()] = new_entity;
+    return new_entity;
 }
 
 std::shared_ptr<Player> GraphicsEntityHolder::getMainPlayer() {
@@ -85,9 +88,9 @@ void  GraphicsEntityHolder::add_player(Entity* entity) {
     if (entity->getEntityType() == EntityType::SOLDIER_IDF
         || entity->getEntityType() == EntityType::SOLDIER_SCOUT
         || entity->getEntityType() == EntityType::SOLDIER_P90) {
-            this->createSoldier(entity, entity->getEntityType());
+            this->createSoldier(entity, entity->getEntityType(), audio_holder);
     } else {
-        this->createInfected(entity, entity->getEntityType());
+        this->createInfected(entity, entity->getEntityType(), audio_holder);
     }
 }
 
