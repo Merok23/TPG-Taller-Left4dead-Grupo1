@@ -375,8 +375,8 @@ void Game::removeEntity(const uint32_t &id) {
         //since the projectile dissapears, we need to remove it from the entities
         //so the client doesn't receive it anymore.
         this->projectiles.erase(id);
-        delete this->entities[id];
-        this->entities.erase(id);
+        //delete this->entities[id];
+        //this->entities.erase(id);
     } 
     //this->soldiers.erase(id);
 }

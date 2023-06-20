@@ -223,10 +223,11 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
                 entity_type == EntityType::WITCH ||
                 entity_type == EntityType::JUMPER ||
                 entity_type == EntityType::VENOM ||
-                entity_type == EntityType::CRATER) {
+                entity_type == EntityType::CRATER ||
+                entity_type == EntityType::PROJECTILE_VENOM) {
             entity = new Entity(id, entity_type, state_enum, hit_point, position_x, position_y,
                                 is_facing_left, is_moving_up);
-        }
+        } 
         entities[id] = entity;
         entities_len--; 
     }

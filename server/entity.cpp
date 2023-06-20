@@ -42,7 +42,3 @@ void Entity::setHitPoints(int32_t hit_points) {
 }
 Entity::~Entity() {}
 
-std::string Entity::getEntityType() {
-    std::string type = "entity";
-    return type;
-}

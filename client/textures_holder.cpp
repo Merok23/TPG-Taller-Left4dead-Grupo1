@@ -97,7 +97,8 @@ void TexturesHolder::create_venom(const std::string &path) {
     img.replace(0, img.length(), "Run.png");
     textures_holder[VENOM][AN_RUN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    //attack 1 (shooting)
+    img.replace(0, img.length(), "Attack_1.png");
+    textures_holder[VENOM][AN_ATTACK1] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 }
 
 void TexturesHolder::create_jumper(const std::string &path) {
