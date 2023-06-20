@@ -41,8 +41,10 @@ void ReceiveThread::receiveCommand() {
                 protocol.sendRoomId(room_id);
                 start_playing = true;
             } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {
-                start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id);
+                GameMode game_mode;
+                start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id, game_mode);
                 protocol.sendJoinResponse(start_playing);
+                protocol.sendGameMode(game_mode);
                 if (start_playing) room_id = command.room_id;  
             }
         } catch(const LibError &e) {

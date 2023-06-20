@@ -60,6 +60,7 @@ class ServerProtocol {
     command_t receiveCommand();
     void sendRoomId(uint32_t room_id);
     void sendJoinResponse(bool accepted);
+    void sendGameMode(GameMode game_mode);
     void sendGameState(std::shared_ptr<GameStateForClient> game_state);
     bool isFinished();
     void closeSocket();
