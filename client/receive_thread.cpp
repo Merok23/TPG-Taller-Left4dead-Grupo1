@@ -19,7 +19,6 @@ void ReceiveThread::run() {
                 break;
             }   
             if (game_state) {
-                //game_state->print();
                 game_states.push(std::move(game_state)); 
             }
         } catch(const LibError &e) {
