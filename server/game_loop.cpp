@@ -149,27 +149,27 @@ void GameLoop::setGameStadistics(std::shared_ptr<GameStateForClient>& game_state
         std::vector<uint32_t> ranking_game_time = getRanking(players_game_time);
 
         for (auto& player_queue : player_queues) {
-            auto getRankingPosition = [&player_queue](const std::vector<uint32_t>& ranking) {
-                auto it = std::find(ranking.begin(), ranking.end(), player_queue.first);
-                return std::distance(ranking.begin(), it);
-            };
+            auto getRankingPosition = [&player_queue](const std::vector<uint32_t>& ranking) -> std::ptrdiff_t {
+            auto it = std::find(ranking.begin(), ranking.end(), player_queue.first);
+            return std::distance(ranking.begin(), it) + 1;
+        };
+    
+        std::pair<uint8_t, uint32_t> infected_killed = std::make_pair(getRankingPosition(ranking_infected_killed), id_handler.getAmmountOfInfectedKilled(player_queue.first));
+        std::pair<uint8_t, uint32_t> ammo_used = std::make_pair(getRankingPosition(ranking_ammo_used), id_handler.getAmmountOfAmmoUsed(player_queue.first));
+        std::pair<uint8_t, uint32_t> game_time = std::make_pair(getRankingPosition(ranking_game_time), id_handler.getTimeAlive(player_queue.first));
 
-            std::pair<uint8_t, uint32_t> infected_killed = std::make_pair(getRankingPosition(ranking_infected_killed), id_handler.getAmmountOfInfectedKilled(player_queue.first));
-            std::pair<uint8_t, uint32_t> ammo_used = std::make_pair(getRankingPosition(ranking_ammo_used), id_handler.getAmmountOfAmmoUsed(player_queue.first));
-            std::pair<uint8_t, uint32_t> game_time = std::make_pair(getRankingPosition(ranking_game_time), id_handler.getTimeAlive(player_queue.first));
+        game_state->setStadistics(true, infected_killed, ammo_used, game_time);
+        player_queue.second->push(game_state);
 
-            game_state->setStadistics(true, infected_killed, ammo_used, game_time);
-            player_queue.second->push(game_state);
-
-            std::cout << "Game state: " << game_state->isGameOver() << std::endl;
-            std::cout << "Players won: " << game_state->didPlayersWin() << std::endl;
-            std::cout << "Infected killed: " << infected_killed.second << std::endl;
-            printf("Infected killed Ranking: %d\n", infected_killed.first);
-            std::cout << "Ammo used: " << ammo_used.second << std::endl;
-            printf("Ammo used Ranking: %d\n", ammo_used.first);
-            std::cout << "Game loop time: " << game_time.second << std::endl;
-            printf("Game loop time Ranking: %d\n", game_time.first);
-            player_queue.second->push(game_state);
+        std::cout << "Game state: " << game_state->isGameOver() << std::endl;
+        std::cout << "Players won: " << game_state->didPlayersWin() << std::endl;
+        std::cout << "Infected killed: " << infected_killed.second << std::endl;
+        printf("Infected killed Ranking: %d\n", infected_killed.first);
+        std::cout << "Ammo used: " << ammo_used.second << std::endl;
+        printf("Ammo used Ranking: %d\n", ammo_used.first);
+        std::cout << "Game loop time: " << game_time.second << std::endl;
+        printf("Game loop time Ranking: %d\n", game_time.first);
+        player_queue.second->push(game_state);
         }
     }
 }

@@ -57,3 +57,4 @@ std::pair<uint8_t, uint32_t> GameStateForClient::getAmmoUsed() {
 std::pair<uint8_t, uint32_t> GameStateForClient::getGameLoopTime() {
     return this->stadistics.getGameTimeInfo();
 }
+

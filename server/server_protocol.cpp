@@ -230,16 +230,30 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         }
         
     }
-   /*  if (game_state->isGameOver()) {
-        sendUnsignedInteger(game_state->getGameLoopTime());  
-        if (was_closed) return;
-            
-        sendUnsignedInteger(game_state->getInfectedKilled());
+    if (game_state->isGameOver()) {
+        std::pair<uint8_t, uint32_t> stats; 
+        stats = game_state->getGameLoopTime();
+        socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
 
-        sendUnsignedInteger(game_state->getAmmoUsed()); 
+        sendUnsignedInteger(stats.second);
         if (was_closed) return;
-    } */
+
+        stats = game_state->getInfectedKilled();
+            
+        socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
+        if (was_closed) return;
+
+        sendUnsignedInteger(stats.second);
+        if (was_closed) return;
+
+        stats = game_state->getAmmoUsed();
+        socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
+        if (was_closed) return;
+
+        sendUnsignedInteger(stats.second); 
+        if (was_closed) return;
+    } 
 }
 
 void ServerProtocol::sendFinishConditions(const bool &game_over, const bool &players_won) {

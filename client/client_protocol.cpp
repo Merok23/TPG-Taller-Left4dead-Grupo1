@@ -225,23 +225,34 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         entities[id] = entity;
         entities_len--; 
     }
-    /* std::shared_ptr<GameState> game_state = nullptr;
+    std::shared_ptr<GameState> game_state = nullptr;
     if ((bool) game_over) {
+        uint8_t game_time_ranking = receiveUnsignedSmallInteger();
+        if (was_closed) return NULL;
+
         uint32_t game_time = receieveUnsignedInteger();
+        if (was_closed) return NULL;
+
+        uint8_t infected_killed_ranking = receiveUnsignedSmallInteger();
         if (was_closed) return NULL;
 
         uint32_t infected_killed = receieveUnsignedInteger();
         if (was_closed) return NULL;
 
+        uint8_t ammo_used_ranking = receiveUnsignedSmallInteger();
+        if (was_closed) return NULL;
+
         uint32_t ammo = receieveUnsignedInteger(); 
         if (was_closed) return NULL;
 
-        game_state = std::make_shared<GameState>(entities, game_over, players_won, ammo, infected_killed, game_time);
+        Stadistics stadistics = Stadistics(); 
+        stadistics.setStadistics((bool)game_time_ranking, std::make_pair(infected_killed_ranking, infected_killed), 
+            std::make_pair(ammo_used_ranking, ammo), std::make_pair(game_time_ranking, game_time));
+       game_state = std::make_shared<GameState>(entities, game_over, players_won, stadistics);
     } else {
         game_state = std::make_shared<GameState>(entities, game_over, players_won);
     }
-    return game_state; */
-    return std::make_shared<GameState>(entities, game_over, players_won);
+    return game_state;
 }
 
 EntityType ClientProtocol::stringToEntityType(const std::string& entity_type) {

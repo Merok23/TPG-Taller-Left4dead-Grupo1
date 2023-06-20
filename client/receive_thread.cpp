@@ -20,9 +20,15 @@ void ReceiveThread::run() {
             }   
             if (game_state && game_state->game_over) {
                 std::cout << "GAME OVER" << std::endl;
-                std::cout << game_state->infected_killed << " infected killed" << std::endl;
-                std::cout << game_state->ammo_used << " ammo used" << std::endl;
-                std::cout << game_state->game_loop_time << " game loop time" << std::endl;
+                std::pair<uint8_t, uint32_t> infected_killed = game_state->getInfectedKilled();
+                std::cout << infected_killed.second << " infected killed" << std::endl;
+                std::cout << "Ranking: " << (int) infected_killed.first << std::endl;
+                std::pair<uint8_t, uint32_t> ammo_used = game_state->getAmmoUsed();
+                std::cout << ammo_used.second << " ammo used" << std::endl;
+                std::cout << "Ranking: " << (int) ammo_used.first << std::endl;
+                std::pair<uint8_t, uint32_t> game_time = game_state->getGameLoopTime();
+                std::cout << game_time.second << " game loop time" << std::endl;
+                std::cout << "Ranking: " << (int) game_time.first << std::endl;
             }
             if (game_state) {
                 //game_state->print();
