@@ -95,13 +95,15 @@ modes:
     max_common_infected: 3
     max_spear_infected: 2
     max_witch_infected: 1
+    max_venom_infected: 1
+    max_jumper_infected: 1
     accumulator: 1.1
     starting_multiplier: 1.0
   clear_the_zone:
     infected_total: 10
 zone_percentages:
-  common_infected: 0.7
+  common_infected: 0.6
   spear_infected: 0.2
   witch_infected: 0.1
   jumper_infected: 0.0
-  venom_infected: 0.0
+  venom_infected: 0.1

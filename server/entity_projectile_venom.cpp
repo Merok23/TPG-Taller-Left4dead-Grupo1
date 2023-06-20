@@ -45,7 +45,7 @@ bool VenomProjectile::isDead() {
 }
 
 std::string VenomProjectile::getEntityType() {
-    return "venom_projectile";
+    return "projectile_venom";
 }
 
 std::string VenomProjectile::getState() {
