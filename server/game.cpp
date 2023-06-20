@@ -193,8 +193,8 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->infectedCheckForAttackAndChase();
     this->checkForScreamingWitches();
     this->checkForCollidingProjectiles(); //venom's projectiles
-    //this->checkForBlastingVenoms();
-    //this->checkForShootingVenoms();
+    this->checkForBlastingVenoms();
+    this->checkForShootingVenoms();
     this->updateAllEntities();
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
