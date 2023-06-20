@@ -267,11 +267,13 @@ void ServerProtocol::sendRoomId(uint32_t room_id) {
 }
 
 void ServerProtocol::sendJoinResponse(bool accepted) {
-    uint8_t response = accepted;
-    uint8_t bytes = socket.sendall(&response, sizeof(uint8_t), &was_closed);
-    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending join response. Errno: ");
+    sendBool(accepted);
 }
 
+void ServerProtocol::sendGameMode(GameMode game_mode) {
+    uint8_t bytes = socket.sendall(&game_mode, sizeof(uint8_t), &was_closed);
+    if (was_closed && bytes != 0) throw LibError(errno, "Socket was closed while sending game mode. Errno: ");
+}
 // --------------------------------- OTRAS FUNCIONES ---------------------------------//
 bool ServerProtocol::isFinished() {
     return was_closed;

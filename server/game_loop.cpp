@@ -9,7 +9,7 @@
 GameLoop::GameLoop(GameMode gameMode) : 
     game_queue(MAX_ELEMENTS_QUEUE), 
     game_mode(gameMode),
-    game(CONFIG.scenario_width, CONFIG.scenario_height, gameMode), 
+    game(CONFIG.scenario_width, CONFIG.scenario_height, game_mode), 
     id_handler(game), 
     finished(false), 
     client_id(0), 
@@ -39,6 +39,10 @@ void GameLoop::deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& que
 
 bool GameLoop::isFinished() {
     return finished;
+}
+
+GameMode GameLoop::getGameMode() {
+    return game_mode;
 }
 
 bool GameLoop::isRoomEmpty() {

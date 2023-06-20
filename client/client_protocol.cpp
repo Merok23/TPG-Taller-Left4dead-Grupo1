@@ -163,6 +163,11 @@ bool ClientProtocol::receiveJoinResponse() {
     return (bool)response;
 }
 
+GameMode ClientProtocol::receiveGameMode() {
+    uint8_t game_mode = receiveUnsignedSmallInteger();
+    return (GameMode)game_mode;
+}
+
 std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     uint8_t game_over;
     game_over = receiveUnsignedSmallInteger();

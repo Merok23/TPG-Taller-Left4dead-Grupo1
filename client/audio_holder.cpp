@@ -65,10 +65,6 @@ void AudioHolder::create_background_music(const std::string &path) {
         Para mi esta cancion pega mejor en la parte de qt
     */
     // Mix_Music* music = Mix_LoadMUS("../../assets/Audio/Music/Futuristic_ambient_1.ogg");
-    // if (!music) {
-    //     // Error handling: Failed to load the music
-    //     throw std::runtime_error("Failed to load music: " + std::string(Mix_GetError()));
-    // }
     
 
 }
@@ -77,7 +73,7 @@ Mix_Music* AudioHolder::find_music(GameMode game_mode) {
     return this->music_holder.find(game_mode)->second;
 }
 
-std::map<AnimationName, Mix_Chunk*> AudioHolder::find_sound_effects(EntityType entity_type) {
+std::map<AnimationName, Mix_Chunk*>& AudioHolder::find_sound_effects(EntityType entity_type) {
     if (entity_type == SOLDIER_IDF ||
         entity_type == SOLDIER_P90 ||
         entity_type == SOLDIER_SCOUT)

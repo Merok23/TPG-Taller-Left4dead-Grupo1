@@ -4,13 +4,15 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, 
-                int32_t x_position, int32_t y_position, int width, int height,
-                int32_t hit_points, int32_t ammo, uint8_t lives,
-                std::map<AnimationName, Mix_Chunk*> sound_effects) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
+            uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
+            int32_t hit_points, int32_t ammo, uint8_t lives, 
+            std::map<AnimationName, Mix_Chunk*>& sound_effects, 
+            int y_player_data, int available_audio_channel) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
     health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives),
-    sound_effects(std::move(sound_effects))
+    sound_effects(sound_effects), 
+    y_player_data(y_player_data), available_audio_channel(available_audio_channel)
 {
     Color color_key = {0xFF, 0xFF, 0xFF};
     std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>("../../assets/Mis/heart.jpg", window, color_key);
@@ -38,17 +40,18 @@ bool Player::is_dead() {
 
 void Player::render() {
     GraphicsEntity::render();
-    health_bar.render(50, 200); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
-    ammo.render(50, 300); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
-    
     for (int i = 0; i < lives; i++) {
-        Area destArea(55 + i * 35, 100, 35, 35);
+        Area destArea(X_PLAYER_DATA + i * 25, y_player_data, 25, 25);
         life_an->render(destArea, SDL_FLIP_NONE);
     }
+    health_bar.render(X_PLAYER_DATA, y_player_data + HEART_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
+    ammo.render(X_PLAYER_DATA, y_player_data + HEART_SIZE + BAR_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
+    
+    
     if (current_animation == AN_SHOOT) {
-        Mix_PlayChannel(0, sound_effects[AN_SHOOT], -1);
+        Mix_PlayChannel(available_audio_channel, sound_effects[AN_SHOOT], -1);
     } else {
-        Mix_HaltChannel(0);
+        Mix_HaltChannel(available_audio_channel);
     }
 }
 

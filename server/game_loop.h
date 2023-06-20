@@ -32,6 +32,7 @@ class GameLoop : public Thread {
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     bool isRoomEmpty();
+    GameMode getGameMode();
     void setGameStadistics(std::shared_ptr<GameStateForClient>& game_state);
     int getTotalTimeOfGameLoop();
     void endGameLoopTime();

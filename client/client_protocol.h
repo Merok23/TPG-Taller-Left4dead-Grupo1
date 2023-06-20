@@ -136,6 +136,7 @@ class ClientProtocol {
 	void closeSocket();
 	uint32_t receiveRoomId();
 	bool receiveJoinResponse();
+	GameMode receiveGameMode();
 
 	std::shared_ptr<GameState> receiveGameState();
 };
