@@ -43,8 +43,7 @@ void Client::run() {
             int response = protocol.receiveJoinResponse();
             if (response == 1) {
                 std::cout << "Joined room successfully"<< std::endl;
-                create_or_join_command.game_mode = protocol.receiveGameMode();
-            }    
+                create_or_join_command.game_mode = protocol.receiveGameMode()us            }    
             if (response == 0) {
                 std::cout << "Join room failed. Try again." << std::endl;
                 create_or_join_command = commands.cheatInfiniteHitpoints();
