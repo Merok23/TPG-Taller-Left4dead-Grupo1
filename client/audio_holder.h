@@ -16,7 +16,7 @@ class AudioHolder {
     explicit AudioHolder();
     ~AudioHolder();
     Mix_Music* find_music(GameMode game_mode);
-    std::map<AnimationName, Mix_Chunk*> find_sound_effects(EntityType entity_type);
+    std::map<AnimationName, Mix_Chunk*>& find_sound_effects(EntityType entity_type);
 
 
     private:
