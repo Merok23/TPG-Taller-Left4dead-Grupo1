@@ -30,18 +30,18 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
             throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
         }
 
-        std::cout << "Game mode is " << game_mode << std::endl;
         AudioHolder audio_holder;
-        Mix_Music* music = audio_holder.find_music(game_mode);
-        if (Mix_PlayMusic(music, -1) == -1) { //REVISAR
-            // Error handling: Failed to play the music
-            throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));
-        }
+        //Mix_Music* music = audio_holder.find_music(game_mode);
+        // if (Mix_PlayMusic(music, -1) == -1) { //REVISAR
+        //     // Error handling: Failed to play the music
+        //     throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));
+        // }
 
         SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
 
         TexturesHolder textures_holder(window);
-        GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), audio_holder, window);
+        GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), window, audio_holder);
+        //GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), window);
         Camera camera(window, 1700);
 
         time_t t1 = time(0);

@@ -4,13 +4,15 @@
 
 #include <iostream>
 
-Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, uint32_t id, 
-                int32_t x_position, int32_t y_position, int width, int height,
-                int32_t hit_points, int32_t ammo, uint8_t lives,
-                std::map<AnimationName, Mix_Chunk*> sound_effects, int y_player_data) :
+Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
+            uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
+            int32_t hit_points, int32_t ammo, uint8_t lives, 
+            std::map<AnimationName, Mix_Chunk*>& sound_effects, 
+            int y_player_data, int available_audio_channel) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
     health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives),
-    sound_effects(std::move(sound_effects)), y_player_data(y_player_data)
+    sound_effects(sound_effects), 
+    y_player_data(y_player_data), available_audio_channel(available_audio_channel)
 {
     Color color_key = {0xFF, 0xFF, 0xFF};
     std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>("../../assets/Mis/heart.jpg", window, color_key);
@@ -47,9 +49,9 @@ void Player::render() {
     
     
     if (current_animation == AN_SHOOT) {
-        Mix_PlayChannel(0, sound_effects[AN_SHOOT], -1);
+        Mix_PlayChannel(available_audio_channel, sound_effects[AN_SHOOT], -1);
     } else {
-        Mix_HaltChannel(0);
+        Mix_HaltChannel(available_audio_channel);
     }
 }
 

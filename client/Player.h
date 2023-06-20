@@ -12,10 +12,15 @@
 
 class Player : public GraphicsEntity{
 public:
+    // Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
+    //         uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
+    //         int32_t hit_points, int32_t ammo, uint8_t lives,
+    //         std::map<AnimationName, Mix_Chunk*> sound_effects, int y_player_data);
     Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
             uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
-            int32_t hit_points, int32_t ammo, uint8_t lives,
-            std::map<AnimationName, Mix_Chunk*> sound_effects, int y_player_data);
+            int32_t hit_points, int32_t ammo, uint8_t lives, 
+            std::map<AnimationName, Mix_Chunk*>& sound_effects, 
+            int y_player_data, int available_audio_channel);
     ~Player();
     VisualBar &get_ammo();
     VisualBar &get_health_bar();
@@ -31,8 +36,9 @@ private:
     uint8_t lives;
     std::unique_ptr<Animation> life_an;
 
-    std::map<AnimationName, Mix_Chunk*> sound_effects;
+    std::map<AnimationName, Mix_Chunk*>& sound_effects;
     int y_player_data;
+    int available_audio_channel;
 };
 
 #endif // __PLAYER_H__
