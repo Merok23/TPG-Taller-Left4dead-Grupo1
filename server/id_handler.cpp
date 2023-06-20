@@ -32,3 +32,18 @@ void IdHandler::setCheat(uint32_t client_id, Cheat cheatType) {
     uint32_t id = my_ids[client_id];
     game.setCheat(id, cheatType);
 }
+
+uint32_t IdHandler::getAmmountOfAmmoUsed(uint32_t client_id) {
+    uint32_t id = my_ids[client_id];
+    return game.getAmmountOfAmmoUsedBySoldier(id);
+}
+
+uint32_t IdHandler::getAmmountOfInfectedKilled(uint32_t client_id) {
+    uint32_t id = my_ids[client_id];
+    return game.getAmmountOfInfectedKilledBySoldier(id);
+}
+
+uint32_t IdHandler::getTimeOfDeath(uint32_t client_id) {
+    uint32_t id = my_ids[client_id];
+    return game.getTimeOfDeathOfSoldier(id);
+}

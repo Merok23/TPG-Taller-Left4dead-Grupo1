@@ -6,7 +6,8 @@ range(CONFIG.weapon_p90_range),
 magazine_size(CONFIG.weapon_p90_magazine_size),
 rounds_left(CONFIG.weapon_p90_magazine_size),
 burst_size(CONFIG.weapon_p90_burst_size),
-distance_modifier(CONFIG.weapon_p90_distance_modifier) {}
+distance_modifier(CONFIG.weapon_p90_distance_modifier),
+ammo_used(0) {}
 
 bool AssaultRifle::inRange(uint32_t distance) {
     return distance <= this->range;
@@ -31,6 +32,7 @@ bool AssaultRifle::emptyMagazine() {
 
 void AssaultRifle::useAmmo() {
     this->rounds_left -= burst_size;
+    this->ammo_used += burst_size;
 }
 
 std::string AssaultRifle::getWeaponType() {
@@ -39,4 +41,8 @@ std::string AssaultRifle::getWeaponType() {
 
 uint32_t AssaultRifle::getAmmoLeft() {
     return this->rounds_left;
+}
+
+uint32_t AssaultRifle::getAmountOfAmmoUsed() {
+    return this->ammo_used;
 }

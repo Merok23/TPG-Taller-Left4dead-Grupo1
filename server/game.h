@@ -76,6 +76,9 @@ class Game {
         std::shared_ptr<GameStateForClient> update();
         uint32_t getCurrentId();
         void setSurvivalMode();
+        uint32_t getAmmountOfAmmoUsedBySoldier(const uint32_t& id);
+        uint32_t getAmmountOfInfectedKilledBySoldier(const uint32_t& id);
+        uint32_t getTimeOfDeathOfSoldier(const uint32_t& id);
         ~Game();
         
     private:

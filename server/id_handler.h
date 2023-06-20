@@ -20,5 +20,9 @@ class IdHandler {
         void shoot(uint32_t client_id, bool isShooting);
         void reload(uint32_t client_id, bool isReloading);
         void setCheat(uint32_t client_id, Cheat cheatType);
+        uint32_t getAmmountOfAmmoUsed(uint32_t client_id);
+        uint32_t getAmmountOfInfectedKilled(uint32_t client_id);
+        uint32_t getTimeOfDeath(uint32_t client_id);
+
 };
 #endif
