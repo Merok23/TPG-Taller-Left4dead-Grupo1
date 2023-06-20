@@ -16,6 +16,7 @@
 class GameLoop : public Thread {
     private:
     Queue<std::shared_ptr<Action>> game_queue;
+    GameMode game_mode;
     Game game;
     IdHandler id_handler; 
     std::map<uint32_t, Queue<std::shared_ptr<GameStateForClient>>*> player_queues;
@@ -29,6 +30,7 @@ class GameLoop : public Thread {
     int addClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     void deleteClientQueue(Queue<std::shared_ptr<GameStateForClient>>& queue);
     bool isRoomEmpty();
+    GameMode getGameMode();
     virtual void run() override;
     bool isFinished();
     void stop();

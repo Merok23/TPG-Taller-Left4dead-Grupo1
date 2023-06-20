@@ -34,11 +34,12 @@ void GameHandler::leaveRoom(uint32_t room_id,
 }
 
 bool GameHandler::joinRoom(uint32_t room_id, 
-    Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id) {
+    Queue<std::shared_ptr<GameStateForClient>>& queue, uint32_t& client_id, GameMode& game_mode) {
     std::unique_lock<std::mutex> lock(mutex);
     auto it = rooms.find(room_id);
     if (it == rooms.end() || it->second->isFinished()) return false;
     client_id = it->second->addClientQueue(queue);
+    game_mode = it->second->getGameMode();
     return true;
 }
 
