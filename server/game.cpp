@@ -193,7 +193,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->infectedCheckForAttackAndChase();
     this->checkForScreamingWitches();
     this->checkForCollidingProjectiles(); //venom's projectiles
-    this->checkForBlastingVenoms();
+    //this->checkForBlastingVenoms();
     //this->checkForShootingVenoms();
     this->updateAllEntities();
     this->checkForGameOver();
@@ -566,9 +566,9 @@ uint32_t Game::getAmmountOfInfectedKilledBySoldier(const uint32_t &id) {
     return player->getAmmountOfInfectedKilled();
 }
 
-uint32_t Game::getTimeAliveOfSoldier(const uint32_t &id) {
+uint32_t Game::getTimeOfDeathOfSoldier(const uint32_t &id) {
     Player* player = dynamic_cast<Player*>(this->entities[id]);
-    return player->getTimeAlive();
+    return player->getTimeOfDeath();
 }
 
 Game::~Game() {

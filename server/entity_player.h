@@ -31,8 +31,8 @@ class Player : public Entity {
         int32_t time_until_dead;
         int lives; 
         uint32_t infected_killed;
-        std::chrono::high_resolution_clock::time_point start_time_alive; 
-        uint32_t total_time_alive;
+        std::chrono::high_resolution_clock::time_point start_time_of_death; 
+        uint32_t time_of_death;
 
     public:
         Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weapon);
@@ -52,7 +52,7 @@ class Player : public Entity {
         bool isDown();
         uint32_t getAmmountOfInfectedKilled();
         uint32_t getAmmountOfAmmoUsed();
-        uint32_t getTimeAlive();
+        uint32_t getTimeOfDeath();
         void setReviving();
         virtual ~Player() override;
     private:

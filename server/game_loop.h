@@ -25,6 +25,12 @@ class GameLoop : public Thread {
     std::chrono::high_resolution_clock::time_point start_loop_time;
     uint32_t total_loop_time;   
     std::mutex mutex;
+    private:
+    void setStadisticsCTZ(std::shared_ptr<GameStateForClient>& game_state);
+    void setStadisticsSurvival(std::shared_ptr<GameStateForClient>& game_state);
+    void sortRankingStadistic(std::vector<std::pair<uint32_t, uint32_t>>& stadistic);
+    uint8_t getRanking(std::vector<std::pair<uint32_t, uint32_t>>& stadistic, uint32_t id);
+
 
     public:
     explicit GameLoop(GameMode gameMode);

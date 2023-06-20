@@ -19,6 +19,7 @@ void ReceiveThread::run() {
                 break;
             }   
             if (game_state && game_state->game_over) {
+                std::cout<< "ENTRO ACA" << std::endl;
                 std::cout << "GAME OVER" << std::endl;
                 std::pair<uint8_t, uint32_t> infected_killed = game_state->getInfectedKilled();
                 std::cout << infected_killed.second << " infected killed" << std::endl;

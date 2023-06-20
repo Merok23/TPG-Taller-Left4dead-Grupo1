@@ -18,8 +18,8 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
     time_until_dead(0),
     lives(CONFIG.soldier_lives), 
     infected_killed(0),
-    start_time_alive(std::chrono::high_resolution_clock::now()),
-    total_time_alive(0) {}
+    start_time_of_death(std::chrono::high_resolution_clock::now()),
+    time_of_death(0) {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
@@ -65,8 +65,8 @@ void Player::update(Map& map) {
             this->time_until_dead = 0;
             this->lives = 0;
             auto t2 = std::chrono::high_resolution_clock::now();
-            auto time_dif = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_time_alive);
-            this->total_time_alive = time_dif.count();
+            auto time_dif = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_time_of_death);
+            this->time_of_death = time_dif.count();
             return;
         } else {
             time_until_dead++;
@@ -82,8 +82,8 @@ void Player::update(Map& map) {
     }
 }
 
-uint32_t Player::getTimeAlive() {
-    return total_time_alive;
+uint32_t Player::getTimeOfDeath() {
+    return this->time_of_death;
 }
 
 void Player::resolveDamage() {
@@ -129,13 +129,11 @@ void Player::shoot(std::vector<HitEntity>& entities_hit) {
         entity->setDamageForTheRound(damage);
         if (entity->getHitPoints() - damage <= 0) {
             this->infected_killed++;
-            std::cout << "infected killed: " << this->infected_killed << std::endl;
         }
     }
     this->my_weapon->useAmmo();
 }
 uint32_t Player::getAmmountOfInfectedKilled() {
-    std::cout << "infected killed return: " << this->infected_killed << std::endl;
     return this->infected_killed;
 }
 

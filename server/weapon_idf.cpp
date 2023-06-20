@@ -32,6 +32,7 @@ bool MachineGun::emptyMagazine() {
 
 void MachineGun::useAmmo() {
     this->rounds_left -= burst_size;
+    this->ammo_used += burst_size;
 }
 
 std::string MachineGun::getWeaponType() {

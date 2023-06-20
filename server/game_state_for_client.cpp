@@ -18,7 +18,8 @@ GameStateForClient::GameStateForClient(GameStateForClient*& other) :
     width(other->width),
     height(other->height),
     game_over(other->game_over),
-    players_won(other->players_won) {}
+    players_won(other->players_won), 
+    stadistics(other->stadistics) {}
     
 std::map<uint32_t, Entity*>& GameStateForClient::getEntities(){
     return this->entities;
