@@ -105,7 +105,7 @@ bool Player::isReviving() {
 uint8_t Player::getLives() {
     return this->lives;
 }
-#include <iostream>
+
 void Player::shoot(std::vector<HitEntity>& entities_hit) {
     if (this->state == DEAD_SOLDIER) return;
     if (this->incapacitated > 0) return;

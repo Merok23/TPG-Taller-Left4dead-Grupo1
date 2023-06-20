@@ -11,7 +11,7 @@ GameStateForClient::GameStateForClient
     height(height),
     game_over(game_over),
     players_won(players_won), 
-    stadistics() {}
+    statistics() {}
 
 GameStateForClient::GameStateForClient(GameStateForClient*& other) :
     entities(other->entities),
@@ -19,7 +19,7 @@ GameStateForClient::GameStateForClient(GameStateForClient*& other) :
     height(other->height),
     game_over(other->game_over),
     players_won(other->players_won), 
-    stadistics(other->stadistics) {}
+    statistics(other->statistics) {}
     
 std::map<uint32_t, Entity*>& GameStateForClient::getEntities(){
     return this->entities;
@@ -44,18 +44,18 @@ bool& GameStateForClient::didPlayersWin() {
 void GameStateForClient::setStadistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
     std::pair<uint8_t, uint32_t> ammo_used_info, 
     std::pair<uint8_t, uint32_t> game_time_info) {
-    this->stadistics.setStadistics(ranking, infected_killed_info, ammo_used_info, game_time_info);
+    this->statistics.setStatistics(ranking, infected_killed_info, ammo_used_info, game_time_info);
 }
 
 std::pair<uint8_t, uint32_t> GameStateForClient::getInfectedKilled() {
-    return this->stadistics.getInfectedKilledInfo();
+    return this->statistics.getInfectedKilledInfo();
 }
 
 std::pair<uint8_t, uint32_t> GameStateForClient::getAmmoUsed() {
-    return this->stadistics.getAmmoUsedInfo();
+    return this->statistics.getAmmoUsedInfo();
 }
 
 std::pair<uint8_t, uint32_t> GameStateForClient::getGameLoopTime() {
-    return this->stadistics.getGameTimeInfo();
+    return this->statistics.getGameTimeInfo();
 }
 

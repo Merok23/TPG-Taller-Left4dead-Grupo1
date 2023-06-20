@@ -8,7 +8,7 @@ GameState::GameState() :
     game_over(false), 
     players_won(false), 
     lost_connection(true),
-    stadistics() {}
+    statistics() {}
 
 GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool game_over,
@@ -17,32 +17,32 @@ GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     game_over(game_over),
     players_won(players_won), 
     lost_connection(false), 
-    stadistics() {}
+    statistics() {}
 
 GameState::GameState(const std::map<uint32_t, Entity*>& entities,
     bool game_over,
     bool players_won,
-    Stadistics stadistics) : 
+    Statistics statistics) : 
     entities(entities), 
     game_over(game_over),
     players_won(players_won), 
     lost_connection(false), 
-    stadistics(stadistics){}
+    statistics(statistics){}
     
 void GameState::setLostConnection() {
     this->lost_connection = true;
 }
 
 std::pair<uint8_t, uint32_t> GameState::getInfectedKilled() {
-    return this->stadistics.getInfectedKilledInfo();
+    return this->statistics.getInfectedKilledInfo();
 }
 
 std::pair<uint8_t, uint32_t> GameState::getAmmoUsed() {
-    return this->stadistics.getAmmoUsedInfo();
+    return this->statistics.getAmmoUsedInfo();
 }
 
 std::pair<uint8_t, uint32_t> GameState::getGameLoopTime() {
-    return this->stadistics.getGameTimeInfo();
+    return this->statistics.getGameTimeInfo();
 }
 
 GameState::~GameState() {

@@ -168,6 +168,7 @@ void GameLoop::stop() {
         finished = true;
     }
 }
+
 GameLoop::~GameLoop() {
     game_queue.close();
 }

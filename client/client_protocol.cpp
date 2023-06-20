@@ -250,10 +250,10 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         uint32_t ammo = receieveUnsignedInteger(); 
         if (was_closed) return NULL;
 
-        Stadistics stadistics = Stadistics(); 
-        stadistics.setStadistics((bool)game_time_ranking, std::make_pair(infected_killed_ranking, infected_killed), 
+        Statistics statistics = Statistics(); 
+        statistics.setStatistics((bool)game_time_ranking, std::make_pair(infected_killed_ranking, infected_killed), 
             std::make_pair(ammo_used_ranking, ammo), std::make_pair(game_time_ranking, game_time));
-       game_state = std::make_shared<GameState>(entities, game_over, players_won, stadistics);
+       game_state = std::make_shared<GameState>(entities, game_over, players_won, statistics);
     } else {
         game_state = std::make_shared<GameState>(entities, game_over, players_won);
     }
