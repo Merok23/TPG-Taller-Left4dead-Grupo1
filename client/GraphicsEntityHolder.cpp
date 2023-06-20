@@ -6,7 +6,8 @@ GraphicsEntityHolder::GraphicsEntityHolder(std::shared_ptr<GameState> gs, Textur
                                             AudioHolder& audio_holder, SdlWindow &window) :
     window(window), 
     textures_holder(texture_holder),
-    audio_holder(audio_holder) {
+    audio_holder(audio_holder),
+    y_player_data(50) {
     for (auto& pair : gs->entities) {
         if (pair.second->getEntityType() == EntityType::SOLDIER_IDF
         || pair.second->getEntityType() == EntityType::SOLDIER_SCOUT
@@ -27,16 +28,19 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
                                     entity->getHitPoints(),
                                     entity->getAmmoLeft(),
                                     entity->getLives(),
-                                    audio_holder.find_sound_effects(entity_type));  
-        entities[entity->getId()] = player;
-        players.push_back(player);
+                                    audio_holder.find_sound_effects(entity_type),
+                                    y_player_data);  
+    entities[entity->getId()] = player;
+    players.push_back(player);
+
+    y_player_data += Y_PLAYER_NEEDED;
     return player;
 }
 
 std::shared_ptr<GraphicsEntity> GraphicsEntityHolder::createInfected(Entity* entity, EntityType type, AudioHolder& audio_holder) {
     std::map<AnimationName, std::shared_ptr<SdlTexture>> textures = this->textures_holder.find_textures(type);
-        
- std::shared_ptr<GraphicsEntity> new_entity = nullptr;
+
+    std::shared_ptr<GraphicsEntity> new_entity = nullptr;
     if (type == EntityType::CRATER)
         new_entity = std::make_shared<GraphicsEntity>(
                                                     textures,
@@ -85,6 +89,7 @@ void GraphicsEntityHolder::update_x(int32_t delta_x) {
 }
 
 void  GraphicsEntityHolder::add_player(Entity* entity) {
+    std::cout << "entity es " << entity << std::endl;
     if (entity->getEntityType() == EntityType::SOLDIER_IDF
         || entity->getEntityType() == EntityType::SOLDIER_SCOUT
         || entity->getEntityType() == EntityType::SOLDIER_P90) {

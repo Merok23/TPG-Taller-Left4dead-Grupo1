@@ -18,7 +18,7 @@ AudioHolder::AudioHolder() {
     path.replace(0, path.length(), "../../assets/Audio/SoundEffects");
     create_sound_effects(path);
 
-    Mix_VolumeMusic(MIX_MAX_VOLUME/16);  // Set the volume to 50% (half of the maximum)
+    Mix_VolumeMusic(MIX_MAX_VOLUME/4);  // Set the volume to 50% (half of the maximum)
 }
 
 

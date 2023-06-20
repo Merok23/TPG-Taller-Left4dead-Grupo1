@@ -10,6 +10,8 @@
 #include "textures_holder.h"
 #include "audio_holder.h"
 
+#define Y_PLAYER_NEEDED 300
+
 class GraphicsEntityHolder {
 public:
     GraphicsEntityHolder(std::shared_ptr<GameState> gs, TexturesHolder textures_holder, AudioHolder& audio_holder, SdlWindow &window);
@@ -36,6 +38,8 @@ private:
     std::map<uint32_t, std::shared_ptr<GraphicsEntity>> entities;
     std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Player> MainPlayer;
+
+    int y_player_data;
 };
 
 #endif // __GRAPHICSENTITYHOLDER_H__
