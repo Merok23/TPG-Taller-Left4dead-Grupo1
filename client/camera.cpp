@@ -3,7 +3,14 @@
 #include <cmath>
 
 Camera::Camera(SdlWindow &window, int main_player_x) : window(window), 
-    background("../../assets/backgrounds/War1/Bright/War.png", window),
+    //background("../../assets/backgrounds/War1/Bright/War.png", window),
+    background_sky("../../assets/backgrounds/War1/Bright/sky_long.png", window),
+    background_houses1("../../assets/backgrounds/War1/Bright/houses1_long.png", window),
+    background_houses2("../../assets/backgrounds/War1/Bright/houses2_long.png", window),
+    background_houses3("../../assets/backgrounds/War1/Bright/houses3_long.png", window),
+    background_ruins("../../assets/backgrounds/War1/Bright/ruins_long.png", window),
+    background_fence("../../assets/backgrounds/War1/Bright/fence_long.png", window),
+    background_road("../../assets/backgrounds/War1/Bright/road_long.png", window),
     destArea(0, 0, WINDOW_WIDTH, WINDOW_HEIGTH),
     x_camera_world(main_player_x- WINDOW_WIDTH/2) {
         if (x_camera_world < 0) {
@@ -30,7 +37,14 @@ void Camera::render(GraphicsEntityHolder &ge_holder) {
 
     Area srcArea(x_camera_world, 400, WINDOW_WIDTH, WINDOW_HEIGTH);
     window.fill();
-    background.render(srcArea, destArea, SDL_FLIP_NONE);
+    
+    background_sky.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_ruins.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_houses3.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_houses2.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_houses1.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_fence.render(srcArea, destArea, SDL_FLIP_NONE);
+    background_road.render(srcArea, destArea, SDL_FLIP_NONE);
 }
 
 int Camera::get_x_left(){

@@ -5,7 +5,7 @@
 #include "SdlTexture.h"
 #include "GraphicsEntityHolder.h"
 
-#define BACKGROUND_WIDTH 5760
+#define BACKGROUND_WIDTH 7680
 #define BACKGROUND_HEIGTH 1080
 
 #define WINDOW_WIDTH (1590)
@@ -24,7 +24,15 @@ class Camera {
 
     private:
     SdlWindow &window;
-    SdlTexture background;
+
+    SdlTexture background_sky;
+    SdlTexture background_houses1;
+    SdlTexture background_houses2;
+    SdlTexture background_houses3;
+    SdlTexture background_ruins;
+    SdlTexture background_fence;
+    SdlTexture background_road;
+    
     Area destArea;
     int x_camera_world;
 };
