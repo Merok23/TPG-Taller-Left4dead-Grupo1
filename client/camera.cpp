@@ -2,8 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-Camera::Camera(SdlWindow &window, int main_player_x, int main_player_y) : window(window), 
-    //background("../../assets/backgrounds/War1/Bright/War.png", window),
+Camera::Camera(SdlWindow &window, int main_player_x, int main_player_y) : window(window),
     background_sky("../../assets/backgrounds/War1/Bright/sky_long.png", window),
     background_houses1("../../assets/backgrounds/War1/Bright/houses1_long.png", window),
     background_houses2("../../assets/backgrounds/War1/Bright/houses2_long.png", window),
