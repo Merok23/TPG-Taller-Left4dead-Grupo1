@@ -83,9 +83,10 @@ void GraphicsEntityHolder::get_new_coordenates_center(int *x, int *y) {
     }
 }
 
-void GraphicsEntityHolder::update_x(int32_t delta_x) {
+void GraphicsEntityHolder::update_x(int32_t delta_x, int32_t delta_y) {
     for (const auto& pair : entities) {
         pair.second->update_x(pair.second->getX() - delta_x);
+        pair.second->update_y(pair.second->getY() - delta_y);
     }
 }
 

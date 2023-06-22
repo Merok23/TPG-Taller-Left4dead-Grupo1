@@ -21,7 +21,7 @@ public:
 
     std::shared_ptr<Player> getMainPlayer();
     void get_new_coordenates_center(int *x, int *y);
-    void update_x(int32_t x); 
+    void update_x(int32_t delta_x, int32_t delta_y); 
 
     void update(float& dt, std::shared_ptr<GameState> gs);
     void render(int x_left, int x_right);
@@ -31,8 +31,6 @@ private:
     void add_player(Entity* entity);
     std::shared_ptr<Player> createSoldier(Entity* entity, EntityType type, AudioHolder& audio_holder);
     std::shared_ptr<GraphicsEntity> createInfected(Entity* entity, EntityType type);
-    //std::shared_ptr<Player> createSoldier(Entity* entity, EntityType type);
-    //std::shared_ptr<GraphicsEntity> createInfected(Entity* entity, EntityType type);
 
     
     

@@ -41,7 +41,7 @@ void Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), window, audio_holder);
-        Camera camera(window, 1700);
+        Camera camera(window, 1700, 400);
 
         time_t t1 = time(0);
         int it = 0;

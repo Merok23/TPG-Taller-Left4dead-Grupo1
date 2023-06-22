@@ -27,6 +27,7 @@ class GraphicsEntity {
     bool is_dead();
 
     void update_x(int32_t x);
+    void update_y(int32_t y);
 
 protected:
     bool facingLeft;
