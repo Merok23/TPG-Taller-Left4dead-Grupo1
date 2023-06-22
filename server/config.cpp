@@ -122,7 +122,7 @@ void Config::loadConfig() {
     CONFIG.common_infected_attack_range = config_node["infected"]["common"]["attack_range"].as<int>();
     CONFIG.common_infected_damage = config_node["infected"]["common"]["damage"].as<int>();
     CONFIG.common_infected_attack_cooldown = config_node["infected"]["common"]["attack_cooldown"].as<int>();
-    CONFIG.common_infected_attack_duration = config_node["infected"]["common"]["attac_duration"].as<int>();
+    CONFIG.common_infected_attack_duration = config_node["infected"]["common"]["attack_duration"].as<int>();
     
     // Spear Infected:
     //  Stats:
