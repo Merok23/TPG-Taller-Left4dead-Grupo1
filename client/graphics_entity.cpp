@@ -126,3 +126,8 @@ void GraphicsEntity::update_x(int32_t x) {
 }
 
 
+void GraphicsEntity::update_y(int32_t y) {
+    this->y = y;
+}
+
+

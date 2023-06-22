@@ -16,7 +16,7 @@
 
 class Camera {
     public:
-    explicit Camera(SdlWindow &window, int main_player_x);
+    explicit Camera(SdlWindow &window, int main_player_x, int main_player_y);
 
     void render(GraphicsEntityHolder &ge_holder);
     int get_x_left();
@@ -35,6 +35,7 @@ class Camera {
     
     Area destArea;
     int x_camera_world;
+    int y_camera_world;
 };
 
 #endif //__CAMERA_H__
