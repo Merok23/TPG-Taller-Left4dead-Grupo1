@@ -19,11 +19,12 @@ struct config CONFIG {
     10, // common_infected_damage
     40, // common_infected_attack_cooldown
     25, // common_infected_radius
+    25, // common_infected_attack_duration
     100, // spear_infected_health
     10, // spear_infected_speed
     25, // spear_infected_radius
     350, // spear_infected_look_range
-    120, // spear_infected_attack_range
+    90, // spear_infected_attack_range
     80, // spear_infected_attack_cooldown
     20, // spear_infected_damage
     50, // witch_infected_health
@@ -121,6 +122,7 @@ void Config::loadConfig() {
     CONFIG.common_infected_attack_range = config_node["infected"]["common"]["attack_range"].as<int>();
     CONFIG.common_infected_damage = config_node["infected"]["common"]["damage"].as<int>();
     CONFIG.common_infected_attack_cooldown = config_node["infected"]["common"]["attack_cooldown"].as<int>();
+    CONFIG.common_infected_attack_duration = config_node["infected"]["common"]["attac_duration"].as<int>();
     
     // Spear Infected:
     //  Stats:

@@ -24,6 +24,7 @@ struct config {
     int common_infected_damage;
     int common_infected_attack_cooldown;
     int common_infected_radius;
+    int common_infected_attack_duration;
     int spear_infected_health;
     int spear_infected_speed;
     int spear_infected_radius;

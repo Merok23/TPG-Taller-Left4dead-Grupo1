@@ -11,7 +11,8 @@ CommonInfected::CommonInfected(uint32_t id, uint32_t positionX, uint32_t positio
     attack_cooldown(CONFIG.common_infected_attack_cooldown),
     attack_damage(CONFIG.common_infected_damage),
     incapacitated(0),
-    speed(CONFIG.common_infected_speed) {}
+    speed(CONFIG.common_infected_speed),
+    attack_duration(CONFIG.common_infected_attack_duration) {}
 
 void CommonInfected::update(Map& map) {
     if (this->state == DEAD_INFECTED) return;
@@ -19,16 +20,20 @@ void CommonInfected::update(Map& map) {
     Entity::resolveDamage(); 
     
     if (this->getHitPoints() <= 0) this->state = DEAD_INFECTED; 
+    if (this->state == DEAD_INFECTED) return; //we could move the first check down here
     
     if (this->incapacitated > 0) {
         this->incapacitated--;
+        if (this->attack_duration == 0) {
+            this->state = IDLE_INFECTED; //we reset the animation
+            this->attack_duration = CONFIG.common_infected_attack_duration;
+        } else {
+            this->attack_duration--;
+        }
         return;
     }
     
     if (this->state == MOVING_INFECTED) map.move(this->getId());
-    //if player is far away, infected is still attacking the air, so:
-    //(really we should lower attack cooldown to match animation, and this would never happen)
-    if (this->state == ATTACKING_INFECTED && incapacitated == 0) this->state = IDLE_INFECTED;
 }
 
 bool CommonInfected::isDead() {
@@ -37,6 +42,7 @@ bool CommonInfected::isDead() {
 
 void CommonInfected::move(int32_t x_movement, int32_t y_movement) {
     if (this->state == DEAD_INFECTED) return; 
+    if (this->state == ATTACKING_INFECTED) return;
     this->state = MOVING_INFECTED;
     this->getDirectionOfMovement()->setDirection(x_movement * this->speed,
         y_movement * this->speed);

@@ -24,12 +24,13 @@ infected:
     damage: 10
     attack_cooldown: 40
     radius: 25
+    attack_duration: 25
   spear:
     health: 100
     speed: 10
     radius: 25
     look_range: 350
-    attack_range: 120
+    attack_range: 90
     attack_cooldown: 80
     damage: 20
   witch:
