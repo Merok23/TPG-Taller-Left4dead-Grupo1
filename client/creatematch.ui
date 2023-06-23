@@ -46,15 +46,15 @@
     </font>
    </property>
    <property name="text">
-    <string>Match name</string>
+    <string>Match Name</string>
    </property>
   </widget>
   <widget class="QLabel" name="mode_label">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>20</x>
      <y>230</y>
-     <width>51</width>
+     <width>111</width>
      <height>21</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Mode</string>
+    <string>Game Mode</string>
    </property>
   </widget>
   <widget class="QPushButton" name="choose_skin">
@@ -102,38 +102,96 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="placeholderText">
-    <string>my new awesome match</string>
-   </property>
-  </widget>
-  <widget class="QDial" name="dial">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>210</y>
-     <width>50</width>
-     <height>64</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>3</number>
-   </property>
-   <property name="pageStep">
-    <number>10</number>
+    <string>Awesome match!</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="mode_description">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>300</x>
      <y>190</y>
-     <width>251</width>
-     <height>111</height>
+     <width>211</width>
+     <height>101</height>
     </rect>
    </property>
-   <property name="placeholderText">
-    <string>Select the mode to play in</string>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Clear the zone mode.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A set number of enemies will spawn. If you and your party defeat all of them, you won.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
+  </widget>
+  <widget class="QGroupBox" name="game_mode_box">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>190</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QRadioButton" name="survival">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>100</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Survival</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="clear_the_zone">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear the Zone</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="peaceful">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>100</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Peaceful</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

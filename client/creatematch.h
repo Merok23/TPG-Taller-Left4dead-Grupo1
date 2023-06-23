@@ -26,17 +26,16 @@ signals:
     void resetCommand(COMMANDS* commands, command_t* create_or_join_command);
 
 private slots:
-    void on_dial_valueChanged(int value);
-
     void on_cancel_clicked();
-
     void on_choose_skin_clicked();
+    void on_peaceful_clicked();
+    void on_survival_clicked();
+    void on_clear_the_zone_clicked();
 
 private:
     Ui::CreateMatch *ui;
 
     QString initial_match_name;
-    int initial_dial_value;
     ChooseSoldier* choose_soldier;
 
     COMMANDS* commands;
