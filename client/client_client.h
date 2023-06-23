@@ -16,6 +16,7 @@
 #include "../client/client_protocol.h"
 #include "../common/socket.h"
 #include "graphics_qt.h"
+#include "graphics_qt_ending.h"
 
 #include "graphics.h"
 

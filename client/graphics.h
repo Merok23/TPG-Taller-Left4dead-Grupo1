@@ -24,16 +24,17 @@
 
 #include "audio_holder.h"
 
+
 class Graphics {
     public:
     Graphics();
-    void run(std::shared_ptr<GameState> gs, GameMode game_mode,
+    bool run(std::shared_ptr<GameState> gs, GameMode game_mode,
             Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
 
     private:
-    bool game_loop(const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
+    bool game_loop(bool* user_won, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos);
-    bool update(GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render);
+    bool update(bool* user_won, GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render);
     void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera);
 
     int last_it;

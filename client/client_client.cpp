@@ -70,8 +70,13 @@ void Client::run() {
             }
         }
     }
-    if (gs) 
-        graphics.run(gs, create_or_join_command.game_mode, queue_comandos, game_states);
+    if (gs) {
+        bool user_won = graphics.run(gs, create_or_join_command.game_mode, queue_comandos, game_states);
+        GraphicsQtEnding graphics_qt_ending;
+        graphics_qt_ending.run(user_won);
+
+        std::cout << "volvi del run de graphics_qt_ending" << std::endl;
+    }
     receive_thread->stop();
     send_thread->stop();
 }
