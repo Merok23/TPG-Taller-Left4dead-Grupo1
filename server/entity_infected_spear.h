@@ -24,6 +24,7 @@ class SpearInfected : public Infected {
         int32_t attack_damage;
         int32_t incapacitated;
         int32_t speed;
+        int32_t attack_duration;
     public:
         SpearInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
         virtual void move(int32_t x_movement, int32_t y_movement) override;

@@ -9,10 +9,12 @@ SpearInfected::SpearInfected(uint32_t id, uint32_t positionX, uint32_t positionY
     attack_cooldown(CONFIG.spear_infected_attack_cooldown),
     attack_damage(CONFIG.spear_infected_damage),
     incapacitated(0),
-    speed(CONFIG.spear_infected_speed) {}
+    speed(CONFIG.spear_infected_speed),
+    attack_duration(CONFIG.spear_infected_attack_cooldown) {}
 
 void SpearInfected::move(int32_t x_movement, int32_t y_movement) {
     if (this->state == DEAD_SPEAR_INFECTED) return; 
+    if (this->state == ATTACKING_SPEAR_INFECTED) return; //we could add a new state for this (MOVING_ATTACKING_SPEAR_INFECTED)
     this->state = MOVING_SPEAR_INFECTED;
     this->getDirectionOfMovement()->setDirection(x_movement * this->speed,
         y_movement * this->speed);
@@ -23,17 +25,21 @@ void SpearInfected::update(Map& map) {
     
     Entity::resolveDamage();
 
-    if (this->getHitPoints() <= 0) this->state = DEAD_SPEAR_INFECTED;
+    if (this->getHitPoints() <= 0) this->state = DEAD_SPEAR_INFECTED; 
+    if (this->state == DEAD_SPEAR_INFECTED) return; //we could move the first check down here
     
     if (this->incapacitated > 0) {
         this->incapacitated--;
+        if (this->attack_duration < 0) {
+            this->state = IDLE_SPEAR_INFECTED; //we reset the animation
+            this->attack_duration = CONFIG.common_infected_attack_duration;
+        } else {
+            this->attack_duration--;
+        }
         return;
     }
     
     if (this->state == MOVING_SPEAR_INFECTED) map.move(this->getId());
-
-    if (this->state == ATTACKING_SPEAR_INFECTED && incapacitated == 0) this->state = IDLE_SPEAR_INFECTED;
-
 }
 
 bool SpearInfected::isDead() {
@@ -52,6 +58,7 @@ void SpearInfected::setAttack(Entity* entity) {
     this->state = ATTACKING_SPEAR_INFECTED;
     entity->setDamageForTheRound(this->attack_damage);
     this->incapacitated = attack_cooldown;
+    this->attack_duration = CONFIG.common_infected_attack_duration;
 }
 
 void SpearInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) {

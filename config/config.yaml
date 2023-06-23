@@ -32,6 +32,7 @@ infected:
     look_range: 350
     attack_range: 90
     attack_cooldown: 80
+    attack_duration: 5
     damage: 20
   witch:
     health: 50
@@ -41,6 +42,7 @@ infected:
     attack_range: 60
     attack_cooldown: 80
     attack_damage: 20
+    attack_duration: 5
     shout_cooldown: 80
     shout_probability: 0.005
     scream_spawn_ammount: 10

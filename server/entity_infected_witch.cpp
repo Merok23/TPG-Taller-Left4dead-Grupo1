@@ -11,10 +11,12 @@ WitchInfected::WitchInfected(uint32_t id, uint32_t positionX, uint32_t positionY
     speed(CONFIG.witch_infected_speed),
     shout_cooldown(CONFIG.witch_infected_shout_cooldown),
     shout_probability(CONFIG.witch_infected_shout_probability),
-    has_spawned_infected(false) {}
+    has_spawned_infected(false),
+    attack_duration(CONFIG.witch_infected_attack_duration) {}
 
 void WitchInfected::move(int32_t x_movement, int32_t y_movement) {
     if (this->state == DEAD_WITCH_INFECTED) return;
+    if (this->state == ATTACKING_WITCH_INFECTED) return;
     this->state = MOVING_WITCH_INFECTED;
     this->getDirectionOfMovement()
         ->setDirection(x_movement * this->speed, y_movement * this->speed);
@@ -60,6 +62,7 @@ void WitchInfected::setAttack(Entity* entity) {
     this->state = ATTACKING_WITCH_INFECTED;
     entity->setDamageForTheRound(this->attack_damage);
     this->incapacitated = attack_cooldown;
+    this->attack_duration = CONFIG.witch_infected_attack_duration;
 }
 
 void WitchInfected::checkForSoldiersInRangeAndSetChase(std::map<uint32_t, Entity*> &soldiers) {
@@ -84,9 +87,16 @@ void WitchInfected::update(Map &map) {
     Entity::resolveDamage();
 
     if (this->getHitPoints() <= 0) this->state = DEAD_WITCH_INFECTED;
+    if (this->state == DEAD_WITCH_INFECTED) return;
 
     if (this->incapacitated > 0) {
         this->incapacitated--;
+        if (attack_duration < 0) {
+            this->state = IDLE_WITCH_INFECTED;
+            this->attack_cooldown = CONFIG.witch_infected_attack_cooldown;
+        } else {
+            this->attack_duration--;
+        }
         return;
     }
 
