@@ -16,10 +16,10 @@ struct config CONFIG {
     350, // infected_range
     5, // common_infected_speed
     60, //common_infected_attack_range
-    10, // common_infected_damage
-    40, // common_infected_attack_cooldown
+    5, // common_infected_damage
+    20, // common_infected_attack_cooldown
     25, // common_infected_radius
-    25, // common_infected_attack_duration
+    6, // common_infected_attack_duration
     100, // spear_infected_health
     10, // spear_infected_speed
     25, // spear_infected_radius
@@ -40,7 +40,7 @@ struct config CONFIG {
     10, // venom_infected_speed
     25, // venom_infected_radius
     600, // venom_infected_look_range
-    80, // venom_infected_blast_range
+    100, // venom_infected_blast_range
     500, // venom_infected_shoot_range
     14, //venom_infected_blast_incapacitated_time
     8, // venom_infected_shoot_incapacitated_time

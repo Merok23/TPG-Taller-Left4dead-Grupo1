@@ -21,10 +21,10 @@ infected:
     range: 350
     speed: 5
     attack_range: 60
-    damage: 10
-    attack_cooldown: 40
+    damage: 5
+    attack_cooldown: 20
     radius: 25
-    attack_duration: 25
+    attack_duration: 6
   spear:
     health: 100
     speed: 10
@@ -49,7 +49,7 @@ infected:
     speed: 10
     radius: 25
     look_range: 600
-    blast_range: 80
+    blast_range: 100
     shoot_range: 500
     blast_incapacitated_time: 14
     shoot_incapacitated_time: 8

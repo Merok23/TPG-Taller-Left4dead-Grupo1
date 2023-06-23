@@ -65,6 +65,10 @@ void GraphicsEntity::update(float dt, Entity *entity) {
         case EXPLODING:
             current_animation = AN_PROJECTILE_EXPLODING;
             break;
+        
+        case DESTROYED:
+            current_animation = AN_IDLE;
+            break;
         }
         
         x = entity->getPositionX() - width/2;

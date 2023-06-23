@@ -196,6 +196,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->checkForBlastingVenoms();
     this->checkForShootingVenoms();
     this->updateAllEntities();
+    //this->removeDeadProjectiles();
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
         std::make_shared<GameStateForClient>(this->entities, 
@@ -274,7 +275,7 @@ void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
     for (int i = 0; i < CONFIG.witch_infected_scream_spawn_ammount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
-        if (searchForPosition(CONFIG.common_infected_radius, x, y)) {
+        if (searchForPositionAtBorders(CONFIG.common_infected_radius, x, y)) {
             Entity* infected = new CommonInfected(current_id, x, y);
             this->addEntity(infected);
             CommonInfected* common = dynamic_cast<CommonInfected*>(infected);
@@ -367,19 +368,31 @@ void Game::setSurvivalMode() {
 }
 
 void Game::removeEntity(const uint32_t &id) {
+    //no problem for these since no one is iterating them
     this->infected.erase(id);
     this->venoms.erase(id);
     this->witches.erase(id);
-
-    if (this->projectiles.find(id) != this->projectiles.end()) {
-        //since the projectile dissapears, we need to remove it from the entities
-        //so the client doesn't receive it anymore.
-        this->projectiles.erase(id);
-        //delete this->entities[id];
-        //this->entities.erase(id);
-    } 
-    //this->soldiers.erase(id);
+    //hack for now:
+    this->projectiles.erase(id);
+    //projectiles are removed after iterating everthing game.update
 }
+/*
+void Game::removeDeadProjectiles() {
+    std::vector<uint32_t> dead_projectiles;
+    for (auto it = projectiles.begin(); it != projectiles.end(); ++it) {
+        if (it->second->isDead()) {
+            dead_projectiles.push_back(it->first);
+        }
+    }
+    
+    for (auto id : dead_projectiles) {
+        delete entities[id];
+        entities.erase(id);
+        projectiles.erase(id);
+    }
+}
+*/
+
 
 void Game::setTheZone() {
     this->zone_is_set = true;
@@ -395,7 +408,7 @@ void Game::spawnSpecificInfected(const InfectedType &type,const int &ammount) {
     for (int i = 0; i < ammount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
-        if (searchForPosition(radius, x, y)) {
+        if (searchForPositionAtBorders(radius, x, y)) {
             //id is not a problem (race condition) since there is no 
             //other thread calling for addEntity in the game update
             Entity* entity = createInfected(type, this->current_id, x, y);
@@ -465,12 +478,24 @@ void Game::spawnCraters(int ammount) {
     for (int i = 0; i < ammount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
-        if (searchForPosition(CONFIG.crater_radius, x, y)) {
+        if (searchForPositionAnywhere(CONFIG.crater_radius, x, y)) {
             Entity* crater = new Crater(current_id, x, y);
             this->addEntity(crater);
         }
     }
     this->spawnCratersAtTheBorder();
+}
+
+bool Game::searchForPositionAnywhere(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    bool found = false;
+    int mod_y = this->gameMap.getHeight() - 2 * radius;
+    while (!found) {
+        x = rand() % this->gameMap.getWidth();
+        y = rand() % mod_y;
+        y += radius;
+        found = !this->gameMap.checkForCollisionInPosition(x, y, radius);
+    }
+    return found;
 }
 
 void Game::spawnCratersAtTheBorder() {
@@ -485,7 +510,7 @@ void Game::spawnCratersAtTheBorder() {
 }
 
 
-bool Game::searchForPosition(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint32_t& y) {
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     //start and end it's for when the spawn point is full

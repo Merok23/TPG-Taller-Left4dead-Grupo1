@@ -24,7 +24,7 @@ void CommonInfected::update(Map& map) {
     
     if (this->incapacitated > 0) {
         this->incapacitated--;
-        if (this->attack_duration == 0) {
+        if (this->attack_duration < 0) {
             this->state = IDLE_INFECTED; //we reset the animation
             this->attack_duration = CONFIG.common_infected_attack_duration;
         } else {
@@ -87,6 +87,7 @@ void CommonInfected::setAttack(Entity* entity) {
     this->state = ATTACKING_INFECTED;
     entity->setDamageForTheRound(this->attack_damage);
     this->incapacitated = attack_cooldown;
+    this->attack_duration = CONFIG.common_infected_attack_duration;
 }
 
 void CommonInfected::checkForSoldiersInRangeAndSetChase(std::map<u_int32_t, Entity*> &soldiers) {
