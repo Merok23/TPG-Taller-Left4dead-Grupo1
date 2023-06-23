@@ -54,11 +54,11 @@ infected:
     blast_range: 100
     shoot_range: 500
     blast_incapacitated_time: 14
-    shoot_incapacitated_time: 8
+    shoot_incapacitated_time: 33
     blast_damage: 30
     blast_damage_timing: 7
     shoot_damage: 50
-    shoot_timing: 7
+    shoot_timing: 32
     blast_radius: 50
     projectile_radius: 5
     projectile_speed: 15

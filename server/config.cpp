@@ -45,11 +45,11 @@ struct config CONFIG {
     100, // venom_infected_blast_range
     500, // venom_infected_shoot_range
     14, //venom_infected_blast_incapacitated_time
-    8, // venom_infected_shoot_incapacitated_time
+    33, // venom_infected_shoot_incapacitated_time
     30, // venom_infected_blast_damage
     7, //venom_infected_blast_damage_timing
     50, // venom_infected_shoot_damage
-    7, // venom_infected_shoot_damage_timing
+    32, // venom_infected_shoot_timing
     50, // venom_infected_blast_radius
     5, // venom_infected_projectile_radius
     15, // venom_infected_projectile_speed
