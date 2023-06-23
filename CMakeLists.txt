@@ -40,6 +40,7 @@ set(CMAKE_AUTORCC ON)
 
 qt5_wrap_ui(UI_HEADERS ${UI_FILES})
 qt5_add_resources(QRC_FILES ${CLIENT_DIR}/assets.qrc) 
+qt5_add_resources(QRC_FILES ${CLIENT_DIR}/assets_ending.qrc) 
 
 add_library(common_objects OBJECT ${COMMON_SRCS})
 

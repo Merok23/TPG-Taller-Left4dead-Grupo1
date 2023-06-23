@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/imgs">
+        <file>blood_hand.png</file>
+        <file>confetti.png</file>
+    </qresource>
+</RCC>

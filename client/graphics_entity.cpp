@@ -85,7 +85,8 @@ void GraphicsEntity::update(float dt, Entity *entity) {
             else
                 it_current->second->update(0, 0);
         }
-        
+        else if (current_animation == AN_SHOOT && entity && entity->getEntityType() == VENOM)
+            it_current->second->update(dt, 4);
         else if (current_animation == AN_IDLE)
             it_current->second->update(dt, 5);
 
