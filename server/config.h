@@ -24,6 +24,7 @@ struct config {
     int common_infected_damage;
     int common_infected_attack_cooldown;
     int common_infected_radius;
+    int common_infected_attack_duration;
     int spear_infected_health;
     int spear_infected_speed;
     int spear_infected_radius;
@@ -31,6 +32,7 @@ struct config {
     int spear_infected_attack_range;
     int spear_infected_attack_cooldown;
     int spear_infected_damage;
+    int spear_infected_attack_duration;
     int witch_infected_health;
     int witch_infected_speed;
     int witch_infected_radius;
@@ -40,6 +42,7 @@ struct config {
     int witch_infected_attack_damage;
     int witch_infected_shout_cooldown;
     double witch_infected_shout_probability;
+    int witch_infected_attack_duration;
     int venom_infected_health;
     int venom_infected_speed;
     int venom_infected_radius;

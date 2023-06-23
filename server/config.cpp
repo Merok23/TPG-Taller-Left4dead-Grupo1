@@ -16,16 +16,18 @@ struct config CONFIG {
     350, // infected_range
     5, // common_infected_speed
     60, //common_infected_attack_range
-    10, // common_infected_damage
-    40, // common_infected_attack_cooldown
+    5, // common_infected_damage
+    20, // common_infected_attack_cooldown
     25, // common_infected_radius
+    6, // common_infected_attack_duration
     100, // spear_infected_health
     10, // spear_infected_speed
     25, // spear_infected_radius
     350, // spear_infected_look_range
-    120, // spear_infected_attack_range
+    90, // spear_infected_attack_range
     80, // spear_infected_attack_cooldown
     20, // spear_infected_damage
+    5, // spear_infected_attack_duration
     50, // witch_infected_health
     3, // witch_infected_speed
     25, // witch_infected_radius
@@ -35,18 +37,19 @@ struct config CONFIG {
     20, // witch_infected_attack_damage
     80, // witch_infected_shout_cooldown
     0.005, // witch_infected_shout_probability
+    5, // witch_infected_attack_duration
     100, // venom_infected_health
     10, // venom_infected_speed
     25, // venom_infected_radius
     600, // venom_infected_look_range
-    80, // venom_infected_blast_range
+    100, // venom_infected_blast_range
     500, // venom_infected_shoot_range
     14, //venom_infected_blast_incapacitated_time
-    8, // venom_infected_shoot_incapacitated_time
+    33, // venom_infected_shoot_incapacitated_time
     30, // venom_infected_blast_damage
     7, //venom_infected_blast_damage_timing
     50, // venom_infected_shoot_damage
-    7, // venom_infected_shoot_damage_timing
+    32, // venom_infected_shoot_timing
     50, // venom_infected_blast_radius
     5, // venom_infected_projectile_radius
     15, // venom_infected_projectile_speed
@@ -121,6 +124,7 @@ void Config::loadConfig() {
     CONFIG.common_infected_attack_range = config_node["infected"]["common"]["attack_range"].as<int>();
     CONFIG.common_infected_damage = config_node["infected"]["common"]["damage"].as<int>();
     CONFIG.common_infected_attack_cooldown = config_node["infected"]["common"]["attack_cooldown"].as<int>();
+    CONFIG.common_infected_attack_duration = config_node["infected"]["common"]["attack_duration"].as<int>();
     
     // Spear Infected:
     //  Stats:
@@ -128,6 +132,7 @@ void Config::loadConfig() {
     CONFIG.spear_infected_speed = config_node["infected"]["spear"]["speed"].as<int>();
     CONFIG.spear_infected_radius = config_node["infected"]["spear"]["radius"].as<int>();
     CONFIG.spear_infected_look_range = config_node["infected"]["spear"]["look_range"].as<int>();
+    CONFIG.spear_infected_attack_duration = config_node["infected"]["spear"]["attack_duration"].as<int>();
     //  Attack:
     CONFIG.spear_infected_attack_range = config_node["infected"]["spear"]["attack_range"].as<int>();
     CONFIG.spear_infected_attack_cooldown = config_node["infected"]["spear"]["attack_cooldown"].as<int>();
@@ -143,6 +148,7 @@ void Config::loadConfig() {
     CONFIG.witch_infected_attack_range = config_node["infected"]["witch"]["attack_range"].as<int>();
     CONFIG.witch_infected_attack_cooldown = config_node["infected"]["witch"]["attack_cooldown"].as<int>();
     CONFIG.witch_infected_attack_damage = config_node["infected"]["witch"]["attack_damage"].as<int>();
+    CONFIG.witch_infected_attack_duration = config_node["infected"]["witch"]["attack_duration"].as<int>();
     // Shout:
     CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();

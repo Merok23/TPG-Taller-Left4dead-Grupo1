@@ -21,16 +21,18 @@ infected:
     range: 350
     speed: 5
     attack_range: 60
-    damage: 10
-    attack_cooldown: 40
+    damage: 5
+    attack_cooldown: 20
     radius: 25
+    attack_duration: 6
   spear:
     health: 100
     speed: 10
     radius: 25
     look_range: 350
-    attack_range: 120
+    attack_range: 90
     attack_cooldown: 80
+    attack_duration: 5
     damage: 20
   witch:
     health: 50
@@ -40,6 +42,7 @@ infected:
     attack_range: 60
     attack_cooldown: 80
     attack_damage: 20
+    attack_duration: 5
     shout_cooldown: 80
     shout_probability: 0.005
     scream_spawn_ammount: 10
@@ -48,14 +51,14 @@ infected:
     speed: 10
     radius: 25
     look_range: 600
-    blast_range: 80
+    blast_range: 100
     shoot_range: 500
     blast_incapacitated_time: 14
-    shoot_incapacitated_time: 8
+    shoot_incapacitated_time: 33
     blast_damage: 30
     blast_damage_timing: 7
     shoot_damage: 50
-    shoot_timing: 7
+    shoot_timing: 32
     blast_radius: 50
     projectile_radius: 5
     projectile_speed: 15

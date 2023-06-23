@@ -95,8 +95,21 @@ int32_t Movement::calculateDistance(Movement &other) {
     return distance;
 }
 
+/*
+ * Hack for the release:
+ * Since we don't want zombies attacking from above the player,
+ * we'll check if the zombie is to the left or right of the player
+ * if it's to the left, we'll substract the soldier radius so the 
+ * zombie moves towards the soldier's left side.
+ * If it's to the right, we'll add the soldier radius.
+ */
 void Movement::setChase(Movement &other, int speed) {
     int32_t x_difference = other.getX() - this->getX();
+    if (x_difference > 0) {
+        x_difference -= other.getRadius();
+    } else {
+        x_difference += other.getRadius();
+    }
     int32_t y_difference = other.getY() - this->getY();
     double distance = sqrt(pow(x_difference, 2) + pow(y_difference, 2));
     if (distance == 0) return;

@@ -17,6 +17,7 @@ enum State {
     //projectiles:
     FLYING,
     EXPLODING,
+    DESTROYED,
 };
 
 enum AnimationName {

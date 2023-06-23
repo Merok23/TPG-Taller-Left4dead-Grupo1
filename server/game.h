@@ -110,11 +110,13 @@ class Game {
         void spawnInfectedCheat(const uint32_t& id);
         void spawnWitchInfectedFromScream(const uint32_t& id);
         void killAllInfectedCheat();
-        bool searchForPosition(const uint32_t& radius, uint32_t &x, uint32_t &y);
+        bool searchForPositionAtBorders(const uint32_t& radius, uint32_t &x, uint32_t &y);
+        bool searchForPositionAnywhere(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
         void setTheZone();
         void setBlastVenom(const uint32_t& id);
         void createVenomProjectile(VenomInfected* venom);
         std::map<uint32_t, Entity*> getAliveSoldiers();
+        //void removeDeadProjectiles();
 };
 #endif 

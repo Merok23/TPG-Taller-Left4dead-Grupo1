@@ -32,6 +32,7 @@ class WitchInfected : public Infected {
         double shout_probability;
         bool has_spawned_infected; //I have decided they can only spawn infected once
                                    //this can be changed later if wanted.
+        int32_t attack_duration;
     public:
         WitchInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
         virtual void move(int32_t x_movement, int32_t y_movement) override;

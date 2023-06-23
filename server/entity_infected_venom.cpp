@@ -76,6 +76,8 @@ void VenomInfected::setChase(Entity* entity) {
 void VenomInfected::setAttack(Entity* entity) {
     if (this->state == DEAD_VENOM_INFECTED) return;
     if (this->incapacitated > 0) return;
+    if (this->state == BLASTING_VENOM_INFECTED) return;
+    if (this->state == SHOOTING_VENOM_INFECTED) return;
 
     // we don't do the damage here, instead, we'll fire up a flag so
     // when the time is ready, the game will call us with the entities
