@@ -18,6 +18,8 @@ JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* c
     this->commands = commands;
     this->create_or_join_command = create_or_join_command;
     this->choose_soldier = choose_soldier;
+
+    setWindowTitle(tr("Join Match"));
 }
 
 JoinMatch::~JoinMatch()
@@ -28,12 +30,8 @@ JoinMatch::~JoinMatch()
 
 void JoinMatch::on_cancel_clicked()
 {
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to cancel?", QMessageBox::Yes | QMessageBox::No);
-    if (reply == QMessageBox::Yes) {
-        emit resetCommand(this->commands, this->create_or_join_command);
-        close();
-    }
+    emit resetCommand(this->commands, this->create_or_join_command);
+    close();
 }
 
 
@@ -47,13 +45,8 @@ void JoinMatch::on_choose_skin_clicked()
     if (match_code_input == this->initial_match_code) {
         QMessageBox::warning(this, "Creating new match", "Please fill out all fields");
     } else {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to move on to create new player?", QMessageBox::Yes | QMessageBox::No);
-        if (reply == QMessageBox::Yes) {
-            emit matchCodeEntered(match_code_input, this->commands, this->create_or_join_command);
-            choose_soldier->setModal(true);
-            choose_soldier->exec();
-        }
+        emit matchCodeEntered(match_code_input, this->commands, this->create_or_join_command);
+        choose_soldier->setModal(true);
+        choose_soldier->exec();
     }
 }
-

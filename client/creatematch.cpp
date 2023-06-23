@@ -47,13 +47,8 @@ void CreateMatch::on_dial_valueChanged(int value)
 
 void CreateMatch::on_cancel_clicked()
 {
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to cancel?", QMessageBox::Yes | QMessageBox::No);
-    if (reply == QMessageBox::Yes) {
-        //tengo que mandar la senial de borrar el comando actual
-        emit resetCommand(this->commands, this->create_or_join_command);
-        close();
-    }
+    emit resetCommand(this->commands, this->create_or_join_command);
+    close();
 }
 
 
@@ -64,13 +59,8 @@ void CreateMatch::on_choose_skin_clicked()
         ui->dial->value() == initial_dial_value) {
         QMessageBox::warning(this, "Creating new match", "Please fill out all fields");
     } else {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "Creating new match", "Are you sure you want to move on to create new player?", QMessageBox::Yes | QMessageBox::No);
-        if (reply == QMessageBox::Yes) {
-            emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value(), this->commands, this->create_or_join_command);
-            choose_soldier->setModal(true);
-            choose_soldier->exec();
-        }
+        emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->dial->value(), this->commands, this->create_or_join_command);
+        choose_soldier->setModal(true);
+        choose_soldier->exec();
     }
 }
-

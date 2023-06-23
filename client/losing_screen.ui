@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>577</width>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>220</y>
+      <x>220</x>
+      <y>170</y>
       <width>331</width>
       <height>71</height>
      </rect>
@@ -35,8 +35,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>140</y>
+      <x>250</x>
+      <y>80</y>
       <width>231</width>
       <height>71</height>
      </rect>
@@ -53,10 +53,10 @@
    <widget class="QLabel" name="confetti">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>110</y>
-      <width>191</width>
-      <height>221</height>
+      <x>70</x>
+      <y>90</y>
+      <width>221</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="text">
@@ -72,8 +72,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>390</y>
+      <x>130</x>
+      <y>340</y>
       <width>381</width>
       <height>71</height>
      </rect>
@@ -87,13 +87,17 @@
      <string>We still hope you enjoyed our game....</string>
     </property>
    </widget>
+   <zorder>confetti</zorder>
+   <zorder>label</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>577</width>
      <height>20</height>
     </rect>
    </property>

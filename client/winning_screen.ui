@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>532</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>120</y>
+      <x>150</x>
+      <y>50</y>
       <width>251</width>
       <height>51</height>
      </rect>
@@ -35,8 +35,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>210</y>
+      <x>200</x>
+      <y>140</y>
       <width>251</width>
       <height>51</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>380</y>
+      <x>110</x>
+      <y>300</y>
       <width>351</width>
       <height>51</height>
      </rect>
@@ -71,8 +71,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>200</y>
+      <x>80</x>
+      <y>110</y>
       <width>171</width>
       <height>161</height>
      </rect>
@@ -86,19 +86,23 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="assets.qrc">:/imgs/confetti.png</pixmap>
+     <pixmap resource="assets_ending.qrc">:/imgs/confetti.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
+   <zorder>label_4</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>532</width>
      <height>20</height>
     </rect>
    </property>
@@ -106,7 +110,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="assets.qrc"/>
+  <include location="assets_ending.qrc"/>
  </resources>
  <connections/>
 </ui>

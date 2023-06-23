@@ -1,6 +1,5 @@
 #include "graphics_qt_ending.h"
 
-#include <QDebug>
 void GraphicsQtEnding::run(bool user_won) {
     int argc = 0;
     char* argv[1];

@@ -1,11 +1,8 @@
 <RCC>
-    <qresource prefix="/imgs">
-        <file>granade.png</file>
-        <file>Grenade_qt.png</file>
+    <qresource prefix="/imgs"/>
+    <qresource prefix="/">
         <file>IDF_Idle.png</file>
         <file>P90_Idle.png</file>
         <file>Scout_Idle.png</file>
-        <file>bullet.png</file>
-        <file>bullet2.png</file>
     </qresource>
 </RCC>

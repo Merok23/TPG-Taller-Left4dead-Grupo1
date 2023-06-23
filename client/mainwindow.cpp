@@ -8,13 +8,14 @@ MainWindow::MainWindow(QWidget *parent, COMMANDS* commands, command_t* create_or
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
-    setWindowTitle(tr("Main Window"));
     choose_soldier = new ChooseSoldier(this, commands, player_command);
     connect(choose_soldier, &ChooseSoldier::closeWindows, this, &MainWindow::handleClosingWindows);
 
     ui->setupUi(this);
     join_match = new JoinMatch(this, choose_soldier, commands, create_or_join_command);
     create_match = new CreateMatch(this, choose_soldier, commands, create_or_join_command);
+
+    setWindowTitle(tr("Main Window"));
 }
 
 MainWindow::~MainWindow()
