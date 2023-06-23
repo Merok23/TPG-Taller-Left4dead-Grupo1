@@ -9,6 +9,13 @@ LosingScreen::LosingScreen(QWidget *parent) :
     setWindowTitle("You lost!");
 }
 
+void LosingScreen::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Q || event->key() == Qt::Key_Escape)
+        close();
+}
+
+
 LosingScreen::~LosingScreen()
 {
     delete ui;

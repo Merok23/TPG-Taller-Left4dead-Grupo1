@@ -2,6 +2,7 @@
 #define WINNING_SCREEN_H
 
 #include <QMainWindow>
+#include <QKeyEvent>
 
 namespace Ui {
 class WinningScreen;
@@ -15,6 +16,8 @@ public:
     explicit WinningScreen(QWidget *parent = nullptr);
     ~WinningScreen();
 
+    void keyPressEvent(QKeyEvent *event) override;
+    
 private:
     Ui::WinningScreen *ui;
 };

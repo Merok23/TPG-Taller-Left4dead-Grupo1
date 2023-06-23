@@ -9,6 +9,12 @@ WinningScreen::WinningScreen(QWidget *parent) :
     setWindowTitle("You won!");
 }
 
+void WinningScreen::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Q || event->key() == Qt::Key_Escape)
+        close();
+}
+
 WinningScreen::~WinningScreen()
 {
     delete ui;

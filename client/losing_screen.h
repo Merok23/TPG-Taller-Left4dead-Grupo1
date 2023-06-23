@@ -2,6 +2,7 @@
 #define LOSING_SCREEN_H
 
 #include <QMainWindow>
+#include <QKeyEvent>
 
 namespace Ui {
 class LosingScreen;
@@ -14,6 +15,9 @@ class LosingScreen : public QMainWindow
 public:
     explicit LosingScreen(QWidget *parent = nullptr);
     ~LosingScreen();
+
+    void keyPressEvent(QKeyEvent *event) override;
+
 
 private:
     Ui::LosingScreen *ui;
