@@ -1,6 +1,12 @@
 #include "graphics.h"
 #include <cmath>
 
+#define MOVE_LEFT -1
+#define MOVE_RIGHT 1
+#define MOVE_UP 1
+#define MOVE_DOWN -1
+#define STILL 0
+
 Graphics::Graphics() : last_it(0) {}
 
 bool Graphics::game_loop(bool* user_won, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
@@ -85,10 +91,9 @@ bool Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
  */
 bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos) {
     SDL_Event event;
-    bool static moving_left = false;
-    bool static moving_right = false;
-    bool static moving_up= false;
-    bool static moving_down = false;
+    int static moving_x = STILL;
+    int static moving_y = STILL;
+
     bool static shooting = false;
     
     COMMANDS command;
@@ -113,35 +118,67 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
                 
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    
                     case SDLK_LEFT: {
-                        if (!moving_left){
-                            queue_comandos.push(command.setDirectionOfMovement(-1, 0));
-                            moving_left = true;
+                        if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_UP] && moving_x != MOVE_LEFT) {
+                            moving_x = MOVE_LEFT;
+                            moving_y = MOVE_UP;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_DOWN] && moving_x != MOVE_LEFT) {
+                            moving_x = MOVE_LEFT;
+                            moving_y = MOVE_DOWN;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (moving_x != MOVE_LEFT){
+                            moving_x = MOVE_LEFT;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
                         }
                         break;
-                    }  
+                    }
                     case SDLK_RIGHT: {
-                        if (!moving_right){
-                            queue_comandos.push(command.setDirectionOfMovement(1, 0));
-                            moving_right = true;
+                        if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_UP] && moving_x != MOVE_RIGHT) {
+                            moving_x = MOVE_RIGHT;
+                            moving_y = MOVE_UP;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_DOWN] && moving_x != MOVE_RIGHT) {
+                            moving_x = MOVE_RIGHT;
+                            moving_y = MOVE_DOWN;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (moving_x != MOVE_RIGHT){
+                            moving_x = MOVE_RIGHT;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
                         }
                         break;
                     }
                     case SDLK_UP: {
-                        if (!moving_up){
-                            queue_comandos.push(command.setDirectionOfMovement(0, 1));
-                            moving_up = true;
+                        if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_LEFT] && moving_y != MOVE_UP) {
+                            moving_x = MOVE_LEFT;
+                            moving_y = MOVE_UP;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_RIGHT] && moving_y != MOVE_UP) {
+                            moving_x = MOVE_RIGHT;
+                            moving_y = MOVE_UP;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (moving_y != MOVE_UP){
+                            moving_y = MOVE_UP;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
                         }
                         break;
                     }
                     case SDLK_DOWN: {
-                        if (!moving_down){
-                            queue_comandos.push(command.setDirectionOfMovement(0, -1));
-                            moving_down = true;
+                        if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_LEFT] && moving_y != MOVE_DOWN) {
+                            moving_x = MOVE_LEFT;
+                            moving_y = MOVE_DOWN;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_RIGHT] && moving_y != MOVE_DOWN) {
+                            moving_x = MOVE_RIGHT;
+                            moving_y = MOVE_DOWN;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                        } else if (moving_y != MOVE_DOWN){
+                            moving_y = MOVE_DOWN;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
                         }
                         break;
                     }
+                    
                     case SDLK_d: case SDLK_SPACE: {
                         if (!shooting) {
                             queue_comandos.push(command.setShooting(true));
@@ -162,11 +199,18 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
             case SDL_KEYUP: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT: case SDLK_RIGHT: case SDLK_UP: case SDLK_DOWN: {
-                        if (moving_right || moving_left || moving_up || moving_down) {
-                            queue_comandos.push(command.setDirectionOfMovement(0, 0));
-
-                            moving_down = moving_left = moving_right = moving_up = false;
+                    case SDLK_LEFT: case SDLK_RIGHT: {
+                        if (moving_x != STILL) {
+                            moving_x = STILL;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
+                            
+                        }
+                        break;
+                    }
+                    case SDLK_UP: case SDLK_DOWN: {
+                        if (moving_y != STILL) {
+                            moving_y = STILL;
+                            queue_comandos.push(command.setDirectionOfMovement(moving_x, moving_y));
                         }
                         break;
                     }
