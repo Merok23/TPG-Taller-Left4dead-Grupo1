@@ -31,6 +31,7 @@ bool Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
         }
 
         AudioHolder audio_holder;
+        std::cout << "game mode is " << game_mode << std::endl;
         Mix_Music* music = audio_holder.find_music(game_mode);
         if (Mix_PlayMusic(music, -1) == -1) { //REVISAR
             // Error handling: Failed to play the music

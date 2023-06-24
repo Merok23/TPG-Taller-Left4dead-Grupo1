@@ -28,13 +28,13 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
         qDebug() << "Match name entered in main.cpp:" << match_name << " and mode: " <<mode_code;
         if (commands && create_or_join_command) {
             switch(mode_code) {
-                case 1: //testing
+                case 0: //testing
                 *create_or_join_command = commands->createRoom(match_name.toStdString(), GameMode::TESTING);
                 break;
-                case 2: //surviving
+                case 1: //surviving
                 *create_or_join_command = commands->createRoom(match_name.toStdString(), GameMode::SURVIVAL);
                 break;
-                case 3: //clear the zone
+                case 2: //clear the zone
                 *create_or_join_command = commands->createRoom(match_name.toStdString(), GameMode::CLEAR_THE_ZONE);
                 break;
             }

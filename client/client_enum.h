@@ -39,6 +39,7 @@ enum AnimationName {
     AN_PROTECT,
 
     AN_RELOAD,
+    AN_DOWN,
     AN_HURT,
     AN_DIE,
 
@@ -65,9 +66,9 @@ enum EntityType {
 };
 
 enum GameMode {
+    TESTING,
     SURVIVAL,
-    CLEAR_THE_ZONE,
-    TESTING
+    CLEAR_THE_ZONE    
 };
 
 enum Commands {

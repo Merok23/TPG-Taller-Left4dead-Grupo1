@@ -19,8 +19,8 @@ void TexturesHolder::create_soldier(EntityType entity_type, const std::string &p
     img.replace(0, img.length(), "Dead.png");
     textures_holder[entity_type][AN_DIE] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
-    img.replace(0, img.length(), "Hurt.png");
-    textures_holder[entity_type][AN_HURT] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
+    img.replace(0, img.length(), "Dropping.png");
+    textures_holder[entity_type][AN_DOWN] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));
 
     img.replace(0, img.length(), "Recharge.png");
     textures_holder[entity_type][AN_RELOAD] = std::shared_ptr<SdlTexture>(new SdlTexture(path+img, window));

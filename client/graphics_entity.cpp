@@ -43,7 +43,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
             break;
         
         case DOWN:
-            current_animation = AN_HURT;
+            current_animation = AN_DOWN;
             break;
         
         case REVIVING:
@@ -79,7 +79,7 @@ void GraphicsEntity::update(float dt, Entity *entity) {
 
     auto it_current = animations.find(current_animation);
     if (it_current != animations.end()) {
-        if (current_animation == AN_DIE) {
+        if (current_animation == AN_DIE || current_animation == AN_DOWN) {
             if (it_current->second->amountPlayed() == 0)
                 it_current->second->update(dt, 3);
             else

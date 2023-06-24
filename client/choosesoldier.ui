@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
-    <height>545</height>
+    <width>876</width>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QLabel" name="title">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>270</x>
      <y>40</y>
      <width>371</width>
      <height>51</height>
@@ -34,8 +34,8 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>450</y>
+     <x>110</x>
+     <y>440</y>
      <width>621</width>
      <height>80</height>
     </rect>
@@ -63,9 +63,9 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>60</x>
      <y>260</y>
-     <width>637</width>
+     <width>731</width>
      <height>161</height>
     </rect>
    </property>
@@ -89,7 +89,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Alto daño en general</string>
+       <string>Significant impact overall</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -104,7 +104,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Recarga cada 20 disparos</string>
+       <string>Reloads every 20 rounds</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -119,7 +119,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Bajo daño a larga distancia</string>
+       <string>Low damage at long range</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -134,7 +134,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Medio daño a larga distancia</string>
+       <string> Moderate damage at long range</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -149,7 +149,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Alto daño a corta distancia</string>
+       <string>High damage at close range</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -164,7 +164,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Recarga cada 30 disparos</string>
+       <string>Reloads every 30 rounds</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -179,10 +179,16 @@
        </font>
       </property>
       <property name="text">
-       <string>Balas atraviesan zombies</string>
+       <string>Bullets pass through enemies, striking those behind as well</string>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -194,7 +200,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Medio daño a corta distancia</string>
+       <string>Moderate damage at close range</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -209,7 +215,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Recarga cada 50 disparos</string>
+       <string>Reloads every 50 rounds</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -221,7 +227,7 @@
   <widget class="QLabel" name="IDF_img">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>130</x>
      <y>120</y>
      <width>71</width>
      <height>94</height>
@@ -237,7 +243,7 @@
   <widget class="QLabel" name="P90_img">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>370</x>
      <y>120</y>
      <width>81</width>
      <height>94</height>
@@ -253,7 +259,7 @@
   <widget class="QLabel" name="Scout_img">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>630</x>
      <y>120</y>
      <width>71</width>
      <height>94</height>
@@ -271,7 +277,7 @@
     <rect>
      <x>60</x>
      <y>200</y>
-     <width>611</width>
+     <width>731</width>
      <height>51</height>
     </rect>
    </property>
@@ -281,7 +287,7 @@
    <widget class="QRadioButton" name="idf">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>80</x>
       <y>20</y>
       <width>100</width>
       <height>21</height>
@@ -302,7 +308,7 @@
    <widget class="QRadioButton" name="p90">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>300</x>
       <y>20</y>
       <width>100</width>
       <height>21</height>
@@ -320,7 +326,7 @@
    <widget class="QRadioButton" name="scout">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>560</x>
       <y>20</y>
       <width>100</width>
       <height>21</height>

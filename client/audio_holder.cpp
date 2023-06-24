@@ -18,12 +18,14 @@ AudioHolder::AudioHolder() {
     path.replace(0, path.length(), "../../assets/Audio/SoundEffects");
     create_sound_effects(path);
 
-    Mix_VolumeMusic(MIX_MAX_VOLUME/12);  // Set the volume to 50% (half of the maximum)
+    Mix_VolumeMusic(MIX_MAX_VOLUME/2);  // Set the volume to 50% (half of the maximum)
 }
 
 
 void AudioHolder::create_sound_effects(const std::string &path) {
-    sound_effects_holder[SOLDIER_IDF][AN_SHOOT] = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
+    sound_effects_holder[SOLDIER_IDF][AN_SHOOT] = Mix_LoadWAV("../../assets/Audio/SoundEffects/normal_shot.wav");
+    sound_effects_holder[SOLDIER_SCOUT][AN_SHOOT] = Mix_LoadWAV("../../assets/Audio/SoundEffects/rifle_shot.wav");
+    
     //sound_effects_holder[SOLDIER_IDF][AN_EXPLOSION] = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
     //sound_effects_holder[SOLDIER_IDF][AN_SMOKE] = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
 }
@@ -32,27 +34,26 @@ void AudioHolder::create_sound_effects(const std::string &path) {
     https://www.youtube.com/channel/UCxmng6_DMIayDwkiWGVzVRQ?view_as=subscriber 
     Alexandr Zhelanov https://soundcloud.com/alexandr-zhelanov 
 
+    Szymon Matuszewski
+
 */
 void AudioHolder::create_background_music(const std::string &path) {
-    std::string track("Battle_1.ogg");
+    //std::string track("Battle_1.ogg");
     //music_holder[SURVIVAL] = Mix_LoadMUS(path+track);
-    music_holder[SURVIVAL] = Mix_LoadMUS("../../assets/Audio/Music/Battle_1.ogg");
-    music_holder[CLEAR_THE_ZONE] = Mix_LoadMUS("../../assets/Audio/Music/Raiders.ogg");
-    music_holder[TESTING] = Mix_LoadMUS("../../assets/Audio/Music/Raiders.ogg");
+    music_holder[TESTING] = Mix_LoadMUS("../../assets/Audio/Music/Szymon_Matuszewski_-_Patient Zero.mp3");
+    music_holder[SURVIVAL] = Mix_LoadMUS("../../assets/Audio/Music/Battle1.mp3");
+    music_holder[CLEAR_THE_ZONE] = Mix_LoadMUS("../../assets/Audio/Music/Light_battle.ogg");
     
     bool exit = false;
     if (music_holder[SURVIVAL] == nullptr) {
-        std::cout << "Entre al primer if" << std::endl;
         Mix_FreeMusic(music_holder[SURVIVAL]);
         exit = true;
     }
     if (music_holder[CLEAR_THE_ZONE] == nullptr) {
-        std::cout << "Entre al segundo if" << std::endl;
         Mix_FreeMusic(music_holder[CLEAR_THE_ZONE]);
         exit = true;
     }
     if (music_holder[TESTING] == nullptr) {
-        std::cout << "Entre al tercer if" << std::endl;
         Mix_FreeMusic(music_holder[TESTING]);
         exit = true;
     }
@@ -75,9 +76,10 @@ Mix_Music* AudioHolder::find_music(GameMode game_mode) {
 
 std::map<AnimationName, Mix_Chunk*>& AudioHolder::find_sound_effects(EntityType entity_type) {
     if (entity_type == SOLDIER_IDF ||
-        entity_type == SOLDIER_P90 ||
-        entity_type == SOLDIER_SCOUT)
+        entity_type == SOLDIER_P90)
         return this->sound_effects_holder.find(SOLDIER_IDF)->second;
+    else if (entity_type == SOLDIER_SCOUT)
+        return this->sound_effects_holder.find(SOLDIER_SCOUT)->second;
     else
         return this->sound_effects_holder.find(ZOMBIE)->second;
 }
