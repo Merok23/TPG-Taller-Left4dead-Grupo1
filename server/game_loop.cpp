@@ -82,7 +82,6 @@ void GameLoop::run() {
             //if it's negative we don't sleep, we just continue trying to catch up.
 
             if (game_state->isGameOver()) {
-                std::cout << "Game Over" << std::endl;
                 this->stop();
                 setGameStadistics(game_state);   
                 break;
@@ -101,7 +100,6 @@ void GameLoop::run() {
 }
 
 void GameLoop::setGameStadistics(std::shared_ptr<GameStateForClient>& game_state) {
-    std::cout << "Game mode: " << game_mode << std::endl;
     if (game_mode == GameMode::CLEAR_THE_ZONE) {
         this->setStadisticsCTZ(game_state);
     } else {
