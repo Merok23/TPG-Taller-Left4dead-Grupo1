@@ -14,11 +14,11 @@ ServerClient::ServerClient(Socket socket, GameHandler& game_handler) :
 
 ServerClient::~ServerClient() {
     protocol.closeSocket();
-    client_queue.close();
-    receive_thread.stop();
     send_thread.stop();
-    receive_thread.join();
+    receive_thread.stop();
+    client_queue.close();
     send_thread.join();
+    receive_thread.join();
 }
 
 bool ServerClient::isFinished() {

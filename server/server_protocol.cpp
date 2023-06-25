@@ -236,15 +236,14 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         socket.sendall(&ranking, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
 
-        std::pair<uint8_t, uint32_t> stats; 
-        stats = game_state->getGameLoopTime();
+        std::pair<uint32_t, uint32_t> stats = statistics.getGameTimeInfo();
         socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
 
         sendUnsignedInteger(stats.second);
         if (was_closed) return;
 
-        stats = game_state->getInfectedKilled();
+        stats = statistics.getInfectedKilledInfo();
             
         socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
@@ -252,7 +251,7 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendUnsignedInteger(stats.second);
         if (was_closed) return;
 
-        stats = game_state->getAmmoUsed();
+        stats = statistics.getAmmoUsedInfo();
         socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
         if (was_closed) return;
 
@@ -260,30 +259,30 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         if (was_closed) return;
 
         if (ranking) {
-            std::list<uint32_t> infected_kills_top_10 = statistics.getInfectedKillsTop10();
-            std::list<uint32_t> ammo_used_top_10 = statistics.getAmmoUsedTop10();
-            std::list<uint32_t> time_alive_top_10 = statistics.getTimeAliveTop10();
+            std::list<uint32_t> infected_kills_top = statistics.getInfectedKillsTop10();
+            std::list<uint32_t> ammo_used_top = statistics.getAmmoUsedTop10();
+            std::list<uint32_t> time_alive_top = statistics.getTimeAliveTop10();
 
-            sendUnsignedInteger(infected_kills_top_10.size());
+            sendUnsignedInteger(infected_kills_top.size());
             if (was_closed) return;
 
-            for (auto& infected_kills : infected_kills_top_10) {
+            for (auto& infected_kills : infected_kills_top) {
                 sendUnsignedInteger(infected_kills);
                 if (was_closed) return;
             }
 
-            sendUnsignedInteger(ammo_used_top_10.size());
+            sendUnsignedInteger(ammo_used_top.size());
             if (was_closed) return;
 
-            for (auto& ammo_used : ammo_used_top_10) {
+            for (auto& ammo_used : ammo_used_top) {
                 sendUnsignedInteger(ammo_used);
                 if (was_closed) return;
             }
 
-            sendUnsignedInteger(time_alive_top_10.size());
+            sendUnsignedInteger(time_alive_top.size());
             if (was_closed) return;
 
-            for (auto& time_alive : time_alive_top_10) {
+            for (auto& time_alive : time_alive_top) {
                 sendUnsignedInteger(time_alive);
                 if (was_closed) return;
             }
