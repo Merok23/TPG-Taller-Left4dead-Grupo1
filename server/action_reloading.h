@@ -7,11 +7,18 @@
 
 class Reloading : public Action {
     private:
-    bool reloading; // no estoy segura si se puede parar de recargar
+    bool reloading; /**< Indica si el cliente está recargando o no. */
 
     public:
+     /**
+     * @brief Constructor de la clase Reloading.
+     * 
+     * @param reloading Valor que indica si se está recargando o no.
+     */
     explicit Reloading(bool reloading); 
+
     virtual void execute(IdHandler& handler) override;
+
     ~Reloading() override;
 };
 #endif

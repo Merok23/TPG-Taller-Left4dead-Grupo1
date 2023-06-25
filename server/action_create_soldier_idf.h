@@ -6,7 +6,11 @@
 
 class CreateSoldierIdf : public Action {
     public:
+        /**
+         * @brief Constructor de la clase CreateSoldierIdf.
+         */
         CreateSoldierIdf();
+
         virtual void execute(IdHandler& handler) override;
 
         ~CreateSoldierIdf() override;

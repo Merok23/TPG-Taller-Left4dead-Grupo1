@@ -6,9 +6,7 @@
 
 #define MAX_ELEMENTS_QUEUE 10000
 
-ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)),finished(false) {
-    GameHandler game_handler;
-}
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), game_handler(), finished(false) {}
 
 void ClientAccepter::run() {
     acceptClient();
@@ -51,4 +49,6 @@ void ClientAccepter::stop() {
     recieving_socket.close();
 }
 
-ClientAccepter::~ClientAccepter() {}
+ClientAccepter::~ClientAccepter() {
+    statistics_handler.saveAllStatistics();
+}

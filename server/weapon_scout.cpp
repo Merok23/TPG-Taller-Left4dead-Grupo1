@@ -44,3 +44,4 @@ uint32_t Scout::getAmmoLeft() {
 uint32_t Scout::getAmountOfAmmoUsed() {
     return this->ammo_used;
 }
+

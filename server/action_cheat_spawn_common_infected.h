@@ -5,8 +5,13 @@
 
 class SpawnCommonInfectedCheat : public Action {
     public:
+        /**
+         * @brief Constructor de la clase SpawnCommonInfectedCheat.
+         */
         SpawnCommonInfectedCheat();
+
         virtual void execute(IdHandler& handler) override;
+
         ~SpawnCommonInfectedCheat() override;
 };
 #endif

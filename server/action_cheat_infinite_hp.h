@@ -5,8 +5,13 @@
 
 class SetInfiniteHitpointsCheat : public Action {
     public:
+        /**
+         * @brief Constructor de la clase SetInfiniteHitpointsCheat.
+         */
         SetInfiniteHitpointsCheat();
+        
         virtual void execute(IdHandler& handler) override;
+
         ~SetInfiniteHitpointsCheat() override;
 };
 #endif

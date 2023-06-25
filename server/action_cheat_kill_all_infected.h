@@ -5,8 +5,13 @@
 
 class KillAllInfectedCheat : public Action {
     public:
+        /**
+         * @brief Constructor de la clase KillAllInfectedCheat.
+         */
         KillAllInfectedCheat();
+
         virtual void execute(IdHandler& handler) override;
+
         ~KillAllInfectedCheat() override;
 };
 #endif

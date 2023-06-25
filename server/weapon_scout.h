@@ -9,14 +9,17 @@
 
 class Scout : public Weapon {
     private:
-        uint32_t base_damage;
-        uint32_t range;
-        uint32_t magazine_size;
-        int32_t rounds_left;
-        double damage_falloff;
-        uint32_t ammo_used;
+        uint32_t base_damage; /** < Daño base del arma. */
+        uint32_t range; /** < Alcance del arma. */
+        uint32_t magazine_size; /** < Tamaño del cargador del arma. */ 
+        int32_t rounds_left; /** < Cantidad de balas restantes en el cargador. */
+        double damage_falloff; /** < Reducción de daño por distancia. */
+        uint32_t ammo_used; /** < Cantidad de balas utilizadas. */
         
     public:
+        /**
+         * @brief Constructor de la clase Scout.
+         */
         Scout();
         virtual uint32_t getAmmoLeft() override;
         virtual bool inRange(uint32_t distance) override;
@@ -27,6 +30,6 @@ class Scout : public Weapon {
         virtual void useAmmo() override;
         virtual std::string getWeaponType() override;
         virtual uint32_t getAmountOfAmmoUsed() override;
-        virtual ~Scout() {}
+        ~Scout() {};
 };
 #endif

@@ -231,6 +231,11 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         
     }
     if (game_state->isGameOver()) {
+        Statistics statistics = game_state->getStatistics();
+        bool ranking = statistics.getRanking();
+        socket.sendall(&ranking, sizeof(uint8_t), &was_closed);
+        if (was_closed) return;
+
         std::pair<uint8_t, uint32_t> stats; 
         stats = game_state->getGameLoopTime();
         socket.sendall(&stats.first, sizeof(uint8_t), &was_closed);
@@ -253,6 +258,36 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
 
         sendUnsignedInteger(stats.second); 
         if (was_closed) return;
+
+        if (ranking) {
+            std::list<uint32_t> infected_kills_top_10 = statistics.getInfectedKillsTop10();
+            std::list<uint32_t> ammo_used_top_10 = statistics.getAmmoUsedTop10();
+            std::list<uint32_t> time_alive_top_10 = statistics.getTimeAliveTop10();
+
+            sendUnsignedInteger(infected_kills_top_10.size());
+            if (was_closed) return;
+
+            for (auto& infected_kills : infected_kills_top_10) {
+                sendUnsignedInteger(infected_kills);
+                if (was_closed) return;
+            }
+
+            sendUnsignedInteger(ammo_used_top_10.size());
+            if (was_closed) return;
+
+            for (auto& ammo_used : ammo_used_top_10) {
+                sendUnsignedInteger(ammo_used);
+                if (was_closed) return;
+            }
+
+            sendUnsignedInteger(time_alive_top_10.size());
+            if (was_closed) return;
+
+            for (auto& time_alive : time_alive_top_10) {
+                sendUnsignedInteger(time_alive);
+                if (was_closed) return;
+            }
+        }
     } 
 }
 

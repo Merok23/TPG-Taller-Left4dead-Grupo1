@@ -216,4 +216,3 @@ void Config::loadConfig() {
     CONFIG.venom_infected_zone_percentage = config_node["zone_percentages"]["venom_infected"].as<double>();
 }
 
-Config::~Config() {}
