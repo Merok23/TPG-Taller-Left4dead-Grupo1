@@ -10,7 +10,7 @@
 #include "../common/thread.h"  
 #include "entity_player.h"
 #include "id_handler.h" 
-
+#include "statistics_handler.h"
 
 /**
  * @class GameLoop

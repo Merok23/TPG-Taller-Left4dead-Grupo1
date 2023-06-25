@@ -43,8 +43,12 @@ bool& GameStateForClient::didPlayersWin() {
 
 void GameStateForClient::setStadistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
     std::pair<uint8_t, uint32_t> ammo_used_info, 
-    std::pair<uint8_t, uint32_t> game_time_info) {
-    this->statistics.setStatistics(ranking, infected_killed_info, ammo_used_info, game_time_info);
+    std::pair<uint8_t, uint32_t> game_time_info,
+    std::vector<uint32_t> infected_kills_top_10,
+    std::vector<uint32_t> ammo_used_top_10,
+    std::vector<uint32_t> time_alive_top_10) {
+    this->statistics.setStatistics(ranking, infected_killed_info, ammo_used_info, game_time_info, 
+        infected_kills_top_10, ammo_used_top_10, time_alive_top_10);
 }
 
 std::pair<uint8_t, uint32_t> GameStateForClient::getInfectedKilled() {

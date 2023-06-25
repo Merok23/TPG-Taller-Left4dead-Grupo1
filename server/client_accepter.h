@@ -7,6 +7,7 @@
 #include "action.h"
 #include "game_handler.h"
 #include "server_client.h"
+#include "statistics_handler.h"
 #include <atomic>
 #include <vector>
 #include <list>

@@ -40,14 +40,15 @@ void ClientAccepter::removeDeadClients() {
 
 void ClientAccepter::stop() {
     finished = true;
-}
-
-ClientAccepter::~ClientAccepter() {
-     while (!clients.empty()) {
+    while (!clients.empty()) {
         auto client = clients.front();
         clients.pop_front();
         delete client;
     }
     recieving_socket.shutdown(SHUT_RDWR); 
     recieving_socket.close();
+}
+
+ClientAccepter::~ClientAccepter() {
+    statistics_handler.saveAllStatistics();
 }
