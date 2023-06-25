@@ -179,8 +179,6 @@ std::map<uint32_t, Entity*>& Game::getEntities() {
 std::shared_ptr<GameStateForClient> Game::update() {
     //--------------------GAME OVER--------------------//
     if (this->game_over) return std::make_shared<GameStateForClient>(this->entities, 
-        this->gameMap.getWidth(), 
-        this->gameMap.getHeight(),
         this->game_over,
         this->players_won); 
     //-------------------------------------------------//
@@ -200,8 +198,6 @@ std::shared_ptr<GameStateForClient> Game::update() {
     this->checkForGameOver();
     std::shared_ptr<GameStateForClient> game_state = 
         std::make_shared<GameStateForClient>(this->entities, 
-            this->gameMap.getWidth(), 
-            this->gameMap.getHeight(),
             this->game_over,
             this->players_won);
     return game_state;

@@ -2,19 +2,19 @@
 
 StatisticsHandler statistics_handler;
 
-StatisticsHandler::StatisticsHandler() : infected_kills_top_10(), ammo_used_top_10(), time_alive_top_10(), ranking_size(10), was_updated(false),mutex() {
+StatisticsHandler::StatisticsHandler() : infected_kills_top(), ammo_used_top(), time_alive_top(), ranking_size(10), was_updated(false),mutex() {
     std::ifstream file("../statistics.txt", std::ios::in);
     std::string line;
     if (file.is_open()) {
         while (std::getline(file, line)) {
-            if (std::isdigit(line[0]) && this->infected_kills_top_10.size() < this->ranking_size) {
-                this->infected_kills_top_10.push_back(std::stoi(line));
+            if (std::isdigit(line[0]) && this->infected_kills_top.size() < this->ranking_size) {
+                this->infected_kills_top.push_back(std::stoi(line));
             }
-            else if (std::isdigit(line[0]) && this->ammo_used_top_10.size() < this->ranking_size) {
-                this->ammo_used_top_10.push_back(std::stoi(line));
+            else if (std::isdigit(line[0]) && this->ammo_used_top.size() < this->ranking_size) {
+                this->ammo_used_top.push_back(std::stoi(line));
             }
-            else if (std::isdigit(line[0]) && this->time_alive_top_10.size() < this->ranking_size) {
-                this->time_alive_top_10.push_back(std::stoi(line));
+            else if (std::isdigit(line[0]) && this->time_alive_top.size() < this->ranking_size) {
+                this->time_alive_top.push_back(std::stoi(line));
             }
             
         }
@@ -36,18 +36,18 @@ void StatisticsHandler::updateList(std::list<uint32_t>& vector, uint32_t& value)
 void StatisticsHandler::updateStatistics(uint32_t& infected_kills, uint32_t& ammo_used, uint32_t& time_alive) {
     std::unique_lock<std::mutex> lock(mutex);
 
-    if (infected_kills > this->infected_kills_top_10.back()) {
-        this->updateList(this->infected_kills_top_10, infected_kills);
+    if (infected_kills > this->infected_kills_top.back()) {
+        this->updateList(this->infected_kills_top, infected_kills);
         was_updated = true;
     }
 
-    if (ammo_used > this->ammo_used_top_10.back()) {
-        this->updateList(this->ammo_used_top_10, ammo_used);
+    if (ammo_used > this->ammo_used_top.back()) {
+        this->updateList(this->ammo_used_top, ammo_used);
         was_updated = true;
     }
 
-    if (time_alive > this->time_alive_top_10.back()) {
-        this->updateList(this->time_alive_top_10, time_alive);
+    if (time_alive > this->time_alive_top.back()) {
+        this->updateList(this->time_alive_top, time_alive);
         was_updated = true;
     }
 }
@@ -63,19 +63,19 @@ void StatisticsHandler::saveAllStatistics() {
 
 
     file << "TOP 10: Infected kills" << std::endl;
-    for (const auto& infected_kills : this->infected_kills_top_10) {
+    for (const auto& infected_kills : this->infected_kills_top) {
         file << infected_kills << std::endl;
     }
     file << std::endl;
 
     file << "TOP 10: Ammo used " << std::endl;
-    for (const auto& ammo_used : this->ammo_used_top_10) {
+    for (const auto& ammo_used : this->ammo_used_top) {
         file << ammo_used << std::endl;
     }
     file << std::endl;
 
     file << "TOP 10: Time alive " << std::endl;
-    for (const auto& time_alive : this->time_alive_top_10) {
+    for (const auto& time_alive : this->time_alive_top) {
         file << time_alive << std::endl;
     }
     file << std::endl;
@@ -84,17 +84,17 @@ void StatisticsHandler::saveAllStatistics() {
 
 std::list<uint32_t> StatisticsHandler::getInfectedKillsTop10() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->infected_kills_top_10;
+    return this->infected_kills_top;
 }
 
 std::list<uint32_t> StatisticsHandler::getAmmoUsedTop10() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->ammo_used_top_10;
+    return this->ammo_used_top;
 }
 
 std::list<uint32_t> StatisticsHandler::getTimeAliveTop10() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->time_alive_top_10;
+    return this->time_alive_top;
 }
 
 StatisticsHandler::~StatisticsHandler() {}
