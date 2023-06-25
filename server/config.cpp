@@ -154,6 +154,7 @@ void Config::loadConfig() {
     CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
     CONFIG.witch_infected_scream_spawn_ammount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
+    CONFIG.witch_infected_shout_minimum_distance = config_node["infected"]["witch"]["shout_minimum_distance"].as<int>();
     
     // Venom Infected:
     //  Stats:
