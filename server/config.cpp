@@ -58,8 +58,8 @@ struct config CONFIG {
     40, // crater_radius
     100, // crater_hit_points
     6, //crater_ammount
-    5760,//-400, //1920, // scenario_width
-    250,//1080, // scenario_height
+    7680,//-400, //1920, // scenario_width
+    200,//1080, // scenario_height
     200, // spawn_point_start_x_infected
     5560, // spawn_point_end_x_infected    
     5, // default_radius

@@ -209,7 +209,7 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         sendInteger(interface_x);
         if (was_closed) return;
 
-        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 780;
+        int32_t interface_y = CONFIG.scenario_height - entity.second->getDirectionOfMovement()->getY() + 800;
         sendInteger(interface_y);
         if (was_closed) return;
 

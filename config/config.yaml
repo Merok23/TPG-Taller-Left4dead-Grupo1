@@ -1,8 +1,8 @@
 scenario:
-  width: 5760
-  height: 250
+  width: 7680
+  height: 200
   spawn_point_start_x_infected: 200
-  spawn_point_end_x_infected: 5560
+  spawn_point_end_x_infected: 7480
 soldier:
   health: 100
   speed: 10

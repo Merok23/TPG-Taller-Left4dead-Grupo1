@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent, COMMANDS* commands, command_t* create_or
     join_match = new JoinMatch(this, choose_soldier, commands, create_or_join_command);
     create_match = new CreateMatch(this, choose_soldier, commands, create_or_join_command);
 
-    setWindowTitle(tr("Main Window"));
+    setWindowTitle(tr("Left 4 Dead"));
 }
 
 MainWindow::~MainWindow()

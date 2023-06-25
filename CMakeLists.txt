@@ -77,11 +77,11 @@ set_target_properties(client_executable server_executable PROPERTIES
 )
 
 set_target_properties(client_executable PROPERTIES
-  OUTPUT_NAME client
+  OUTPUT_NAME Left4Dead
 )
 
 set_target_properties(server_executable PROPERTIES
-  OUTPUT_NAME server
+  OUTPUT_NAME Left4DeadServer
 )
 
 set_target_properties(tests_executable PROPERTIES
