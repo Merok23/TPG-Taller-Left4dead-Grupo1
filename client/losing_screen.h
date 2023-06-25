@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
+#include "ranking_clearthezone.h"
+#include "ranking_survival.h"
 
 namespace Ui {
 class LosingScreen;
@@ -18,7 +20,9 @@ public:
 
     void keyPressEvent(QKeyEvent *event) override;
 
-
+private slots:
+    void on_ranking_clicked();
+    
 private:
     Ui::LosingScreen *ui;
 };
