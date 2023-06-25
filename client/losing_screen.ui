@@ -87,10 +87,24 @@
      <string>We still hope you enjoyed our game....</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="ranking">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>40</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Checkout ranking</string>
+    </property>
+   </widget>
    <zorder>confetti</zorder>
    <zorder>label</zorder>
    <zorder>label_3</zorder>
    <zorder>label_2</zorder>
+   <zorder>ranking</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

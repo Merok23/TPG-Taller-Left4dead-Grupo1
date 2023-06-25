@@ -11,7 +11,7 @@
 #include <memory>
 #include "SdlException.h"
 
-#define FRAME_RATE 30//60//1000000.0f/25.0f
+#define FRAME_RATE 60//1000000.0f/25.0f
 
 class SdlTexture;
 class Area;

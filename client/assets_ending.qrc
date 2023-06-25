@@ -2,5 +2,7 @@
     <qresource prefix="/imgs">
         <file>blood_hand.png</file>
         <file>confetti.png</file>
+        <file>blood_splash.png</file>
+        <file>blood_stain.png</file>
     </qresource>
 </RCC>

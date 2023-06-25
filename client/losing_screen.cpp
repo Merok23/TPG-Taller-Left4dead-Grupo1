@@ -7,6 +7,7 @@ LosingScreen::LosingScreen(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("You lost!");
+    ui->ranking->setVisible(true);
 }
 
 void LosingScreen::keyPressEvent(QKeyEvent *event)
@@ -15,6 +16,12 @@ void LosingScreen::keyPressEvent(QKeyEvent *event)
         close();
 }
 
+void LosingScreen::on_ranking_clicked()
+{
+    RankingClearTheZone ranking;
+    ranking.setModal(true);
+    ranking.exec();
+}
 
 LosingScreen::~LosingScreen()
 {
