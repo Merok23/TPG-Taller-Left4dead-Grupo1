@@ -46,3 +46,4 @@ uint32_t MachineGun::getAmmoLeft() {
 uint32_t MachineGun::getAmountOfAmmoUsed() {
     return this->ammo_used;
 }
+

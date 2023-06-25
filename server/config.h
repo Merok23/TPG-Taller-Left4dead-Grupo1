@@ -106,12 +106,22 @@ extern struct config CONFIG;
 
 class Config {    
     private:
-        YAML::Node config_node;
+        YAML::Node config_node; /** < Nodo del file de configuración. */
         
+        /**
+         * @brief Carga la configuración del archivo de configuración.
+        */
         void loadConfig();
     public: 
+
+        /**
+         * @brief Constructor de la clase Config.
+         * 
+         * @param configFile El archivo de configuración.
+         * 
+         * Crea una nueva instancia de la clase Config y carga la configuración del archivo de configuración.
+        */
         explicit Config(const char* configFile);
-        ~Config();
 };
 
 #endif

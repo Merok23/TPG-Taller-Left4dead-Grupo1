@@ -6,7 +6,12 @@
 
 class CreateSoldierP90 : public Action {
     public:
+
+        /**
+         * @brief Constructor de la clase CreateSoldierP90.
+         */
         CreateSoldierP90();
+
         virtual void execute(IdHandler& handler) override;
 
         ~CreateSoldierP90() override;

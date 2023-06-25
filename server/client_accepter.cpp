@@ -6,9 +6,7 @@
 
 #define MAX_ELEMENTS_QUEUE 10000
 
-ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)),finished(false) {
-    GameHandler game_handler;
-}
+ClientAccepter::ClientAccepter(const char* port) : recieving_socket(Socket(port)), game_handler(), finished(false) {}
 
 void ClientAccepter::run() {
     acceptClient();
@@ -42,7 +40,10 @@ void ClientAccepter::removeDeadClients() {
 
 void ClientAccepter::stop() {
     finished = true;
-    while (!clients.empty()) {
+}
+
+ClientAccepter::~ClientAccepter() {
+     while (!clients.empty()) {
         auto client = clients.front();
         clients.pop_front();
         delete client;
@@ -50,5 +51,3 @@ void ClientAccepter::stop() {
     recieving_socket.shutdown(SHUT_RDWR); 
     recieving_socket.close();
 }
-
-ClientAccepter::~ClientAccepter() {}

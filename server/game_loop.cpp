@@ -3,6 +3,7 @@
 #include <utility>
 #include <chrono>
 #include "config.h"
+#include <fstream>
 
 #define MAX_ELEMENTS_QUEUE 1000
 
@@ -137,7 +138,6 @@ uint8_t GameLoop::getRanking(std::vector<std::pair<uint32_t, uint32_t>>& stadist
 }
 
 void GameLoop::setStadisticsSurvival(std::shared_ptr<GameStateForClient>& game_state) {
-    //id, ammount
     std::vector<std::pair<uint32_t, uint32_t>> players_infected_killed;
     std::vector<std::pair<uint32_t, uint32_t>> players_ammo_used;
     std::vector<std::pair<uint32_t, uint32_t>> players_game_time;

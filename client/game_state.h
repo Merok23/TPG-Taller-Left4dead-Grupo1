@@ -45,29 +45,57 @@ typedef struct Statistics {
 
 } Statistics;
 
+
+/**
+ * @brief Clase que representa el estado del juego.
+ */
 class GameState {
     public:
-    //podria ser unique_ptr???
-    std::map<uint32_t, Entity*> entities;
-    bool game_over;
-    bool players_won;
-    bool lost_connection;
-    Statistics statistics;
+    std::map<uint32_t, Entity*> entities; /**< Mapa de entidades del juego. */
+    bool game_over; /**< Indica si el juego terminó. */
+    bool players_won; /**< Indica si los jugadores ganaron. */
+    bool lost_connection; /**< Indica si se perdió la conexión con el servidor. */
+    Statistics statistics; /**< Estadísticas del juego. */
     
+    /**
+     * @brief Constructor por defecto de la clase `GameState`.
+     *        Crea un estado de juego vacío con la conexión perdida.
+     */
     GameState();
+
+    /**
+     * @brief Constructor de la clase `GameState`.
+     *
+     * @param entities El mapa de entidades en el juego.
+     * @param game_over Indicador de fin del juego.
+     * @param players_won Indicador de victoria de los jugadores.
+     */
     explicit GameState(const std::map<u_int32_t, Entity*>& entities, 
         bool game_over, 
         bool players_won);
-    
+
+     /**
+     * @brief Constructor de la clase `GameState`.
+     *
+     * @param entities El mapa de entidades en el juego.
+     * @param game_over Indicador de fin del juego.
+     * @param players_won Indicador de victoria de los jugadores.
+     * @param statistics Las estadísticas del juego.
+     */
     explicit GameState(const std::map<u_int32_t, Entity*>& entities, 
         bool game_over, 
         bool players_won, 
         Statistics stadistics);
     
-    std::pair<uint8_t, uint32_t> getInfectedKilled();
-    std::pair<uint8_t, uint32_t> getAmmoUsed();
-    std::pair<uint8_t, uint32_t> getGameLoopTime();
+    /**
+     * @brief Establece la conexión perdida.
+     */
     void setLostConnection();
+
+    /**
+     * @brief Destructor de la clase `GameState`.
+     *        Libera la memoria de las entidades en el estado de juego.
+     */
     ~GameState();
 }; 
 #endif

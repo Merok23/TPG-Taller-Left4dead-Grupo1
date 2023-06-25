@@ -46,3 +46,4 @@ uint32_t AssaultRifle::getAmmoLeft() {
 uint32_t AssaultRifle::getAmountOfAmmoUsed() {
     return this->ammo_used;
 }
+

@@ -9,13 +9,13 @@
 
 class MachineGun : public Weapon {
     private:
-        uint32_t base_damage;
-        uint32_t range;
-        uint32_t magazine_size;
-        int32_t rounds_left;
-        int32_t burst_size;
-        double distance_modifier;
-        uint32_t ammo_used;
+        uint32_t base_damage; /** < Daño base del arma. */
+        uint32_t range; /** < Rango del arma. */
+        uint32_t magazine_size; /** < Tamaño del cargador. */
+        int32_t rounds_left; /** < Balas restantes en el cargador. */
+        int32_t burst_size; /** < Tamaño de la ráfaga. */
+        double distance_modifier; /** < Modificador de distancia. */
+        uint32_t ammo_used; /** < Balas usadas. */
         
     public:
         MachineGun();
@@ -28,6 +28,6 @@ class MachineGun : public Weapon {
         virtual void useAmmo() override;
         virtual std::string getWeaponType() override;
         virtual uint32_t getAmountOfAmmoUsed() override;
-        virtual ~MachineGun() {}
+        ~MachineGun() {};
 };
 #endif

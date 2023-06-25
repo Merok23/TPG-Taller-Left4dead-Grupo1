@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <fstream>
-#include "server_receive_thread.h"
+#include "receive_thread.h"
 
 ReceiveThread::ReceiveThread(ServerProtocol& protocol, 
             GameHandler& game_handler, Queue<std::shared_ptr<GameStateForClient>>& client_queue) : 
@@ -18,7 +18,7 @@ ReceiveThread::ReceiveThread(ServerProtocol& protocol,
                             finished(false), 
                                 client_id(0), 
                                     room_id(0), 
-                                        start_playing(false) {}
+                                        game_started(false) {}
 
 
 void ReceiveThread::run() {
@@ -27,7 +27,7 @@ void ReceiveThread::run() {
 }
 
 void ReceiveThread::receiveCommand() {
-    while (!finished && !this->start_playing) {
+    while (!finished && !this->game_started) {
         try {
             command_t command = protocol.receiveCommand();
             if (finished) break;
@@ -39,13 +39,13 @@ void ReceiveThread::receiveCommand() {
             if (command.type == COMMANDS_TYPE::CREATE_ROOM) {
                 room_id = game_handler.createRoom(command.room_name, client_queue, client_id, command.game_mode);
                 protocol.sendRoomId(room_id);
-                start_playing = true;
+                game_started = true;
             } else if (command.type == COMMANDS_TYPE::JOIN_ROOM) {
                 GameMode game_mode;
-                start_playing = game_handler.joinRoom(command.room_id, client_queue, client_id, game_mode);
-                protocol.sendJoinResponse(start_playing);
+                game_started = game_handler.joinRoom(command.room_id, client_queue, client_id, game_mode);
+                protocol.sendJoinResponse(game_started);
                 protocol.sendGameMode(game_mode);
-                if (start_playing) room_id = command.room_id;  
+                if (game_started) room_id = command.room_id;  
             }
         } catch(const LibError &e) {
             std::cerr << "Error: " << e.what() << std::endl;
@@ -55,7 +55,7 @@ void ReceiveThread::receiveCommand() {
 }
 
 void ReceiveThread::receiveGameActions() {
-    if (!start_playing) return;
+    if (!game_started) return;
     Queue<std::shared_ptr<Action>>& game_queue = game_handler.getQueue(room_id);
     while (!finished) {
         try {
@@ -84,7 +84,7 @@ void ReceiveThread::receiveGameActions() {
 
 void ReceiveThread::stop() {
         finished = true;
-        if (start_playing) game_handler.leaveRoom(room_id, client_queue);
+        if (game_started) game_handler.leaveRoom(room_id, client_queue);
 } 
 
 bool ReceiveThread::isFinished() {

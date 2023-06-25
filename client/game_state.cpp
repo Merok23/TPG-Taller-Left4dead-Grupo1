@@ -33,18 +33,6 @@ void GameState::setLostConnection() {
     this->lost_connection = true;
 }
 
-std::pair<uint8_t, uint32_t> GameState::getInfectedKilled() {
-    return this->statistics.getInfectedKilledInfo();
-}
-
-std::pair<uint8_t, uint32_t> GameState::getAmmoUsed() {
-    return this->statistics.getAmmoUsedInfo();
-}
-
-std::pair<uint8_t, uint32_t> GameState::getGameLoopTime() {
-    return this->statistics.getGameTimeInfo();
-}
-
 GameState::~GameState() {
     for (auto&& id_entity : this->entities) {
         delete id_entity.second;
