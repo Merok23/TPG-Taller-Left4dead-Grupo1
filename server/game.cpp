@@ -25,7 +25,7 @@ Game::Game(int32_t width, int32_t height) :
     game_over(false),
     players_won(false),
     craters_have_spawned(false) {
-        srand(time(NULL));
+        srand(static_cast<unsigned int>(std::time(nullptr)));
     }
 
 Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
@@ -53,7 +53,7 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     game_over(false),
     players_won(false),
     craters_have_spawned(false) {
-        srand(time(NULL));
+        srand(static_cast<unsigned int>(std::time(nullptr)));
     }
 
 void Game::addEntity(Entity* entity) {
@@ -295,8 +295,8 @@ bool Game::searchForPositionCloseToCentreOfMass(const uint32_t &radius, uint32_t
     uint32_t x_max = this->gameMap.getCentreOfMass() + (1.3 * CONFIG.soldier_max_distance_from_mass_centre);
     if (x_max > this->gameMap.getWidth()) x_max =CONFIG.spawn_point_end_x_infected;
     int32_t mod_y = this->gameMap.getHeight() - 2 * radius;
+    srand(static_cast<unsigned int>(std::time(nullptr)));
     while (!found) {
-        srand(time(NULL));
         y = rand() % mod_y;
         y += radius;
         if (rand() % 2) {
@@ -539,6 +539,7 @@ void Game::spawnCraters(int ammount) {
 bool Game::searchForPositionAnywhere(const uint32_t& radius, uint32_t& x, uint32_t& y) {
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
+    srand(static_cast<unsigned int>(std::time(nullptr)));
     while (!found) {
         x = rand() % this->gameMap.getWidth();
         y = rand() % mod_y;
@@ -561,6 +562,7 @@ void Game::spawnCratersAtTheBorder() {
 
 
 bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    srand(static_cast<unsigned int>(std::time(nullptr)));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     //start and end it's for when the spawn point is full
@@ -596,6 +598,7 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
 }
 
 bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    srand(static_cast<unsigned int>(std::time(nullptr)));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     int end = CONFIG.spawn_point_end_x_infected;
@@ -613,6 +616,7 @@ bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t&
 
 
 void Game::spawnInfected() {
+    srand(static_cast<unsigned int>(std::time(nullptr)));
     //this could be done with a factory pattern
     this->spawnSpecificInfected(InfectedType::COMMON, rand() % this->max_common_infected_per_spawn + 1);
     this->spawnSpecificInfected(InfectedType::SPEAR, rand() % this->max_spear_infected_per_spawn + 1);
