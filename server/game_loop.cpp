@@ -109,7 +109,7 @@ void GameLoop::setGameStadistics(std::shared_ptr<GameStateForClient>& game_state
 
 void GameLoop::setStadisticsCTZ(std::shared_ptr<GameStateForClient>& game_state) {
     for (auto& player_queue : player_queues) {
-            std::shared_ptr<GameStateForClient> game_state_for_each_client = std::make_shared<GameStateForClient>(game_state->getEntities(), game_state->getWidth(), game_state->getHeight(), game_state->isGameOver(), game_state->didPlayersWin());
+            std::shared_ptr<GameStateForClient> game_state_for_each_client = std::make_shared<GameStateForClient>(game_state->getEntities(), game_state->isGameOver(), game_state->didPlayersWin());
             std::pair<uint8_t, uint32_t> infected_killed = std::make_pair(0, id_handler.getAmmountOfInfectedKilled(player_queue.first));
             std::pair<uint8_t, uint32_t> ammo_used = std::make_pair(0, id_handler.getAmmountOfAmmoUsed(player_queue.first));
             std::pair<uint8_t, uint32_t> game_time = std::make_pair(0, this->getTotalTimeOfGameLoop());
@@ -160,7 +160,7 @@ void GameLoop::setStadisticsSurvival(std::shared_ptr<GameStateForClient>& game_s
     this->sortRankingStadistic(players_game_time);
     
     for (const auto& player_queue : player_queues) {
-        std::shared_ptr<GameStateForClient> game_state_for_each_client = std::make_shared<GameStateForClient>(game_state->getEntities(), game_state->getWidth(), game_state->getHeight(), game_state->isGameOver(), game_state->didPlayersWin());
+        std::shared_ptr<GameStateForClient> game_state_for_each_client = std::make_shared<GameStateForClient>(game_state->getEntities(), game_state->isGameOver(), game_state->didPlayersWin());
         std::pair<uint8_t, uint32_t> infected_killed = {this->getRanking(players_infected_killed, player_queue.first), id_handler.getAmmountOfInfectedKilled(player_queue.first)};
         std::pair<uint8_t, uint32_t> ammo_used = {this->getRanking(players_ammo_used, player_queue.first), id_handler.getAmmountOfAmmoUsed(player_queue.first)};
         std::pair<uint8_t, uint32_t> game_time = {this->getRanking(players_game_time, player_queue.first), id_handler.getTimeOfDeath(player_queue.first)};

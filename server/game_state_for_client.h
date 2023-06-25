@@ -3,9 +3,7 @@
 #include "entity.h"
 
 typedef struct Statistics {
-    //if game mode == survival, then ranking = true, because is the only game mode where stadistics have ranking
-    bool ranking;
-    //save as <ranking, value> if game mode != survival, then ranking =  0
+    bool ranking; 
     std::pair<uint8_t, uint32_t> infected_killed_info;
     std::pair<uint8_t, uint32_t> ammo_used_info;
     std::pair<uint8_t, uint32_t> game_time_info;
@@ -78,39 +76,74 @@ typedef struct Statistics {
 
 } Statistics;
 
+
+/**
+ * @class GameStateForClient
+ * 
+ * Esta clase representa el estado del juego para el cliente.
+*/
 class GameStateForClient {
     private:
-        std::map<uint32_t, Entity*> entities;
-        uint32_t width;
-        uint32_t height;
-        bool game_over;
-        bool players_won;
-        Statistics statistics;
+        std::map<uint32_t, Entity*> entities; /** < Mapa de entidades del juego. */
+        bool game_over; /** < Flag que indica si el juego terminó. */
+        bool players_won; /** < Flag que indica si los jugadores ganaron. */
+        Statistics statistics; /** < Estadísticas del juego. */
 
     public:
+
+        /**
+         * @brief Constructor de la clase.
+         * 
+         * @param entities Mapa de entidades del juego.
+         * @param game_over Flag que indica si el juego terminó.
+         * @param players_won Flag que indica si los jugadores ganaron.
+        */
         GameStateForClient(const std::map<uint32_t, Entity*> &entities, 
-            uint32_t width,
-            uint32_t height, 
             bool game_over, 
             bool players_won);
 
-        explicit GameStateForClient(GameStateForClient*& other);
+        /**
+         * @brief Obtiene las entidades del juego.
+         * 
+         * @return std::map<uint32_t, Entity*>& Mapa de entidades del juego.
+        */
 
         std::map<uint32_t, Entity*>& getEntities();
-
-        uint32_t getWidth();
-
-        uint32_t getHeight();
-        std::pair<uint8_t, uint32_t> getInfectedKilled();
-
-        std::pair<uint8_t, uint32_t> getAmmoUsed();
-
-        std::pair<uint8_t, uint32_t> getGameLoopTime();
-
+   
+        /**
+         * @brief Actualiza las estadísticas del juego, en el modo "Clear the Zone".
+         * 
+         * @param ranking Flag que indica si se debe las estadísticas tienen ranking.
+         * 
+         * @param infected_killed_info Cantidad de infectados muertos, y el ranking.
+         * 
+         * @param ammo_used_info Cantidad de municiones usadas, y el ranking.
+         * 
+         * @param game_time_info Tiempo de ejecución del juego, y el ranking.
+         *
+        */
         void setStadisticsCTZ(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
             std::pair<uint8_t, uint32_t> ammo_used_info, 
             std::pair<uint8_t, uint32_t> game_time_info);
 
+        /**
+         * @brief Actualiza las estadísticas del juego, en el modo de supervivencia.
+         * 
+         * @param ranking Flag que indica si se debe las estadísticas tienen ranking.
+         * 
+         * @param infected_killed_info Cantidad de infectados muertos, y el ranking.
+         * 
+         * @param ammo_used_info Cantidad de municiones usadas, y el ranking.
+         * 
+         * @param game_time_info Tiempo de ejecución del juego, y el ranking.
+         * 
+         * @param infected_kills_top_10 Lista de los 10 mejores puntajes de infectados matados.
+         * 
+         * @param ammo_used_top_10 Lista de los 10 mejores puntajes de municiones usadas.
+         * 
+         * @param time_alive_top_10 Lista de los 10 mejores puntajes de tiempo de vida.
+         * 
+        */
         void setStatisticsSurvival(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
             std::pair<uint8_t, uint32_t> ammo_used_info, 
             std::pair<uint8_t, uint32_t> game_time_info, 
@@ -118,9 +151,24 @@ class GameStateForClient {
             std::list<uint32_t> ammo_used_top_10,
             std::list<uint32_t> time_alive_top_10);
 
+        /**
+         * @brief Obtiene las estadísticas del juego.
+         * 
+         * @return Statistics& Estadísticas del juego.
+        */
         Statistics& getStatistics();
 
+        /**
+         * @brief Verifica si el juego terminó.
+         * 
+         * @return bool& Flag que indica si el juego terminó.
+        */
         bool& isGameOver();
 
+        /**
+         * @brief Verifica si los jugadores ganaron.
+         * 
+         * @return bool& Flag que indica si los jugadores ganaron.
+        */
         bool& didPlayersWin();
 };
