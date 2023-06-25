@@ -178,8 +178,8 @@ command_t ServerProtocol::receiveCommand() {
 }
 
 GameMode ServerProtocol::intToGameMode(uint8_t game_mode) {
-    if (game_mode == 0) return GameMode::SURVIVAL;
-    if (game_mode == 2) return GameMode::TESTING;
+    if (game_mode == 0) return GameMode::TESTING;
+    if (game_mode == 1) return GameMode::SURVIVAL;
     return GameMode::CLEAR_THE_ZONE;
 }
 
