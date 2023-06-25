@@ -115,7 +115,7 @@ void GameLoop::setStadisticsCTZ(std::shared_ptr<GameStateForClient>& game_state)
             std::pair<uint8_t, uint32_t> infected_killed = std::make_pair(0, id_handler.getAmmountOfInfectedKilled(player_queue.first));
             std::pair<uint8_t, uint32_t> ammo_used = std::make_pair(0, id_handler.getAmmountOfAmmoUsed(player_queue.first));
             std::pair<uint8_t, uint32_t> game_time = std::make_pair(0, this->getTotalTimeOfGameLoop());
-            game_state_for_each_client->setStadistics(false, infected_killed, ammo_used, game_time, statistics_handler.getInfectedKillsTop10(), statistics_handler.getAmmoUsedTop10(), statistics_handler.getTimeAliveTop10());
+            game_state_for_each_client->setStadisticsCTZ(false, infected_killed, ammo_used, game_time);
             player_queue.second->push(game_state_for_each_client);
     }
 }
@@ -166,7 +166,7 @@ void GameLoop::setStadisticsSurvival(std::shared_ptr<GameStateForClient>& game_s
         std::pair<uint8_t, uint32_t> infected_killed = {this->getRanking(players_infected_killed, player_queue.first), id_handler.getAmmountOfInfectedKilled(player_queue.first)};
         std::pair<uint8_t, uint32_t> ammo_used = {this->getRanking(players_ammo_used, player_queue.first), id_handler.getAmmountOfAmmoUsed(player_queue.first)};
         std::pair<uint8_t, uint32_t> game_time = {this->getRanking(players_game_time, player_queue.first), id_handler.getTimeOfDeath(player_queue.first)};
-        game_state_for_each_client->setStadistics(true, infected_killed, ammo_used, game_time, statistics_handler.getInfectedKillsTop10(), statistics_handler.getAmmoUsedTop10(), statistics_handler.getTimeAliveTop10());
+        game_state_for_each_client->setStatisticsSurvival(true, infected_killed, ammo_used, game_time, statistics_handler.getInfectedKillsTop10(), statistics_handler.getAmmoUsedTop10(), statistics_handler.getTimeAliveTop10());
         player_queue.second->push(game_state_for_each_client);
     }
 }

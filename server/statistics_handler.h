@@ -3,27 +3,27 @@
 
 #include <mutex>
 #include <fstream>
-#include <vector>
+#include <list>
 #include <algorithm>
 #include <iostream>
 
 
 class StatisticsHandler {
     private: 
-    std::vector<uint32_t> infected_kills_top_10;
-    std::vector<uint32_t> ammo_used_top_10;
-    std::vector<uint32_t> time_alive_top_10;
+    std::list<uint32_t> infected_kills_top_10;
+    std::list<uint32_t> ammo_used_top_10;
+    std::list<uint32_t> time_alive_top_10;
     uint8_t ranking_size;
     bool was_updated;
     std::mutex mutex;
 
-    void updateList(std::vector<uint32_t>& list, uint32_t& value);
+    void updateList(std::list<uint32_t>& list, uint32_t& value);
     public:
     StatisticsHandler();
     void updateStatistics(uint32_t& infected_kills, uint32_t& ammo_used, uint32_t& time_alive);
-    std::vector<uint32_t> getInfectedKillsTop10();
-    std::vector<uint32_t> getAmmoUsedTop10();
-    std::vector<uint32_t> getTimeAliveTop10();
+    std::list<uint32_t> getInfectedKillsTop10();
+    std::list<uint32_t> getAmmoUsedTop10();
+    std::list<uint32_t> getTimeAliveTop10();
     void saveAllStatistics();
     ~StatisticsHandler();
 };

@@ -41,16 +41,20 @@ bool& GameStateForClient::didPlayersWin() {
     return this->players_won;
 }
 
-void GameStateForClient::setStadistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+void GameStateForClient::setStadisticsCTZ(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
     std::pair<uint8_t, uint32_t> ammo_used_info, 
-    std::pair<uint8_t, uint32_t> game_time_info,
-    std::vector<uint32_t> infected_kills_top_10,
-    std::vector<uint32_t> ammo_used_top_10,
-    std::vector<uint32_t> time_alive_top_10) {
-    this->statistics.setStatistics(ranking, infected_killed_info, ammo_used_info, game_time_info, 
-        infected_kills_top_10, ammo_used_top_10, time_alive_top_10);
+    std::pair<uint8_t, uint32_t> game_time_info) {
+        this->statistics.setStatisticsCTZ(ranking, infected_killed_info, ammo_used_info, game_time_info);
 }
 
+void GameStateForClient::setStatisticsSurvival(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+    std::pair<uint8_t, uint32_t> ammo_used_info, 
+    std::pair<uint8_t, uint32_t> game_time_info, 
+    std::list<uint32_t> infected_kills_top_10,
+    std::list<uint32_t> ammo_used_top_10,
+    std::list<uint32_t> time_alive_top_10) {
+        this->statistics.setStatisticsSurvival(ranking, infected_killed_info, ammo_used_info, game_time_info, infected_kills_top_10, ammo_used_top_10, time_alive_top_10);
+}
 std::pair<uint8_t, uint32_t> GameStateForClient::getInfectedKilled() {
     return this->statistics.getInfectedKilledInfo();
 }
@@ -63,3 +67,6 @@ std::pair<uint8_t, uint32_t> GameStateForClient::getGameLoopTime() {
     return this->statistics.getGameTimeInfo();
 }
 
+Statistics& GameStateForClient::getStatistics() {
+    return this->statistics;
+}

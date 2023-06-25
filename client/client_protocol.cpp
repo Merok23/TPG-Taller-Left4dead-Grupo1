@@ -233,6 +233,9 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
     }
     std::shared_ptr<GameState> game_state = nullptr;
     if ((bool) game_over) {
+        bool ranking = (bool)receiveUnsignedSmallInteger();
+        if (was_closed) return NULL;
+
         uint8_t game_time_ranking = receiveUnsignedSmallInteger();
         if (was_closed) return NULL;
 
@@ -252,8 +255,46 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
         if (was_closed) return NULL;
 
         Statistics statistics = Statistics(); 
-        statistics.setStatistics((bool)game_time_ranking, std::make_pair(infected_killed_ranking, infected_killed), 
-            std::make_pair(ammo_used_ranking, ammo), std::make_pair(game_time_ranking, game_time));
+        if (ranking) {
+            uint32_t infected_kills_top_10_len = receieveUnsignedInteger();
+            if (was_closed) return NULL;
+
+            std::list<uint32_t> infected_kills_top_10;
+            while (infected_kills_top_10_len > 0) {
+                uint32_t infected_kills = receieveUnsignedInteger();
+                if (was_closed) return NULL;
+                infected_kills_top_10.push_back(infected_kills);
+                infected_kills_top_10_len--;
+            }
+
+            uint32_t ammo_used_top_10_len = receieveUnsignedInteger();
+            if (was_closed) return NULL;
+
+            std::list<uint32_t> ammo_used_top_10;
+            while (ammo_used_top_10_len > 0) {
+                uint32_t ammo_used = receieveUnsignedInteger();
+                if (was_closed) return NULL;
+                ammo_used_top_10.push_back(ammo_used);
+                ammo_used_top_10_len--;
+            }
+
+            uint32_t time_alive_top_10_len = receieveUnsignedInteger();
+            if (was_closed) return NULL;
+
+            std::list<uint32_t> time_alive_top_10;
+            while (time_alive_top_10_len > 0) {
+                uint32_t time_alive = receieveUnsignedInteger();
+                if (was_closed) return NULL;
+                time_alive_top_10.push_back(time_alive);
+                time_alive_top_10_len--;
+            }
+            statistics.setStatisticsSurvival((bool)ranking, std::make_pair(infected_killed_ranking, infected_killed), 
+                std::make_pair(ammo_used_ranking, ammo), std::make_pair(game_time_ranking, game_time), infected_kills_top_10, ammo_used_top_10, time_alive_top_10);
+        }
+        else  {
+            statistics.setStatisticsCTZ((bool)ranking, std::make_pair(infected_killed_ranking, infected_killed), 
+                std::make_pair(ammo_used_ranking, ammo), std::make_pair(game_time_ranking, game_time));
+        }
        game_state = std::make_shared<GameState>(entities, game_over, players_won, statistics);
     } else {
         game_state = std::make_shared<GameState>(entities, game_over, players_won);

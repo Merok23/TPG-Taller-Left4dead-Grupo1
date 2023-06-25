@@ -3,6 +3,7 @@
 #include "entity.h"
 #include <memory>
 #include <map>
+#include <list>
 typedef struct Statistics {
     //if game mode == survival, then ranking = true, because is the only game mode where stadistics have ranking
     bool ranking;
@@ -10,21 +11,42 @@ typedef struct Statistics {
     std::pair<uint8_t, uint32_t> infected_killed_info;
     std::pair<uint8_t, uint32_t> ammo_used_info;
     std::pair<uint8_t, uint32_t> game_time_info;
+    std::list<uint32_t> infected_kills_top_10;
+    std::list<uint32_t> ammo_used_top_10;
+    std::list<uint32_t> time_alive_top_10;
     
     Statistics() {
         this->ranking = false;
         this->infected_killed_info = std::make_pair(0, 0);
         this->ammo_used_info = std::make_pair(0, 0);
         this->game_time_info = std::make_pair(0, 0);
+        this->infected_kills_top_10 = std::list<uint32_t>(10, 0);
+        this->ammo_used_top_10 = std::list<uint32_t>(10, 0);
+        this->time_alive_top_10 = std::list<uint32_t>(10, 0);
     }
 
-    void setStatistics(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+    void setStatisticsCTZ(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
         std::pair<uint8_t, uint32_t> ammo_used_info, 
         std::pair<uint8_t, uint32_t> game_time_info) {
         this->ranking = ranking;
         this->infected_killed_info = infected_killed_info;
         this->ammo_used_info = ammo_used_info;
         this->game_time_info = game_time_info;
+    }
+
+    void setStatisticsSurvival(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
+        std::pair<uint8_t, uint32_t> ammo_used_info, 
+        std::pair<uint8_t, uint32_t> game_time_info, 
+        std::list<uint32_t> infected_kills_top_10,
+        std::list<uint32_t> ammo_used_top_10,
+        std::list<uint32_t> time_alive_top_10) {
+        this->ranking = ranking;
+        this->infected_killed_info = infected_killed_info;
+        this->ammo_used_info = ammo_used_info;
+        this->game_time_info = game_time_info;
+        this->infected_kills_top_10 = infected_kills_top_10;
+        this->ammo_used_top_10 = ammo_used_top_10;
+        this->time_alive_top_10 = time_alive_top_10;
     }
 
     std::pair<uint8_t, uint32_t> getInfectedKilledInfo() {
