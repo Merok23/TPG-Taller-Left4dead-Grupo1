@@ -18,21 +18,6 @@ void ReceiveThread::run() {
                 finished = true;
                 break;
             }   
-            if (game_state && game_state->game_over) {
-                Statistics statistics = game_state->statistics;
-                if (statistics.getRanking()) {
-                    for (auto& infected_kills : statistics.infected_kills_top_10) {
-                        std::cout << infected_kills << std::endl;
-                    }
-                    for (auto& ammo_used : statistics.ammo_used_top_10) {
-                        std::cout << ammo_used << std::endl;
-                    }
-
-                    for (auto& time_alive : statistics.time_alive_top_10) {
-                        std::cout << time_alive << std::endl;
-                    }
-                }
-            }
             if (game_state) {
                 game_states.push(std::move(game_state)); 
             }
