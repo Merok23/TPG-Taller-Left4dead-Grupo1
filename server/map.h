@@ -25,6 +25,7 @@ class Map {
         std::tuple<int, int> getSurvivalModeSpawnPoint(const int &radius);
         std::tuple<int, int> getClearTheZoneSpawnPoint(const int &radius);
         std::tuple<int, int> getCentreOfMassSpawnPoint(const int &radius);
+        int32_t getCentreOfMass();
         std::map<uint32_t, Movement*> getEntities();
         bool move(const uint32_t &id);
         std::vector<VectorWrapper> shoot(uint32_t id);

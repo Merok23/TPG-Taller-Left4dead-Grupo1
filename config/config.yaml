@@ -46,6 +46,7 @@ infected:
     shout_cooldown: 80
     shout_probability: 0.005
     scream_spawn_ammount: 10
+    shout_minimum_distance: 600
   venom:
     health: 100
     speed: 10
@@ -66,7 +67,7 @@ infected:
 crater:
   radius: 40
   hit_points: 100
-  ammount: 6
+  ammount: 1
 general:
   default_radius: 5
   invalid_id: 8589934591
@@ -91,10 +92,10 @@ weapon:
     distance_modifier: 0
     damage_falloff: 0.1
 cheats:
-  infinite_hitpoints: 2147483647
+  infinite_hitpoints: 2147483637
 modes:
   survival:
-    timer: 500
+    timer: 200
     max_common_infected: 3
     max_spear_infected: 2
     max_witch_infected: 1
@@ -103,7 +104,7 @@ modes:
     accumulator: 1.1
     starting_multiplier: 1.0
   clear_the_zone:
-    infected_total: 10
+    infected_total: 30
 zone_percentages:
   common_infected: 0.6
   spear_infected: 0.2

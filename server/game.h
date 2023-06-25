@@ -103,6 +103,7 @@ class Game {
         void survivalUpdate();
         void spawnInfected();
         void spawnSpecificInfected(const InfectedType &type, const int &ammount);
+        void spawnSpecificInfectedAtEnd(const InfectedType &type, const int &ammount);
         Entity* createInfected(const InfectedType &type, const uint32_t &id, const uint32_t &x, const uint32_t &y);
         int32_t typeToRadius(const InfectedType &type);
         void spawnCraters(int ammount);
@@ -112,6 +113,8 @@ class Game {
         void killAllInfectedCheat();
         bool searchForPositionAtBorders(const uint32_t& radius, uint32_t &x, uint32_t &y);
         bool searchForPositionAnywhere(const uint32_t& radius, uint32_t &x, uint32_t &y);
+        bool searchForPositionAtEnd(const uint32_t& radius, uint32_t &x, uint32_t &y);
+        bool searchForPositionCloseToCentreOfMass(const uint32_t& radius, uint32_t &x, uint32_t &y);
         void makeInfectedStronger();
         void setTheZone();
         void setBlastVenom(const uint32_t& id);

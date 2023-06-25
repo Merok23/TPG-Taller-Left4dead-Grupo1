@@ -36,9 +36,9 @@ typedef struct Statistics {
     void setStatisticsSurvival(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
         std::pair<uint8_t, uint32_t> ammo_used_info, 
         std::pair<uint8_t, uint32_t> game_time_info, 
-        std::list<uint32_t> infected_kills_top_10,
-        std::list<uint32_t> ammo_used_top_10,
-        std::list<uint32_t> time_alive_top_10) {
+        const std::list<uint32_t> &infected_kills_top_10,
+        const std::list<uint32_t> &ammo_used_top_10,
+        const std::list<uint32_t> &time_alive_top_10) {
         this->ranking = ranking;
         this->infected_killed_info = infected_killed_info;
         this->ammo_used_info = ammo_used_info;

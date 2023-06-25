@@ -24,7 +24,9 @@ Game::Game(int32_t width, int32_t height) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false) {}
+    craters_have_spawned(false) {
+        srand(time(NULL));
+    }
 
 Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
     entities(),
@@ -50,7 +52,9 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false) {}
+    craters_have_spawned(false) {
+        srand(time(NULL));
+    }
 
 void Game::addEntity(Entity* entity) {
     //TODO: if ID already exists, throw exception
@@ -275,7 +279,7 @@ void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
     for (int i = 0; i < CONFIG.witch_infected_scream_spawn_ammount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
-        if (searchForPositionAtBorders(CONFIG.common_infected_radius, x, y)) {
+        if (searchForPositionCloseToCentreOfMass(CONFIG.common_infected_radius, x, y)) {
             Entity* infected = new CommonInfected(current_id, x, y);
             this->addEntity(infected);
             CommonInfected* common = dynamic_cast<CommonInfected*>(infected);
@@ -284,9 +288,39 @@ void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
     }
 }
 
+bool Game::searchForPositionCloseToCentreOfMass(const uint32_t &radius, uint32_t &x, uint32_t &y) {
+    bool found = false;
+    int32_t x_min = this->gameMap.getCentreOfMass() - (1.3 * CONFIG.soldier_max_distance_from_mass_centre);
+    if (x_min < 0) x_min = CONFIG.spawn_point_start_x_infected;
+    uint32_t x_max = this->gameMap.getCentreOfMass() + (1.3 * CONFIG.soldier_max_distance_from_mass_centre);
+    if (x_max > this->gameMap.getWidth()) x_max =CONFIG.spawn_point_end_x_infected;
+    int32_t mod_y = this->gameMap.getHeight() - 2 * radius;
+    while (!found) {
+        srand(time(NULL));
+        y = rand() % mod_y;
+        y += radius;
+        if (rand() % 2) {
+            found = !this->gameMap.checkForCollisionInPosition(x_min, y, radius);
+            x = x_min;
+        } else {
+            found = !this->gameMap.checkForCollisionInPosition(x_max, y, radius);
+            x = x_max;
+        } 
+        if (!found) {
+            x_min += radius;
+            x_max -= radius;
+        }
+    }
+    return found;
+}
+
 void Game::checkForScreamingWitches() {
     for (auto&& witch : this->witches) {
-        if (witch.second->isShouting() && !witch.second->hasSpawnedInfected()) this->spawnWitchInfectedFromScream(witch.first);
+        if (witch.second->isShouting() && 
+            !witch.second->hasSpawnedInfected() && 
+            witch.second->isInDistanceForShouting(this->gameMap.getCentreOfMass())) {
+                this->spawnWitchInfectedFromScream(witch.first);
+        } 
     }
 }
 
@@ -396,11 +430,27 @@ void Game::removeDeadProjectiles() {
 
 void Game::setTheZone() {
     this->zone_is_set = true;
-    this->spawnSpecificInfected(InfectedType::COMMON, CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
-    this->spawnSpecificInfected(InfectedType::SPEAR, CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
-    this->spawnSpecificInfected(InfectedType::WITCH, CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfectedAtEnd(InfectedType::COMMON, CONFIG.common_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfectedAtEnd(InfectedType::SPEAR, CONFIG.spear_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfectedAtEnd(InfectedType::WITCH, CONFIG.witch_infected_zone_percentage * this->clear_the_zone_max_infected);
     //this->spawnSpecificInfected(InfectedType::JUMPER, CONFIG.jumper_infected_zone_percentage * this->clear_the_zone_max_infected);
-    this->spawnSpecificInfected(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
+    this->spawnSpecificInfectedAtEnd(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
+}
+
+void Game::spawnSpecificInfectedAtEnd(const InfectedType &type, const int &ammount) {
+    int32_t radius = typeToRadius(type);
+    for (int i = 0; i < ammount; i++) {
+        uint32_t x = 0;
+        uint32_t y = 0;
+        if (searchForPositionAtEnd(radius, x, y)) {
+            //id is not a problem (race condition) since there is no 
+            //other thread calling for addEntity in the game update
+            Entity* entity = createInfected(type, this->current_id, x, y);
+            this->addEntity(entity);
+            Infected* infected = dynamic_cast<Infected*>(entity);
+            infected->moveToMiddle();
+        }
+    }
 }
 
 void Game::spawnSpecificInfected(const InfectedType &type,const int &ammount) {
@@ -541,6 +591,22 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
             }
             end-= radius;
         }
+    }
+    return found;
+}
+
+bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    bool found = false;
+    int mod_y = this->gameMap.getHeight() - 2 * radius;
+    int end = CONFIG.spawn_point_end_x_infected;
+    while (!found) {
+        y = rand() % mod_y;
+        y += radius;
+        if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
+            found = true;
+            x = end;
+        }
+        end-= radius;
     }
     return found;
 }
