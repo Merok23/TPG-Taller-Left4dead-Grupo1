@@ -1,13 +1,16 @@
 #include "winning_screen.h"
 #include "ui_winning_screen.h"
 
-WinningScreen::WinningScreen(QWidget *parent) :
+WinningScreen::WinningScreen(QWidget *parent, EndingInfo *ending_info) :
     QMainWindow(parent),
-    ui(new Ui::WinningScreen)
+    ui(new Ui::WinningScreen),
+    ending_info(ending_info)
 {
     ui->setupUi(this);
     setWindowTitle("You won!");
     ui->ranking->setVisible(true);
+    if (ending_info->game_mode == TESTING)
+        ui->ranking->setVisible(false);
 }
 
 void WinningScreen::keyPressEvent(QKeyEvent *event)
@@ -19,9 +22,15 @@ void WinningScreen::keyPressEvent(QKeyEvent *event)
 
 void WinningScreen::on_ranking_clicked()
 {
-    RankingClearTheZone ranking;
-    ranking.setModal(true);
-    ranking.exec();
+    if (ending_info->game_mode == CLEAR_THE_ZONE) {
+        RankingClearTheZone ranking;
+        ranking.setModal(true);
+        ranking.exec();
+    } else if (ending_info->game_mode == SURVIVAL) {
+        RankingSurvival ranking;
+        ranking.setModal(true);
+        ranking.exec();
+    }
 }
 
 WinningScreen::~WinningScreen()

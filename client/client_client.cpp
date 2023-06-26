@@ -71,9 +71,9 @@ void Client::run() {
         }
     }
     if (gs) {
-        bool user_won = graphics.run(gs, create_or_join_command.game_mode, queue_comandos, game_states);
+        EndingInfo ending_info = graphics.run(gs, create_or_join_command.game_mode, queue_comandos, game_states);
         GraphicsQtEnding graphics_qt_ending;
-        graphics_qt_ending.run(user_won);
+        graphics_qt_ending.run(std::move(ending_info));
     }
     receive_thread->stop();
     send_thread->stop();

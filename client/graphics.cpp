@@ -7,15 +7,16 @@
 #define MOVE_DOWN -1
 #define STILL 0
 
+
 Graphics::Graphics() : last_it(0) {}
 
-bool Graphics::game_loop(bool* user_won, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
+bool Graphics::game_loop(EndingInfo* ending_info, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
     int delta_its = it - this->last_it;
 
     bool player_doesnt_quit = handleEvents(gr_entity_holder, queue_comandos);
     //usleep(0.01); //si queremos emular mala comunicacion, emulo que el dibujado es ree lento
     bool continue_render = false;
-    bool continue_playing = update(user_won, gr_entity_holder, FRAME_RATE * delta_its, game_states, &continue_render);
+    bool continue_playing = update(ending_info, gr_entity_holder, FRAME_RATE * delta_its, game_states, &continue_render);
     if (continue_render)
         render(window, gr_entity_holder, camera);
 
@@ -23,7 +24,12 @@ bool Graphics::game_loop(bool* user_won, const int &it, GraphicsEntityHolder &gr
     return player_doesnt_quit && continue_playing;
 }
 
-bool Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
+EndingInfo Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states){
+    EndingInfo ending_info;
+    ending_info.last_gs = NULL;
+    ending_info.user_won = false;
+    ending_info.game_mode = game_mode;
+
     try {
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
             throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
@@ -55,9 +61,8 @@ bool Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
         this->last_it = 0;
 
         bool running = true;
-        bool user_won = false;
         while (running) {
-            running = game_loop(&user_won, it, gr_entity_holder, camera, queue_comandos, game_states, window);
+            running = game_loop(&ending_info, it, gr_entity_holder, camera, queue_comandos, game_states, window);
             
             time_t t2 = time(0);
             int rest = FRAME_RATE - (t2-t1);
@@ -77,11 +82,12 @@ bool Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queue<comm
         IMG_Quit();
         SDL_Quit();
 
-        return user_won;
+        return ending_info;
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
-    return true;
+    
+    return ending_info;
 }
 
 /**
@@ -233,31 +239,34 @@ bool Graphics::handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<comman
     return true;
 }
 
-bool Graphics::update(bool* user_won, GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render) {
+bool Graphics::update(EndingInfo* ending_info, GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render) {
     std::shared_ptr<GameState> gs = NULL;
     while (game_states.try_pop(gs));
     if (gs) {
         if (gs->lost_connection) {
-            std::cout << "Se perdio la conexion con el server" << std::endl;
-            *user_won = false;
+            std::cout << "Conexion to server down" << std::endl;
+            ending_info->user_won = false;
+            ending_info->last_gs = gs;
             return false;
         }
             
         if (gs->game_over) {
             if (gs->players_won) {
-                std::cout << "El juego termino, ganamos! :D" << std::endl;
-                *user_won = true;
+                std::cout << "The game ended, we won! :D" << std::endl;
+                ending_info->user_won = true;
+                ending_info->last_gs = gs;
                 return false;
             }
             else {
-                std::cout << "El juego termino, perdimos D:" << std::endl;
-                *user_won = false;
+                std::cout << "The game ended, we lost D:" << std::endl;
+                ending_info->user_won = false;
+                ending_info->last_gs = gs;
                 return false;
             }
         }
         gr_entity_holder.update(dt, gs);
         *continue_render = true;
-    } 
+    }
     return true;
 }
 

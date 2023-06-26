@@ -4,11 +4,11 @@
 #include <QApplication>
 #include "winning_screen.h"
 #include "losing_screen.h"
-
+#include "graphics.h"
 
 class GraphicsQtEnding {
 public:
-    void run(bool user_won);
+    void run(EndingInfo ending_info);
     
 private:
 };

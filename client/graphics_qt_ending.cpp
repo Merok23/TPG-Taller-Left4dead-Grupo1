@@ -1,16 +1,16 @@
 #include "graphics_qt_ending.h"
 
-void GraphicsQtEnding::run(bool user_won) {
+void GraphicsQtEnding::run(EndingInfo ending_info) {
     int argc = 0;
     char* argv[1];
     QApplication a(argc, argv);
 
-    if (user_won) {
-        WinningScreen ws;
+    if (ending_info.user_won) {
+        WinningScreen ws(nullptr, &ending_info);
         ws.show();
         a.exec();
     } else {
-        LosingScreen ls;
+        LosingScreen ls(nullptr, &ending_info);
         ls.show();
         a.exec();
     }

@@ -24,17 +24,24 @@
 
 #include "audio_holder.h"
 
+typedef struct {
+    std::shared_ptr<GameState> last_gs;
+    bool user_won;
+    GameMode game_mode;
+
+} EndingInfo;
+
 
 class Graphics {
     public:
     Graphics();
-    bool run(std::shared_ptr<GameState> gs, GameMode game_mode,
+    EndingInfo run(std::shared_ptr<GameState> gs, GameMode game_mode,
             Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
 
     private:
-    bool game_loop(bool* user_won, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
+    bool game_loop(EndingInfo* ending_info, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos);
-    bool update(bool* user_won, GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render);
+    bool update(EndingInfo* ending_info, GraphicsEntityHolder &gr_entity_holder, float dt, Queue<std::shared_ptr<GameState>> &game_states, bool* continue_render);
     void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera);
 
     int last_it;
