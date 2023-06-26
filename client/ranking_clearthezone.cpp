@@ -11,7 +11,7 @@ RankingClearTheZone::RankingClearTheZone(QWidget *parent, EndingInfo *ending_inf
 
     ui->amount_infcted_killed->setText(QString::number(ending_info->last_gs->statistics.getInfectedKilledInfo().second));
     ui->bullets_shot->setText(QString::number(ending_info->last_gs->statistics.getAmmoUsedInfo().second));
-    ui->gameplay_duration->setText(QString::number(ending_info->last_gs->statistics.getGameTimeInfo().second) + " ms");
+    ui->gameplay_duration->setText(QString::number(ending_info->last_gs->statistics.getGameTimeInfo().second) + " s");
 
 }
 

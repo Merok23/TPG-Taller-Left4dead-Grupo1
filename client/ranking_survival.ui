@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
-    <height>621</height>
+    <width>1047</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QLabel" name="blood_splash">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>0</y>
-     <width>191</width>
-     <height>191</height>
+     <x>820</x>
+     <y>-20</y>
+     <width>211</width>
+     <height>331</height>
     </rect>
    </property>
    <property name="text">
@@ -35,8 +35,8 @@
   <widget class="QLabel" name="label_infcted_killed">
    <property name="geometry">
     <rect>
-     <x>47</x>
-     <y>160</y>
+     <x>130</x>
+     <y>250</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -56,8 +56,8 @@
   <widget class="QLabel" name="label_bullets_shot">
    <property name="geometry">
     <rect>
-     <x>27</x>
-     <y>230</y>
+     <x>110</x>
+     <y>320</y>
      <width>191</width>
      <height>41</height>
     </rect>
@@ -77,8 +77,8 @@
   <widget class="QLabel" name="blood_hand">
    <property name="geometry">
     <rect>
-     <x>267</x>
-     <y>230</y>
+     <x>330</x>
+     <y>330</y>
      <width>281</width>
      <height>311</height>
     </rect>
@@ -96,8 +96,8 @@
   <widget class="QLabel" name="amount_infcted_killed">
    <property name="geometry">
     <rect>
-     <x>237</x>
-     <y>160</y>
+     <x>320</x>
+     <y>250</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -117,10 +117,10 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>417</x>
-     <y>100</y>
-     <width>341</width>
-     <height>441</height>
+     <x>497</x>
+     <y>120</y>
+     <width>331</width>
+     <height>581</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -138,9 +138,9 @@
   <widget class="QLabel" name="blood_splash_2">
    <property name="geometry">
     <rect>
-     <x>-3</x>
-     <y>140</y>
-     <width>191</width>
+     <x>50</x>
+     <y>160</y>
+     <width>201</width>
      <height>191</height>
     </rect>
    </property>
@@ -157,8 +157,8 @@
   <widget class="QLabel" name="bullets_shot">
    <property name="geometry">
     <rect>
-     <x>237</x>
-     <y>230</y>
+     <x>320</x>
+     <y>320</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -178,8 +178,8 @@
   <widget class="QLabel" name="ranking">
    <property name="geometry">
     <rect>
-     <x>517</x>
-     <y>20</y>
+     <x>597</x>
+     <y>40</y>
      <width>171</width>
      <height>71</height>
     </rect>
@@ -196,8 +196,8 @@
   <widget class="QLabel" name="label_gameplay_duration">
    <property name="geometry">
     <rect>
-     <x>17</x>
-     <y>290</y>
+     <x>100</x>
+     <y>380</y>
      <width>201</width>
      <height>41</height>
     </rect>
@@ -217,8 +217,8 @@
   <widget class="QLabel" name="your_stats">
    <property name="geometry">
     <rect>
-     <x>147</x>
-     <y>30</y>
+     <x>227</x>
+     <y>50</y>
      <width>171</width>
      <height>71</height>
     </rect>
@@ -235,8 +235,8 @@
   <widget class="QLabel" name="gameplay_duration">
    <property name="geometry">
     <rect>
-     <x>237</x>
-     <y>290</y>
+     <x>320</x>
+     <y>380</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -256,14 +256,33 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>50</y>
+     <x>460</x>
+     <y>70</y>
      <width>20</width>
-     <height>481</height>
+     <height>621</height>
     </rect>
    </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="blood_splash_3">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>560</y>
+     <width>201</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets_ending.qrc">:/imgs/blood_stain.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

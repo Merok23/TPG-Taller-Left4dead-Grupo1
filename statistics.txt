@@ -1,9 +1,21 @@
 TOP 5: Infected kills
-1
+0
+0
+0
+0
+0
 
 TOP 5: Ammo used
-2
+0
+0
+0
+0
+0
+
 
 TOP 5: Time alive
-54
-
+0
+0
+0
+0
+0
