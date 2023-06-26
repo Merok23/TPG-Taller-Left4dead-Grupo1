@@ -1,6 +1,11 @@
 #include <cstdint>
 #pragma once
 
+//I didn't know about std::tuple at this point :(
+/**
+ * @class VectorWrapper, a wrapper for having a vector of entities and their distance from a point  
+ */
+
 class VectorWrapper {
     private:
         uint32_t id;

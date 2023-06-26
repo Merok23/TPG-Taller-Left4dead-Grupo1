@@ -60,10 +60,10 @@ struct config {
     int venom_infected_projectile_radius;
     int venom_infected_projectile_speed;
     int venom_infected_projectile_explosion_counter; //ammont of time from impact to dissapearing
-    int witch_infected_scream_spawn_ammount; //ammount spawned per scream
+    int witch_infected_scream_spawn_amount; //ammount spawned per scream
     int crater_radius;
     int crater_hit_points; //it can't be hit but since it's an entity it's needed.
-    int crater_ammount;
+    int crater_amount;
     int scenario_width;
     int scenario_height;
     int spawn_point_start_x_infected;
