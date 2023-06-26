@@ -1,9 +1,21 @@
 TOP 5: Infected kills
+7
+5
+3
+2
 1
 
 TOP 5: Ammo used
+380
+170
+7
+7
 2
 
 TOP 5: Time alive
+56
 54
+54
+54
+53
 

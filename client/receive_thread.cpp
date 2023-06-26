@@ -17,7 +17,7 @@ void ReceiveThread::run() {
                 game_states.push(std::move(game_state)); 
                 finished = true;
                 break;
-            }
+            }   
             if (game_state) {
                 game_states.push(std::move(game_state)); 
             }
