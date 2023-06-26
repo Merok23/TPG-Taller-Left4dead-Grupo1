@@ -26,6 +26,7 @@ void RankingSurvival::keyPressEvent(QKeyEvent *event)
         close();
 }
 
+int layout_total = 0;
 void RankingSurvival::adding_ranking() {
     setting_up_ranking(ending_info->last_gs->statistics.top_infected_kills, QString("Infected Kills"));
     setting_up_ranking(ending_info->last_gs->statistics.top_ammo_used, QString("Ammo Used"));
@@ -34,6 +35,7 @@ void RankingSurvival::adding_ranking() {
 
 void RankingSurvival::setting_up_ranking(std::list<uint32_t>& list_ranking, QString title) {
     QVBoxLayout *layout = new QVBoxLayout();
+    qDebug() << "entro con " << title;
     int rank = 1;
 
     QLabel *title_qlabel = new QLabel(title);
@@ -53,6 +55,13 @@ void RankingSurvival::setting_up_ranking(std::list<uint32_t>& list_ranking, QStr
     }
 
     ui->verticalLayout->addLayout(layout);
+    int layoutCount = ui->verticalLayout->count();
+    if (layoutCount == layout_total+1) {
+        qDebug() << "Layout added to ui->verticalLayout";
+        layout_total++;
+    } else {
+        qDebug() << "Failed to add layout to ui->verticalLayout";
+    }
     QSpacerItem *spacerItem = new QSpacerItem(20, 45, QSizePolicy::Minimum, QSizePolicy::Expanding);
     ui->verticalLayout->addSpacerItem(spacerItem);
 }

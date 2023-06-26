@@ -10,8 +10,6 @@ WinningScreen::WinningScreen(QWidget *parent, EndingInfo *ending_info) :
     ui->setupUi(this);
     setWindowTitle("You won!");
     ui->ranking->setVisible(true);
-    if (ending_info->last_gs == nullptr)
-        qDebug() << "last_gs es null";
     if (ending_info->game_mode == TESTING || ending_info->last_gs == nullptr)
         ui->ranking->setVisible(false);
 }
