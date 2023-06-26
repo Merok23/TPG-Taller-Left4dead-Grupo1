@@ -34,7 +34,7 @@ void RankingSurvival::adding_ranking() {
 
 void RankingSurvival::setting_up_ranking(std::list<uint32_t>& list_ranking, QString title) {
     QVBoxLayout *layout = new QVBoxLayout();
-    qDebug() << "entro con " << title;
+    qDebug() << "\n\n\nentro con " << title;
     int rank = 1;
 
     QLabel *title_qlabel = new QLabel(title);
@@ -47,6 +47,7 @@ void RankingSurvival::setting_up_ranking(std::list<uint32_t>& list_ranking, QStr
     qDebug() << "size list_ranking " << list_ranking.size();
 
     for (const auto& element : list_ranking) {
+        qDebug() << "element is " << element;
         if (element != 0) {
             QLabel *label = new QLabel(QString::number(rank) + QChar(0x00B0) + " place -- " + QString::number(element));
             label->setAlignment(Qt::AlignHCenter);  // Set alignment to center

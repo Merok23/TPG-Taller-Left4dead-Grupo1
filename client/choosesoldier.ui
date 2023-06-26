@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
-    <height>585</height>
+    <width>938</width>
+    <height>692</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="title">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>40</y>
+     <x>300</x>
+     <y>90</y>
      <width>371</width>
      <height>51</height>
     </rect>
@@ -34,8 +34,8 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>440</y>
+     <x>140</x>
+     <y>490</y>
      <width>621</width>
      <height>80</height>
     </rect>
@@ -63,8 +63,8 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>260</y>
+     <x>90</x>
+     <y>310</y>
      <width>731</width>
      <height>161</height>
     </rect>
@@ -227,8 +227,8 @@
   <widget class="QLabel" name="IDF_img">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>120</y>
+     <x>160</x>
+     <y>170</y>
      <width>71</width>
      <height>94</height>
     </rect>
@@ -243,8 +243,8 @@
   <widget class="QLabel" name="P90_img">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>120</y>
+     <x>400</x>
+     <y>170</y>
      <width>81</width>
      <height>94</height>
     </rect>
@@ -259,8 +259,8 @@
   <widget class="QLabel" name="Scout_img">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>120</y>
+     <x>660</x>
+     <y>170</y>
      <width>71</width>
      <height>94</height>
     </rect>
@@ -275,8 +275,8 @@
   <widget class="QGroupBox" name="soldier_box">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>200</y>
+     <x>90</x>
+     <y>250</y>
      <width>731</width>
      <height>51</height>
     </rect>
