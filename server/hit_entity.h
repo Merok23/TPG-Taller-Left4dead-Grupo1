@@ -6,6 +6,9 @@
 
 class Entity;
 
+/**
+ * @class HitEntity, a wrapper for having a vector of entities and their distance from a point 
+ */
 class HitEntity {
     private:
         Entity* entity;

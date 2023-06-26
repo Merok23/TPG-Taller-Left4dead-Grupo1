@@ -36,7 +36,7 @@ void Player::move(int32_t x_movement, int32_t y_movement) {
 
 void Player::update(Map& map) {
     if (this->state == DEAD_SOLDIER) return;
-    this->resolveDamage();
+    Entity::resolveDamage();
     if (this->incapacitated > 0) {
         this->incapacitated--;
         if (this->incapacitated != 0) this->state = RELOADING_SOLDIER;
@@ -84,10 +84,6 @@ void Player::update(Map& map) {
 
 uint32_t Player::getTimeOfDeath() {
     return this->time_of_death;
-}
-
-void Player::resolveDamage() {
-    Entity::resolveDamage();
 }
 
 bool Player::isDead() {

@@ -3,6 +3,11 @@
 
 #include "entity.h"
 
+/**
+ * @class Projectile
+ * @brief Abstract class for projectile, it was thought to be used by grenades
+ *       and venom projectiles, but we didn't have time for grenades
+ */
 class Projectile : public Entity {
     public:
         Projectile(

@@ -24,9 +24,9 @@ Game::Game(int32_t width, int32_t height) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false) {
-        srand(static_cast<unsigned int>(std::time(nullptr)));
-    }
+    craters_have_spawned(false),
+    rng(std::random_device()()),
+    dist(0, 2147482600) {}
 
 Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
     entities(),
@@ -52,9 +52,9 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false) {
-        srand(static_cast<unsigned int>(std::time(nullptr)));
-    }
+    craters_have_spawned(false),
+    rng(std::random_device()()),
+    dist(0, 2147482600) {}
 
 void Game::addEntity(Entity* entity) {
     //TODO: if ID already exists, throw exception
@@ -187,7 +187,7 @@ std::shared_ptr<GameStateForClient> Game::update() {
         this->players_won); 
     //-------------------------------------------------//
     
-    if (!this->craters_have_spawned && (this->survival_mode || this->clear_the_zone)) spawnCraters(CONFIG.crater_ammount);
+    if (!this->craters_have_spawned && (this->survival_mode || this->clear_the_zone)) spawnCraters(CONFIG.crater_amount);
     if (this->survival_mode) survivalUpdate();
     if (this->clear_the_zone && !this->zone_is_set) setTheZone();
     this->checkForRevivingSoldiers();
@@ -272,7 +272,7 @@ void Game::checkForShooting() {
 
 void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
     this->witches[id]->setSpawnedInfected();
-    for (int i = 0; i < CONFIG.witch_infected_scream_spawn_ammount; i++) {
+    for (int i = 0; i < CONFIG.witch_infected_scream_spawn_amount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
         if (searchForPositionCloseToCentreOfMass(CONFIG.common_infected_radius, x, y)) {
@@ -291,11 +291,10 @@ bool Game::searchForPositionCloseToCentreOfMass(const uint32_t &radius, uint32_t
     uint32_t x_max = this->gameMap.getCentreOfMass() + (1.3 * CONFIG.soldier_max_distance_from_mass_centre);
     if (x_max > this->gameMap.getWidth()) x_max =CONFIG.spawn_point_end_x_infected;
     int32_t mod_y = this->gameMap.getHeight() - 2 * radius;
-    srand(static_cast<unsigned int>(std::time(nullptr)));
     while (!found) {
-        y = rand() % mod_y;
+        y = this->dist(rng) % mod_y;
         y += radius;
-        if (rand() % 2) {
+        if (this->dist(rng) % 2) {
             found = !this->gameMap.checkForCollisionInPosition(x_min, y, radius);
             x = x_min;
         } else {
@@ -433,9 +432,9 @@ void Game::setTheZone() {
     this->spawnSpecificInfectedAtEnd(InfectedType::VENOM, CONFIG.venom_infected_zone_percentage * this->clear_the_zone_max_infected);
 }
 
-void Game::spawnSpecificInfectedAtEnd(const InfectedType &type, const int &ammount) {
+void Game::spawnSpecificInfectedAtEnd(const InfectedType &type, const int &amount) {
     int32_t radius = typeToRadius(type);
-    for (int i = 0; i < ammount; i++) {
+    for (int i = 0; i < amount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
         if (searchForPositionAtEnd(radius, x, y)) {
@@ -449,9 +448,9 @@ void Game::spawnSpecificInfectedAtEnd(const InfectedType &type, const int &ammou
     }
 }
 
-void Game::spawnSpecificInfected(const InfectedType &type,const int &ammount) {
+void Game::spawnSpecificInfected(const InfectedType &type,const int &amount) {
     int32_t radius = typeToRadius(type);
-    for (int i = 0; i < ammount; i++) {
+    for (int i = 0; i < amount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
         if (searchForPositionAtBorders(radius, x, y)) {
@@ -519,9 +518,9 @@ void Game::survivalUpdate() {
 }
 
 //Replace for factory design for uniting all of these.
-void Game::spawnCraters(int ammount) {
+void Game::spawnCraters(int amount) {
     this->craters_have_spawned = true;
-    for (int i = 0; i < ammount; i++) {
+    for (int i = 0; i < amount; i++) {
         uint32_t x = 0;
         uint32_t y = 0;
         if (searchForPositionAnywhere(CONFIG.crater_radius, x, y)) {
@@ -535,10 +534,9 @@ void Game::spawnCraters(int ammount) {
 bool Game::searchForPositionAnywhere(const uint32_t& radius, uint32_t& x, uint32_t& y) {
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
-    srand(static_cast<unsigned int>(std::time(nullptr)));
     while (!found) {
-        x = rand() % this->gameMap.getWidth();
-        y = rand() % mod_y;
+        x = this->dist(rng) % this->gameMap.getWidth();
+        y = this->dist(rng) % mod_y;
         y += radius;
         found = !this->gameMap.checkForCollisionInPosition(x, y, radius);
     }
@@ -558,7 +556,6 @@ void Game::spawnCratersAtTheBorder() {
 
 
 bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint32_t& y) {
-    srand(static_cast<unsigned int>(std::time(nullptr)));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     //start and end it's for when the spawn point is full
@@ -566,10 +563,10 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
     int start = CONFIG.spawn_point_start_x_infected;
     int end = CONFIG.spawn_point_end_x_infected;
     while (!found) {
-        y = rand() % mod_y;
+        y = this->dist(rng) % mod_y;
         y += radius;
         //50% chance of spawning in the left or right side of the map
-        if (rand() % 2 || !this->clear_the_zone) {
+        if (this->dist(rng) % 2 || !this->clear_the_zone) {
             if (!this->gameMap.checkForCollisionInPosition(start, y, radius)) {
                 found = true;
                 x = start;
@@ -594,12 +591,11 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
 }
 
 bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t& y) {
-    srand(static_cast<unsigned int>(std::time(nullptr)));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     int end = CONFIG.spawn_point_end_x_infected;
     while (!found) {
-        y = rand() % mod_y;
+        y = this->dist(rng) % mod_y;
         y += radius;
         if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
             found = true;
@@ -612,13 +608,12 @@ bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t&
 
 
 void Game::spawnInfected() {
-    srand(static_cast<unsigned int>(std::time(nullptr)));
     //this could be done with a factory pattern
-    this->spawnSpecificInfected(InfectedType::COMMON, rand() % this->max_common_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::SPEAR, rand() % this->max_spear_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::WITCH, rand() % this->max_witch_infected_per_spawn + 1);
-    //this->spawnSpecificInfected(InfectedType::JUMPER, rand() % this->max_jumper_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::VENOM, rand() % this->max_venom_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::COMMON, this->dist(rng) % this->max_common_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::SPEAR, this->dist(rng) % this->max_spear_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::WITCH, this->dist(rng) % this->max_witch_infected_per_spawn + 1);
+    //this->spawnSpecificInfected(InfectedType::JUMPER, this->dist(rng) % this->max_jumper_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::VENOM, this->dist(rng) % this->max_venom_infected_per_spawn + 1);
     
 }
 
@@ -647,12 +642,12 @@ void Game::checkForRevivingSoldiers() {
     }
 }
 
-uint32_t Game::getAmmountOfAmmoUsedBySoldier(const uint32_t &id) {
+uint32_t Game::getAmountOfAmmoUsedBySoldier(const uint32_t &id) {
     Player* player = dynamic_cast<Player*>(this->entities[id]);
     return player->getAmmountOfAmmoUsed();
 }
 
-uint32_t Game::getAmmountOfInfectedKilledBySoldier(const uint32_t &id) {
+uint32_t Game::getAmountOfInfectedKilledBySoldier(const uint32_t &id) {
     Player* player = dynamic_cast<Player*>(this->entities[id]);
     return player->getAmmountOfInfectedKilled();
 }

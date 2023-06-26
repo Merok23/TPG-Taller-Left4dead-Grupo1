@@ -9,8 +9,10 @@
 #include "config.h"
 # pragma once
 
-#define RADIUS 5 //se debe leer del config
-
+/**
+ * @class Movement
+ * @brief Has all the movement logic
+ */
 class Movement {
     private:
         int8_t x_movement;

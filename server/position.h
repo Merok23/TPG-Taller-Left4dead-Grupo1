@@ -11,6 +11,10 @@
 #include "config.h"
 
 
+/**
+ * @class Position
+ * @brief Very simple class that has the x and y coordinates of an entity 
+ */
 class Position {
     private:
         int32_t x;

@@ -153,7 +153,7 @@ void Config::loadConfig() {
     // Shout:
     CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
-    CONFIG.witch_infected_scream_spawn_ammount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
+    CONFIG.witch_infected_scream_spawn_amount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
     CONFIG.witch_infected_shout_minimum_distance = config_node["infected"]["witch"]["shout_minimum_distance"].as<int>();
     
     // Venom Infected:
@@ -178,7 +178,7 @@ void Config::loadConfig() {
 
     CONFIG.crater_radius = config_node["crater"]["radius"].as<int>();
     CONFIG.crater_hit_points = config_node["crater"]["hit_points"].as<int>();
-    CONFIG.crater_ammount = config_node["crater"]["ammount"].as<int>();
+    CONFIG.crater_amount = config_node["crater"]["ammount"].as<int>();
     CONFIG.scenario_width = config_node["scenario"]["width"].as<int>();
     CONFIG.scenario_height = config_node["scenario"]["height"].as<int>();
     CONFIG.spawn_point_start_x_infected = config_node["scenario"]["spawn_point_start_x_infected"].as<int>();
