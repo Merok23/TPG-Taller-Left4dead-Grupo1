@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QFont>
 #include <list>
+#include "game_state.h"
+#include "graphics.h"
 
 namespace Ui {
 class RankingSurvival;
@@ -17,7 +19,7 @@ class RankingSurvival : public QDialog
     Q_OBJECT
 
 public:
-    explicit RankingSurvival(QWidget *parent = nullptr);
+    explicit RankingSurvival(QWidget *parent = nullptr, EndingInfo *ending_info = nullptr);
     ~RankingSurvival();
 
 
@@ -25,9 +27,10 @@ public:
     
 private:
     Ui::RankingSurvival *ui;
+    EndingInfo *ending_info;
 
     void adding_ranking();
-    void setting_up_ranking(std::list<std::pair<QString, int>>& list, QString title);
+    void setting_up_ranking(std::list<uint32_t>& list_ranking, QString title);
 };
 
 #endif // RANKING_SURVIVAL_H

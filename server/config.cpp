@@ -82,7 +82,7 @@ struct config CONFIG {
     0.1, // weapon_scout_damage_falloff
     2147483637, // cheat_infinite_hitpoints
     10, //aligned_slack_grace
-    500, //survival_mode_timer
+    100, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
     1, //survival_mode_max_witch_infected

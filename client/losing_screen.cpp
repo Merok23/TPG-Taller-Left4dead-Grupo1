@@ -22,11 +22,11 @@ void LosingScreen::keyPressEvent(QKeyEvent *event)
 void LosingScreen::on_ranking_clicked()
 {
     if (ending_info->game_mode == CLEAR_THE_ZONE) {
-        RankingClearTheZone ranking;
+        RankingClearTheZone ranking(nullptr, ending_info);
         ranking.setModal(true);
         ranking.exec();
     } else if (ending_info->game_mode == SURVIVAL) {
-        RankingSurvival ranking;
+        RankingSurvival ranking(nullptr, ending_info);
         ranking.setModal(true);
         ranking.exec();
     }

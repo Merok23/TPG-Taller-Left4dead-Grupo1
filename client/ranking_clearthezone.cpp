@@ -1,16 +1,17 @@
 #include "ranking_clearthezone.h"
 #include "ui_ranking_clearthezone.h"
 
-RankingClearTheZone::RankingClearTheZone(QWidget *parent) :
+RankingClearTheZone::RankingClearTheZone(QWidget *parent, EndingInfo *ending_info) :
     QDialog(parent),
-    ui(new Ui::RankingClearTheZone)
+    ui(new Ui::RankingClearTheZone),
+    ending_info(ending_info)
 {
     ui->setupUi(this);
     setWindowTitle("Ranking in Clear the Zone Mode");
 
-    ui->amount_infcted_killed->setText(QString::number(5));
-    ui->bullets_shot->setText(QString::number(200));
-    ui->gameplay_duration->setText(QString::number(10000) + " ms");
+    ui->amount_infcted_killed->setText(QString::number(ending_info->last_gs->statistics.getInfectedKilledInfo().second));
+    ui->bullets_shot->setText(QString::number(ending_info->last_gs->statistics.getAmmoUsedInfo().second));
+    ui->gameplay_duration->setText(QString::number(ending_info->last_gs->statistics.getGameTimeInfo().second) + " ms");
 
 }
 
