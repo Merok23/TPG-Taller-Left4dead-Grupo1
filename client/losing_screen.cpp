@@ -9,7 +9,7 @@ LosingScreen::LosingScreen(QWidget *parent, EndingInfo *ending_info) :
     ui->setupUi(this);
     setWindowTitle("You lost!");
     ui->ranking->setVisible(true);
-    if (ending_info->game_mode == TESTING)
+    if (ending_info->game_mode == TESTING || !ending_info->last_gs)
         ui->ranking->setVisible(false);
 }
 
@@ -21,11 +21,11 @@ void LosingScreen::keyPressEvent(QKeyEvent *event)
 
 void LosingScreen::on_ranking_clicked()
 {
-    if (ending_info->game_mode == CLEAR_THE_ZONE) {
+    if (ending_info->last_gs && ending_info->game_mode == CLEAR_THE_ZONE) {
         RankingClearTheZone ranking(nullptr, ending_info);
         ranking.setModal(true);
         ranking.exec();
-    } else if (ending_info->game_mode == SURVIVAL) {
+    } else if (ending_info->last_gs && ending_info->game_mode == SURVIVAL) {
         RankingSurvival ranking(nullptr, ending_info);
         ranking.setModal(true);
         ranking.exec();

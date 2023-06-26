@@ -246,7 +246,7 @@ bool Graphics::update(EndingInfo* ending_info, GraphicsEntityHolder &gr_entity_h
         if (gs->lost_connection) {
             std::cout << "Conexion to server down" << std::endl;
             ending_info->user_won = false;
-            ending_info->last_gs = gs;
+            ending_info->last_gs = NULL;
             return false;
         }
             
