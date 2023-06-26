@@ -259,30 +259,30 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
         if (was_closed) return;
 
         if (ranking) {
-            std::list<uint32_t> infected_kills_top = statistics.getInfectedKillsTop10();
-            std::list<uint32_t> ammo_used_top = statistics.getAmmoUsedTop10();
-            std::list<uint32_t> time_alive_top = statistics.getTimeAliveTop10();
+            std::list<uint32_t> top_infected_kills = statistics.getTopInfectedKills();
+            std::list<uint32_t> top_ammo_used = statistics.getTopAmmoUsed();
+            std::list<uint32_t> top_time_alive = statistics.getTopTimeAlive();
 
-            sendUnsignedInteger(infected_kills_top.size());
+            sendUnsignedInteger(top_infected_kills.size());
             if (was_closed) return;
 
-            for (auto& infected_kills : infected_kills_top) {
+            for (auto& infected_kills : top_infected_kills) {
                 sendUnsignedInteger(infected_kills);
                 if (was_closed) return;
             }
 
-            sendUnsignedInteger(ammo_used_top.size());
+            sendUnsignedInteger(top_ammo_used.size());
             if (was_closed) return;
 
-            for (auto& ammo_used : ammo_used_top) {
+            for (auto& ammo_used : top_ammo_used) {
                 sendUnsignedInteger(ammo_used);
                 if (was_closed) return;
             }
 
-            sendUnsignedInteger(time_alive_top.size());
+            sendUnsignedInteger(top_time_alive.size());
             if (was_closed) return;
 
-            for (auto& time_alive : time_alive_top) {
+            for (auto& time_alive : top_time_alive) {
                 sendUnsignedInteger(time_alive);
                 if (was_closed) return;
             }

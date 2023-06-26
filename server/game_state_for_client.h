@@ -7,18 +7,18 @@ typedef struct Statistics {
     std::pair<uint8_t, uint32_t> infected_killed_info;
     std::pair<uint8_t, uint32_t> ammo_used_info;
     std::pair<uint8_t, uint32_t> game_time_info;
-    std::list<uint32_t> infected_kills_top_10;
-    std::list<uint32_t> ammo_used_top_10;
-    std::list<uint32_t> time_alive_top_10;
+    std::list<uint32_t> top_infected_kills;
+    std::list<uint32_t> top_ammo_used;
+    std::list<uint32_t> top_time_alive;
     
     Statistics() {
         this->ranking = false;
         this->infected_killed_info = std::make_pair(0, 0);
         this->ammo_used_info = std::make_pair(0, 0);
         this->game_time_info = std::make_pair(0, 0);
-        this->infected_kills_top_10 = std::list<uint32_t>(10, 0);
-        this->ammo_used_top_10 = std::list<uint32_t>(10, 0);
-        this->time_alive_top_10 = std::list<uint32_t>(10, 0);
+        this->top_infected_kills = std::list<uint32_t>();
+        this->top_infected_kills = std::list<uint32_t>();
+        this->top_time_alive = std::list<uint32_t>();
     }
     void setStatisticsCTZ(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
         std::pair<uint8_t, uint32_t> ammo_used_info, 
@@ -27,9 +27,9 @@ typedef struct Statistics {
         this->infected_killed_info = infected_killed_info;
         this->ammo_used_info = ammo_used_info;
         this->game_time_info = game_time_info;
-        this->infected_kills_top_10 = std::list<uint32_t>(10, 0);
-        this->ammo_used_top_10 = std::list<uint32_t>(10, 0);
-        this->time_alive_top_10 = std::list<uint32_t>(10, 0);
+        this->top_infected_kills = std::list<uint32_t>();
+        this->top_ammo_used = std::list<uint32_t>();
+        this->top_time_alive = std::list<uint32_t>();
     }
     void setStatisticsSurvival(bool ranking, std::pair<uint8_t, uint32_t> infected_killed_info, 
         std::pair<uint8_t, uint32_t> ammo_used_info, 
@@ -41,9 +41,9 @@ typedef struct Statistics {
         this->infected_killed_info = infected_killed_info;
         this->ammo_used_info = ammo_used_info;
         this->game_time_info = game_time_info;
-        this->infected_kills_top_10 = infected_kills_top_10;
-        this->ammo_used_top_10 = ammo_used_top_10;
-        this->time_alive_top_10 = time_alive_top_10;
+        this->top_infected_kills = infected_kills_top_10;
+        this->top_ammo_used = ammo_used_top_10;
+        this->top_time_alive = time_alive_top_10;
     }
 
     std::pair<uint8_t, uint32_t> getInfectedKilledInfo() {
@@ -58,16 +58,16 @@ typedef struct Statistics {
         return this->game_time_info;
     }
 
-    std::list<uint32_t> getInfectedKillsTop10() {
-        return this->infected_kills_top_10;
+    std::list<uint32_t> getTopInfectedKills() {
+        return this->top_infected_kills;
     }
 
-    std::list<uint32_t> getAmmoUsedTop10() {
-        return this->ammo_used_top_10;
+    std::list<uint32_t> getTopAmmoUsed() {
+        return this->top_ammo_used;
     }
 
-    std::list<uint32_t> getTimeAliveTop10() {
-        return this->time_alive_top_10;
+    std::list<uint32_t> getTopTimeAlive() {
+        return this->top_time_alive;
     }
     
     bool getRanking() {

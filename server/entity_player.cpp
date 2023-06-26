@@ -65,7 +65,7 @@ void Player::update(Map& map) {
             this->time_until_dead = 0;
             this->lives = 0;
             auto t2 = std::chrono::high_resolution_clock::now();
-            auto time_dif = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_time_of_death);
+            auto time_dif = std::chrono::duration_cast<std::chrono::seconds>(t2 - this->start_time_of_death);
             this->time_of_death = time_dif.count();
             return;
         } else {
@@ -184,7 +184,6 @@ int32_t Player::getAmmoLeft() {
 std::string Player::getEntityType() {
     return "player_" + this->my_weapon->getWeaponType(); 
 }
-
 
 std::string Player::getState() {
      std::unordered_map<int, std::string> stateMap = { //creo que puede ser un atributo? 

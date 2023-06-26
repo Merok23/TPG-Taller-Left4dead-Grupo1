@@ -15,9 +15,9 @@
 */
 class StatisticsHandler {
     private: 
-    std::list<uint32_t> infected_kills_top; /** < Lista de los 10 mejores puntajes de infectados matados. */
-    std::list<uint32_t> ammo_used_top; /** < Lista de los 10 mejores puntajes de municiones usadas. */
-    std::list<uint32_t> time_alive_top; /** < Lista de los 10 mejores puntajes de tiempo de vida. */
+    std::list<uint32_t> top_infected_kills; /** < Lista de los 10 mejores puntajes de infectados matados. */
+    std::list<uint32_t> top_ammo_used; /** < Lista de los 10 mejores puntajes de municiones usadas. */
+    std::list<uint32_t> top_time_alive; /** < Lista de los 10 mejores puntajes de tiempo de vida. */
     uint8_t ranking_size; /** < Tamaño del ranking. */
     bool was_updated; /** < Flag que indica si las estadísticas fueron actualizadas. */
     std::mutex mutex; /** < Mutex para garantizar la sincronización. */
@@ -56,7 +56,7 @@ class StatisticsHandler {
      * @return Lista de los 10 mejores puntajes de infectados matados.
      * 
     */
-    std::list<uint32_t> getInfectedKillsTop10();
+    std::list<uint32_t> getTopInfectedKills();
 
     /**
      * @brief Obtiene los 10 mejores puntajes de municiones usadas.
@@ -64,7 +64,7 @@ class StatisticsHandler {
      * @return Lista de los 10 mejores puntajes de municiones usadas.
      * 
     */
-    std::list<uint32_t> getAmmoUsedTop10();
+    std::list<uint32_t> getTopAmmoUsed();
 
     /**
      * @brief Obtiene los 10 mejores puntajes de tiempo de vida.
@@ -72,7 +72,7 @@ class StatisticsHandler {
      * @return Lista de los 10 mejores puntajes de tiempo de vida.
      * 
     */
-    std::list<uint32_t> getTimeAliveTop10();
+    std::list<uint32_t> getTopTimeAlive();
 
     /**
      * @brief Guarda las estadísticas en el archivo statistics.txt.

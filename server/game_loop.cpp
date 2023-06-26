@@ -51,7 +51,7 @@ bool GameLoop::isRoomEmpty() {
 
 void GameLoop::endGameLoopTime() {
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto total_loop_time_aux = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - this->start_loop_time);
+    auto total_loop_time_aux = std::chrono::duration_cast<std::chrono::seconds>(t2 - this->start_loop_time);
     this->total_loop_time = total_loop_time_aux.count();
 }
 
@@ -164,7 +164,7 @@ void GameLoop::setStadisticsSurvival(std::shared_ptr<GameStateForClient>& game_s
         std::pair<uint8_t, uint32_t> infected_killed = {this->getRanking(players_infected_killed, player_queue.first), id_handler.getAmmountOfInfectedKilled(player_queue.first)};
         std::pair<uint8_t, uint32_t> ammo_used = {this->getRanking(players_ammo_used, player_queue.first), id_handler.getAmmountOfAmmoUsed(player_queue.first)};
         std::pair<uint8_t, uint32_t> game_time = {this->getRanking(players_game_time, player_queue.first), id_handler.getTimeOfDeath(player_queue.first)};
-        game_state_for_each_client->setStatisticsSurvival(true, infected_killed, ammo_used, game_time, statistics_handler.getInfectedKillsTop10(), statistics_handler.getAmmoUsedTop10(), statistics_handler.getTimeAliveTop10());
+        game_state_for_each_client->setStatisticsSurvival(true, infected_killed, ammo_used, game_time, statistics_handler.getTopInfectedKills(), statistics_handler.getTopAmmoUsed(), statistics_handler.getTopTimeAlive());
         player_queue.second->push(game_state_for_each_client);
     }
 }

@@ -1,36 +1,9 @@
-TOP 10: Infected kills
-6
-4
-3
+TOP 5: Infected kills
 1
-1
-0
-0
-0
-0
-0
 
-TOP 10: Ammo used 
-20
-16
-11
-8
+TOP 5: Ammo used
 2
-1
-0
-0
-0
-0
 
-TOP 10: Time alive 
-65616
-61056
-56622
-55520
-54813
-54005
-53894
-51712
-0
-0
+TOP 5: Time alive
+54
 

@@ -2,19 +2,19 @@
 
 StatisticsHandler statistics_handler;
 
-StatisticsHandler::StatisticsHandler() : infected_kills_top(), ammo_used_top(), time_alive_top(), ranking_size(10), was_updated(false),mutex() {
+StatisticsHandler::StatisticsHandler() : top_infected_kills(), top_ammo_used(), top_time_alive(), ranking_size(5), was_updated(false),mutex() {
     std::ifstream file("../statistics.txt", std::ios::in);
     std::string line;
     if (file.is_open()) {
         while (std::getline(file, line)) {
-            if (std::isdigit(line[0]) && this->infected_kills_top.size() < this->ranking_size) {
-                this->infected_kills_top.push_back(std::stoi(line));
+            if (std::isdigit(line[0]) && this->top_infected_kills.size() < this->ranking_size) {
+                this->top_infected_kills.push_back(std::stoi(line));
             }
-            else if (std::isdigit(line[0]) && this->ammo_used_top.size() < this->ranking_size) {
-                this->ammo_used_top.push_back(std::stoi(line));
+            else if (std::isdigit(line[0]) && this->top_ammo_used.size() < this->ranking_size) {
+                this->top_ammo_used.push_back(std::stoi(line));
             }
-            else if (std::isdigit(line[0]) && this->time_alive_top.size() < this->ranking_size) {
-                this->time_alive_top.push_back(std::stoi(line));
+            else if (std::isdigit(line[0]) && this->top_time_alive.size() < this->ranking_size) {
+                this->top_time_alive.push_back(std::stoi(line));
             }
             
         }
@@ -36,18 +36,18 @@ void StatisticsHandler::updateList(std::list<uint32_t>& vector, uint32_t& value)
 void StatisticsHandler::updateStatistics(uint32_t& infected_kills, uint32_t& ammo_used, uint32_t& time_alive) {
     std::unique_lock<std::mutex> lock(mutex);
 
-    if (infected_kills > this->infected_kills_top.back()) {
-        this->updateList(this->infected_kills_top, infected_kills);
+    if (infected_kills > this->top_infected_kills.back()) {
+        this->updateList(this->top_infected_kills, infected_kills);
         was_updated = true;
     }
 
-    if (ammo_used > this->ammo_used_top.back()) {
-        this->updateList(this->ammo_used_top, ammo_used);
+    if (ammo_used > this->top_ammo_used.back()) {
+        this->updateList(this->top_ammo_used, ammo_used);
         was_updated = true;
     }
 
-    if (time_alive > this->time_alive_top.back()) {
-        this->updateList(this->time_alive_top, time_alive);
+    if (time_alive > this->top_time_alive.back()) {
+        this->updateList(this->top_time_alive, time_alive);
         was_updated = true;
     }
 }
@@ -62,39 +62,39 @@ void StatisticsHandler::saveAllStatistics() {
     }
 
 
-    file << "TOP 10: Infected kills" << std::endl;
-    for (const auto& infected_kills : this->infected_kills_top) {
+    file << "TOP 5: Infected kills" << std::endl;
+    for (const auto& infected_kills : this->top_infected_kills) {
         file << infected_kills << std::endl;
     }
     file << std::endl;
 
-    file << "TOP 10: Ammo used " << std::endl;
-    for (const auto& ammo_used : this->ammo_used_top) {
+    file << "TOP 5: Ammo used" << std::endl;
+    for (const auto& ammo_used : this->top_ammo_used) {
         file << ammo_used << std::endl;
     }
     file << std::endl;
 
-    file << "TOP 10: Time alive " << std::endl;
-    for (const auto& time_alive : this->time_alive_top) {
+    file << "TOP 5: Time alive" << std::endl;
+    for (const auto& time_alive : this->top_time_alive) {
         file << time_alive << std::endl;
     }
     file << std::endl;
     file.close();
 }
 
-std::list<uint32_t> StatisticsHandler::getInfectedKillsTop10() {
+std::list<uint32_t> StatisticsHandler::getTopInfectedKills() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->infected_kills_top;
+    return this->top_infected_kills;
 }
 
-std::list<uint32_t> StatisticsHandler::getAmmoUsedTop10() {
+std::list<uint32_t> StatisticsHandler::getTopAmmoUsed() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->ammo_used_top;
+    return this->top_ammo_used;
 }
 
-std::list<uint32_t> StatisticsHandler::getTimeAliveTop10() {
+std::list<uint32_t> StatisticsHandler::getTopTimeAlive() {
     std::unique_lock<std::mutex> lock(mutex);
-    return this->time_alive_top;
+    return this->top_time_alive;
 }
 
 StatisticsHandler::~StatisticsHandler() {}
