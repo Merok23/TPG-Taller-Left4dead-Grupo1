@@ -33,6 +33,7 @@ class WitchInfected : public Infected {
         bool has_spawned_infected; //I have decided they can only spawn infected once
                                    //this can be changed later if wanted.
         int32_t attack_duration;
+        int32_t shout_minum_distance;
     public:
         WitchInfected(uint32_t id, uint32_t positionX, uint32_t positionY);
         virtual void move(int32_t x_movement, int32_t y_movement) override;
@@ -47,6 +48,7 @@ class WitchInfected : public Infected {
         bool hasSpawnedInfected();
         void setSpawnedInfected();
         bool isShouting();
+        bool isInDistanceForShouting(const int32_t &position_x);
         void setChase(Entity* entity) override;
         void setAttack(Entity* entity) override;
 };

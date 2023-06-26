@@ -141,6 +141,10 @@ int32_t Map::calculateCentreOfMass() {
     return sum / this->soldiers.size();
 }
 
+int32_t Map::getCentreOfMass() {
+    return this->centre_of_mass;
+}
+
 std::tuple<int, int> Map::searchForSpawnPoint(
     const int &middle, 
     const int &allowed_distance_from_middle, 

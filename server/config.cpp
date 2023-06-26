@@ -31,13 +31,14 @@ struct config CONFIG {
     50, // witch_infected_health
     3, // witch_infected_speed
     25, // witch_infected_radius
-    350, // witch_infected_look_range
+    200, // witch_infected_look_range
     60, // witch_infected_attack_range
     80, // witch_infected_attack_cooldown
     20, // witch_infected_attack_damage
     80, // witch_infected_shout_cooldown
     0.005, // witch_infected_shout_probability
     5, // witch_infected_attack_duration
+    600, // witch_infected_shout_minimum_distance
     100, // venom_infected_health
     10, // venom_infected_speed
     25, // venom_infected_radius
@@ -57,7 +58,7 @@ struct config CONFIG {
     10, // witch_infected_scream_spawn_ammount
     40, // crater_radius
     100, // crater_hit_points
-    6, //crater_ammount
+    1, //crater_ammount
     7680,//-400, //1920, // scenario_width
     200,//1080, // scenario_height
     200, // spawn_point_start_x_infected
@@ -79,7 +80,7 @@ struct config CONFIG {
     20, // weapon_scout_magazine_size
     0, // weapon_scout_distance_modifier
     0.1, // weapon_scout_damage_falloff
-    2147483647, // cheat_infinite_hitpoints
+    2147483637, // cheat_infinite_hitpoints
     10, //aligned_slack_grace
     500, //survival_mode_timer
     3, //survival_mode_max_common_infected
@@ -89,7 +90,7 @@ struct config CONFIG {
     1, //survival_mode_max_jumper_infected
     1.1, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
-    10, //clear_the_zone_infected_total
+    30, //clear_the_zone_infected_total
     0.6, //common_infected_zone_percentage
     0.2, //spear_infected_zone_percentage
     0.1, //witch_infected_zone_percentage
@@ -153,6 +154,7 @@ void Config::loadConfig() {
     CONFIG.witch_infected_shout_cooldown = config_node["infected"]["witch"]["shout_cooldown"].as<int>();
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
     CONFIG.witch_infected_scream_spawn_ammount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
+    CONFIG.witch_infected_shout_minimum_distance = config_node["infected"]["witch"]["shout_minimum_distance"].as<int>();
     
     // Venom Infected:
     //  Stats:

@@ -12,7 +12,8 @@ WitchInfected::WitchInfected(uint32_t id, uint32_t positionX, uint32_t positionY
     shout_cooldown(CONFIG.witch_infected_shout_cooldown),
     shout_probability(CONFIG.witch_infected_shout_probability),
     has_spawned_infected(false),
-    attack_duration(CONFIG.witch_infected_attack_duration) {}
+    attack_duration(CONFIG.witch_infected_attack_duration),
+    shout_minum_distance(CONFIG.witch_infected_shout_minimum_distance) {}
 
 void WitchInfected::move(int32_t x_movement, int32_t y_movement) {
     if (this->state == DEAD_WITCH_INFECTED) return;
@@ -91,7 +92,7 @@ void WitchInfected::update(Map &map) {
 
     if (this->incapacitated > 0) {
         this->incapacitated--;
-        if (attack_duration < 0) {
+        if (attack_duration < 0 && this->state != SHOUTING_WITCH_INFECTED) {
             this->state = IDLE_WITCH_INFECTED;
             this->attack_cooldown = CONFIG.witch_infected_attack_cooldown;
         } else {
@@ -118,6 +119,10 @@ bool WitchInfected::hasSpawnedInfected() {
 
 void WitchInfected::setSpawnedInfected() {
     this->has_spawned_infected = true;
+}
+
+bool WitchInfected::isInDistanceForShouting(const int32_t &position_x) {
+    return abs(this->getDirectionOfMovement()->getX() - position_x) < this->shout_minum_distance;
 }
 
 bool WitchInfected::isShouting() {

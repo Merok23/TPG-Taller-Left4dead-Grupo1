@@ -43,6 +43,7 @@ struct config {
     int witch_infected_shout_cooldown;
     double witch_infected_shout_probability;
     int witch_infected_attack_duration;
+    int witch_infected_shout_minimum_distance;
     int venom_infected_health;
     int venom_infected_speed;
     int venom_infected_radius;
