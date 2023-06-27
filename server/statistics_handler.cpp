@@ -3,7 +3,7 @@
 StatisticsHandler statistics_handler;
 
 StatisticsHandler::StatisticsHandler() : top_infected_kills(), top_ammo_used(), top_time_alive(), ranking_size(5), was_updated(false),mutex() {
-    std::ifstream file("../../server/statistics.txt", std::ios::in);
+    std::ifstream file(CONFIG.statistics_path, std::ios::in);
     std::string line;
     if (file.is_open()) {
         while (std::getline(file, line)) {
@@ -73,7 +73,7 @@ void StatisticsHandler::updateStatistics(uint32_t& infected_kills, uint32_t& amm
 
 void StatisticsHandler::saveAllStatistics() {
     if (!was_updated) return;
-    std::ofstream file("../../server/statistics.txt", std::ofstream::out | std::ofstream::trunc);
+    std::ofstream file(CONFIG.statistics_path, std::ofstream::out | std::ofstream::trunc);
 
     if (!file.is_open()) {
         std::cout << "ERROR: Can't open statistics file" << std::endl;

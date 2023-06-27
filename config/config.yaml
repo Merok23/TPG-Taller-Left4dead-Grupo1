@@ -111,3 +111,4 @@ zone_percentages:
   witch_infected: 0.1
   jumper_infected: 0.0
   venom_infected: 0.1
+statistics_path: /var/Left4Dead/server/statistics.txt

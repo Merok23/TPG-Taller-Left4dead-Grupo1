@@ -95,7 +95,8 @@ struct config CONFIG {
     0.2, //spear_infected_zone_percentage
     0.1, //witch_infected_zone_percentage
     0, //jumper_infected_zone_percentage
-    0.1 //venom_infected_zone_percentage
+    0.1, //venom_infected_zone_percentage
+    "/var/Left4Dead/server/statistics.txt" // statistics_path
 };
 
 Config::Config(const char* config_file) {
@@ -214,5 +215,7 @@ void Config::loadConfig() {
     CONFIG.witch_infected_zone_percentage = config_node["zone_percentages"]["witch_infected"].as<double>();
     CONFIG.jumper_infected_zone_percentage = config_node["zone_percentages"]["jumper_infected"].as<double>();
     CONFIG.venom_infected_zone_percentage = config_node["zone_percentages"]["venom_infected"].as<double>();
+
+    CONFIG.statistics_path = config_node["statistics_path"].as<std::string>();
 }
 

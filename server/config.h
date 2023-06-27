@@ -101,6 +101,7 @@ struct config {
     double witch_infected_zone_percentage;
     double jumper_infected_zone_percentage;
     double venom_infected_zone_percentage;
+    std::string statistics_path;
 };
 
 extern struct config CONFIG;

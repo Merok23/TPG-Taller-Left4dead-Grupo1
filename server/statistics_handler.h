@@ -6,7 +6,7 @@
 #include <list>
 #include <algorithm>
 #include <iostream>
-
+#include "config.h"
 /**
  * @class StatisticsHandler
  * 
