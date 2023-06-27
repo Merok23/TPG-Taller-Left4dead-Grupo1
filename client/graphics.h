@@ -38,6 +38,7 @@ class Graphics {
     EndingInfo run(std::shared_ptr<GameState> gs, GameMode game_mode,
             Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states);
 
+    ~Graphics();
     private:
     bool game_loop(EndingInfo* ending_info, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window);
     bool handleEvents(GraphicsEntityHolder &gr_entity_holder, Queue<command_t> &queue_comandos);

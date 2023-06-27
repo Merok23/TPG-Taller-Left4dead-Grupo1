@@ -8,7 +8,17 @@
 #define STILL 0
 
 
-Graphics::Graphics() : last_it(0) {}
+Graphics::Graphics() : last_it(0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
+            throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
+        }
+
+        int imgFlags = IMG_INIT_PNG;  // Adjust flags based on the image formats you're using
+        if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
+            SDL_Quit();
+            throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
+        }
+}
 
 bool Graphics::game_loop(EndingInfo* ending_info, const int &it, GraphicsEntityHolder &gr_entity_holder, Camera &camera, Queue<command_t> &queue_comandos, Queue<std::shared_ptr<GameState>> &game_states, SdlWindow &window) {
     int delta_its = it - this->last_it;
@@ -31,21 +41,9 @@ EndingInfo Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queu
     ending_info.game_mode = game_mode;
 
     try {
-        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
-            throw std::runtime_error("Failed to initialize SDL: " + std::string(SDL_GetError()));
-        }
-
-        int imgFlags = IMG_INIT_PNG;  // Adjust flags based on the image formats you're using
-        if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
-            Mix_Quit();
-            SDL_Quit();
-            throw std::runtime_error("Failed to initialize SDL_image: " + std::string(IMG_GetError()));
-        }
-
         AudioHolder audio_holder;
-        std::cout << "game mode is " << game_mode << std::endl;
         Mix_Music* music = audio_holder.find_music(game_mode);
-        if (Mix_PlayMusic(music, -1) == -1) { //REVISAR
+        if (Mix_PlayMusic(music, -1) == -1) { 
             // Error handling: Failed to play the music
             throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));
         }
@@ -79,8 +77,6 @@ EndingInfo Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queu
             it += 1;
         }
 
-        IMG_Quit();
-        SDL_Quit();
 
         return ending_info;
     } catch (std::exception& e) {
@@ -278,4 +274,9 @@ void Graphics::render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder,
     window.render();
     
     SDL_RenderPresent(renderer);
+}
+
+Graphics::~Graphics() {
+    IMG_Quit();
+    SDL_Quit();
 }

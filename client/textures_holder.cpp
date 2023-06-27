@@ -157,38 +157,34 @@ void TexturesHolder::create_projectiles(const std::string &path) {
 }
 
 TexturesHolder::TexturesHolder(SdlWindow &window) : window(window){
-    std::string path("../../assets/Soldier_IDF/");
-    create_soldier(SOLDIER_IDF, path);
+    const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
+    std::string configFile;
+    if (!envVar) {
+        std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+        configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
+    } else {
+        std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+        configFile = envVar;
+    }
 
-    path.replace(0, path.length(), "../../assets/Soldier_Scout/");
-    create_soldier(SOLDIER_SCOUT, path);
-
-    path.replace(0, path.length(), "../../assets/Soldier_P90/");
-    create_soldier(SOLDIER_P90, path);
+    this->config = YAML::LoadFile(configFile);
+    
+    create_soldier(SOLDIER_IDF, config["idf_textures_path"].as<std::string>());
+    create_soldier(SOLDIER_SCOUT, config["scout_textures_path"].as<std::string>());
+    create_soldier(SOLDIER_P90, config["p90_textures_path"].as<std::string>());
 
     
-    path.replace(0, path.length(), "../../assets/Zombie/");
-    create_infected(ZOMBIE, path);
-    
-    path.replace(0, path.length(), "../../assets/Spear/");
-    create_infected(SPEAR, path);
-    
-    path.replace(0, path.length(), "../../assets/Venom/");
-    create_infected(VENOM, path);
+    create_infected(ZOMBIE, config["zombie_textures_path"].as<std::string>());
+    create_infected(SPEAR, config["spear_textures_path"].as<std::string>());
+    create_infected(VENOM, config["venom_textures_path"].as<std::string>());
+    create_infected(WITCH, config["witch_textures_path"].as<std::string>());
     /*
     path.replace(0, path.length(), "../../assets/Jumper/");
     create_infected(JUMPER, path);
     */
 
-    path.replace(0, path.length(), "../../assets/Witch/");
-    create_infected(WITCH, path);
-
-    path.replace(0, path.length(), "../../assets/backgrounds/War1/Bright/");
-    create_obstacle(path);
-
-
-    path.replace(0, path.length(), "../../assets/");
-    create_projectiles(path);
+    create_obstacle(config["crater_textures_path"].as<std::string>());
+    create_projectiles(config["projectiles_textures_path"].as<std::string>());
     
 }
 
