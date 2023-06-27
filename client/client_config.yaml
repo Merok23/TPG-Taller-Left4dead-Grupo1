@@ -1,20 +1,20 @@
-idf_textures_path: ../../assets/Soldier_IDF/
-scout_textures_path: ../../assets/Soldier_Scout/
-p90_textures_path: ../../assets/Soldier_P90/
+idf_textures_path: /var/Left4Dead/assets/Soldier_IDF/
+scout_textures_path: /var/Left4Dead/assets/Soldier_Scout/
+p90_textures_path: /var/Left4Dead/assets/Soldier_P90/
 
-zombie_textures_path: ../../assets/Zombie/
-spear_textures_path: ../../assets/Spear/
-venom_textures_path: ../../assets/Venom/
-witch_textures_path: ../../assets/Witch/
+zombie_textures_path: /var/Left4Dead/assets/Zombie/
+spear_textures_path: /var/Left4Dead/assets/Spear/
+venom_textures_path: /var/Left4Dead/assets/Venom/
+witch_textures_path: /var/Left4Dead/assets/Witch/
 
-crater_textures_path: ../../assets/backgrounds/War1/Bright/
-projectiles_textures_path: ../../assets/
-player_hearts_texture_path: ../../assets/Mis/heart.jpg
+crater_textures_path: /var/Left4Dead/assets/backgrounds/War1/Bright/
+projectiles_textures_path: /var/Left4Dead/assets/
+player_hearts_texture_path: /var/Left4Dead/assets/Mis/heart.jpg
 
-background_texture_path: ../../assets/backgrounds/War1/Bright/
+background_texture_path: /var/Left4Dead/assets/backgrounds/War1/Bright/
 
 
 
-music_path: ../../assets/Audio/Music/
-sound_effects_path: ../../assets/Audio/SoundEffects/
+music_path: /var/Left4Dead/assets/Audio/Music/
+sound_effects_path: /var/Left4Dead/assets/Audio/SoundEffects/
 volumne_music: 64                                                #0 is min, 128 is max
