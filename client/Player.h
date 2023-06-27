@@ -6,16 +6,15 @@
 
 #include "graphics_entity.h"
 
+#include <yaml-cpp/yaml.h>
+#define DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG "../../client/client_config.yaml"
+
 #define X_PLAYER_DATA 50
 #define HEART_SIZE 35
 #define BAR_SIZE 30
 
 class Player : public GraphicsEntity{
 public:
-    // Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
-    //         uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
-    //         int32_t hit_points, int32_t ammo, uint8_t lives,
-    //         std::map<AnimationName, Mix_Chunk*> sound_effects, int y_player_data);
     Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, const SdlWindow &window, 
             uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
             int32_t hit_points, int32_t ammo, uint8_t lives, 
@@ -35,6 +34,8 @@ private:
     VisualBar ammo;
     uint8_t lives;
     std::unique_ptr<Animation> life_an;
+
+    YAML::Node config;
 
     std::map<AnimationName, Mix_Chunk*>& sound_effects;
     int y_player_data;

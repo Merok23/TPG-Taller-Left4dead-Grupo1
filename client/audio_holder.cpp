@@ -9,6 +9,7 @@ AudioHolder::AudioHolder() {
 
     if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
         // Error handling: Failed to initialize SDL_mixer
+        Mix_Quit();
         throw std::runtime_error("Failed to open audio in SDL_mixer: " + std::string(Mix_GetError()));
     }
 

@@ -9,6 +9,11 @@ witch_textures_path: ../../assets/Witch/
 
 crater_textures_path: ../../assets/backgrounds/War1/Bright/
 projectiles_textures_path: ../../assets/
+player_hearts_texture_path: ../../assets/Mis/heart.jpg
+
+background_texture_path: ../../assets/backgrounds/War1/Bright/
+
+
 
 music_path: ../../assets/Audio/Music/
 sound_effects_path: ../../assets/Audio/SoundEffects/

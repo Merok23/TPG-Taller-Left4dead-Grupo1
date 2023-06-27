@@ -25,7 +25,7 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
 
     QObject::connect(createMatch, &CreateMatch::matchInfoEntered, [](QString match_name, int mode_code, COMMANDS* commands, 
                                                                         command_t* create_or_join_command) {
-        qDebug() << "Match name entered in main.cpp:" << match_name << " and mode: " <<mode_code;
+        qDebug() << "Match name entered in graphics_qt.cpp:" << match_name << " and mode: " <<mode_code;
         if (commands && create_or_join_command) {
             switch(mode_code) {
                 case 0: //testing
