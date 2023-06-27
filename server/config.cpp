@@ -102,6 +102,7 @@ Config::Config(const char* config_file) {
     this->config_node = YAML::LoadFile(config_file);
     this->loadConfig();
 }
+
 void Config::loadConfig() {
     CONFIG.soldier_health = config_node["soldier"]["health"].as<int>();
     CONFIG.soldier_speed = config_node["soldier"]["speed"].as<int>();
@@ -138,7 +139,6 @@ void Config::loadConfig() {
     CONFIG.spear_infected_attack_range = config_node["infected"]["spear"]["attack_range"].as<int>();
     CONFIG.spear_infected_attack_cooldown = config_node["infected"]["spear"]["attack_cooldown"].as<int>();
     CONFIG.spear_infected_damage = config_node["infected"]["spear"]["damage"].as<int>();
-
     // Witch Infected:
     //  Stats:
     CONFIG.witch_infected_health = config_node["infected"]["witch"]["health"].as<int>();
@@ -155,7 +155,6 @@ void Config::loadConfig() {
     CONFIG.witch_infected_shout_probability = config_node["infected"]["witch"]["shout_probability"].as<double>();
     CONFIG.witch_infected_scream_spawn_amount = config_node["infected"]["witch"]["scream_spawn_ammount"].as<int>();
     CONFIG.witch_infected_shout_minimum_distance = config_node["infected"]["witch"]["shout_minimum_distance"].as<int>();
-    
     // Venom Infected:
     //  Stats:
     CONFIG.venom_infected_health = config_node["infected"]["venom"]["health"].as<int>();
@@ -175,7 +174,6 @@ void Config::loadConfig() {
     CONFIG.venom_infected_projectile_radius = config_node["infected"]["venom"]["projectile_radius"].as<int>();
     CONFIG.venom_infected_projectile_speed = config_node["infected"]["venom"]["projectile_speed"].as<int>();
     CONFIG.venom_infected_projectile_explosion_counter = config_node["infected"]["venom"]["projectile_explosion_counter"].as<int>();
-
     CONFIG.crater_radius = config_node["crater"]["radius"].as<int>();
     CONFIG.crater_hit_points = config_node["crater"]["hit_points"].as<int>();
     CONFIG.crater_amount = config_node["crater"]["ammount"].as<int>();
@@ -201,7 +199,7 @@ void Config::loadConfig() {
     CONFIG.weapon_scout_distance_modifier = config_node["weapon"]["scout"]["distance_modifier"].as<double>();
     CONFIG.weapon_scout_damage_falloff = config_node["weapon"]["scout"]["damage_falloff"].as<double>();
     CONFIG.cheat_infinite_hitpoints = config_node["cheats"]["infinite_hitpoints"].as<int>();
-    CONFIG.aligned_slack_grace = config_node["aligned_slack_grace"].as<int>();
+    CONFIG.aligned_slack_grace = config_node["general"]["aligned_slack_grace"].as<int>();
     CONFIG.survival_mode_timer = config_node["modes"]["survival"]["timer"].as<int>();
     CONFIG.survival_mode_max_common_infected = config_node["modes"]["survival"]["max_common_infected"].as<int>();
     CONFIG.survival_mode_max_spear_infected = config_node["modes"]["survival"]["max_spear_infected"].as<int>();
