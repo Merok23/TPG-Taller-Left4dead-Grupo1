@@ -88,7 +88,7 @@ struct config CONFIG {
     1, //survival_mode_max_witch_infected
     1, //survival_mode_max_venom_infected
     1, //survival_mode_max_jumper_infected
-    1.0000005, //survival_mode_accumulator
+    1.01, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
     30, //clear_the_zone_infected_total
     0.6, //common_infected_zone_percentage

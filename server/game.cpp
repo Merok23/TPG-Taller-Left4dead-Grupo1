@@ -514,7 +514,7 @@ void Game::survivalUpdate() {
     this->survival_mode_counter = CONFIG.survival_mode_timer;
     this->spawnInfected();
     this->makeInfectedStronger();
-    survival_mode_multiplier *= CONFIG.survival_mode_accumulator;
+    if (survival_mode_multiplier < 1.1) survival_mode_multiplier *= CONFIG.survival_mode_accumulator;
     max_common_infected_per_spawn *= CONFIG.survival_mode_accumulator;
     max_spear_infected_per_spawn *= CONFIG.survival_mode_accumulator;
 }
