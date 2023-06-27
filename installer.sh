@@ -5,14 +5,19 @@ GREEN='\033[0;32m'
 BLUE='\033[94m'
 NC='\033[0m'  # No color
 
+#CLEAN INSTALLATION:
+echo -e "${BLUE}Removing any previous installation of Left4Dead...${NC}"
+
+sudo rm /usr/bin/Left4Dead ||
+sudo rm /usr/bin/Left4DeadServer ||
+
+sudo rm -r /etc/Left4dead ||
+sudo rm -r /var/Left4dead ||
+
+echo -e "${GREEN}OLD FILES REMOVED${NC}"
+
 
 echo "Running the installer for the game Left4Dead."
-
-echo "First things first, where should you run this installer? For now, we only support you running this installer in your
-home directory, so that the libraries can be accesed from everywhere in your computer.
-
-If you are not running this installer from the home terminal, please stop this installer, and run it again there."
-read -p "Are you running the installer in your home directory? (y/n): " choice
 
 # Check the user's choice
 if [[ $choice == [Nn] ]]; then
@@ -173,6 +178,7 @@ sudo mv Left4DeadServer /usr/bin/
 
 cd ../../client
 #config files to /etc/Left4Dead
+sudo mkdir /etc/Left4Dead
 sudo mv client_config.yaml /etc/Left4Dead/
 cd ../config
 sudo mv config.yaml /etc/Left4Dead/
@@ -193,6 +199,13 @@ sudo mv assets /var/Left4Dead/assets
 
 echo -e "${GREEN}Step 7 - Completed${NC}"
 
+echo -e "${BLUE}Step 8 - Creating Desktop Shorcuts in ~/Desktop${NC}"
+
+sudo mv Left4Dead.sh ~/Desktop
+sudo mv Left4DeadServer.sh ~/Desktop
+
+echo -e "${GREEN}Installation Completed, enjoy your game!${NC}"
+
 #-------------------------------------Removing source files for libs----------------------------------------------#
 cd .. #in home
 #estando en la carpeta base:
@@ -211,3 +224,7 @@ sudo rm -r TPG-Taller-Left4dead-Grupo1
 
 
 echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run.${NC}"
+
+#in /usr/bin the client has to run
+#cd /usr/bin
+#export LEFT4DEAD_CLIENT_CONFIG_FILE="/etc/Left4Dead/client_config.yaml"
