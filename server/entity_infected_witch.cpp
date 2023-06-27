@@ -74,7 +74,6 @@ void WitchInfected::checkForSoldiersInRangeAndSetChase(std::map<uint32_t, Entity
 
 void WitchInfected::makeStronger(double factor) {
     this->attack_damage *= factor;
-    this->attack_range *= factor;
     this->look_range *= factor;
     this->speed *= factor;
     int32_t hit_points = this->getHitPoints();

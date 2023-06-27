@@ -98,3 +98,22 @@ TEST_CASE("Survival mode test, game spawns more that one type of infected") {
     REQUIRE(common > 0);
     REQUIRE(spear > 0);
 }
+/* Test comentado porque es eterno, pero se deja aca por si se necesita.
+TEST_CASE("Survival mode test, stress test, a lot of time passes and nobody dies", "[surival]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
+    uint32_t soldier_id = game.getCurrentId();
+    Weapon* weapon = new MachineGun();
+    game.addEntity(new Player(soldier_id, 30, CONFIG.soldier_radius, weapon));
+    game.setCheat(soldier_id, Cheat::INFINITE_HITPOINTS);
+    for (int i = 0; i < 10000 * CONFIG.survival_mode_timer; i++) {
+        game.update();
+        for(auto& entity : game.getEntities()) {
+            if (entity.second->getEntityType() != "projectile_venom") {
+                REQUIRE(entity.second->isDead() == false);
+            }
+        }
+        printf("En la iteracion %d, no falle\n", i);
+        printf("El juego en este momento tenia %ld entidades\n", game.getEntities().size());
+    }
+}
+*/

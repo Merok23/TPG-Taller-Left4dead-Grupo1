@@ -95,13 +95,13 @@ cheats:
   infinite_hitpoints: 2147483637
 modes:
   survival:
-    timer: 500
+    timer: 100
     max_common_infected: 3
     max_spear_infected: 2
     max_witch_infected: 1
     max_venom_infected: 1
     max_jumper_infected: 1
-    accumulator: 1.1
+    accumulator: 1.0000005
     starting_multiplier: 1.0
   clear_the_zone:
     infected_total: 30

@@ -82,13 +82,13 @@ struct config CONFIG {
     0.1, // weapon_scout_damage_falloff
     2147483637, // cheat_infinite_hitpoints
     10, //aligned_slack_grace
-    500, //survival_mode_timer
+    100, //survival_mode_timer
     3, //survival_mode_max_common_infected
     2, //survival_mode_max_spear_infected
     1, //survival_mode_max_witch_infected
     1, //survival_mode_max_venom_infected
     1, //survival_mode_max_jumper_infected
-    1.1, //survival_mode_accumulator
+    1.0000005, //survival_mode_accumulator
     1.0, //survival_mode_starting_multiplier
     30, //clear_the_zone_infected_total
     0.6, //common_infected_zone_percentage
