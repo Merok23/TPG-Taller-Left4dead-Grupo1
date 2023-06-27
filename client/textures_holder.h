@@ -9,6 +9,9 @@
 #include "SdlTexture.h"
 #include "SdlWindow.h"
 
+#include <yaml-cpp/yaml.h>
+#define DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG "../../client/client_config.yaml"
+
 class TexturesHolder {
     public:
     explicit TexturesHolder(SdlWindow &window);
@@ -28,6 +31,7 @@ class TexturesHolder {
     void create_spear(const std::string &path);
 
     SdlWindow &window;
+    YAML::Node config;
     std::map<EntityType, std::map<AnimationName, std::shared_ptr<SdlTexture>>> textures_holder;
 };
 

@@ -95,10 +95,8 @@ void  GraphicsEntityHolder::add_player(Entity* entity) {
         || entity->getEntityType() == EntityType::SOLDIER_SCOUT
         || entity->getEntityType() == EntityType::SOLDIER_P90) {
             this->createSoldier(entity, entity->getEntityType(), audio_holder);
-            //this->createSoldier(entity, entity->getEntityType());
     } else {
         this->createInfected(entity, entity->getEntityType());
-        //this->createInfected(entity, entity->getEntityType());
     }
 }
 

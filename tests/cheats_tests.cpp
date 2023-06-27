@@ -3,16 +3,19 @@
 #include "../server/entity_player.h"
 #include "../server/config.h"
 #include "../server/weapon_idf.h"
+#include "../server/entity_infected_common.h"
 
 TEST_CASE("Cheat test, player can be set to have infinite hitpoints", "[cheats]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height);
     Weapon* weapon = new MachineGun(); 
     Entity* player = new Player(0, 0, CONFIG.soldier_radius, weapon);
+    Entity* infected = new CommonInfected(1, CONFIG.common_infected_attack_range, CONFIG.common_infected_radius);
     game.addEntity(player);
+    game.addEntity(infected);
     game.setCheat(0, Cheat::INFINITE_HITPOINTS);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[0]->getHitPoints() == CONFIG.cheat_infinite_hitpoints);
+    REQUIRE(entities[0]->getHitPoints() == CONFIG.soldier_health);
 }
 
 TEST_CASE("Cheat test, player gets infinite hitpoints and it doens't affect other player", "[cheats]") {
@@ -22,12 +25,15 @@ TEST_CASE("Cheat test, player gets infinite hitpoints and it doens't affect othe
     game.addEntity(player);
     Weapon* weapon2 = new MachineGun();
     Entity* player2 = new Player(1, CONFIG.soldier_radius * 2, CONFIG.soldier_radius, weapon2);
+    Entity* infected = new CommonInfected(2, CONFIG.common_infected_attack_range + 2 * CONFIG.soldier_radius, CONFIG.common_infected_radius);
+
     game.addEntity(player2);
+    game.addEntity(infected);
     game.setCheat(0, Cheat::INFINITE_HITPOINTS);
     game.update();
     std::map<uint32_t, Entity*> entities = game.getEntities();
-    REQUIRE(entities[0]->getHitPoints() == CONFIG.cheat_infinite_hitpoints);
-    REQUIRE(entities[1]->getHitPoints() == CONFIG.soldier_health);
+    REQUIRE(entities[0]->getHitPoints() == CONFIG.soldier_health);
+    REQUIRE(entities[1]->getHitPoints() < CONFIG.soldier_health);
 }
 
 TEST_CASE("Cheat test, player can spawn a common_infected", "[cheats]") {

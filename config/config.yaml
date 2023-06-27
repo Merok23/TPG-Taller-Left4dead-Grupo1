@@ -95,7 +95,7 @@ cheats:
   infinite_hitpoints: 2147483637
 modes:
   survival:
-    timer: 50
+    timer: 500
     max_common_infected: 3
     max_spear_infected: 2
     max_witch_infected: 1

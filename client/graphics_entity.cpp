@@ -11,8 +11,6 @@ GraphicsEntity::GraphicsEntity(const std::map<AnimationName, std::shared_ptr<Sdl
     current_animation = AN_IDLE;
 }
 
-#include <iostream>
-
 void GraphicsEntity::update(float dt, Entity *entity) {
         
     if (entity) {

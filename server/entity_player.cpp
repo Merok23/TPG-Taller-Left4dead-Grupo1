@@ -19,7 +19,8 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
     lives(CONFIG.soldier_lives), 
     infected_killed(0),
     start_time_of_death(std::chrono::high_resolution_clock::now()),
-    time_of_death(0) {}
+    time_of_death(0),
+    infinite_hitpoints(false) {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
@@ -36,7 +37,7 @@ void Player::move(int32_t x_movement, int32_t y_movement) {
 
 void Player::update(Map& map) {
     if (this->state == DEAD_SOLDIER) return;
-    Entity::resolveDamage();
+    if (!this->infinite_hitpoints) Entity::resolveDamage();
     if (this->incapacitated > 0) {
         this->incapacitated--;
         if (this->incapacitated != 0) this->state = RELOADING_SOLDIER;
@@ -72,7 +73,6 @@ void Player::update(Map& map) {
             time_until_dead++;
         }
     }
-    this->resolveDamage();
     if (this->getHitPoints() <= 0 && !this->isDown() && !this->isReviving()) {
         this->state = DOWN_SOLDIER;
         this->lives--;
@@ -179,6 +179,10 @@ int32_t Player::getAmmoLeft() {
 
 std::string Player::getEntityType() {
     return "player_" + this->my_weapon->getWeaponType(); 
+}
+
+void Player::setInfiniteHitpoints() {
+    this->infinite_hitpoints = true;
 }
 
 std::string Player::getState() {
