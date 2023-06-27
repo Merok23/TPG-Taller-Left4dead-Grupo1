@@ -35,7 +35,8 @@ echo -e "${GREEN}Step 0 - Completed${NC}"
 
 # 1 - Download CMake - version 3.26 or above is needed
 echo -e "${BLUE}Step 1 - Downloading CMake...${NC}"
-sudo apt install cmake
+sudo apt install python3-pip
+pip install cmake --upgrade
 echo -e "${GREEN}Step 1 - Completed${NC}"
 
 
@@ -134,19 +135,28 @@ echo "Step 4 - Downloading Qt..."
 sudo apt install qtbase5-dev qt5-qmake qtbase5-dev-tools
 echo -e "${GREEN}Step 4 - Completed${NC}"
 
-# 5 - Downloading the game itself
-echo "Step 5 - Downloading the game..."
+# 5
+echo -e "${BLUE}Step 5 - Downloading yaml dependencies...${NC}"
 
+git clone https://github.com/jbeder/yaml-cpp.git
+cd yaml-cpp
+mkdir build
+cd build
+cmake ..
+make -j6
+sudo make install
 
+cd ../../
+# 6 - Downloading the game itself
+echo -e "${BLUE}Step 6 - Downloading the game...${NC}"
+git clone https://github.com/Merok23/TPG-Taller-Left4dead-Grupo1.git --branch main
 
-
-# cd Left4Dead
-# mkdir build
-# cd build
-# cmake ..
-# make -j4
-
+cd TPG-Taller-Left4dead-Grupo1
+mkdir build
+cd build
+cmake .. && make -j6
 
 echo -e "${GREEN}Step 5 - Completed${NC}"
 
+echo -e "${GREEN}Step 6 - Completed${NC}"
 echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run. \nTo execute, refer to the user manual${NC}"
