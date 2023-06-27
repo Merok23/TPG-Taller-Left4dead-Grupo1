@@ -5,6 +5,10 @@
 #include "SdlTexture.h"
 #include "GraphicsEntityHolder.h"
 
+#include <yaml-cpp/yaml.h>
+#define DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG "../../client/client_config.yaml"
+
+
 #define BACKGROUND_WIDTH 7680
 #define BACKGROUND_HEIGTH 1080
 
@@ -12,7 +16,6 @@
 #define WINDOW_HEIGTH (1080-200)
 
 #define EXTRA_SCREEN 200
-#define TRANSITION_MARGIN 5
 
 class Camera {
     public:
@@ -23,15 +26,18 @@ class Camera {
     int get_x_right();
 
     private:
-    SdlWindow &window;
+    void set_up_background();
 
-    SdlTexture background_sky;
-    SdlTexture background_houses1;
-    SdlTexture background_houses2;
-    SdlTexture background_houses3;
-    SdlTexture background_ruins;
-    SdlTexture background_fence;
-    SdlTexture background_road;
+    SdlWindow &window;
+    YAML::Node config;
+
+    std::unique_ptr<SdlTexture> background_sky;
+    std::unique_ptr<SdlTexture> background_houses1;
+    std::unique_ptr<SdlTexture> background_houses2;
+    std::unique_ptr<SdlTexture> background_houses3;
+    std::unique_ptr<SdlTexture> background_ruins;
+    std::unique_ptr<SdlTexture> background_fence;
+    std::unique_ptr<SdlTexture> background_road;
     
     Area destArea;
     int x_camera_world;

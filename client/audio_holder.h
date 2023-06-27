@@ -11,6 +11,9 @@
 #include "SdlTexture.h"
 #include "SdlWindow.h"
 
+#include <yaml-cpp/yaml.h>
+#define DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG "../../client/client_config.yaml"
+
 class AudioHolder {
     public:
     explicit AudioHolder();
@@ -24,6 +27,7 @@ class AudioHolder {
     void create_sound_effects(const std::string &path);
 
     std::map<GameMode, Mix_Music *> music_holder;
+    YAML::Node config;
     std::map<EntityType, std::map<AnimationName, Mix_Chunk*>> sound_effects_holder;
 };
 

@@ -4,27 +4,39 @@
 
 AudioHolder::AudioHolder() {
     if (Mix_Init(MIX_INIT_OGG) != (MIX_INIT_OGG)) {
-        //SDL_Quit();
         throw std::runtime_error("Failed to initialize SDL_mixer: " + std::string(Mix_GetError()));
     }
 
-    if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 4096) < 0) { //REVISAR
+    if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
         // Error handling: Failed to initialize SDL_mixer
-        throw std::runtime_error("Failed to initialize SDL_mixer: " + std::string(Mix_GetError()));
+        Mix_Quit();
+        throw std::runtime_error("Failed to open audio in SDL_mixer: " + std::string(Mix_GetError()));
     }
-    std::string path("../../assets/Audio/Music");
-    create_background_music(path);
 
-    path.replace(0, path.length(), "../../assets/Audio/SoundEffects");
-    create_sound_effects(path);
-    Mix_VolumeMusic(0);  // Set the volume to 50% (half of the maximum)
-    //Mix_VolumeMusic(MIX_MAX_VOLUME/2);  // Set the volume to 50% (half of the maximum)
+    const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
+    std::string configFile;
+    if (!envVar) {
+        std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+        configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
+    } else {
+        std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+        configFile = envVar;
+    }
+
+    this->config = YAML::LoadFile(configFile);
+
+    create_background_music(config["music_path"].as<std::string>());
+    create_sound_effects(config["sound_effects_path"].as<std::string>());
+    Mix_VolumeMusic(config["volumne_music"].as<int>());
 }
 
 
 void AudioHolder::create_sound_effects(const std::string &path) {
-    sound_effects_holder[SOLDIER_IDF][AN_SHOOT] = Mix_LoadWAV("../../assets/Audio/SoundEffects/normal_shot.wav");
-    sound_effects_holder[SOLDIER_SCOUT][AN_SHOOT] = Mix_LoadWAV("../../assets/Audio/SoundEffects/rifle_shot.wav");
+    std::string track("normal_shot.wav");
+    sound_effects_holder[SOLDIER_IDF][AN_SHOOT] = Mix_LoadWAV((path + track).c_str());
+
+    track.replace(0, track.length(), "rifle_shot.wav");
+    sound_effects_holder[SOLDIER_SCOUT][AN_SHOOT] = Mix_LoadWAV((path + track).c_str());
     
     //sound_effects_holder[SOLDIER_IDF][AN_EXPLOSION] = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
     //sound_effects_holder[SOLDIER_IDF][AN_SMOKE] = Mix_LoadWAV("../../assets/Audio/SoundEffects/fast_shot.wav");
@@ -38,36 +50,21 @@ void AudioHolder::create_sound_effects(const std::string &path) {
 
 */
 void AudioHolder::create_background_music(const std::string &path) {
-    //std::string track("Battle_1.ogg");
-    //music_holder[SURVIVAL] = Mix_LoadMUS(path+track);
-    music_holder[TESTING] = Mix_LoadMUS("../../assets/Audio/Music/Szymon_Matuszewski_-_Patient Zero.mp3");
-    music_holder[SURVIVAL] = Mix_LoadMUS("../../assets/Audio/Music/Battle1.mp3");
-    music_holder[CLEAR_THE_ZONE] = Mix_LoadMUS("../../assets/Audio/Music/Light_battle.ogg");
+    std::string track("Szymon_Matuszewski_-_Patient Zero.mp3");
+    music_holder[TESTING] = Mix_LoadMUS((path + track).c_str());
+
+    track.replace(0, track.length(), "Battle1.mp3");
+    music_holder[SURVIVAL] = Mix_LoadMUS((path + track).c_str());
+
+    track.replace(0, track.length(), "Light_battle.ogg");
+    music_holder[CLEAR_THE_ZONE] = Mix_LoadMUS((path + track).c_str());
     
-    bool exit = false;
-    if (music_holder[SURVIVAL] == nullptr) {
+    if (music_holder[SURVIVAL] == nullptr || music_holder[CLEAR_THE_ZONE] == nullptr || music_holder[TESTING] == nullptr) {
         Mix_FreeMusic(music_holder[SURVIVAL]);
-        exit = true;
-    }
-    if (music_holder[CLEAR_THE_ZONE] == nullptr) {
         Mix_FreeMusic(music_holder[CLEAR_THE_ZONE]);
-        exit = true;
-    }
-    if (music_holder[TESTING] == nullptr) {
         Mix_FreeMusic(music_holder[TESTING]);
-        exit = true;
-    }
-
-    //si exit es true que hago?
-    if (exit)
         std::cout << "Hubo un fallo al cargar alguna de las pistas de audio, que deberia hacer aca?" << std::endl;
-
-    /*
-        Para mi esta cancion pega mejor en la parte de qt
-    */
-    // Mix_Music* music = Mix_LoadMUS("../../assets/Audio/Music/Futuristic_ambient_1.ogg");
-    
-
+    }
 }
 
 Mix_Music* AudioHolder::find_music(GameMode game_mode) {

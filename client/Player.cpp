@@ -14,8 +14,20 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
     sound_effects(sound_effects), 
     y_player_data(y_player_data), available_audio_channel(available_audio_channel)
 {
+        const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
+        std::string configFile;
+        if (!envVar) {
+            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+            configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
+        } else {
+            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+            configFile = envVar;
+        }
+
+        this->config = YAML::LoadFile(configFile);
+
     Color color_key = {0xFF, 0xFF, 0xFF};
-    std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>("../../assets/Mis/heart.jpg", window, color_key);
+    std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>(config["player_hearts_texture_path"].as<std::string>(), window, color_key);
     life_an = std::unique_ptr<Animation>(new Animation(tex_life));
     //if (shooting_sound_effect == nullptr) //aca que hago?
 }

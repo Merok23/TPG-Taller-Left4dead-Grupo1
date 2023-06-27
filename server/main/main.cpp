@@ -16,7 +16,7 @@ int main(int argc, char *argv[])  {
     try {
         if (argc == 3) {
             Config config(CONFIG_FILE);
-        } 
+        }
         Server server = Server(PORT); 
         server.run();  
     } catch (const std::exception& e) {
