@@ -24,9 +24,9 @@ Game::Game(int32_t width, int32_t height) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false),
-    rng(std::random_device()()),
-    dist(0, 2147482600) {}
+    craters_have_spawned(false){
+        srand(time(NULL));
+    }
 
 Game::Game(int32_t width, int32_t height, GameMode gameMode) : 
     entities(),
@@ -52,9 +52,9 @@ Game::Game(int32_t width, int32_t height, GameMode gameMode) :
     game_started(false),
     game_over(false),
     players_won(false),
-    craters_have_spawned(false),
-    rng(std::random_device()()),
-    dist(0, 2147482600) {}
+    craters_have_spawned(false) {
+        srand(time(NULL));
+    }
 
 void Game::addEntity(Entity* entity) {
     //TODO: if ID already exists, throw exception
@@ -285,6 +285,7 @@ void Game::spawnWitchInfectedFromScream(const uint32_t &id) {
 }
 
 bool Game::searchForPositionCloseToCentreOfMass(const uint32_t &radius, uint32_t &x, uint32_t &y) {
+    srand(time(NULL));
     bool found = false;
     int32_t x_min = this->gameMap.getCentreOfMass() - (1.3 * CONFIG.soldier_max_distance_from_mass_centre);
     if (x_min < 0) x_min = CONFIG.spawn_point_start_x_infected;
@@ -292,9 +293,9 @@ bool Game::searchForPositionCloseToCentreOfMass(const uint32_t &radius, uint32_t
     if (x_max > this->gameMap.getWidth()) x_max =CONFIG.spawn_point_end_x_infected;
     int32_t mod_y = this->gameMap.getHeight() - 2 * radius;
     while (!found) {
-        y = this->dist(rng) % mod_y;
+        y = rand() % mod_y;
         y += radius;
-        if (this->dist(rng) % 2) {
+        if (rand() % 2) {
             found = !this->gameMap.checkForCollisionInPosition(x_min, y, radius);
             x = x_min;
         } else {
@@ -532,11 +533,12 @@ void Game::spawnCraters(int amount) {
 }
 
 bool Game::searchForPositionAnywhere(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    srand(time(NULL));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     while (!found) {
-        x = this->dist(rng) % this->gameMap.getWidth();
-        y = this->dist(rng) % mod_y;
+        x = rand() % this->gameMap.getWidth();
+        y = rand() % mod_y;
         y += radius;
         found = !this->gameMap.checkForCollisionInPosition(x, y, radius);
     }
@@ -556,6 +558,7 @@ void Game::spawnCratersAtTheBorder() {
 
 
 bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    srand(time(NULL));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     //start and end it's for when the spawn point is full
@@ -563,10 +566,10 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
     int start = CONFIG.spawn_point_start_x_infected;
     int end = CONFIG.spawn_point_end_x_infected;
     while (!found) {
-        y = this->dist(rng) % mod_y;
+        y = rand() % mod_y;
         y += radius;
         //50% chance of spawning in the left or right side of the map
-        if (this->dist(rng) % 2 || !this->clear_the_zone) {
+        if (rand() % 2 || !this->clear_the_zone) {
             if (!this->gameMap.checkForCollisionInPosition(start, y, radius)) {
                 found = true;
                 x = start;
@@ -591,11 +594,12 @@ bool Game::searchForPositionAtBorders(const uint32_t& radius, uint32_t& x, uint3
 }
 
 bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t& y) {
+    srand(time(NULL));
     bool found = false;
     int mod_y = this->gameMap.getHeight() - 2 * radius;
     int end = CONFIG.spawn_point_end_x_infected;
     while (!found) {
-        y = this->dist(rng) % mod_y;
+        y = rand() % mod_y;
         y += radius;
         if (!this->gameMap.checkForCollisionInPosition(end, y, radius)) {
             found = true;
@@ -608,12 +612,13 @@ bool Game::searchForPositionAtEnd(const uint32_t& radius, uint32_t& x, uint32_t&
 
 
 void Game::spawnInfected() {
+    srand(time(NULL));
     //this could be done with a factory pattern
-    this->spawnSpecificInfected(InfectedType::COMMON, this->dist(rng) % this->max_common_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::SPEAR, this->dist(rng) % this->max_spear_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::WITCH, this->dist(rng) % this->max_witch_infected_per_spawn + 1);
-    //this->spawnSpecificInfected(InfectedType::JUMPER, this->dist(rng) % this->max_jumper_infected_per_spawn + 1);
-    this->spawnSpecificInfected(InfectedType::VENOM, this->dist(rng) % this->max_venom_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::COMMON, rand() % this->max_common_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::SPEAR, rand() % this->max_spear_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::WITCH, rand() % this->max_witch_infected_per_spawn + 1);
+    //this->spawnSpecificInfected(InfectedType::JUMPER, rand() % this->max_jumper_infected_per_spawn + 1);
+    this->spawnSpecificInfected(InfectedType::VENOM, rand() % this->max_venom_infected_per_spawn + 1);
     
 }
 
