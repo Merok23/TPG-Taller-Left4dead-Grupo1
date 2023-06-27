@@ -2,11 +2,11 @@
 
 # Define color codes
 GREEN='\033[0;32m'
+BLUE='\033[94m'
 NC='\033[0m'  # No color
 
 
-echo "Hello! You are about to run the installer for our game, Left4Dead. It's a somewhat long installation, since
-there are many libraries required. There will be messages like this one guiding you trough the installation, though, so don't worry"
+echo "Running the installer for the game Left4Dead."
 
 echo "First things first, where should you run this installer? For now, we only support you running this installer in your
 home directory, so that the libraries can be accesed from everywhere in your computer.
@@ -22,110 +22,74 @@ else
     echo -e "${GREEN}Continuing with the installer...${NC}"
 fi
 
-echo "Step 0 - Updating and downloading essentials..."
+echo -e "${BLUE}Step 0 - Updating and downloading essentials...${NC}"
 
 # 0.0 - First, we update our system's repositories
 sudo apt update
 
 # 0.1 - And install gcc and other esential tools
 sudo apt install build-essential
+sudo apt-install git
 
 echo -e "${GREEN}Step 0 - Completed${NC}"
 
 # 1 - Download CMake - version 3.26 or above is needed
-echo "Step 1 - Downloading CMake..."
+echo -e "${BLUE}Step 1 - Downloading CMake...${NC}"
 sudo apt install cmake
 echo -e "${GREEN}Step 1 - Completed${NC}"
 
 
 # 2 - SDL2
-echo "Step 2 - Downloading SDL..."
+echo -e "${BLUE}Step 2 - Downloading SDL...${NC}"
 
 # 2.1 Install basic dependencies
 sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
 
 # 2.2 - Download and install SDL_Image
-echo "Step 2.1 - Downloading SDL_Image..."
-# 2.2.1 - Define the GitHub repository and release tag
-repo="libsdl-org/SDL_image"
+echo -e "${BLUE}Step 2.1 - Downloading SDL2_image...${NC}"
 
-# Define the desired new name for the folder
-new_folder_name="SDL_Image"
+git clone --branch release-2.6.3 https://github.com/libsdl-org/SDL_image.git
 
-# Retrieve the latest release information using GitHub API
-release_info=$(curl -s "https://api.github.com/repos/$repo/releases/latest")
-
-# Retrieve the download URL of the source code archive
-url=$(echo "$release_info" | jq -r '.tarball_url')
-
-# Download the source code archive
-wget -O SDL_Image.tar.gz "$url"
-
-# Extract the archive to a temporary folder
-mkdir "$new_folder_name"
-tar -xzvf SDL_Image.tar.gz -C "$new_folder_name" --strip-components=1
-
-# Remove the .tar.gz archive
-rm SDL_Image.tar.gz
-
-# Enter the renamed folder
-cd "$new_folder_name"
-
-#Install it
+cd SDL_image
 git checkout SDL2
 mkdir build
 cd build
 cmake .. && make -j6
 sudo make install
 
-# 2.2.7 - Back to the original folder
 cd ../../
 echo -e "${GREEN}Step 2.1 - Completed${NC}"
 
-# 2.3 - Downloading and install SDL_Mixer
-echo "Step 2.2 - Downloading SDL_Mixer..."
-repo="libsdl-org/SDL_mixer"
-tag="release-2.6.3"
+# 2.3 - Download and install SDL_mixer
+echo -e "${BLUE}Step 2.2 - Downloading SDL2_mixer...${NC}"
 
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
+git clone --branch release-2.6.3 https://github.com/libsdl-org/SDL_mixer.git
 
-wget -O SDL_Mixer.zip "$url"
-unzip SDL_Mixer.zip
-#rm SDL_Mixer.zip
-
-cd SDL_Mixer
+cd SDL_mixer
 git checkout SDL2
 mkdir build
 cd build
-cmake ..
-make -j4 # or as many cores as you have
+cmake .. && make -j6
 sudo make install
 
 cd ../../
 echo -e "${GREEN}Step 2.2 - Completed${NC}"
 
-# 2.4 - Download and install SDL_TTF
-echo "Step 2.3 - Downloading SDL_TTF..."
-repo="libsdl-org/SDL_ttf"
-tag="release-2.20.2"
+# 2.4 - Download and install SDL_ttf
+echo -e "${BLUE}Step 2.3 - Downloading SDL_ttf...${NC}"
 
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
-wget -O SDL_TTF.zip "$url"
-unzip SDL_TTF.zip
+git clone --branch release-2.20.2 https://github.com/libsdl-org/SDL_ttf.git
 
-# 2.4.5 - Optional: Remove the zip file after extraction
-#rm SDL_TTF.zip
-
-cd SDL_TTF
+cd SDL_ttf
 git checkout SDL2
 mkdir build
 cd build
-cmake ..
-make -j4 # or as many cores as you have
+cmake .. && make -j6
 sudo make install
 
 cd ../../
 echo -e "${GREEN}Step 2.3 - Completed${NC}"
+
 
 # 2.5 - Download sdl2pp
 echo "Step 3 - Downloading sdl2pp..."
