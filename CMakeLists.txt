@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.16)
 project(Left4Dead_Taller_TPG)
 
 set(CMAKE_CXX_STANDARD 17)
