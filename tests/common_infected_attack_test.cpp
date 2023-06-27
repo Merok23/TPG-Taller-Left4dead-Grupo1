@@ -94,3 +94,33 @@ TEST_CASE("Common infected attack, infected kills a soldier.", "[common infected
     REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getX() == CONFIG.common_infected_attack_range);
     REQUIRE(game.getEntities()[1]->getDirectionOfMovement()->getY() == 5);
 }
+
+TEST_CASE("Common infected attack, multiple infected are spawned and only the closest one attacks", "[common infected attack]") {
+    Game game(CONFIG.scenario_width, CONFIG.scenario_height);
+    Weapon* weapon = new Scout();
+    uint32_t soldier_id = game.getCurrentId();
+    Entity* player = new Player(soldier_id, 0, CONFIG.common_infected_radius, weapon);
+    game.addEntity(player);
+    uint32_t closest_infected_id = game.getCurrentId();
+    Entity* closest_infected = new CommonInfected(closest_infected_id, CONFIG.common_infected_radius + CONFIG.soldier_radius, CONFIG.common_infected_radius);
+    game.addEntity(closest_infected);
+    uint32_t x_position = CONFIG.common_infected_attack_range;
+    uint32_t zombies = 100;
+    for (uint32_t i = 0; i < zombies; i++) {
+        x_position += x_position;
+        Entity* infected_i = new CommonInfected(game.getCurrentId(), x_position, CONFIG.common_infected_radius);
+        game.addEntity(infected_i);
+    } 
+    game.setCheat(soldier_id, Cheat::INFINITE_HITPOINTS);
+    int counter = 1;
+    game.update();
+    for (int i = 0; i < 100000000000; i++) {
+        REQUIRE(game.getEntities()[soldier_id]->isDead() == false);
+        for (uint32_t j = 0; j < zombies; j++) {
+            if (j != closest_infected_id) {
+                if(game.getEntities()[j]->getState() == "attacking") counter++;
+            }
+            REQUIRE(counter == 2);
+        }
+    }
+}
