@@ -35,8 +35,9 @@ echo -e "${GREEN}Step 0 - Completed${NC}"
 
 # 1 - Download CMake - version 3.26 or above is needed
 echo -e "${BLUE}Step 1 - Downloading CMake...${NC}"
-sudo apt install python3-pip
-pip install cmake --upgrade
+# sudo apt install python3-pip
+# pip install cmake --upgrade
+sudo apt install cmake
 echo -e "${GREEN}Step 1 - Completed${NC}"
 
 
