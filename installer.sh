@@ -206,4 +206,8 @@ sudo rm -r SDL
 sudo rm -r TPG-Taller-Left4dead-Grupo1
 
 
+#in /usr/bin the client has to run
+#export LEFT4DEAD_CLIENT_CONFIG_FILE="/etc/Left4Dead/client_config.yaml"
+
+
 echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run.${NC}"
