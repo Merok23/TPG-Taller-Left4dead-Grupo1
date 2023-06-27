@@ -29,7 +29,7 @@ sudo apt update
 
 # 0.1 - And install gcc and other esential tools
 sudo apt install build-essential
-sudo apt-install git
+sudo apt install git
 
 echo -e "${GREEN}Step 0 - Completed${NC}"
 
@@ -152,6 +152,7 @@ echo -e "${GREEN}Step 5 - Completed${NC}"
 
 # 6 - Downloading the game itself
 echo -e "${BLUE}Step 6 - Downloading the game...${NC}"
+sudo rm /usr/lib/x86_64-linux-gnu/libSDL2*
 git clone https://github.com/Merok23/TPG-Taller-Left4dead-Grupo1.git --branch main
 
 cd TPG-Taller-Left4dead-Grupo1
@@ -167,19 +168,19 @@ echo -e "${BLUE}Step 7 - Moving files to correct folders...${NC}"
 
 # executables to /usr/bin
 cd target
-#sudo mv Left4Dead /usr/bin/
-#sudo mv Left4DeadServer /usr/bin/
+sudo mv Left4Dead /usr/bin/
+sudo mv Left4DeadServer /usr/bin/
 
 cd ../../client
 #config files to /etc/Left4Dead
-sudo mkdir /etc/Left4Dead
 sudo mv client_config.yaml /etc/Left4Dead/
-
 cd ../config
 sudo mv config.yaml /etc/Left4Dead/
 
-cd ..
+
+cd .. # in TPG-Taller-Left4dead-Grupo1
 #data files to /var/Left4Dead
+sudo mkdir /var/Left4Dead
 sudo mv client /var/Left4Dead/client
 sudo mv server /var/Left4Dead/server
 sudo mv assets /var/Left4Dead/assets
@@ -191,6 +192,18 @@ sudo mv assets /var/Left4Dead/assets
 # LEFT4DEAD_CLIENT_CONFIG_FILE="/etc/Left4Dead/client_config.yaml"
 
 echo -e "${GREEN}Step 7 - Completed${NC}"
+
+#-------------------------------------Removing source files for libs----------------------------------------------#
+cd .. #in home
+#estando en la carpeta base:
+sudo rm -r yaml-cpp
+sudo rm -r Catch2
+sudo rm -r libSDL2pp
+sudo rm -r SDL_ttf
+sudo rm -r SDL_mixer
+sudo rm -r SDL_image
+sudo rm -r SDL
+sudo rm -r TPG-Taller-Left4dead-Grupo1
 
 
 echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run.${NC}"
