@@ -48,27 +48,34 @@ sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libf
 echo "Step 2.1 - Downloading SDL_Image..."
 # 2.2.1 - Define the GitHub repository and release tag
 repo="libsdl-org/SDL_image"
-tag="release-2.6.3"
 
-# 2.2.2 - Retrieve the download URL of the release asset using GitHub API
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
+# Define the desired new name for the folder
+new_folder_name="SDL_Image"
 
-# 2.2.3 - Download the zip file from the retrieved URL
-wget -O SDL_Image.zip "$url"
+# Retrieve the latest release information using GitHub API
+release_info=$(curl -s "https://api.github.com/repos/$repo/releases/latest")
 
-# 2.2.4 - Unzip the downloaded file
-unzip SDL_Image.zip
+# Retrieve the download URL of the source code archive
+url=$(echo "$release_info" | jq -r '.tarball_url')
 
-# 2.2.5 - Optional: Remove the zip file after extraction
-#rm SDL_Image.zip
+# Download the source code archive
+wget -O SDL_Image.tar.gz "$url"
 
-# 2.2.6 - Enter the folder and install the library
-cd SDL_Image
+# Extract the archive to a temporary folder
+mkdir "$new_folder_name"
+tar -xzvf SDL_Image.tar.gz -C "$new_folder_name" --strip-components=1
+
+# Remove the .tar.gz archive
+rm SDL_Image.tar.gz
+
+# Enter the renamed folder
+cd "$new_folder_name"
+
+#Install it
 git checkout SDL2
 mkdir build
 cd build
-cmake ..
-make -j4 # or as many cores as you have
+cmake .. && make -j6
 sudo make install
 
 # 2.2.7 - Back to the original folder
@@ -175,7 +182,7 @@ cmake ..
 make -j4
 sudo make install
 
-# cd ../../
+cd ../../
 echo -e "${GREEN}Step 4 - Completed${NC}"
 
 # 4 - Qt
