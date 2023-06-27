@@ -129,9 +129,11 @@ void Game::setReloading(const uint32_t &id) {
 
 void Game::setCheat(const uint32_t &id, const Cheat &cheat) {
     switch (cheat) {
-        case Cheat::INFINITE_HITPOINTS:
-            this->entities[id]->setHitPoints(CONFIG.cheat_infinite_hitpoints);
+        case Cheat::INFINITE_HITPOINTS: {
+            Player* soldier = dynamic_cast<Player*>(this->entities[id]);
+            soldier->setInfiniteHitpoints();
             break;
+        }
         case Cheat::SPAWN_COMMON_INFECTED:
             this->spawnInfectedCheat(id);
             break;

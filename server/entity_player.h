@@ -37,6 +37,7 @@ class Player : public Entity {
         uint32_t infected_killed; /**< Amount of infected killed by the player. */
         std::chrono::high_resolution_clock::time_point start_time_of_death; /**< Player spawn time. */
         uint32_t time_of_death; /**< Time of death of the soldier. */
+        bool infinite_hitpoints; /**< If true, the player will not die. */
 
     public:
         /**
@@ -158,6 +159,11 @@ class Player : public Entity {
          */
         void setReviving();
 
+        /**
+         * @brief Sets infinite hitpoints to the player, it can't lose hp. 
+         */
+        void setInfiniteHitpoints();
+        
         /**
          * @brief Destructor for polymorphism. 
          */
