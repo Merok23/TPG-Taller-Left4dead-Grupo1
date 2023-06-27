@@ -19,6 +19,25 @@ StatisticsHandler::StatisticsHandler() : top_infected_kills(), top_ammo_used(), 
             
         }
     }
+    int counter = static_cast<int>(ranking_size - top_infected_kills.size());
+    if (top_infected_kills.size() < ranking_size) {
+        for (int i = 0; i < counter; i++) {
+            this->top_infected_kills.push_back(0);
+        }
+    }
+
+    counter = static_cast<int>(ranking_size - top_ammo_used.size());
+    if (top_ammo_used.size() < ranking_size) {
+        for (int i = 0; i < counter; i++) {
+            this->top_ammo_used.push_back(0);
+        }
+    }
+    counter = static_cast<int>(ranking_size - top_time_alive.size());
+    if (top_time_alive.size() < ranking_size) {
+        for (int i = 0; i < counter; i++) {
+            this->top_time_alive.push_back(0);
+        }
+    }
     file.close();
 }
 
