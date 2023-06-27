@@ -147,6 +147,8 @@ make -j6
 sudo make install
 
 cd ../../
+echo -e "${GREEN}Step 5 - Completed${NC}"
+
 # 6 - Downloading the game itself
 echo -e "${BLUE}Step 6 - Downloading the game...${NC}"
 git clone https://github.com/Merok23/TPG-Taller-Left4dead-Grupo1.git --branch main
@@ -156,7 +158,38 @@ mkdir build
 cd build
 cmake .. && make -j6
 
-echo -e "${GREEN}Step 5 - Completed${NC}"
-
 echo -e "${GREEN}Step 6 - Completed${NC}"
-echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run. \nTo execute, refer to the user manual${NC}"
+
+# 7 
+echo -e "${BLUE}Step 7 - Moving files to correct folders...${NC}"
+
+
+# executables to /usr/bin
+cd target
+#sudo mv Left4Dead /usr/bin/
+#sudo mv Left4DeadServer /usr/bin/
+
+cd ../../client
+#config files to /etc/Left4Dead
+sudo mkdir /etc/Left4Dead
+sudo mv client_config.yaml /etc/Left4Dead/
+
+cd ../config
+sudo mv config.yaml /etc/Left4Dead/
+
+cd ..
+#data files to /var/Left4Dead
+sudo mv client /var/Left4Dead/client
+sudo mv server /var/Left4Dead/server
+sudo mv assets /var/Left4Dead/assets
+
+# New absolute path that the client_config will have
+# /var/Left4Dead/assets/Zombie/
+#
+# New absolute path that the env variable will have
+# LEFT4DEAD_CLIENT_CONFIG_FILE="/etc/Left4Dead/client_config.yaml"
+
+echo -e "${GREEN}Step 7 - Completed${NC}"
+
+
+echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run.${NC}"
