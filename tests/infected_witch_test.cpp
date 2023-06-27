@@ -62,10 +62,11 @@ TEST_CASE("Witch test, witch is shoot and dies", "[witch]") {
 
 TEST_CASE("Witch test, witch gets stronger on survival", "[witch]") {
     Game game(CONFIG.scenario_width, CONFIG.scenario_height, GameMode::SURVIVAL);
-    Entity* witch = new WitchInfected(0, 0, CONFIG.witch_infected_radius);
+    uint32_t witch_id = game.getCurrentId();
+    Entity* witch = new WitchInfected(witch_id, 0, CONFIG.witch_infected_radius);
     game.addEntity(witch);
     for (int i = 0; i < CONFIG.survival_mode_timer; i++) game.update();
-    int health = game.getEntities()[0]->getHitPoints();
-    for (int i = 0; i < CONFIG.survival_mode_timer; i++) game.update();
-    REQUIRE(game.getEntities()[0]->getHitPoints() > health);
+    int health = game.getEntities()[witch_id]->getHitPoints();
+    for (int i = 0; i < CONFIG.survival_mode_timer * 2; i++) game.update();
+    REQUIRE(game.getEntities()[witch_id]->getHitPoints() > health);
 }
