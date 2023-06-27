@@ -152,16 +152,28 @@ echo -e "${GREEN}Step 3 - Completed${NC}"
 # 3 - Catch2
 echo "Step 4 - Downloading Catch2..."
 
-# Descarga el archivo fuente de Catch2 (versión 2.13.4)
-# Descomprime el archivo zip descargado y accede a la carpeta resultante.
-# Crea un directorio llamado "build" y accede a él. Por ejemplo:
-# cd Catch2-2.13.4
-# mkdir build
-# cd build
-# Ejecuta los siguientes comandos para compilar e instalar Catch2:
-# cmake ..
-# make -j4
-# sudo make install
+repo="catchorg/Catch2"
+tag="v3.3.2"
+
+# 2.3.2 - Retrieve the download URL of the release asset using GitHub API
+url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
+
+# 2.3.3 - Download the zip file from the retrieved URL
+wget -O Catch2.zip "$url"
+
+# 2.3.4 - Unzip the downloaded file
+unzip Catch2.zip
+
+# 2.3.5 - Optional: Remove the zip file after extraction
+#rm Catch2.zip
+
+cd Catch2
+mkdir build
+cd build
+Ejecuta los siguientes comandos para compilar e instalar Catch2:
+cmake ..
+make -j4
+sudo make install
 
 # cd ../../
 echo -e "${GREEN}Step 4 - Completed${NC}"
