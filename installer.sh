@@ -45,6 +45,19 @@ echo -e "${BLUE}Step 2 - Downloading SDL...${NC}"
 # 2.1 Install basic dependencies
 sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
 
+git clone https://github.com/libsdl-org/SDL.git --branch release-2.26.5
+
+cd SDL
+mkdir build
+cd build
+cmake .. && make -j6
+sudo make install
+
+cd ../../
+echo -e "${GREEN}Step 2 - Completed${NC}"
+
+
+
 # 2.2 - Download and install SDL_Image
 echo -e "${BLUE}Step 2.1 - Downloading SDL2_image...${NC}"
 
@@ -91,93 +104,49 @@ cd ../../
 echo -e "${GREEN}Step 2.3 - Completed${NC}"
 
 
-# 2.5 - Download sdl2pp
-echo "Step 3 - Downloading sdl2pp..."
+echo -e "${BLUE}Step 2.4 - Downloading sdl2pp...${NC}"
+git clone https://github.com/libSDL2pp/libSDL2pp.git --branch 0.18.1
 
-repo="libSDL2pp/libSDL2pp"
-tag="0.18.1"
-
-# 2.3.2 - Retrieve the download URL of the release asset using GitHub API
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
-
-# 2.3.3 - Download the zip file from the retrieved URL
-wget -O SDL2pp.zip "$url"
-
-# 2.3.4 - Unzip the downloaded file
-unzip SDL2pp.zip
-
-# 2.3.5 - Optional: Remove the zip file after extraction
-#rm SDL2pp.zip
-
-cd SDL2pp
-git checkout SDL2
+cd libSDL2pp
 mkdir build
 cd build
-cmake ..
-make -j4
+cmake .. && make -j6
+sudo make install
+
+cd ../../
+echo -e "${GREEN}Step 2.4 - Completed${NC}"
+
+# 3 - Catch2
+echo "Step 3 - Downloading Catch2..."
+git clone https://github.com/catchorg/Catch2.git --branch devel
+
+cd Catch2
+mkdir build
+cd build
+cmake .. && make -j6
 sudo make install
 
 cd ../../
 echo -e "${GREEN}Step 3 - Completed${NC}"
 
-# 3 - Catch2
-echo "Step 4 - Downloading Catch2..."
-
-repo="catchorg/Catch2"
-tag="v3.3.2"
-
-# 2.3.2 - Retrieve the download URL of the release asset using GitHub API
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
-
-# 2.3.3 - Download the zip file from the retrieved URL
-wget -O Catch2.zip "$url"
-
-# 2.3.4 - Unzip the downloaded file
-unzip Catch2.zip
-
-# 2.3.5 - Optional: Remove the zip file after extraction
-#rm Catch2.zip
-
-cd Catch2
-mkdir build
-cd build
-Ejecuta los siguientes comandos para compilar e instalar Catch2:
-cmake ..
-make -j4
-sudo make install
-
-cd ../../
+# 4 - Qt
+echo "Step 4 - Downloading Qt..."
+sudo apt install qtbase5-dev qt5-qmake qtbase5-dev-tools
 echo -e "${GREEN}Step 4 - Completed${NC}"
 
-# 4 - Qt
-echo "Step 5 - Downloading Qt..."
-sudo apt install qtbase5-dev qt5-qmake qtbase5-dev-tools
-echo -e "${GREEN}Step 5 - Completed${NC}"
-
 # 5 - Downloading the game itself
-echo "Step 6 - Downloading the game..."
-repo="Merok23/TPG-Taller-Left4dead-Grupo1"
-tag="1.0"
-
-# 2.3.2 - Retrieve the download URL of the release asset using GitHub API
-url=$(curl -s "https://api.github.com/repos/$repo/releases/tags/$tag" | jq -r '.assets[0].browser_download_url')
-
-# 2.3.3 - Download the zip file from the retrieved URL
-wget -O Left4Dead.zip "$url"
-
-# 2.3.4 - Unzip the downloaded file
-unzip Left4Dead.zip
-
-# 2.3.5 - Optional: Remove the zip file after extraction
-#rm SDL2pp.zip
-
-cd Left4Dead
-mkdir build
-cd build
-cmake ..
-make -j4
+echo "Step 5 - Downloading the game..."
 
 
-echo -e "${GREEN}Step 6 - Completed${NC}"
+
+
+# cd Left4Dead
+# mkdir build
+# cd build
+# cmake ..
+# make -j4
+
+
+echo -e "${GREEN}Step 5 - Completed${NC}"
 
 echo -e "\n\n\n${GREEN}The game was successfully installed and can now be run. \nTo execute, refer to the user manual${NC}"
