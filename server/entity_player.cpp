@@ -79,6 +79,9 @@ void Player::update(Map& map) {
     }
     if (this->lives <= 0) {
         this->state = DEAD_SOLDIER;
+        auto t2 = std::chrono::high_resolution_clock::now();
+        auto time_dif = std::chrono::duration_cast<std::chrono::seconds>(t2 - this->start_time_of_death);
+        this->time_of_death = time_dif.count();
     }
 }
 
