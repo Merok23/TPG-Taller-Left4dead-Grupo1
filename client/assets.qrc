@@ -4,5 +4,6 @@
         <file>IDF_Idle.png</file>
         <file>P90_Idle.png</file>
         <file>Scout_Idle.png</file>
+        <file>background_40.png</file>
     </qresource>
 </RCC>

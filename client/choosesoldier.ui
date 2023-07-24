@@ -25,6 +25,7 @@
    <property name="font">
     <font>
      <pointsize>30</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -86,6 +87,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -101,6 +103,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -116,6 +119,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -131,6 +135,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -146,6 +151,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -161,6 +167,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -176,6 +183,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -197,6 +205,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -212,6 +221,7 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -296,6 +306,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -317,6 +328,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -335,6 +347,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -342,6 +355,33 @@
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>-70</x>
+     <y>-20</y>
+     <width>1051</width>
+     <height>731</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>title</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>gridLayoutWidget</zorder>
+  <zorder>IDF_img</zorder>
+  <zorder>P90_img</zorder>
+  <zorder>Scout_img</zorder>
+  <zorder>soldier_box</zorder>
  </widget>
  <resources>
   <include location="assets.qrc"/>

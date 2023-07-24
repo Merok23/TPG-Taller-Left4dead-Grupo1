@@ -51,6 +51,7 @@
    <property name="font">
     <font>
      <pointsize>20</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -69,6 +70,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -100,6 +102,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -111,7 +114,7 @@
     <rect>
      <x>190</x>
      <y>240</y>
-     <width>341</width>
+     <width>371</width>
      <height>31</height>
     </rect>
    </property>
@@ -129,7 +132,36 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>XxNoobDestroyerxX</string>
    </property>
   </widget>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>-90</x>
+     <y>-10</y>
+     <width>731</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>choose_skin</zorder>
+  <zorder>cancel</zorder>
+  <zorder>main_title</zorder>
+  <zorder>match_name</zorder>
+  <zorder>match_code_input</zorder>
+  <zorder>player_name</zorder>
+  <zorder>player_name_input</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="assets.qrc"/>
+ </resources>
  <connections/>
 </ui>

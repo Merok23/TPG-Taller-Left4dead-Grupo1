@@ -31,6 +31,7 @@
    <property name="font">
     <font>
      <pointsize>19</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -79,7 +80,32 @@
     <string>Join Existing Match</string>
    </property>
   </widget>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>731</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>label</zorder>
+  <zorder>newMatch</zorder>
+  <zorder>joinMatch</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="assets.qrc"/>
+ </resources>
  <connections/>
 </ui>
