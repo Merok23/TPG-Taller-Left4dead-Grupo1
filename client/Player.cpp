@@ -58,7 +58,7 @@ void Player::render() {
     }
     health_bar.render(X_PLAYER_DATA, y_player_data + HEART_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
     ammo.render(X_PLAYER_DATA, y_player_data + HEART_SIZE + BAR_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
-    
+    //name.render()
     
     if (current_animation == AN_SHOOT) {
         Mix_PlayChannel(available_audio_channel, sound_effects[AN_SHOOT], -1);

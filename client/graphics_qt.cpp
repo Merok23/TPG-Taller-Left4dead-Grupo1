@@ -9,7 +9,7 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
     main_window.show();
     JoinMatch* joinMatch = main_window.getJoinMatch();
 
-    QObject::connect(joinMatch, &JoinMatch::matchCodeEntered, [](int code, COMMANDS* commands, 
+    QObject::connect(joinMatch, &JoinMatch::matchCodeEntered, [](int code, QString player_name, COMMANDS* commands, 
                                                                 command_t* create_or_join_command) {
         if (commands && create_or_join_command) {
             *create_or_join_command = commands->joinRoom(code);
@@ -23,9 +23,10 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
 
     CreateMatch* createMatch = main_window.getCreateMatch();
 
-    QObject::connect(createMatch, &CreateMatch::matchInfoEntered, [](QString match_name, int mode_code, COMMANDS* commands, 
+    QObject::connect(createMatch, &CreateMatch::matchInfoEntered, [](QString match_name, QString player_name, int mode_code, COMMANDS* commands, 
                                                                         command_t* create_or_join_command) {
         qDebug() << "Match name entered in graphics_qt.cpp:" << match_name << " and mode: " <<mode_code;
+        qDebug() << "Player name entered in graphics_qt.cpp:" << player_name;
         if (commands && create_or_join_command) {
             switch(mode_code) {
                 case 0: //testing

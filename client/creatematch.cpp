@@ -12,6 +12,7 @@ CreateMatch::CreateMatch(QWidget *parent, ChooseSoldier* choose_soldier,
 
 
     initial_match_name = ui->match_name_input->toPlainText();
+    initial_player_name = ui->player_name_input->toPlainText();
 
     this->commands = commands;
     this->create_or_join_command = create_or_join_command;
@@ -55,7 +56,8 @@ void CreateMatch::on_cancel_clicked()
 void CreateMatch::on_choose_skin_clicked()
 {
     //Validating data
-    if (ui->match_name_input->toPlainText() == initial_match_name) {
+    if (ui->match_name_input->toPlainText() == initial_match_name ||
+        ui->player_name_input->toPlainText() == initial_player_name) {
         QMessageBox::warning(this, "Creating new match", "Please fill out all fields");
     } else {
         QString game_mode_name;
@@ -73,7 +75,7 @@ void CreateMatch::on_choose_skin_clicked()
         if (game_mode_name == "Clear the Zone")
             game_mode = 2;
         
-        emit matchInfoEntered(ui->match_name_input->toPlainText(), game_mode, this->commands, this->create_or_join_command);
+        emit matchInfoEntered(ui->match_name_input->toPlainText(), ui->player_name_input->toPlainText(), game_mode, this->commands, this->create_or_join_command);
         choose_soldier->setModal(true);
         choose_soldier->exec();
     }

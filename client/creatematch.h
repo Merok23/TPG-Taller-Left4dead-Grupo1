@@ -22,7 +22,7 @@ public:
     ~CreateMatch();
 
 signals:
-    void matchInfoEntered(QString match_name, int mode_code, COMMANDS* commands, command_t* create_or_join_command);
+    void matchInfoEntered(QString match_name, QString player_name, int mode_code, COMMANDS* commands, command_t* create_or_join_command);
     void resetCommand(COMMANDS* commands, command_t* create_or_join_command);
 
 private slots:
@@ -36,6 +36,7 @@ private:
     Ui::CreateMatch *ui;
 
     QString initial_match_name;
+    QString initial_player_name;
     ChooseSoldier* choose_soldier;
 
     COMMANDS* commands;
