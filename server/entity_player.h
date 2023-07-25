@@ -38,6 +38,7 @@ class Player : public Entity {
         std::chrono::high_resolution_clock::time_point start_time_of_death; /**< Player spawn time. */
         uint32_t time_of_death; /**< Time of death of the soldier. */
         bool infinite_hitpoints; /**< If true, the player will not die. */
+        std::string name; /**< Name of the player. */
 
     public:
         /**
@@ -163,6 +164,18 @@ class Player : public Entity {
          * @brief Sets infinite hitpoints to the player, it can't lose hp. 
          */
         void setInfiniteHitpoints();
+
+        /**
+         * @brief Sets the name of the player.
+         * @param name The name of the player.
+         */
+        void setName(const std::string& name);
+
+        /**
+         * @brief Gets the name of the player.
+         * @return The name of the player.
+         */
+        std::string getName();
         
         /**
          * @brief Destructor for polymorphism. 

@@ -20,7 +20,8 @@ Player::Player(uint32_t id, uint32_t positionX, uint32_t positionY, Weapon* weap
     infected_killed(0),
     start_time_of_death(std::chrono::high_resolution_clock::now()),
     time_of_death(0),
-    infinite_hitpoints(false) {}
+    infinite_hitpoints(false),
+    name("") {}
 
 //prepares for movement, it'll move when the update method is called.
 void Player::move(int32_t x_movement, int32_t y_movement) {
@@ -186,6 +187,14 @@ std::string Player::getEntityType() {
 
 void Player::setInfiniteHitpoints() {
     this->infinite_hitpoints = true;
+}
+
+void Player::setName(const std::string& name) {
+    this->name = name;
+}
+
+std::string Player::getName() {
+    return this->name;
 }
 
 std::string Player::getState() {

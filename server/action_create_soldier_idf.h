@@ -5,11 +5,13 @@
 #include "weapon_idf.h"
 
 class CreateSoldierIdf : public Action {
+    private:
+        std::string name;
     public:
         /**
          * @brief Constructor de la clase CreateSoldierIdf.
          */
-        CreateSoldierIdf();
+        explicit CreateSoldierIdf(const std::string& name);
 
         virtual void execute(IdHandler& handler) override;
 

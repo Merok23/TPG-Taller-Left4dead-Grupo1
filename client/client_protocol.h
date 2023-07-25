@@ -17,6 +17,7 @@ typedef struct command_t {
 	bool shooting;
 	bool reloading;
 	uint32_t room_id;
+	std::string player_name;
 
 
 	command_t& operator=(const command_t& other) {
@@ -29,6 +30,7 @@ typedef struct command_t {
         shooting = other.shooting;
         reloading = other.reloading;
         room_id = other.room_id;
+		player_name = other.player_name;
         return *this;
     }
 
@@ -53,11 +55,12 @@ struct COMMANDS {
 		return command;
 	}
 
-	command_t addPlayer(const std::string &weapon)
+	command_t addPlayer(const std::string &weapon, const std::string& name)
 	{
 		command_t command;
 		command.type = ADD_PLAYER;
 		command.weapon = weapon;
+		command.player_name = name;
 		return command;
 	}
 
@@ -188,7 +191,7 @@ class ClientProtocol {
 	 * @brief Envia el comando de agregar un jugador al servidor, junto con 
 	 * 		el arma del jugador.
 	*/
-	void sendAddPlayer(const std::string &weapon);
+	void sendAddPlayer(const std::string &weapon, const std::string& name);
 
 	/**
 	 * @brief Envia el comando de disparar al servidor, junto con el valor

@@ -32,7 +32,7 @@ class IdHandler {
          * @param client_id El ID del cliente.
          * @param weapon El arma del jugador.
          */
-        void createPlayer(uint32_t client_id, Weapon* weapon);
+        void createPlayer(uint32_t client_id, Weapon* weapon, std::string player_name);
 
          /**
          * @brief Establece la dirección de movimiento de un jugador.

@@ -57,7 +57,7 @@ void ClientProtocol::sendCommand(command_t command) {
             break;
         }
         case (Commands::ADD_PLAYER): {
-            sendAddPlayer(command.weapon);
+            sendAddPlayer(command.weapon, command.player_name);
             break;
         }
         case (Commands::MOVE_PLAYER): {
@@ -110,11 +110,13 @@ void ClientProtocol::sendJoinRoom(int room_id) {
    if (was_closed) return;
 }
 
-void ClientProtocol::sendAddPlayer(const std::string& weapon) {
+void ClientProtocol::sendAddPlayer(const std::string& weapon, const std::string& name) {
     uint8_t action = ADD_PLAYER_COMMAND;
     sendUnsignedSmallInteger(action);
     if (was_closed) return;
     sendString(weapon);
+    if (was_closed) return;
+    sendString(name);
     if (was_closed) return;
 }
 
@@ -216,8 +218,11 @@ std::shared_ptr<GameState> ClientProtocol::receiveGameState() {
             uint8_t lives = receiveUnsignedSmallInteger();
             if (was_closed) return NULL;
 
+            std::string name = receiveString();
+            if (was_closed) return NULL;
+
             entity = new Entity(id, entity_type, state_enum, lives, ammo_left, hit_point,
-                                position_x, position_y, is_facing_left, is_moving_up);
+                                position_x, position_y, is_facing_left, is_moving_up, name);
         } else if (entity_type == EntityType::ZOMBIE ||
                 entity_type == EntityType::SPEAR ||
                 entity_type == EntityType::WITCH ||

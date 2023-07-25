@@ -76,10 +76,11 @@ void Game::addEntity(Entity* entity) {
     this->current_id++;
 }
 
-uint32_t Game::addPlayer(Weapon* weapon) {
+uint32_t Game::addPlayer(Weapon* weapon, std::string name) {
     std::tuple<int, int> spawn = this->getPlayerSpawnPoint();
     uint32_t player_id = this->getCurrentId();
     Player* player = new Player(player_id, std::get<0>(spawn), std::get<1>(spawn), weapon);
+    player->setName(name);
     this->addEntity(player);
     return player_id;
 }

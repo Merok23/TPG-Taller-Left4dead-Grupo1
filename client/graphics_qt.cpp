@@ -53,7 +53,7 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
     QObject::connect(chooseSoldier, &ChooseSoldier::soldierChosen, [](QString soldier_name, COMMANDS* commands, command_t* player_command) {
         qDebug() << "Match name entered in main.cpp:" << soldier_name;
         if (commands && player_command)
-            *player_command = commands->addPlayer(soldier_name.toStdString());
+            *player_command = commands->addPlayer(soldier_name.toStdString(), "player_name");
     });
 
     app.exec();

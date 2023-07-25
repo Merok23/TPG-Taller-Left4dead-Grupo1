@@ -4,7 +4,7 @@
 
 Entity::Entity(uint32_t id, EntityType type, State state, uint8_t lives, 
     int32_t ammo_left, int32_t hit_points, uint32_t x, uint32_t y, 
-        bool facing_left, bool moving_up) : 
+        bool facing_left, bool moving_up, const std::string& name) : 
             id(id),
                 type(type),
                     lives(lives),
@@ -13,7 +13,9 @@ Entity::Entity(uint32_t id, EntityType type, State state, uint8_t lives,
                                 x_position(x), 
                                     y_position(y), 
                                         is_facing_left(facing_left), 
-                                            is_moving_up(moving_up), state(state) {}
+                                            is_moving_up(moving_up),
+                                                name(name), 
+                                                    state(state) {}
 
 
 Entity::Entity(uint32_t id, EntityType type, State state, int32_t hit_points, uint32_t x, uint32_t y, 
@@ -26,7 +28,9 @@ Entity::Entity(uint32_t id, EntityType type, State state, int32_t hit_points, ui
                             x_position(x), 
                                 y_position(y), 
                                     is_facing_left(facing_left), 
-                                        is_moving_up(moving_up), state(state) {}
+                                        is_moving_up(moving_up), 
+                                            name(""),
+                                                state(state) {}
 uint32_t Entity::getId() {
     return this->id;
 }

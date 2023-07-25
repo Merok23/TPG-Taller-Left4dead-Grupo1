@@ -100,9 +100,10 @@ class Game {
         /**
          * @brief Adds a soldier to the game.
          * @param weapon Weapon of the soldier.
+         * @param name Name of the soldier.
          * @returns Game ID of the soldier.
          */
-        uint32_t addPlayer(Weapon* weapon);
+        uint32_t addPlayer(Weapon* weapon, std::string name);
 
         /**
          * @brief Gives a possible spawnPoint for a player

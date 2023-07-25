@@ -131,11 +131,13 @@ std::shared_ptr<Action> ServerProtocol::receiveAction() {
 std::shared_ptr<Action>  ServerProtocol::receiveAddPlayer() {
     std::string weapon = receiveString();
     if (was_closed) return NULL; 
+    std::string name = receiveString();
+    if(was_closed) return NULL;
 
     std::shared_ptr<Action> action = nullptr; 
-    if (weapon == "idf") action = std::make_shared<CreateSoldierIdf>();
-    else if (weapon == "scout") action = std::make_shared<CreateSoldierScout>();
-    else if (weapon == "p90") action = std::make_shared<CreateSoldierP90>();
+    if (weapon == "idf") action = std::make_shared<CreateSoldierIdf>(name);
+    else if (weapon == "scout") action = std::make_shared<CreateSoldierScout>(name);
+    else if (weapon == "p90") action = std::make_shared<CreateSoldierP90>(name);
     return action;
 }
 
@@ -226,6 +228,9 @@ void ServerProtocol::sendGameState(std::shared_ptr<GameStateForClient> game_stat
 
             uint8_t lives = player->getLives();
             socket.sendall(&lives, sizeof(uint8_t), &was_closed);
+            if (was_closed) return;
+
+            sendString(player->getName());
             if (was_closed) return;
         }
         

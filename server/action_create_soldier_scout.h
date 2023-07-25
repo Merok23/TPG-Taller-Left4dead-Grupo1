@@ -5,11 +5,13 @@
 #include "weapon_scout.h"
 
 class CreateSoldierScout : public Action {
+    private:
+        std::string name;
     public:
         /**
          * @brief Constructor de la clase CreateSoldierScout.
          */
-        CreateSoldierScout();
+        explicit CreateSoldierScout(const std::string& name);
 
         /**
          * @brief Ejecuta la acción.

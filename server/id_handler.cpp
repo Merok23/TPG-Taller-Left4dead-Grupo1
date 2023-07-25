@@ -2,14 +2,10 @@
 
 IdHandler::IdHandler(Game &game) : game(game), my_ids(), mutex() {}
 
-void IdHandler::createPlayer(uint32_t client_id, Weapon* weapon) {
+void IdHandler::createPlayer(uint32_t client_id, Weapon* weapon, std::string name) {
     std::unique_lock<std::mutex> lock(mutex);
     //game returns the game id:
-    my_ids[client_id] = game.addPlayer(weapon);
-    //std::tuple<int, int> pos = game.getPlayerSpawnPoint();
-    //Entity* entity = new Player(game.getCurrentId(), std::get<0>(pos), std::get<1>(pos), weapon);
-    //Entity* entity = new Player(game.getCurrentId(), 1920, 100, weapon); //posiciones? //era 300
-    //game.addEntity(entity);
+    my_ids[client_id] = game.addPlayer(weapon, name);
 }
 
 void IdHandler::setMoving(uint32_t client_id, int32_t x, int32_t y) {

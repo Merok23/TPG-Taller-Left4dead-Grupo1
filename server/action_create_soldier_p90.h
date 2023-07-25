@@ -5,12 +5,14 @@
 #include "weapon_p90.h"
 
 class CreateSoldierP90 : public Action {
+    private:
+        std::string name;
     public:
 
         /**
          * @brief Constructor de la clase CreateSoldierP90.
          */
-        CreateSoldierP90();
+        explicit CreateSoldierP90(const std::string& name);
 
         virtual void execute(IdHandler& handler) override;
 

@@ -17,6 +17,7 @@ class Entity {
         int32_t y_position;
         bool is_facing_left;
         bool is_moving_up;
+        std::string name;
 
         
     public:
@@ -26,7 +27,7 @@ class Entity {
 
 
         Entity(uint32_t id, EntityType type, State state, uint8_t lives, int32_t ammo_left,  int32_t hit_points, 
-            uint32_t x, uint32_t y, bool facing_left, bool moving_up);
+            uint32_t x, uint32_t y, bool facing_left, bool moving_up, const std::string& name);
         Entity(uint32_t id, EntityType type, State state,  int32_t hit_points, 
             uint32_t x, uint32_t y, bool facing_left, bool moving_up);
         uint32_t getId();
