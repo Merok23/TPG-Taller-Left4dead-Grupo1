@@ -48,7 +48,21 @@ EndingInfo Graphics::run(std::shared_ptr<GameState> gs, GameMode game_mode, Queu
             throw std::runtime_error("Failed to play music: " + std::string(Mix_GetError()));
         }
 
-        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH);
+        const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
+        std::string configFile;
+        if (!envVar) {
+            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+            configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
+        } else {
+            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+            configFile = envVar;
+        }
+
+        this->config = YAML::LoadFile(configFile);
+        
+        std::string path = config["icon_path"].as<std::string>();
+
+        SdlWindow window(WINDOW_WIDTH, WINDOW_HEIGTH, path);
 
         TexturesHolder textures_holder(window);
         GraphicsEntityHolder gr_entity_holder = GraphicsEntityHolder(gs, std::move(textures_holder), window, audio_holder);

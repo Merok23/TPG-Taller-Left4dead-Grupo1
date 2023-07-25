@@ -11,6 +11,8 @@ LosingScreen::LosingScreen(QWidget *parent, EndingInfo *ending_info) :
     ui->ranking->setVisible(true);
     if (ending_info->game_mode == TESTING || !ending_info->last_gs)
         ui->ranking->setVisible(false);
+    
+    setWindowIcon(QIcon(":/imgs/Left4Dead.png"));
 }
 
 void LosingScreen::keyPressEvent(QKeyEvent *event)

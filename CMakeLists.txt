@@ -15,11 +15,6 @@ find_package(Catch2 3 REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
-# include_directories(${SDL2_INCLUDE_DIRS})
-# include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-# include_directories(${SDL2_MIXER_INCLUDE_DIRS})  # Update to SDL2_MIXER_INCLUDE_DIRS
-# include_directories(${SDL2PP_INCLUDE_DIRS})
-
 set(COMMON_DIR common)
 set(CLIENT_DIR client)
 set(SERVER_DIR server)
@@ -114,4 +109,3 @@ add_custom_target(server_tests_target
 add_custom_target(tests
   DEPENDS
 )
-

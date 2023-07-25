@@ -12,7 +12,7 @@ projectiles_textures_path: /var/Left4Dead/assets/
 player_hearts_texture_path: /var/Left4Dead/assets/Mis/heart.jpg
 
 background_texture_path: /var/Left4Dead/assets/backgrounds/War1/Bright/
-
+icon_path: /var/Left4Dead/assets/
 
 
 music_path: /var/Left4Dead/assets/Audio/Music/

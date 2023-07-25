@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent, COMMANDS* commands, command_t* create_or
     create_match = new CreateMatch(this, choose_soldier, commands, create_or_join_command);
 
     setWindowTitle(tr("Left 4 Dead"));
+    setWindowIcon(QIcon(":/Left4Dead.png"));
 }
 
 MainWindow::~MainWindow()

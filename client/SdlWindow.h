@@ -1,5 +1,6 @@
 #ifndef __SDL_WINDOW_H__
 #define __SDL_WINDOW_H__
+#include <string>
 #include "Area.h"
 
 class SDL_Window;
@@ -11,7 +12,7 @@ public:
     /**
      * Ctor standalone
      */
-    SdlWindow(int width, int height);
+    SdlWindow(int width, int height, std::string path);
     ~SdlWindow();
     void fill();
     void fill(int r, int g, int b, int alpha);

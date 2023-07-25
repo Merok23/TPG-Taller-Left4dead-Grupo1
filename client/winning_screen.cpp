@@ -12,6 +12,8 @@ WinningScreen::WinningScreen(QWidget *parent, EndingInfo *ending_info) :
     ui->ranking->setVisible(true);
     if (ending_info->game_mode == TESTING || ending_info->last_gs == nullptr)
         ui->ranking->setVisible(false);
+    
+    setWindowIcon(QIcon(":/imgs/Left4Dead.png"));
 }
 
 void WinningScreen::keyPressEvent(QKeyEvent *event)

@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
 #include "SdlException.h"
@@ -6,7 +7,7 @@
 #include <iostream>
 
 
-SdlWindow::SdlWindow(int width, int height) :
+SdlWindow::SdlWindow(int width, int height, std::string path) :
         width(width), height(height) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
@@ -17,8 +18,14 @@ SdlWindow::SdlWindow(int width, int height) :
         &this->window, &this->renderer);
     if (errCode) {
         throw SdlException("Error al crear ventana");
-    }   
+    }
+
+    std::string img("Left4Dead.png");
+    SDL_Surface* icon = IMG_Load((path+img).c_str());
+   
+    SDL_SetWindowIcon(this->window, icon);
 }
+
 
 
 SdlWindow::~SdlWindow() {

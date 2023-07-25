@@ -46,6 +46,7 @@ class Graphics {
     void render(SdlWindow &window, GraphicsEntityHolder &gr_entity_holder, Camera &camera);
 
     int last_it;
+    YAML::Node config;
 };
 
 #endif // __GRAPHICS_H__

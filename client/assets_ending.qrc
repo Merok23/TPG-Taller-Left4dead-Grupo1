@@ -4,5 +4,6 @@
         <file>confetti.png</file>
         <file>blood_splash.png</file>
         <file>blood_stain.png</file>
+        <file>Left4Dead.png</file>
     </qresource>
 </RCC>
