@@ -19,7 +19,7 @@ public:
     ~ChooseSoldier();
 
 signals:
-    void soldierChosen(QString soldier_name, COMMANDS* command, command_t* player_command);
+    void soldierChosen(QString soldier_weapon, QString soldier_name, COMMANDS* command, command_t* player_command);
     void closeWindows();
 
 private slots:
@@ -34,6 +34,7 @@ private:
     QString match_name;
     int mode_code;
     int match_code;
+    QString initial_player_name;
 
     COMMANDS* commands;
     command_t* player_command;

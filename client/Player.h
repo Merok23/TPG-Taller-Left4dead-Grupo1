@@ -19,7 +19,7 @@ public:
             uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
             int32_t hit_points, int32_t ammo, uint8_t lives, 
             std::map<AnimationName, Mix_Chunk*>& sound_effects, 
-            int y_player_data, int available_audio_channel);
+            int y_player_data, int available_audio_channel, std::string name);
     ~Player();
     VisualBar &get_ammo();
     VisualBar &get_health_bar();
@@ -40,6 +40,7 @@ private:
     std::map<AnimationName, Mix_Chunk*>& sound_effects;
     int y_player_data;
     int available_audio_channel;
+    std::string name;
 };
 
 #endif // __PLAYER_H__

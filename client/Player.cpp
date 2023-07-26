@@ -8,11 +8,13 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
             uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
             int32_t hit_points, int32_t ammo, uint8_t lives, 
             std::map<AnimationName, Mix_Chunk*>& sound_effects, 
-            int y_player_data, int available_audio_channel) :
+            int y_player_data, int available_audio_channel,
+            std::string name) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
     health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives),
     sound_effects(sound_effects), 
-    y_player_data(y_player_data), available_audio_channel(available_audio_channel)
+    y_player_data(y_player_data), available_audio_channel(available_audio_channel),
+    name(name)
 {
         const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
         std::string configFile;
@@ -29,7 +31,6 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
     Color color_key = {0xFF, 0xFF, 0xFF};
     std::shared_ptr<SdlTexture> tex_life = std::make_shared<SdlTexture>(config["player_hearts_texture_path"].as<std::string>(), window, color_key);
     life_an = std::unique_ptr<Animation>(new Animation(tex_life));
-    //if (shooting_sound_effect == nullptr) //aca que hago?
 }
 
 /*

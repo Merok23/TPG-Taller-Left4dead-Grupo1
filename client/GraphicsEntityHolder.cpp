@@ -29,7 +29,9 @@ std::shared_ptr<Player> GraphicsEntityHolder::createSoldier(Entity* entity, Enti
                                     entity->getAmmoLeft(),
                                     entity->getLives(),
                                     audio_holder.find_sound_effects(entity_type),
-                                    y_player_data, available_audio_channel);  
+                                    y_player_data, available_audio_channel,
+                                    entity->getName()); 
+    std::cout << "\n\n\nEl nombre del personaje es: " << entity->getName() << std::endl; 
     entities[entity->getId()] = player;
     players.push_back(player);
 

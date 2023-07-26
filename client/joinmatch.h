@@ -23,7 +23,7 @@ public:
     ~JoinMatch();
 
 signals:
-    void matchCodeEntered(int code, QString player_name, COMMANDS* commands, command_t* create_or_join_command);
+    void matchCodeEntered(int code, COMMANDS* commands, command_t* create_or_join_command);
     void resetCommand(COMMANDS* commands, command_t* create_or_join_command);
 
 private slots:
@@ -34,10 +34,11 @@ private slots:
 private:
     Ui::JoinMatch *ui;
     int initial_match_code;
-    QString initial_player_name;
+
     ChooseSoldier* choose_soldier;
     COMMANDS* commands;
     command_t* create_or_join_command;
+    
     QRegExpValidator* validator;
 };
 

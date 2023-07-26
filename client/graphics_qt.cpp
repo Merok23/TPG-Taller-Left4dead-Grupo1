@@ -9,7 +9,7 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
     main_window.show();
     JoinMatch* joinMatch = main_window.getJoinMatch();
 
-    QObject::connect(joinMatch, &JoinMatch::matchCodeEntered, [](int code, QString player_name, COMMANDS* commands, 
+    QObject::connect(joinMatch, &JoinMatch::matchCodeEntered, [](int code, COMMANDS* commands, 
                                                                 command_t* create_or_join_command) {
         if (commands && create_or_join_command) {
             *create_or_join_command = commands->joinRoom(code);
@@ -23,10 +23,9 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
 
     CreateMatch* createMatch = main_window.getCreateMatch();
 
-    QObject::connect(createMatch, &CreateMatch::matchInfoEntered, [](QString match_name, QString player_name, int mode_code, COMMANDS* commands, 
+    QObject::connect(createMatch, &CreateMatch::matchInfoEntered, [](QString match_name, int mode_code, COMMANDS* commands, 
                                                                         command_t* create_or_join_command) {
-        qDebug() << "Match name entered in graphics_qt.cpp:" << match_name << " and mode: " <<mode_code;
-        qDebug() << "Player name entered in graphics_qt.cpp:" << player_name;
+        qDebug() << "Match name entered in graphics_qt.cpp:" << match_name << " and mode: " << mode_code;
         if (commands && create_or_join_command) {
             switch(mode_code) {
                 case 0: //testing
@@ -50,10 +49,11 @@ void GraphicsQt::run(COMMANDS* commands, command_t* create_or_join_command, comm
     ChooseSoldier* chooseSoldier = main_window.getChooseSoldier();
 
     // Establish connection between JoinMatch and main.cpp
-    QObject::connect(chooseSoldier, &ChooseSoldier::soldierChosen, [](QString soldier_name, COMMANDS* commands, command_t* player_command) {
-        qDebug() << "Match name entered in main.cpp:" << soldier_name;
+    QObject::connect(chooseSoldier, &ChooseSoldier::soldierChosen, [](QString soldier_weapon, QString soldier_name, COMMANDS* commands, command_t* player_command) {
+        qDebug() << "Player name entered in main.cpp:" << soldier_name;
+        qDebug() << "Player weapon entered in main.cpp:" << soldier_weapon;
         if (commands && player_command)
-            *player_command = commands->addPlayer(soldier_name.toStdString(), "player_name");
+            *player_command = commands->addPlayer(soldier_weapon.toStdString(), soldier_name.toStdString());
     });
 
     app.exec();

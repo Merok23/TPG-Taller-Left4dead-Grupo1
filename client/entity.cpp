@@ -72,3 +72,7 @@ bool Entity::isMovingUp() {
 uint8_t Entity::getLives() {
     return this->lives;
 }
+
+std::string Entity::getName() {
+    return this->name;
+}

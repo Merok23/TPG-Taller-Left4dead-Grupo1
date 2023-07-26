@@ -41,5 +41,6 @@ class Entity {
         int32_t getPositionY();
         bool isFacingLeft();
         bool isMovingUp();
+        std::string getName();
 };
 #endif

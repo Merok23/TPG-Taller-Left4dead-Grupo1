@@ -13,8 +13,6 @@ JoinMatch::JoinMatch(QWidget *parent, ChooseSoldier* choose_soldier, COMMANDS* c
     validator = new QRegExpValidator(QRegExp("[0-9]*"), this);
     ui->match_code_input->setValidator(validator);
 
-    initial_player_name = ui->player_name_input->toPlainText();
-
     QString text = ui->match_code_input->text();
     this->initial_match_code = text.toInt();
     this->commands = commands;
@@ -40,15 +38,13 @@ void JoinMatch::on_cancel_clicked()
 void JoinMatch::on_choose_skin_clicked()
 {
     //Validating data
-
     QString text = ui->match_code_input->text();
     int match_code_input = text.toInt();
 
-    if (match_code_input == this->initial_match_code ||
-        ui->player_name_input->toPlainText() == initial_player_name) {
+    if (match_code_input == this->initial_match_code) {
         QMessageBox::warning(this, "Creating new match", "Please fill out all fields");
     } else {
-        emit matchCodeEntered(match_code_input, ui->player_name_input->toPlainText(), this->commands, this->create_or_join_command);
+        emit matchCodeEntered(match_code_input, this->commands, this->create_or_join_command);
         choose_soldier->setModal(true);
         choose_soldier->exec();
     }
