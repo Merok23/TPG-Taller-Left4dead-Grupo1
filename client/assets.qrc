@@ -6,5 +6,6 @@
         <file>Scout_Idle.png</file>
         <file>background_40.png</file>
         <file>Left4Dead.png</file>
+        <file>logoLeft4Dead.png</file>
     </qresource>
 </RCC>

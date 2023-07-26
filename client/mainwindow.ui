@@ -23,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>110</y>
+     <y>120</y>
      <width>511</width>
      <height>141</height>
     </rect>
@@ -56,7 +56,25 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
    </property>
    <property name="text">
     <string>New Match</string>
@@ -65,8 +83,8 @@
   <widget class="QPushButton" name="joinMatch">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>260</y>
+     <x>440</x>
+     <y>270</y>
      <width>211</width>
      <height>51</height>
     </rect>
@@ -74,7 +92,25 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
    </property>
    <property name="text">
     <string>Join Existing Match</string>
@@ -99,10 +135,30 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="title">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>-10</y>
+     <width>451</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets.qrc">:/logoLeft4Dead.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>background</zorder>
-  <zorder>label</zorder>
   <zorder>newMatch</zorder>
   <zorder>joinMatch</zorder>
+  <zorder>title</zorder>
+  <zorder>label</zorder>
  </widget>
  <resources>
   <include location="assets.qrc"/>

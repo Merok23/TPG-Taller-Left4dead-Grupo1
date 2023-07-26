@@ -16,11 +16,34 @@
   <widget class="QPushButton" name="choose_skin">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>380</y>
-     <width>131</width>
-     <height>31</height>
+     <x>400</x>
+     <y>370</y>
+     <width>171</width>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
    </property>
    <property name="text">
     <string>Go to chooose skin</string>
@@ -34,6 +57,23 @@
      <width>131</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
    </property>
    <property name="text">
     <string>Cancel</string>

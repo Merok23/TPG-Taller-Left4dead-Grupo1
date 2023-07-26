@@ -37,16 +37,39 @@
     <rect>
      <x>140</x>
      <y>540</y>
-     <width>621</width>
+     <width>667</width>
      <height>80</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
-     <number>400</number>
+     <number>300</number>
     </property>
     <item>
      <widget class="QPushButton" name="cancel">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
+      </property>
       <property name="text">
        <string>Cancel</string>
       </property>
@@ -54,6 +77,29 @@
     </item>
     <item>
      <widget class="QPushButton" name="start_game">
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
+      </property>
       <property name="text">
        <string>Start game</string>
       </property>
