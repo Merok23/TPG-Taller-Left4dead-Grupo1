@@ -5,6 +5,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "graphics_entity.h"
+#include "visual_text.h"
 
 #include <yaml-cpp/yaml.h>
 #define DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG "../../client/client_config.yaml"
@@ -19,7 +20,7 @@ public:
             uint32_t id, int32_t x_position, int32_t y_position, int width, int height,
             int32_t hit_points, int32_t ammo, uint8_t lives, 
             std::map<AnimationName, Mix_Chunk*>& sound_effects, 
-            int y_player_data, int available_audio_channel, std::string name);
+            int y_player_data, int available_audio_channel, std::string name_string);
     ~Player();
     VisualBar &get_ammo();
     VisualBar &get_health_bar();
@@ -32,6 +33,7 @@ public:
 private:
     VisualBar health_bar;
     VisualBar ammo;
+    VisualText name;
     uint8_t lives;
     std::unique_ptr<Animation> life_an;
 
@@ -40,7 +42,6 @@ private:
     std::map<AnimationName, Mix_Chunk*>& sound_effects;
     int y_player_data;
     int available_audio_channel;
-    std::string name;
 };
 
 #endif // __PLAYER_H__

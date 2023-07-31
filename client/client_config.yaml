@@ -14,6 +14,7 @@ player_hearts_texture_path: /var/Left4Dead/assets/Mis/heart.jpg
 background_texture_path: /var/Left4Dead/assets/backgrounds/War1/Bright/
 icon_path: /var/Left4Dead/assets/
 
+path_fonts: /var/Left4Dead/assets/Fonts/
 
 music_path: /var/Left4Dead/assets/Audio/Music/
 sound_effects_path: /var/Left4Dead/assets/Audio/SoundEffects/

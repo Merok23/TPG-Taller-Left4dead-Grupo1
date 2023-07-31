@@ -29,10 +29,10 @@ Camera::Camera(SdlWindow &window, int main_player_x, int main_player_y) : window
         const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
         std::string configFile;
         if (!envVar) {
-            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+            //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
             configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
         } else {
-            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+            //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
             configFile = envVar;
         }
 

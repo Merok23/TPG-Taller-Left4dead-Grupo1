@@ -9,20 +9,20 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
             int32_t hit_points, int32_t ammo, uint8_t lives, 
             std::map<AnimationName, Mix_Chunk*>& sound_effects, 
             int y_player_data, int available_audio_channel,
-            std::string name) :
+            std::string name_string) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
-    health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), lives(lives),
+    health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), 
+    name(name_string, window), lives(lives),
     sound_effects(sound_effects), 
-    y_player_data(y_player_data), available_audio_channel(available_audio_channel),
-    name(name)
+    y_player_data(y_player_data), available_audio_channel(available_audio_channel)
 {
         const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
         std::string configFile;
         if (!envVar) {
-            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
+            //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
             configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
         } else {
-            std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
+            //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
             configFile = envVar;
         }
 
@@ -59,7 +59,7 @@ void Player::render() {
     }
     health_bar.render(X_PLAYER_DATA, y_player_data + HEART_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
     ammo.render(X_PLAYER_DATA, y_player_data + HEART_SIZE + BAR_SIZE); //estas posiciones me las tendria que haber dicho el graphics_entity_holder
-    //name.render()
+    name.render(x, y);
     
     if (current_animation == AN_SHOOT) {
         Mix_PlayChannel(available_audio_channel, sound_effects[AN_SHOOT], -1);

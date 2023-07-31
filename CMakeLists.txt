@@ -7,10 +7,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L")
 
 find_package(Threads REQUIRED)
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-find_package(SDL2_mixer 2.6.3 REQUIRED)  # Specify the exact version here
+find_package(SDL2_mixer 2.6.3 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 find_package(SDL2pp REQUIRED)
+
 find_package(Catch2 3 REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -44,12 +47,14 @@ add_executable(client_executable ${COMMON_SRCS} ${CLIENT_SRCS} ${UI_HEADERS} ${Q
 target_include_directories(client_executable PRIVATE ${SDL2_INCLUDE_DIRS})
 target_include_directories(client_executable PRIVATE ${SDL2_IMAGE_INCLUDE_DIRS})
 target_include_directories(client_executable PRIVATE ${SDL2_MIXER_INCLUDE_DIRS})
+target_include_directories(client_executable PRIVATE ${SDL2_TTF_INCLUDE_DIRS})
 target_include_directories(client_executable PRIVATE ${YAML_CPP_INCLUDE_DIR})
 
 target_link_libraries(client_executable PRIVATE Threads::Threads)
 target_link_libraries(client_executable PRIVATE SDL2)
 target_link_libraries(client_executable PRIVATE SDL2_image)
 target_link_libraries(client_executable PRIVATE SDL2_mixer)
+target_link_libraries(client_executable PRIVATE SDL2_ttf)  # Move this line below SDL2_mixer
 target_link_libraries(client_executable PRIVATE ${SDL2PP_LIBRARIES})
 target_link_libraries(client_executable PRIVATE Qt5::Widgets)
 target_link_libraries(client_executable PRIVATE Qt5::Core)
