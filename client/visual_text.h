@@ -24,7 +24,9 @@ class VisualText {
    private:
     std::string text;
     TTF_Font* font;
+    TTF_Font* font_border;
     SDL_Renderer* renderer;
+    YAML::Node config;
 };
 
 #endif  //_VISUALTEXT_H_

@@ -20,23 +20,46 @@ VisualText::VisualText(std::string text, const SdlWindow& window) :
         //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
         configFile = envVar;
     }
-    std::cout << "1" << std::endl;
     YAML::Node config = YAML::LoadFile(configFile);
 
     TTF_Init();
-    std::cout << "2" << std::endl;
-    std::string img("Roboto_Condensed/RobotoCondensed-Light.ttf");
+    std::string img("Roboto_Condensed/RobotoCondensed-Regular.ttf");
     this->font = TTF_OpenFont((config["path_fonts"].as<std::string>()+img).c_str(), 36);
-    std::cout << "4" << std::endl;
-    if (!this->font)
-        throw "Error: font didnt open";
-    
-    std::cout << "3" << std::endl;
-    std::cout << "Text is " << text << std::endl;
+
+    std::string img_border("Roboto_Condensed/RobotoCondensed-Bold.ttf");
+    this->font_border = TTF_OpenFont((config["path_fonts"].as<std::string>()+img_border).c_str(), 36);
 }
 
 void VisualText::render(int x_player, int y_player) {
-    SDL_Color textColor = { 255, 255, 255, 255 };
+    //border
+    SDL_Color borderColor = { 255, 255, 255, 255 };
+
+    // Create a surface with the player's name
+    SDL_Surface* borderSurface = TTF_RenderText_Solid(font_border, text.c_str(), borderColor);
+
+    // Create a texture from the surface
+    SDL_Texture* borderTexture = SDL_CreateTextureFromSurface(renderer, borderSurface);
+
+    // Get the dimensions of the text
+    int borderWidth = borderSurface->w;
+    int borderHeight = borderSurface->h;
+
+    // Clean up the surface now that we have a texture
+    SDL_FreeSurface(borderSurface);
+
+    // Calculate the position for the text above the player's position
+    int borderX = x_player + borderWidth /2; // Center the text horizontally above the player
+    int borderY = y_player + 40; // Place the text 10 pixels above the player
+
+    // Create an SDL_Rect to position and size the text
+    SDL_Rect borderRect = { borderX, borderY, borderWidth, borderHeight };
+
+    // Draw the text above the player's position
+    SDL_RenderCopy(renderer, borderTexture, NULL, &borderRect);
+
+
+    //text
+    SDL_Color textColor = { 0, 0, 0, 255 };
 
     // Create a surface with the player's name
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
@@ -52,7 +75,7 @@ void VisualText::render(int x_player, int y_player) {
     SDL_FreeSurface(textSurface);
 
     // Calculate the position for the text above the player's position
-    int textX = x_player + textWidth/2; // Center the text horizontally above the player
+    int textX = x_player + textWidth /2; // Center the text horizontally above the player
     int textY = y_player + 40; // Place the text 10 pixels above the player
 
     // Create an SDL_Rect to position and size the text
@@ -66,9 +89,11 @@ void VisualText::render(int x_player, int y_player) {
 
     // Clean up
     SDL_DestroyTexture(textTexture);
+    SDL_DestroyTexture(borderTexture);
 }
 
 VisualText::~VisualText() {
     TTF_CloseFont(font);
+    TTF_CloseFont(font_border);
     TTF_Quit();
 }
