@@ -264,7 +264,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+    <pixmap resource="assets.qrc">:/background_40-min.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>

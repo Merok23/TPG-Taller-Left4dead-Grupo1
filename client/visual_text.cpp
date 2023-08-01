@@ -1,5 +1,4 @@
 #include "visual_text.h"
-
 #include "SdlTexture.h"
 #include <string>
 #include "SdlWindow.h"
@@ -14,85 +13,77 @@ VisualText::VisualText(std::string text, const SdlWindow& window) :
     const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
     std::string configFile;
     if (!envVar) {
-        //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE not set. Using default value" << std::endl;
         configFile = DEFAULT_PATH_FROM_EXECUTABLE_TO_CONFIG;
     } else {
-        //std::cout << "Environment variable LEFT4DEAD_CLIENT_CONFIG_FILE set. Using it" << std::endl;
         configFile = envVar;
     }
     YAML::Node config = YAML::LoadFile(configFile);
 
     TTF_Init();
-    std::string img("Roboto_Condensed/RobotoCondensed-Regular.ttf");
-    this->font = TTF_OpenFont((config["path_fonts"].as<std::string>()+img).c_str(), 36);
+    std::string img("Roboto_Condensed/RobotoCondensed-Bold.ttf");
+    this->font = TTF_OpenFont((config["path_fonts"].as<std::string>() + img).c_str(), 34);
 
     std::string img_border("Roboto_Condensed/RobotoCondensed-Bold.ttf");
-    this->font_border = TTF_OpenFont((config["path_fonts"].as<std::string>()+img_border).c_str(), 36);
+    this->font_border = TTF_OpenFont((config["path_fonts"].as<std::string>() + img_border).c_str(), 40);
+
+    // Set the outline size for the text (this will create the border effect)
+    TTF_SetFontOutline(font_border, 1); // Change the "1" to adjust the border thickness
+
+    // Inside color (fill color for the letters)
+    SDL_Color insideColor = { 255, 255, 255, 255 };
+
+    // Create a surface with the player's name with antialiased blending (for the inside of letters)
+    SDL_Surface* insideSurface = TTF_RenderText_Blended(font, text.c_str(), insideColor);
+    this->insideTexture = SDL_CreateTextureFromSurface(renderer, insideSurface);
+
+    // Border color
+    SDL_Color borderColor =  { 0, 0, 0, 255 };
+
+    // Create a surface with the player's name (for the border)
+    SDL_Surface* borderSurface = TTF_RenderText_Solid(font_border, text.c_str(), borderColor);
+    this->borderTexture = SDL_CreateTextureFromSurface(renderer, borderSurface);
+
+    // Get the dimensions of the text
+    this->textWidth = insideSurface->w; // We use the insideSurface for dimensions since it has antialiasing
+    this->textHeight = insideSurface->h;
+
+    // Calculate the position for the text and the border above the player's position
+    int x_player = 0; // Change this to adjust the x-coordinate of the player's position
+    int y_player = 0; // Change this to adjust the y-coordinate of the player's position
+    int textX = x_player + textWidth ; // Center the text horizontally above the player
+    int textY = y_player + 40; // Place the text 40 pixels above the player (you can change this)
+
+    // Create an SDL_Rect to position and size the text and the border
+    this->textRect = { textX, textY, textWidth, textHeight };
+    this->borderRect = { textX - 2, textY - 2, textWidth + 4, textHeight + 4 }; // Add the desired border thickness
+
+    // Set the positions and dimensions of the inside texture and border texture
+
+    textRect.x += 2; // Offset the inside text by 2 pixels (to match the border position)
+
+    // Clean up the surface now that we have textures
+    // (note: don't clean up insideSurface and borderSurface here since we need them for dimensions)
+    SDL_FreeSurface(insideSurface);
+    SDL_FreeSurface(borderSurface);
 }
 
 void VisualText::render(int x_player, int y_player) {
-    //border
-    SDL_Color borderColor = { 255, 255, 255, 255 };
+    // Update the positions based on the player's coordinates (if needed)
+    textRect.x = x_player + textWidth + 2; // Center the text horizontally above the player with 2-pixel offset
+    textRect.y = y_player + 40;
+    borderRect.x = textRect.x - 2;
+    borderRect.y = textRect.y - 2;
 
-    // Create a surface with the player's name
-    SDL_Surface* borderSurface = TTF_RenderText_Solid(font_border, text.c_str(), borderColor);
-
-    // Create a texture from the surface
-    SDL_Texture* borderTexture = SDL_CreateTextureFromSurface(renderer, borderSurface);
-
-    // Get the dimensions of the text
-    int borderWidth = borderSurface->w;
-    int borderHeight = borderSurface->h;
-
-    // Clean up the surface now that we have a texture
-    SDL_FreeSurface(borderSurface);
-
-    // Calculate the position for the text above the player's position
-    int borderX = x_player + borderWidth /2; // Center the text horizontally above the player
-    int borderY = y_player + 40; // Place the text 10 pixels above the player
-
-    // Create an SDL_Rect to position and size the text
-    SDL_Rect borderRect = { borderX, borderY, borderWidth, borderHeight };
-
-    // Draw the text above the player's position
+    // Draw the border first
     SDL_RenderCopy(renderer, borderTexture, NULL, &borderRect);
 
-
-    //text
-    SDL_Color textColor = { 0, 0, 0, 255 };
-
-    // Create a surface with the player's name
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
-
-    // Create a texture from the surface
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
-    // Get the dimensions of the text
-    int textWidth = textSurface->w;
-    int textHeight = textSurface->h;
-
-    // Clean up the surface now that we have a texture
-    SDL_FreeSurface(textSurface);
-
-    // Calculate the position for the text above the player's position
-    int textX = x_player + textWidth /2; // Center the text horizontally above the player
-    int textY = y_player + 40; // Place the text 10 pixels above the player
-
-    // Create an SDL_Rect to position and size the text
-    SDL_Rect textRect = { textX, textY, textWidth, textHeight };
-
-    // Draw the text above the player's position
-    SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-
-    // Update the screen
-    SDL_RenderPresent(renderer);
-
-    // Clean up
-    SDL_DestroyTexture(textTexture);
-    SDL_DestroyTexture(borderTexture);
+    // Then, draw the inside texture (filled letters)
+    SDL_RenderCopy(renderer, insideTexture, NULL, &textRect);
 }
 
 VisualText::~VisualText() {
+    SDL_DestroyTexture(insideTexture);
+    SDL_DestroyTexture(borderTexture);
     TTF_CloseFont(font);
     TTF_CloseFont(font_border);
     TTF_Quit();

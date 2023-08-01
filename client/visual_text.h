@@ -27,6 +27,17 @@ class VisualText {
     TTF_Font* font_border;
     SDL_Renderer* renderer;
     YAML::Node config;
+
+    SDL_Texture* insideTexture;
+    SDL_Texture* borderTexture;
+
+    SDL_Rect textRect;
+    SDL_Rect borderRect;
+
+    int textWidth;
+    int textHeight;
+    int borderWidth;
+    int borderHeight;
 };
 
 #endif  //_VISUALTEXT_H_

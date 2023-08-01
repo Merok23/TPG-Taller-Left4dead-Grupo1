@@ -26,6 +26,7 @@
     <property name="font">
      <font>
       <pointsize>20</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -44,6 +45,7 @@
     <property name="font">
      <font>
       <pointsize>30</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -62,6 +64,7 @@
     <property name="font">
      <font>
       <pointsize>15</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -95,16 +98,59 @@
    <widget class="QPushButton" name="ranking">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>360</x>
       <y>390</y>
-      <width>111</width>
-      <height>31</height>
+      <width>201</width>
+      <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
     </property>
     <property name="text">
      <string>Checkout ranking</string>
     </property>
    </widget>
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>611</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="assets_ending.qrc">:/imgs/background_40-min.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>background</zorder>
    <zorder>label_4</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>

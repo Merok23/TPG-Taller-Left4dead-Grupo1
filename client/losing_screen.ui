@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>616</height>
+    <width>716</width>
+    <height>573</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>240</y>
+      <y>190</y>
       <width>331</width>
       <height>71</height>
      </rect>
@@ -26,6 +26,7 @@
     <property name="font">
      <font>
       <pointsize>20</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -36,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>140</y>
+      <y>90</y>
       <width>231</width>
       <height>71</height>
      </rect>
@@ -44,6 +45,7 @@
     <property name="font">
      <font>
       <pointsize>27</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -54,7 +56,7 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>150</y>
+      <y>100</y>
       <width>221</width>
       <height>271</height>
      </rect>
@@ -73,7 +75,7 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>400</y>
+      <y>350</y>
       <width>381</width>
       <height>71</height>
      </rect>
@@ -81,6 +83,7 @@
     <property name="font">
      <font>
       <pointsize>16</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -90,16 +93,59 @@
    <widget class="QPushButton" name="ranking">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>90</y>
-      <width>111</width>
-      <height>31</height>
+      <x>430</x>
+      <y>440</y>
+      <width>201</width>
+      <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: gray; /* Change to the desired background color for hover */
+    border: 2px solid black; /* Optional: Adjust the border properties */
+	border-radius: 10px;
+    color: black; /* Set the text color */
+	font-weight: bold;
+}</string>
     </property>
     <property name="text">
      <string>Checkout ranking</string>
     </property>
    </widget>
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>-70</x>
+      <y>-30</y>
+      <width>931</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="assets_ending.qrc">:/imgs/background_40-min.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>background</zorder>
    <zorder>confetti</zorder>
    <zorder>label</zorder>
    <zorder>label_3</zorder>
@@ -111,7 +157,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>713</width>
+     <width>716</width>
      <height>20</height>
     </rect>
    </property>

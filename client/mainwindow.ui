@@ -129,7 +129,7 @@ QPushButton:hover {
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+    <pixmap resource="assets.qrc">:/background_40-min.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>

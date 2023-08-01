@@ -25,6 +25,7 @@
    <property name="font">
     <font>
      <pointsize>25</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -55,8 +56,8 @@
   <widget class="QLabel" name="blood_hand">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>240</y>
+     <x>380</x>
+     <y>300</y>
      <width>281</width>
      <height>311</height>
     </rect>
@@ -83,6 +84,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -125,6 +127,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -167,6 +170,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -176,6 +180,34 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>-10</y>
+     <width>861</width>
+     <height>651</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="assets_ending.qrc">:/imgs/background_40-min.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>your_stats</zorder>
+  <zorder>bullets_shot</zorder>
+  <zorder>blood_hand</zorder>
+  <zorder>label_infcted_killed</zorder>
+  <zorder>gameplay_duration</zorder>
+  <zorder>label_bullets_shot</zorder>
+  <zorder>amount_infcted_killed</zorder>
+  <zorder>label_gameplay_duration</zorder>
  </widget>
  <resources>
   <include location="assets_ending.qrc"/>

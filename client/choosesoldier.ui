@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
-    <height>692</height>
+    <width>943</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -404,17 +404,17 @@ QPushButton:hover {
   <widget class="QLabel" name="background">
    <property name="geometry">
     <rect>
-     <x>-70</x>
-     <y>-20</y>
-     <width>1051</width>
-     <height>731</height>
+     <x>-40</x>
+     <y>-10</y>
+     <width>991</width>
+     <height>651</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="assets.qrc">:/background_40.png</pixmap>
+    <pixmap resource="assets.qrc">:/background_40-min.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
