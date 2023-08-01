@@ -17,7 +17,7 @@ class SDL_Renderer;
 
 class VisualText {
    public:
-    VisualText(std::string text, const SdlWindow& window);
+    VisualText(std::string text, const SdlWindow& window, int player_len);
     void render(int x_origin, int y_origin);
     ~VisualText();
 
@@ -38,6 +38,8 @@ class VisualText {
     int textHeight;
     int borderWidth;
     int borderHeight;
+
+    int player_len;
 };
 
 #endif  //_VISUALTEXT_H_

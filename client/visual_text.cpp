@@ -6,9 +6,10 @@
 
 #include <iostream>
 
-VisualText::VisualText(std::string text, const SdlWindow& window) :
+VisualText::VisualText(std::string text, const SdlWindow& window, int player_len) :
     text(text),
-    renderer(window.getRenderer()) {
+    renderer(window.getRenderer()),
+    player_len(player_len) {
 
     const char* envVar = std::getenv("LEFT4DEAD_CLIENT_CONFIG_FILE");
     std::string configFile;
@@ -69,7 +70,7 @@ VisualText::VisualText(std::string text, const SdlWindow& window) :
 
 void VisualText::render(int x_player, int y_player) {
     // Update the positions based on the player's coordinates (if needed)
-    textRect.x = x_player + textWidth + 2; // Center the text horizontally above the player with 2-pixel offset
+    textRect.x = x_player + player_len/2 - textWidth/2; // Center the text horizontally above the player with 2-pixel offset
     textRect.y = y_player + 40;
     borderRect.x = textRect.x - 2;
     borderRect.y = textRect.y - 2;

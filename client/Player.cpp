@@ -12,7 +12,7 @@ Player::Player(std::map<AnimationName, std::shared_ptr<SdlTexture>> &textures, c
             std::string name_string) :
     GraphicsEntity(textures, id, x_position, y_position, width, height),
     health_bar(hit_points, window, 67, 2, 7, 107, 4, 14), ammo(ammo, window, 204, 119, 34, 254, 190, 0), 
-    name(name_string, window), lives(lives),
+    name(name_string, window, width), lives(lives),
     sound_effects(sound_effects), 
     y_player_data(y_player_data), available_audio_channel(available_audio_channel)
 {
